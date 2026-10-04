@@ -1,0 +1,387 @@
+###########################################################################
+# Anatolian Ascendancy - national spirits
+# Every spirit uses the sprite GFX_idea_<spirit id>, defined in
+# interface/TRX_ideas.gfx. Spirits are only ever added through focuses,
+# decisions or events, so none of them cost anything at game start.
+###########################################################################
+
+ideas = {
+	country = {
+
+		######## Starting mechanic: the Eastern Question ########
+
+		TRX_eastern_question = {
+			removal_cost = -1
+			modifier = {
+				stability_factor = -0.05
+				recruitable_population_factor = -0.05
+				production_speed_buildings_factor = -0.05
+			}
+		}
+
+		TRX_eastern_reconciliation = {
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.03
+				recruitable_population_factor = 0.03
+				monthly_population = 0.05
+			}
+		}
+
+		TRX_eastern_pacification = {
+			removal_cost = -1
+			modifier = {
+				war_support_factor = 0.03
+				army_core_defence_factor = 0.05
+				stability_factor = -0.02
+			}
+		}
+
+		######## The Straits ########
+
+		TRX_straits_sovereignty = {
+			removal_cost = -1
+			modifier = {
+				coastal_bunker_effectiveness_factor = 0.15
+				navy_org_factor = 0.05
+				enemy_justify_war_goal_time = 0.15
+			}
+		}
+
+		TRX_masters_of_the_straits = {
+			removal_cost = -1
+			modifier = {
+				coastal_bunker_effectiveness_factor = 0.25
+				navy_submarine_attack_factor = 0.10
+				navy_screen_defence_factor = 0.10
+				naval_coordination = 0.10
+			}
+		}
+
+		######## Kemalist path: the Six Arrows ########
+
+		TRX_six_arrows_1 = {
+			name = TRX_six_arrows
+			picture = TRX_six_arrows
+			removal_cost = -1
+			modifier = {
+				political_power_factor = 0.05
+				stability_factor = 0.05
+			}
+		}
+
+		TRX_six_arrows_2 = {
+			name = TRX_six_arrows
+			picture = TRX_six_arrows
+			removal_cost = -1
+			modifier = {
+				political_power_factor = 0.10
+				stability_factor = 0.07
+				research_speed_factor = 0.03
+			}
+		}
+
+		TRX_six_arrows_3 = {
+			name = TRX_six_arrows
+			picture = TRX_six_arrows
+			removal_cost = -1
+			modifier = {
+				political_power_factor = 0.15
+				stability_factor = 0.10
+				research_speed_factor = 0.05
+				production_factory_max_efficiency_factor = 0.05
+			}
+		}
+
+		TRX_kemalist_state = {
+			removal_cost = -1
+			modifier = {
+				political_power_factor = 0.15
+				stability_factor = 0.12
+				research_speed_factor = 0.05
+				production_factory_max_efficiency_factor = 0.05
+				drift_defence_factor = 0.30
+				war_support_factor = 0.05
+			}
+		}
+
+		######## Democratic path ########
+
+		TRX_multi_party_democracy = {
+			removal_cost = -1
+			modifier = {
+				democratic_drift = 0.03
+				stability_factor = 0.05
+				political_power_factor = -0.05
+			}
+		}
+
+		TRX_balkan_partnership = {
+			removal_cost = -1
+			modifier = {
+				opinion_gain_monthly_factor = 0.25
+				trade_opinion_factor = 0.20
+				research_speed_factor = 0.03
+			}
+		}
+
+		######## Ottoman path ########
+
+		TRX_sublime_porte = {
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.25
+				stability_factor = 0.05
+				neutrality_drift = 0.03
+			}
+		}
+
+		TRX_ottoman_revival = {
+			removal_cost = -1
+			modifier = {
+				war_support_factor = 0.08
+				justify_war_goal_time = -0.25
+				army_claim_attack_factor = 0.10
+			}
+		}
+
+		######## Turanist path ########
+
+		TRX_grey_wolves = {
+			removal_cost = -1
+			modifier = {
+				war_support_factor = 0.10
+				conscription_factor = 0.10
+				stability_factor = -0.05
+				fascism_drift = 0.03
+			}
+		}
+
+		TRX_kizil_elma = {
+			removal_cost = -1
+			modifier = {
+				army_attack_factor = 0.07
+				justify_war_goal_time = -0.30
+				war_support_factor = 0.05
+			}
+		}
+
+		######## Socialist path ########
+
+		TRX_village_soviets = {
+			removal_cost = -1
+			modifier = {
+				consumer_goods_factor = -0.03
+				production_factory_efficiency_gain_factor = 0.05
+				communism_drift = 0.05
+				stability_factor = -0.03
+			}
+		}
+
+		TRX_red_crescent = {
+			removal_cost = -1
+			modifier = {
+				industrial_capacity_factory = 0.05
+				war_support_factor = 0.05
+				conscription_factor = 0.05
+			}
+		}
+
+		######## Army ########
+
+		TRX_reformed_army = {
+			removal_cost = -1
+			modifier = {
+				army_org_factor = 0.05
+				experience_gain_army_factor = 0.10
+			}
+		}
+
+		TRX_mehmetcik_spirit = {
+			removal_cost = -1
+			modifier = {
+				army_infantry_defence_factor = 0.10
+				army_morale_factor = 0.10
+			}
+		}
+
+		TRX_defense_of_anatolia = {
+			removal_cost = -1
+			modifier = {
+				army_core_defence_factor = 0.15
+				dig_in_speed_factor = 0.25
+				max_dig_in = 2
+			}
+		}
+
+		TRX_akinci_doctrine = {
+			removal_cost = -1
+			modifier = {
+				army_speed_factor = 0.10
+				breakthrough_factor = 0.10
+				cavalry_attack_factor = 0.15
+			}
+		}
+
+		TRX_general_mobilization = {
+			removal_cost = -1
+			modifier = {
+				conscription = 0.02
+				consumer_goods_factor = 0.05
+				war_support_factor = 0.05
+			}
+		}
+
+		TRX_army_of_the_republic = {
+			removal_cost = -1
+			modifier = {
+				army_attack_factor = 0.05
+				army_defence_factor = 0.05
+				training_time_army_factor = -0.10
+			}
+		}
+
+		######## Air force ########
+
+		TRX_aeronautical_association = {
+			removal_cost = -1
+			modifier = {
+				air_training_xp_gain_factor = 0.15
+				air_accidents_factor = -0.15
+			}
+		}
+
+		TRX_modern_air_force = {
+			removal_cost = -1
+			modifier = {
+				air_superiority_efficiency = 0.10
+				air_mission_efficiency = 0.05
+				air_accidents_factor = -0.10
+			}
+		}
+
+		######## Economy ########
+
+		TRX_statist_drive = {
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.10
+				industrial_capacity_factory = 0.05
+			}
+		}
+
+		TRX_statism = {
+			removal_cost = -1
+			modifier = {
+				production_speed_industrial_complex_factor = 0.10
+				production_speed_arms_factory_factor = 0.10
+				industrial_capacity_factory = 0.05
+				political_power_factor = -0.05
+			}
+		}
+
+		TRX_liberal_market = {
+			removal_cost = -1
+			modifier = {
+				trade_opinion_factor = 0.25
+				consumer_goods_factor = -0.03
+				production_factory_efficiency_gain_factor = 0.05
+			}
+		}
+
+		TRX_industrial_heartland = {
+			removal_cost = -1
+			modifier = {
+				production_factory_max_efficiency_factor = 0.05
+				global_building_slots_factor = 0.10
+				local_resources_factor = 0.10
+			}
+		}
+
+		######## Society and science ########
+
+		TRX_village_institutes = {
+			removal_cost = -1
+			modifier = {
+				research_speed_factor = 0.03
+				stability_factor = 0.03
+				monthly_population = 0.05
+			}
+		}
+
+		TRX_scientific_republic = {
+			removal_cost = -1
+			modifier = {
+				research_speed_factor = 0.07
+			}
+		}
+
+		TRX_national_unity = {
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.10
+				war_support_factor = 0.05
+				drift_defence_factor = 0.20
+			}
+		}
+
+		######## Formable nations ########
+
+		TRX_spirit_misak_fulfilled = {
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.10
+				army_core_defence_factor = 0.10
+				political_power_factor = 0.05
+			}
+		}
+
+		TRX_spirit_ottoman_restored = {
+			removal_cost = -1
+			modifier = {
+				political_power_factor = 0.10
+				non_core_manpower = 0.05
+				resistance_growth = -0.20
+				compliance_growth = 0.10
+			}
+		}
+
+		TRX_spirit_kayser_i_rum = {
+			removal_cost = -1
+			modifier = {
+				political_power_factor = 0.15
+				stability_factor = 0.10
+				non_core_manpower = 0.10
+				compliance_growth = 0.25
+			}
+		}
+
+		TRX_spirit_turan_unity = {
+			removal_cost = -1
+			modifier = {
+				war_support_factor = 0.10
+				non_core_manpower = 0.10
+				cavalry_attack_factor = 0.10
+				compliance_growth = 0.15
+			}
+		}
+
+		TRX_spirit_balkan_federation = {
+			removal_cost = -1
+			modifier = {
+				research_speed_factor = 0.05
+				stability_factor = 0.10
+				compliance_growth = 0.20
+			}
+		}
+
+		TRX_spirit_near_east_socialist = {
+			removal_cost = -1
+			modifier = {
+				industrial_capacity_factory = 0.05
+				production_factory_max_efficiency_factor = 0.05
+				compliance_growth = 0.20
+			}
+		}
+	}
+}

@@ -1,0 +1,782 @@
+###########################################################################
+# Anatolian Ascendancy - Turkish national focus tree
+#
+# Layout (x columns):
+#    2-10  Foreign policy & irredentism
+#   14-18  Army
+#   21-28  Air force (21-23) and navy (26-28)
+#   31-49  Politics: Kemalist / Democratic / Ottoman / Turanist / Socialist
+#   52-56  Economy & industry
+#   59-61  Society & science
+#
+# Performance notes:
+#  - Every trigger below is a cheap country/state check; nothing iterates
+#    over all countries or all states inside an "available" block.
+#  - Map-wide loops (every_state) only happen once, inside completion
+#    rewards, never in triggers.
+###########################################################################
+
+focus_tree = {
+	id = TRX_turkey_focus_tree
+
+	country = {
+		factor = 0
+		modifier = {
+			add = 200
+			original_tag = TUR
+		}
+	}
+
+	default = no
+	reset_on_civilwar = no
+
+	initial_show_position = {
+		focus = TRX_republic_at_the_crossroads
+	}
+
+	continuous_focus_position = { x = 50 y = 1250 }
+
+	shortcut = {
+		name = TRX_shortcut_foreign
+		target = TRX_peace_at_home
+		scroll_wheel_factor = 0.6
+	}
+	shortcut = {
+		name = TRX_shortcut_military
+		target = TRX_reform_the_army
+		scroll_wheel_factor = 0.6
+	}
+	shortcut = {
+		name = TRX_shortcut_politics
+		target = TRX_republic_at_the_crossroads
+		scroll_wheel_factor = 0.6
+	}
+	shortcut = {
+		name = TRX_shortcut_economy
+		target = TRX_first_five_year_plan
+		scroll_wheel_factor = 0.6
+	}
+
+	#######################################################################
+	# FOREIGN POLICY
+	#######################################################################
+
+	focus = {
+		id = TRX_peace_at_home
+		icon = GFX_focus_TRX_peace_at_home
+		x = 6
+		y = 0
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_HISTORICAL }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_political_power = 60
+			add_stability = 0.03
+		}
+	}
+
+	focus = {
+		id = TRX_montreux_convention
+		icon = GFX_focus_TRX_montreux_convention
+		relative_position_id = TRX_peace_at_home
+		x = 0
+		y = 1
+		cost = 7
+		prerequisite = { focus = TRX_peace_at_home }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_HISTORICAL FOCUS_FILTER_NAVY_XP }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			add_ideas = TRX_straits_sovereignty
+			set_country_flag = TRX_straits_unlocked
+			unlock_decision_category_tooltip = TRX_straits_category
+			797 = {
+				add_building_construction = {
+					type = coastal_bunker
+					level = 1
+					province = { all_provinces = yes limit_to_coastal = yes }
+					instant_build = yes
+				}
+			}
+			341 = {
+				add_building_construction = {
+					type = coastal_bunker
+					level = 1
+					province = { all_provinces = yes limit_to_coastal = yes }
+					instant_build = yes
+				}
+			}
+			hidden_effect = {
+				news_event = { id = trx_news.1 hours = 6 }
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_saadabad_pact
+		icon = GFX_focus_TRX_saadabad_pact
+		relative_position_id = TRX_montreux_convention
+		x = -2
+		y = 1
+		cost = 7
+		prerequisite = { focus = TRX_montreux_convention }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_HISTORICAL }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_political_power = 25
+			custom_effect_tooltip = TRX_saadabad_pact_tt
+			hidden_effect = {
+				if = { limit = { country_exists = PER } PER = { country_event = { id = trx.5 hours = 12 } } }
+				if = { limit = { country_exists = IRQ } IRQ = { country_event = { id = trx.5 hours = 12 } } }
+				if = { limit = { country_exists = AFG } AFG = { country_event = { id = trx.5 hours = 12 } } }
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_balkan_entente
+		icon = GFX_focus_TRX_balkan_entente
+		relative_position_id = TRX_montreux_convention
+		x = 2
+		y = 1
+		cost = 7
+		prerequisite = { focus = TRX_montreux_convention }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_HISTORICAL }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_political_power = 25
+			custom_effect_tooltip = TRX_balkan_entente_tt
+			hidden_effect = {
+				if = { limit = { country_exists = GRE } GRE = { country_event = { id = trx.6 hours = 12 } } }
+				if = { limit = { country_exists = YUG } YUG = { country_event = { id = trx.6 hours = 12 } } }
+				if = { limit = { country_exists = ROM } ROM = { country_event = { id = trx.6 hours = 12 } } }
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_eastern_alliance
+		icon = GFX_focus_TRX_eastern_alliance
+		relative_position_id = TRX_saadabad_pact
+		x = -2
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_saadabad_pact }
+		mutually_exclusive = { focus = TRX_balkan_alliance }
+		available = {
+			is_in_faction = no
+			has_war = no
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			base = 3
+			modifier = { factor = 0 is_historical_focus_on = yes }
+		}
+		completion_reward = {
+			create_faction_from_template = {
+				template = TRX_faction_saadabad
+				name = TRX_faction_saadabad_name
+			}
+			custom_effect_tooltip = TRX_invite_saadabad_tt
+			hidden_effect = {
+				if = { limit = { country_exists = PER PER = { is_in_faction = no } } PER = { country_event = { id = trx.8 hours = 12 } } }
+				if = { limit = { country_exists = IRQ IRQ = { is_in_faction = no } } IRQ = { country_event = { id = trx.8 hours = 12 } } }
+				if = { limit = { country_exists = AFG AFG = { is_in_faction = no } } AFG = { country_event = { id = trx.8 hours = 12 } } }
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_balkan_alliance
+		icon = GFX_focus_TRX_balkan_alliance
+		relative_position_id = TRX_balkan_entente
+		x = 2
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_balkan_entente }
+		mutually_exclusive = { focus = TRX_eastern_alliance }
+		available = {
+			is_in_faction = no
+			has_war = no
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			base = 3
+			modifier = { factor = 0 is_historical_focus_on = yes }
+		}
+		completion_reward = {
+			create_faction_from_template = {
+				template = TRX_faction_balkan_pact
+				name = TRX_faction_balkan_pact_name
+			}
+			custom_effect_tooltip = TRX_invite_balkan_tt
+			hidden_effect = {
+				if = { limit = { country_exists = GRE GRE = { is_in_faction = no } } GRE = { country_event = { id = trx.9 hours = 12 } } }
+				if = { limit = { country_exists = YUG YUG = { is_in_faction = no } } YUG = { country_event = { id = trx.9 hours = 12 } } }
+				if = { limit = { country_exists = ROM ROM = { is_in_faction = no } } ROM = { country_event = { id = trx.9 hours = 12 } } }
+				if = { limit = { country_exists = BUL BUL = { is_in_faction = no } } BUL = { country_event = { id = trx.9 hours = 12 } } }
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_hatay_question
+		icon = GFX_focus_TRX_hatay_question
+		relative_position_id = TRX_montreux_convention
+		x = 0
+		y = 2
+		cost = 10
+		prerequisite = { focus = TRX_montreux_convention }
+		available = {
+			799 = { NOT = { is_owned_by = ROOT } }
+		}
+		bypass = {
+			owns_state = 799
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_HISTORICAL }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			add_state_claim = 799
+			custom_effect_tooltip = TRX_hatay_demand_tt
+			hidden_effect = {
+				799 = { owner = { country_event = { id = trx.2 hours = 12 } } }
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_mosul_question
+		icon = GFX_focus_TRX_mosul_question
+		relative_position_id = TRX_hatay_question
+		x = -2
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_hatay_question }
+		bypass = {
+			owns_state = 676
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 0 is_historical_focus_on = yes }
+			modifier = { factor = 0 has_war = yes }
+		}
+		completion_reward = {
+			add_state_claim = 676
+			add_state_claim = 675
+			676 = {
+				if = {
+					limit = {
+						NOT = { is_owned_by = ROOT }
+						owner = { NOT = { is_in_faction_with = ROOT } }
+					}
+					owner = {
+						ROOT = {
+							create_wargoal = {
+								type = take_state_focus
+								target = PREV
+								generator = { 676 675 }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_aegean_ambitions
+		icon = GFX_focus_TRX_aegean_ambitions
+		relative_position_id = TRX_hatay_question
+		x = 2
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_hatay_question }
+		bypass = {
+			owns_state = 187
+			owns_state = 164
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 0 is_historical_focus_on = yes }
+			modifier = { factor = 0 has_war = yes }
+		}
+		completion_reward = {
+			add_state_claim = 187
+			add_state_claim = 164
+			187 = {
+				if = {
+					limit = {
+						NOT = { is_owned_by = ROOT }
+						owner = { NOT = { is_in_faction_with = ROOT } }
+					}
+					owner = {
+						ROOT = {
+							create_wargoal = {
+								type = take_state_focus
+								target = PREV
+								generator = { 187 }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_national_pact
+		icon = GFX_focus_TRX_national_pact
+		relative_position_id = TRX_hatay_question
+		x = 0
+		y = 2
+		cost = 10
+		prerequisite = { focus = TRX_mosul_question }
+		prerequisite = { focus = TRX_aegean_ambitions }
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 3 }
+		completion_reward = {
+			add_political_power = 50
+			add_state_claim = 184
+			add_state_claim = 231
+			set_country_flag = TRX_misak_unlocked
+			unlock_decision_tooltip = TRX_form_misak_i_milli
+		}
+	}
+
+	focus = {
+		id = TRX_batum_question
+		icon = GFX_focus_TRX_batum_question
+		relative_position_id = TRX_mosul_question
+		x = -2
+		y = 1
+		cost = 7
+		prerequisite = { focus = TRX_mosul_question }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 0 is_historical_focus_on = yes }
+		}
+		completion_reward = {
+			add_state_claim = 231
+			add_war_support = 0.03
+			army_experience = 10
+		}
+	}
+
+	focus = {
+		id = TRX_western_thrace
+		icon = GFX_focus_TRX_western_thrace
+		relative_position_id = TRX_aegean_ambitions
+		x = 2
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_aegean_ambitions }
+		bypass = {
+			owns_state = 184
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 0 is_historical_focus_on = yes }
+			modifier = { factor = 0 has_war = yes }
+		}
+		completion_reward = {
+			add_state_claim = 184
+			184 = {
+				if = {
+					limit = {
+						NOT = { is_owned_by = ROOT }
+						owner = { NOT = { is_in_faction_with = ROOT } }
+					}
+					owner = {
+						ROOT = {
+							create_wargoal = {
+								type = take_state_focus
+								target = PREV
+								generator = { 184 }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_cyprus_question
+		icon = GFX_focus_TRX_cyprus_question
+		relative_position_id = TRX_western_thrace
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_western_thrace }
+		bypass = {
+			owns_state = 183
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 0 is_historical_focus_on = yes }
+			modifier = {
+				factor = 0
+				183 = { owner = { is_major = yes } }
+				NOT = { 183 = { owner = { has_war_with = ROOT } } }
+			}
+		}
+		completion_reward = {
+			add_state_claim = 183
+			183 = {
+				if = {
+					limit = {
+						NOT = { is_owned_by = ROOT }
+						owner = { NOT = { is_in_faction_with = ROOT } }
+					}
+					owner = {
+						ROOT = {
+							create_wargoal = {
+								type = take_state_focus
+								target = PREV
+								generator = { 183 }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	#######################################################################
+	# ARMY
+	#######################################################################
+
+	focus = {
+		id = TRX_reform_the_army
+		icon = GFX_focus_TRX_reform_the_army
+		x = 16
+		y = 0
+		cost = 10
+		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_MILITARY_CHARACTER }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			army_experience = 15
+			add_ideas = TRX_reformed_army
+			recruit_character = TRX_fevzi_cakmak
+		}
+	}
+
+	focus = {
+		id = TRX_mehmetcik_spirit
+		icon = GFX_focus_TRX_mehmetcik_spirit
+		relative_position_id = TRX_reform_the_army
+		x = -2
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_reform_the_army }
+		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_ideas = TRX_mehmetcik_spirit
+			add_tech_bonus = {
+				name = TRX_mehmetcik_spirit
+				bonus = 0.5
+				uses = 1
+				category = infantry_weapons
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_kirikkale_arsenal
+		icon = GFX_focus_TRX_kirikkale_arsenal
+		relative_position_id = TRX_reform_the_army
+		x = 2
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_reform_the_army }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MANPOWER }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			49 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 1000
+				producer = TUR
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_janissary_guard
+		icon = GFX_focus_TRX_janissary_guard
+		relative_position_id = TRX_mehmetcik_spirit
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_mehmetcik_spirit }
+		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			TRX_unlock_janissary_guard = yes
+			hidden_effect = {
+				country_event = { id = trx.60 days = 7 }
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_harbiye_academy
+		icon = GFX_focus_TRX_harbiye_academy
+		relative_position_id = TRX_reform_the_army
+		x = 0
+		y = 2
+		cost = 10
+		prerequisite = { focus = TRX_mehmetcik_spirit focus = TRX_kirikkale_arsenal }
+		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_MILITARY_CHARACTER }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			army_experience = 10
+			recruit_character = TRX_fahrettin_altay
+			recruit_character = TRX_asim_gunduz
+			add_doctrine_cost_reduction = {
+				name = TRX_harbiye_academy
+				cost_reduction = 0.5
+				uses = 1
+				category = land_doctrine
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_straits_fortress_artillery
+		icon = GFX_focus_TRX_straits_fortress_artillery
+		relative_position_id = TRX_kirikkale_arsenal
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_kirikkale_arsenal }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			unlock_subunit = trx_straits_artillery
+			custom_effect_tooltip = TRX_unlock_straits_artillery_tt
+			add_tech_bonus = {
+				name = TRX_straits_fortress_artillery
+				bonus = 0.5
+				uses = 1
+				category = artillery
+			}
+			hidden_effect = {
+				division_template = {
+					name = "Boğaz Muhafız Tümeni"
+					regiments = {
+						infantry = { x = 0 y = 0 }
+						infantry = { x = 0 y = 1 }
+						infantry = { x = 0 y = 2 }
+						infantry = { x = 1 y = 0 }
+						infantry = { x = 1 y = 1 }
+						infantry = { x = 1 y = 2 }
+						artillery_brigade = { x = 2 y = 0 }
+						artillery_brigade = { x = 2 y = 1 }
+					}
+					support = {
+						trx_straits_artillery = { x = 0 y = 0 }
+					}
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_mountain_commandos
+		icon = GFX_focus_TRX_mountain_commandos
+		relative_position_id = TRX_janissary_guard
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_janissary_guard }
+		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 3 }
+		completion_reward = {
+			unlock_subunit = trx_mountain_commando
+			custom_effect_tooltip = TRX_unlock_mountain_commando_tt
+			recruit_character = TRX_mustafa_muglali
+			add_tech_bonus = {
+				name = TRX_mountain_commandos
+				bonus = 0.75
+				uses = 1
+				category = mountaineers_tech
+			}
+			hidden_effect = {
+				division_template = {
+					name = "Dağ Komando Tugayı"
+					regiments = {
+						trx_mountain_commando = { x = 0 y = 0 }
+						trx_mountain_commando = { x = 0 y = 1 }
+						trx_mountain_commando = { x = 1 y = 0 }
+						trx_mountain_commando = { x = 1 y = 1 }
+					}
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_akinci_raiders
+		icon = GFX_focus_TRX_akinci_raiders
+		relative_position_id = TRX_harbiye_academy
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_harbiye_academy }
+		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 3 }
+		completion_reward = {
+			unlock_subunit = trx_akinci_cavalry
+			custom_effect_tooltip = TRX_unlock_akinci_tt
+			army_experience = 10
+			hidden_effect = {
+				division_template = {
+					name = "Akıncı Süvari Tümeni"
+					regiments = {
+						trx_akinci_cavalry = { x = 0 y = 0 }
+						trx_akinci_cavalry = { x = 0 y = 1 }
+						trx_akinci_cavalry = { x = 0 y = 2 }
+						trx_akinci_cavalry = { x = 1 y = 0 }
+						trx_akinci_cavalry = { x = 1 y = 1 }
+						trx_akinci_cavalry = { x = 1 y = 2 }
+					}
+				}
+				country_event = { id = trx.61 days = 10 }
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_first_armored_brigade
+		icon = GFX_focus_TRX_first_armored_brigade
+		relative_position_id = TRX_straits_fortress_artillery
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_straits_fortress_artillery }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 3 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = TRX_first_armored_brigade
+				bonus = 0.5
+				uses = 2
+				category = armor
+			}
+			add_tech_bonus = {
+				name = TRX_first_armored_brigade
+				bonus = 0.5
+				uses = 1
+				category = motorized_equipment
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_defense_of_anatolia
+		icon = GFX_focus_TRX_defense_of_anatolia
+		relative_position_id = TRX_akinci_raiders
+		x = -1
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_akinci_raiders }
+		mutually_exclusive = { focus = TRX_akinci_doctrine }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = {
+			base = 5
+			modifier = { factor = 2 is_historical_focus_on = yes }
+		}
+		completion_reward = {
+			add_ideas = TRX_defense_of_anatolia
+			341 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					province = { all_provinces = yes limit_to_border = yes }
+					instant_build = yes
+				}
+			}
+			800 = {
+				add_building_construction = {
+					type = bunker
+					level = 1
+					province = { all_provinces = yes limit_to_border = yes }
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_akinci_doctrine
+		icon = GFX_focus_TRX_akinci_doctrine
+		relative_position_id = TRX_akinci_raiders
+		x = 1
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_akinci_raiders }
+		mutually_exclusive = { focus = TRX_defense_of_anatolia }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 3 }
+		completion_reward = {
+			add_ideas = TRX_akinci_doctrine
+			add_tech_bonus = {
+				name = TRX_akinci_doctrine
+				bonus = 0.5
+				uses = 1
+				category = motorized_equipment
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_general_mobilization
+		icon = GFX_focus_TRX_general_mobilization
+		relative_position_id = TRX_akinci_raiders
+		x = 0
+		y = 2
+		cost = 10
+		prerequisite = { focus = TRX_defense_of_anatolia focus = TRX_akinci_doctrine }
+		available = {
+			OR = {
+				has_war = yes
+				threat > 0.5
+			}
+		}
+		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_ideas = TRX_general_mobilization
+			add_manpower = 25000
+		}
+	}
+
+	focus = {
+		id = TRX_army_of_the_republic
+		icon = GFX_focus_TRX_army_of_the_republic
+		relative_position_id = TRX_general_mobilization
+		x = 0
+		y = 1
+		cost = 12
+		prerequisite = { focus = TRX_general_mobilization }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_ideas = TRX_army_of_the_republic
+			army_experience = 50
+		}
+	}
+

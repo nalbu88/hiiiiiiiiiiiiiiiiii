@@ -1,0 +1,125 @@
+###########################################################################
+# Anatolian Ascendancy - leader and advisor traits
+# All traits are prefixed TRX_ so they never collide with vanilla content.
+###########################################################################
+
+leader_traits = {
+
+	### Country leader traits ###
+
+	TRX_trait_father_of_the_turks = {
+		random = no
+		political_power_factor = 0.10
+		stability_factor = 0.05
+		ai_will_do = { factor = 1 }
+	}
+
+	TRX_trait_caliph_in_exile = {
+		random = no
+		stability_factor = 0.10
+		political_power_factor = 0.05
+		war_support_factor = 0.05
+		ai_will_do = { factor = 1 }
+	}
+
+	TRX_trait_red_apple_visionary = {
+		random = no
+		war_support_factor = 0.15
+		justify_war_goal_time = -0.15
+		army_core_attack_factor = 0.05
+		ai_will_do = { factor = 1 }
+	}
+
+	TRX_trait_people_s_tribune = {
+		random = no
+		political_power_factor = 0.10
+		production_factory_max_efficiency_factor = 0.03
+		ai_will_do = { factor = 1 }
+	}
+
+	TRX_trait_liberal_banker = {
+		random = no
+		consumer_goods_factor = -0.03
+		trade_opinion_factor = 0.15
+		ai_will_do = { factor = 1 }
+	}
+
+	### Advisor traits ###
+
+	TRX_trait_marshal_of_the_republic = {
+		random = no
+		army_org_factor = 0.05
+		army_defence_factor = 0.05
+		ai_will_do = { factor = 1 }
+	}
+
+	TRX_trait_aviation_pioneer = {
+		random = no
+		air_training_xp_gain_factor = 0.10
+		air_accidents_factor = -0.20
+		ai_will_do = { factor = 1 }
+	}
+
+	TRX_trait_flying_daughter = {
+		random = no
+		air_ace_generation_chance_factor = 0.25
+		experience_gain_air = 0.05
+		ai_will_do = { factor = 1 }
+	}
+
+	TRX_trait_statist_industrialist = {
+		random = no
+		production_speed_buildings_factor = 0.10
+		production_factory_efficiency_gain_factor = 0.05
+		ai_will_do = { factor = 1 }
+	}
+
+	TRX_trait_village_educator = {
+		random = no
+		research_speed_factor = 0.03
+		stability_factor = 0.03
+		ai_will_do = { factor = 1 }
+	}
+
+	TRX_trait_hero_of_the_east = {
+		random = no
+		army_core_defence_factor = 0.10
+		terrain_penalty_reduction = 0.05
+		ai_will_do = { factor = 1 }
+	}
+
+	TRX_trait_poet_of_the_revolution = {
+		random = no
+		war_support_factor = 0.05
+		political_power_factor = 0.05
+		ai_will_do = { factor = 1 }
+	}
+
+	TRX_trait_grey_wolf_organiser = {
+		random = no
+		war_support_factor = 0.08
+		conscription_factor = 0.05
+		ai_will_do = { factor = 1 }
+	}
+
+	TRX_trait_grand_vizier = {
+		random = no
+		political_power_factor = 0.08
+		stability_factor = 0.04
+		ai_will_do = { factor = 1 }
+	}
+
+	TRX_trait_agrarian_populist = {
+		random = no
+		stability_factor = 0.05
+		consumer_goods_factor = -0.02
+		ai_will_do = { factor = 1 }
+	}
+
+	TRX_trait_admiral_of_the_straits = {
+		random = no
+		navy_org_factor = 0.05
+		naval_coordination = 0.05
+		ai_will_do = { factor = 1 }
+	}
+}

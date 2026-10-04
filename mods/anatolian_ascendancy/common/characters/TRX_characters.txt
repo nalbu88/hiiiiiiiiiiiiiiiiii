@@ -1,0 +1,215 @@
+###########################################################################
+# Anatolian Ascendancy - characters
+# None of these are recruited at game start. Each one is recruited by the
+# focus or event that introduces them, so they never clutter the vanilla
+# roster unless the player actually walks the matching path.
+# No portraits are assigned: the game picks a fitting generic portrait.
+###########################################################################
+
+characters = {
+
+	### Country leaders (one per alternative political path) ###
+
+	TRX_abdulmecid_ii = {
+		name = TRX_abdulmecid_ii
+		country_leader = {
+			desc = TRX_abdulmecid_ii_desc
+			ideology = despotism
+			traits = { TRX_trait_caliph_in_exile }
+			expire = "1965.1.1.1"
+		}
+	}
+
+	TRX_nihal_atsiz = {
+		name = TRX_nihal_atsiz
+		country_leader = {
+			desc = TRX_nihal_atsiz_desc
+			ideology = fascism_ideology
+			traits = { TRX_trait_red_apple_visionary }
+			expire = "1965.1.1.1"
+		}
+	}
+
+	TRX_sefik_husnu = {
+		name = TRX_sefik_husnu
+		country_leader = {
+			desc = TRX_sefik_husnu_desc
+			ideology = marxism
+			traits = { TRX_trait_people_s_tribune }
+			expire = "1965.1.1.1"
+		}
+	}
+
+	TRX_celal_bayar = {
+		name = TRX_celal_bayar
+		country_leader = {
+			desc = TRX_celal_bayar_desc
+			ideology = conservatism
+			traits = { TRX_trait_liberal_banker }
+			expire = "1965.1.1.1"
+		}
+	}
+
+	### Advisors ###
+
+	TRX_fevzi_cakmak = {
+		name = TRX_fevzi_cakmak
+		advisor = {
+			slot = army_chief
+			idea_token = TRX_fevzi_cakmak_army_chief
+			cost = 100
+			traits = { TRX_trait_marshal_of_the_republic }
+			ai_will_do = { factor = 1.5 }
+		}
+	}
+
+	TRX_kazim_karabekir = {
+		name = TRX_kazim_karabekir
+		advisor = {
+			slot = theorist
+			idea_token = TRX_kazim_karabekir_theorist
+			ledger = army
+			cost = 100
+			traits = { TRX_trait_hero_of_the_east }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	TRX_sabiha_gokcen = {
+		name = TRX_sabiha_gokcen
+		gender = female
+		advisor = {
+			slot = air_chief
+			idea_token = TRX_sabiha_gokcen_air_chief
+			cost = 100
+			traits = { TRX_trait_flying_daughter }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	TRX_nuri_demirag = {
+		name = TRX_nuri_demirag
+		advisor = {
+			slot = political_advisor
+			idea_token = TRX_nuri_demirag_advisor
+			cost = 100
+			traits = { TRX_trait_aviation_pioneer }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	TRX_vehbi_koc = {
+		name = TRX_vehbi_koc
+		advisor = {
+			slot = political_advisor
+			idea_token = TRX_vehbi_koc_advisor
+			cost = 125
+			traits = { TRX_trait_statist_industrialist }
+			ai_will_do = { factor = 2 }
+		}
+	}
+
+	TRX_hasan_ali_yucel = {
+		name = TRX_hasan_ali_yucel
+		advisor = {
+			slot = political_advisor
+			idea_token = TRX_hasan_ali_yucel_advisor
+			cost = 100
+			traits = { TRX_trait_village_educator }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	TRX_rauf_orbay = {
+		name = TRX_rauf_orbay
+		advisor = {
+			slot = navy_chief
+			idea_token = TRX_rauf_orbay_navy_chief
+			cost = 100
+			traits = { TRX_trait_admiral_of_the_straits }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	TRX_adnan_menderes = {
+		name = TRX_adnan_menderes
+		advisor = {
+			slot = political_advisor
+			idea_token = TRX_adnan_menderes_advisor
+			cost = 100
+			traits = { TRX_trait_agrarian_populist }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	TRX_nazim_hikmet = {
+		name = TRX_nazim_hikmet
+		advisor = {
+			slot = political_advisor
+			idea_token = TRX_nazim_hikmet_advisor
+			cost = 100
+			traits = { TRX_trait_poet_of_the_revolution }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	TRX_alparslan_turkes = {
+		name = TRX_alparslan_turkes
+		advisor = {
+			slot = political_advisor
+			idea_token = TRX_alparslan_turkes_advisor
+			cost = 100
+			traits = { TRX_trait_grey_wolf_organiser }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	TRX_riza_tevfik = {
+		name = TRX_riza_tevfik
+		advisor = {
+			slot = political_advisor
+			idea_token = TRX_riza_tevfik_advisor
+			cost = 100
+			traits = { TRX_trait_grand_vizier }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	### Army commanders ###
+
+	TRX_fahrettin_altay = {
+		name = TRX_fahrettin_altay
+		corps_commander = {
+			traits = { cavalry_officer }
+			skill = 4
+			attack_skill = 4
+			defense_skill = 3
+			planning_skill = 3
+			logistics_skill = 3
+		}
+	}
+
+	TRX_mustafa_muglali = {
+		name = TRX_mustafa_muglali
+		corps_commander = {
+			traits = { mountaineer }
+			skill = 3
+			attack_skill = 3
+			defense_skill = 3
+			planning_skill = 2
+			logistics_skill = 3
+		}
+	}
+
+	TRX_asim_gunduz = {
+		name = TRX_asim_gunduz
+		corps_commander = {
+			traits = { organizer }
+			skill = 3
+			attack_skill = 2
+			defense_skill = 3
+			planning_skill = 3
+			logistics_skill = 3
+		}
+	}
+}

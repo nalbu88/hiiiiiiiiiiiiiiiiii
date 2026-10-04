@@ -1,0 +1,237 @@
+###########################################################################
+# Anatolian Ascendancy - Turkish sub-units
+#
+# All four battalions start locked (active = no) and are unlocked for Turkey
+# only, through national focuses (effect: unlock_subunit). They reuse vanilla
+# equipment so no new production lines, archetypes or models are needed.
+#
+# Baselines (vanilla): infantry 25 str / 60 org / 100 rifles,
+#                      cavalry 25 str / 70 org / 120 rifles / speed +60%,
+#                      mountaineers 20 str / 70 org / 140 rifles.
+###########################################################################
+
+sub_units = {
+
+	# Yeniçeri Muhafız Taburu - elite guard infantry.
+	# Tougher and better led than line infantry, but slower to train and
+	# heavier on rifles. Not special forces, so it does not eat the SF cap.
+	trx_janissary_guard = {
+		abbreviation = "JAN"
+		sprite = infantry
+		map_icon_category = infantry
+		priority = 602
+		ai_priority = 210
+		active = no
+
+		type = { infantry }
+		group = infantry
+		categories = {
+			category_front_line
+			category_light_infantry
+			category_all_infantry
+			category_army
+		}
+
+		combat_width = 2
+		max_strength = 25
+		max_organisation = 75
+		default_morale = 0.4
+		manpower = 1200
+		training_time = 150
+		suppression = 1.5
+		weight = 0.5
+		supply_consumption = 0.08
+
+		defense = 0.15
+		breakthrough = 0.10
+		soft_attack = 0.05
+
+		need = {
+			infantry_equipment = 120
+			support_equipment = 10
+		}
+
+		urban = {
+			attack = 0.10
+			defence = 0.15
+		}
+		hills = {
+			defence = 0.05
+		}
+		amphibious = {
+			attack = -0.2
+		}
+	}
+
+	# Akıncı Süvari Taburu - fast light raiders of the steppe tradition.
+	# Excellent on open ground, poor in mountains and cities.
+	trx_akinci_cavalry = {
+		abbreviation = "AKN"
+		sprite = cavalry
+		map_icon_category = other
+		priority = 598
+		ai_priority = 180
+		active = no
+		cavalry = yes
+
+		type = { infantry }
+		group = mobile
+		categories = {
+			category_front_line
+			category_army
+			category_cavalry
+		}
+
+		combat_width = 2
+		max_strength = 22
+		max_organisation = 70
+		default_morale = 0.35
+		manpower = 900
+		maximum_speed = 0.8
+		training_time = 110
+		weight = 0.5
+		supply_consumption = 0.10
+		suppression = 2.5
+
+		breakthrough = 0.25
+
+		need = {
+			infantry_equipment = 100
+			support_equipment = 5
+		}
+
+		plains = {
+			attack = 0.10
+			movement = 0.15
+		}
+		desert = {
+			attack = 0.10
+			movement = 0.15
+		}
+		hills = {
+			attack = 0.05
+		}
+		forest = {
+			attack = -0.05
+		}
+		mountain = {
+			attack = -0.10
+			movement = -0.05
+		}
+		jungle = {
+			attack = -0.10
+		}
+		urban = {
+			attack = -0.10
+		}
+		amphibious = {
+			attack = -0.4
+		}
+	}
+
+	# Dağ Komando Taburu - Anatolian mountain commandos.
+	# Special forces mountaineers with stronger mountain bonuses than vanilla.
+	trx_mountain_commando = {
+		abbreviation = "DKM"
+		sprite = infantry
+		map_icon_category = infantry
+		special_forces = yes
+		mountaineers = yes
+		priority = 601
+		ai_priority = 190
+		active = no
+
+		type = { infantry }
+		group = infantry
+		categories = {
+			category_front_line
+			category_light_infantry
+			category_all_infantry
+			category_army
+			category_special_forces
+		}
+
+		combat_width = 2
+		max_strength = 20
+		max_organisation = 75
+		default_morale = 0.45
+		manpower = 1000
+		training_time = 140
+		suppression = 1
+		weight = 0.5
+		supply_consumption = 0.07
+
+		breakthrough = 0.35
+
+		need = {
+			infantry_equipment = 140
+			support_equipment = 10
+		}
+
+		hills = {
+			attack = 0.25
+			defence = 0.10
+			movement = 0.15
+		}
+		mountain = {
+			attack = 0.40
+			defence = 0.15
+			movement = 0.25
+		}
+		forest = {
+			attack = 0.05
+		}
+	}
+
+	# Boğaz Tahkimat Topçusu - Straits fortress artillery support company.
+	# Heavy, slow, defensive: digs in faster and holds river and fort lines.
+	trx_straits_artillery = {
+		abbreviation = "BTA"
+		sprite = artillery
+		map_icon_category = infantry
+		priority = 0
+		ai_priority = 0
+		active = no
+
+		type = {
+			infantry
+			support
+		}
+		group = support
+		categories = {
+			category_support_battalions
+			category_army
+			category_artillery
+		}
+
+		combat_width = 0
+		max_strength = 0.3
+		max_organisation = 0
+		default_morale = 0.1
+		manpower = 400
+		training_time = 120
+		weight = 0.15
+		supply_consumption = 0.18
+
+		entrenchment = 3
+		defense = -0.2
+		breakthrough = -0.5
+		soft_attack = -0.3
+		hard_attack = -0.3
+
+		need = {
+			artillery_equipment = 16
+			support_equipment = 5
+		}
+
+		river = {
+			defence = 0.10
+		}
+		hills = {
+			defence = 0.05
+		}
+		urban = {
+			defence = 0.10
+		}
+	}
+}
