@@ -502,7 +502,7 @@ TRX_formables_category = {
 		allowed = { original_tag = TUR }
 		visible = {
 			has_country_flag = TRX_turan_unlocked
-			NOT = { TRX_has_formed_any_nation = yes }
+			NOT = { has_country_flag = TRX_formed_turan }
 		}
 		available = {
 			is_subject = no
@@ -520,6 +520,10 @@ TRX_formables_category = {
 		complete_effect = {
 			set_country_flag = TRX_formed_turan
 			set_cosmetic_tag = TRX_TURAN
+			if = {
+				limit = { has_idea = TRX_spirit_misak_fulfilled }
+				remove_ideas = TRX_spirit_misak_fulfilled
+			}
 			add_ideas = TRX_spirit_turan_unity
 			custom_effect_tooltip = TRX_turan_cores_tt
 			hidden_effect = {
@@ -536,7 +540,7 @@ TRX_formables_category = {
 		allowed = { original_tag = TUR }
 		visible = {
 			has_country_flag = TRX_balkan_fed_unlocked
-			NOT = { TRX_has_formed_any_nation = yes }
+			NOT = { has_country_flag = TRX_formed_balkan_federation }
 		}
 		available = {
 			is_subject = no
@@ -586,6 +590,10 @@ TRX_formables_category = {
 		complete_effect = {
 			set_country_flag = TRX_formed_balkan_federation
 			set_cosmetic_tag = TRX_BALKAN_FED
+			if = {
+				limit = { has_idea = TRX_spirit_misak_fulfilled }
+				remove_ideas = TRX_spirit_misak_fulfilled
+			}
 			add_ideas = TRX_spirit_balkan_federation
 			custom_effect_tooltip = TRX_federation_union_tt
 			hidden_effect = {
@@ -628,7 +636,7 @@ TRX_formables_category = {
 		allowed = { original_tag = TUR }
 		visible = {
 			has_country_flag = TRX_nesf_unlocked
-			NOT = { TRX_has_formed_any_nation = yes }
+			NOT = { has_country_flag = TRX_formed_nesf }
 		}
 		available = {
 			is_subject = no
@@ -667,6 +675,10 @@ TRX_formables_category = {
 		complete_effect = {
 			set_country_flag = TRX_formed_nesf
 			set_cosmetic_tag = TRX_NESF
+			if = {
+				limit = { has_idea = TRX_spirit_misak_fulfilled }
+				remove_ideas = TRX_spirit_misak_fulfilled
+			}
 			add_ideas = TRX_spirit_near_east_socialist
 			custom_effect_tooltip = TRX_nesf_union_tt
 			hidden_effect = {

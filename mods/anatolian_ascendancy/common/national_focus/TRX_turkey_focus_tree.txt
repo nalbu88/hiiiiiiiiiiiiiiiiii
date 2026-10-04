@@ -1405,7 +1405,7 @@ focus_tree = {
 		cost = 10
 		prerequisite = { focus = TRX_revive_the_free_party }
 		available = {
-			democratic > 0.3
+			democratic > 0.25
 			has_civil_war = no
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -1800,7 +1800,7 @@ focus_tree = {
 		cost = 10
 		prerequisite = { focus = TRX_the_grey_wolves }
 		available = {
-			fascism > 0.3
+			fascism > 0.25
 			has_civil_war = no
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -2004,7 +2004,7 @@ focus_tree = {
 		cost = 10
 		prerequisite = { focus = TRX_village_soviets }
 		available = {
-			communism > 0.3
+			communism > 0.25
 			has_civil_war = no
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL }

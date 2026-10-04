@@ -18,3 +18,7 @@ Scripts included:
 - focusgfxshine.py - Given a goals GFX file, add all missing shine entries to the goals_shine GFX file.
 
 MIT license (LICENSE) applies to every file in this repository.
+
+## Mods
+
+- `mods/anatolian_ascendancy` - **Anatolian Ascendancy: Turkey Expanded**, a Turkey overhaul with a 101-focus tree, four new unit types, six formable nations, decisions and events. See [mods/README.md](mods/README.md) for installation and details. `mods/tools` holds its asset builder and static validator.
