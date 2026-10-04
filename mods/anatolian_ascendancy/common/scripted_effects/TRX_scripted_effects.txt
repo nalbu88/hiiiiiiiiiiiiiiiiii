@@ -1,0 +1,153 @@
+###########################################################################
+# Anatolian Ascendancy - scripted effects
+###########################################################################
+
+# Unlocks the Janissary Guard battalion and creates its template once.
+# Reachable from both the army branch and the Ottoman branch.
+TRX_unlock_janissary_guard = {
+	unlock_subunit = trx_janissary_guard
+	custom_effect_tooltip = TRX_unlock_janissary_tt
+	if = {
+		limit = { NOT = { has_country_flag = TRX_janissary_template_created } }
+		set_country_flag = TRX_janissary_template_created
+		hidden_effect = {
+			division_template = {
+				name = "Yeniçeri Muhafız Tümeni"
+				regiments = {
+					trx_janissary_guard = { x = 0 y = 0 }
+					trx_janissary_guard = { x = 0 y = 1 }
+					trx_janissary_guard = { x = 0 y = 2 }
+					trx_janissary_guard = { x = 1 y = 0 }
+					trx_janissary_guard = { x = 1 y = 1 }
+					trx_janissary_guard = { x = 1 y = 2 }
+					artillery_brigade = { x = 2 y = 0 }
+					artillery_brigade = { x = 2 y = 1 }
+				}
+			}
+		}
+	}
+}
+
+# Picks the political path the AI will follow, based on the game rule.
+# Runs once at game start, only for an AI-controlled Turkey.
+TRX_set_ai_path = {
+	if = {
+		limit = { has_game_rule = { rule = TRX_ai_behavior option = KEMALIST } }
+		set_country_flag = TRX_ai_kemalist
+	}
+	else_if = {
+		limit = { has_game_rule = { rule = TRX_ai_behavior option = DEMOCRATIC } }
+		set_country_flag = TRX_ai_democratic
+	}
+	else_if = {
+		limit = { has_game_rule = { rule = TRX_ai_behavior option = OTTOMAN } }
+		set_country_flag = TRX_ai_ottoman
+	}
+	else_if = {
+		limit = { has_game_rule = { rule = TRX_ai_behavior option = TURANIST } }
+		set_country_flag = TRX_ai_turanist
+	}
+	else_if = {
+		limit = { has_game_rule = { rule = TRX_ai_behavior option = SOCIALIST } }
+		set_country_flag = TRX_ai_socialist
+	}
+	else_if = {
+		limit = { has_game_rule = { rule = TRX_ai_behavior option = RANDOM } }
+		random_list = {
+			30 = { set_country_flag = TRX_ai_kemalist }
+			20 = { set_country_flag = TRX_ai_democratic }
+			20 = { set_country_flag = TRX_ai_ottoman }
+			15 = { set_country_flag = TRX_ai_turanist }
+			15 = { set_country_flag = TRX_ai_socialist }
+		}
+	}
+	else = {
+		# DEFAULT: historical when historical focus is on, mostly Kemalist otherwise
+		if = {
+			limit = { is_historical_focus_on = yes }
+			set_country_flag = TRX_ai_kemalist
+		}
+		else = {
+			random_list = {
+				45 = { set_country_flag = TRX_ai_kemalist }
+				15 = { set_country_flag = TRX_ai_democratic }
+				15 = { set_country_flag = TRX_ai_ottoman }
+				15 = { set_country_flag = TRX_ai_turanist }
+				10 = { set_country_flag = TRX_ai_socialist }
+			}
+		}
+	}
+}
+
+# Claims on the Turkic lands of the Caucasus, Volga, Crimea, Central Asia
+# and East Turkestan (vanilla state ids).
+TRX_claim_turkic_lands = {
+	add_state_claim = 137	# Crimea
+	add_state_claim = 249	# Kazan
+	add_state_claim = 651	# Ufa
+	add_state_claim = 404	# Kyzyl Orda
+	add_state_claim = 405	# Tashkent
+	add_state_claim = 406	# Guryev
+	add_state_claim = 407	# Ural'sk
+	add_state_claim = 583	# Kostanay
+	add_state_claim = 584	# Ashkhabad
+	add_state_claim = 585	# Navoi
+	add_state_claim = 586	# Alma-Ata
+	add_state_claim = 587	# Ust Urt
+	add_state_claim = 588	# Semipalatinsk
+	add_state_claim = 589	# Ayaguz
+	add_state_claim = 590	# Akmolinsk
+	add_state_claim = 823	# Karakalpakstan
+	add_state_claim = 830	# Bukhara
+	add_state_claim = 831	# Khiva
+	add_state_claim = 832	# Tashauz
+	add_state_claim = 617	# Urumqi
+	add_state_claim = 618	# Dzungaria
+	add_state_claim = 619	# Yarkand
+}
+
+# Cores granted when Turan is proclaimed.
+TRX_core_turkic_lands = {
+	every_state = {
+		limit = {
+			OR = {
+				state = 229 state = 1000 state = 419
+				state = 137 state = 249 state = 651
+				state = 404 state = 405 state = 406 state = 407
+				state = 583 state = 584 state = 585 state = 586 state = 587
+				state = 588 state = 589 state = 590
+				state = 823 state = 830 state = 831 state = 832
+				state = 617 state = 618 state = 619
+			}
+		}
+		add_core_of = ROOT
+	}
+}
+
+# Cores granted when the Ottoman Empire is restored: the Levant, Iraq,
+# Kuwait and the Hejaz. Egypt, Libya and the islands become claims.
+TRX_core_ottoman_lands = {
+	every_state = {
+		limit = {
+			OR = {
+				state = 799 state = 677 state = 680 state = 554 state = 553
+				state = 454 state = 455
+				state = 291 state = 675 state = 676 state = 1010 state = 1011
+				state = 656
+				state = 679 state = 855 state = 856
+			}
+		}
+		add_core_of = ROOT
+	}
+	every_state = {
+		limit = {
+			OR = {
+				state = 907 state = 446 state = 447 state = 452 state = 453 state = 456 state = 457
+				state = 448 state = 449 state = 450 state = 451 state = 661 state = 662 state = 663
+				state = 183 state = 182 state = 164 state = 137 state = 293
+			}
+			NOT = { is_owned_by = ROOT }
+		}
+		add_claim_by = ROOT
+	}
+}

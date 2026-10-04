@@ -1,0 +1,61 @@
+###########################################################################
+# Anatolian Ascendancy - decision categories
+# "allowed" is only checked once at game start, so every category is
+# switched off for all countries except Turkey before the game begins.
+###########################################################################
+
+TRX_straits_category = {
+	icon = GFX_decision_category_TRX_straits
+	allowed = { original_tag = TUR }
+	visible = { has_country_flag = TRX_straits_unlocked }
+	priority = 60
+}
+
+TRX_eastern_development_category = {
+	icon = GFX_decision_category_TRX_east
+	allowed = { original_tag = TUR }
+	visible = {
+		OR = {
+			has_idea = TRX_eastern_question
+			has_country_flag = TRX_eastern_development_unlocked
+		}
+	}
+	priority = 70
+}
+
+TRX_procurement_category = {
+	icon = GFX_decision_category_TRX_procurement
+	allowed = { original_tag = TUR }
+	priority = 40
+}
+
+TRX_formables_category = {
+	icon = GFX_decision_category_TRX_formables
+	picture = GFX_decision_cat_generic_ottoman_empire
+	allowed = { original_tag = TUR }
+	visible = {
+		OR = {
+			has_country_flag = TRX_misak_unlocked
+			has_country_flag = TRX_ottoman_unlocked
+			has_country_flag = TRX_kayser_unlocked
+			has_country_flag = TRX_turan_unlocked
+			has_country_flag = TRX_balkan_fed_unlocked
+			has_country_flag = TRX_nesf_unlocked
+		}
+	}
+	priority = 100
+}
+
+TRX_irredentism_category = {
+	icon = GFX_decision_category_TRX_irredentism
+	allowed = { original_tag = TUR }
+	visible = {
+		OR = {
+			has_country_flag = TRX_rumelia_claims
+			has_country_flag = TRX_arabia_claims
+			has_country_flag = TRX_revolution_export
+			has_completed_focus = TRX_claims_on_the_caucasus
+		}
+	}
+	priority = 50
+}

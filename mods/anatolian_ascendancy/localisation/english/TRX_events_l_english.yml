@@ -1,0 +1,163 @@
+﻿l_english:
+ trx.1.t:0 "The Republic at the Crossroads"
+ trx.1.d:0 "Ankara, 1936. The Republic is thirteen years old. Its founder has given the nation a new alphabet, new laws, new surnames and a new capital, but the world beyond our borders is growing darker by the month.\n\nIn the Grand National Assembly and in the coffee houses of Istanbul, everyone agrees that Turkey must be ready. No one agrees on what it must be ready for."
+ trx.1.a:0 "Ankara will chart its own course."
+ trx.1.b:0 "Let the people be heard."
+
+ trx.2.t:0 "Turkey Demands Hatay"
+ trx.2.d:0 "The Turkish government has formally demanded the transfer of the Sanjak of Alexandretta, which the Turks call Hatay. Ankara argues that the Turkish community there is the largest and that the territory was promised to Turkey by the National Pact.\n\nRefusing will not end the matter. Ankara has made it clear that it is prepared to act."
+ trx.2.a:0 "Hand Hatay over to Turkey."
+ trx.2.b:0 "We will not be bullied."
+
+ trx.3.t:0 "Hatay Returns"
+ trx.3.d:0 "The government of [FROM.GetNameDef] has agreed to transfer Hatay to the Republic. Turkish troops are being welcomed in Antakya and İskenderun with flowers and flags."
+ trx.3.a:0 "Welcome home."
+
+ trx.4.t:0 "Hatay Demand Refused"
+ trx.4.d:0 "[FROM.GetNameDef] has rejected our demand for Hatay. The Turkish population of the sanjak looks to Ankara to see what we will do next."
+ trx.4.a:0 "Then we will take it."
+ trx.4.b:0 "Patience. Its time will come."
+
+ trx.5.t:0 "The Saadabad Pact"
+ trx.5.d:0 "Turkey has proposed a pact of non-aggression and consultation between the states of the Middle East, to be signed at the Saadabad Palace in Tehran. The signatories would respect each other's borders and refuse to aid any power that attacked one of them."
+ trx.5.a:0 "Sign the pact."
+ trx.5.b:0 "We prefer to keep our hands free."
+
+ trx.6.t:0 "Renewing the Balkan Entente"
+ trx.6.d:0 "Ankara proposes to turn the Balkan Pact of 1934 into a firm guarantee of non-aggression between its members, in the face of growing threats from the great powers."
+ trx.6.a:0 "Renew the pact."
+ trx.6.b:0 "We have other guarantees."
+
+ trx.8.t:0 "Invitation to the Saadabad Accord"
+ trx.8.d:0 "Turkey has founded a military alliance, the Saadabad Accord, and invites us to join. Together the states of the Middle East could resist any great power."
+ trx.8.a:0 "Join the Accord."
+ trx.8.b:0 "Decline politely."
+
+ trx.9.t:0 "Invitation to the Balkan Pact"
+ trx.9.d:0 "Turkey has turned the Balkan Entente into a true military alliance and invites us to stand with it against any aggressor."
+ trx.9.a:0 "Join the Balkan Pact."
+ trx.9.b:0 "Decline politely."
+
+ trx.10.t:0 "Turkey Requests Membership"
+ trx.10.d:0 "The Turkish government has asked to join our alliance. Turkey controls the Straits and the land bridge between Europe and the Middle East, and its army is growing."
+ trx.10.a:0 "Welcome them."
+ trx.10.b:0 "Refuse."
+
+ trx.11.t:0 "Membership Accepted"
+ trx.11.d:0 "[FROM.GetNameDef] has welcomed Turkey into its alliance."
+ trx.11.a:0 "Excellent."
+
+ trx.12.t:0 "Membership Refused"
+ trx.12.d:0 "[FROM.GetNameDef] has rejected our request to join its alliance."
+ trx.12.a:0 "We will manage alone."
+
+ trx.20.t:0 "The Caliph Accepts"
+ trx.20.d:0 "A telegram has arrived from Paris. Abdülmecid II, the last Caliph, has accepted the invitation to return to Istanbul. Monarchists across the country are already preparing to receive him."
+ trx.20.a:0 "Prepare a grand ceremony at Dolmabahçe."
+ trx.20.b:0 "Bring him home quietly."
+
+ trx.21.t:0 "Republican Backlash"
+ trx.21.d:0 "Veterans of the War of Independence and young Kemalist officers have taken to the streets of Ankara to protest the restoration of the Sultanate. Some garrisons are said to be wavering."
+ trx.21.a:0 "Arrest the ringleaders."
+ trx.21.b:0 "Offer the republicans seats in the cabinet."
+
+ trx.30.t:0 "The Grey Wolves Rally"
+ trx.30.d:0 "Tens of thousands of young Turanists have marched through Istanbul carrying grey wolf banners and maps of a Turkic empire stretching to the Altai."
+ trx.30.a:0 "This is the spirit of the nation!"
+ trx.30.b:0 "Keep them in check."
+
+ trx.40.t:0 "Strike in Istanbul"
+ trx.40.d:0 "With the Communist Party legal, the dockers and tobacco workers of Istanbul have gone on strike for higher wages and recognised unions."
+ trx.40.a:0 "Support the workers."
+ trx.40.b:0 "Mediate a settlement."
+
+ trx.50.t:0 "The Karabük Furnaces Are Lit"
+ trx.50.d:0 "The first blast furnace at Karabük has been lit. For the first time, Turkish iron ore and Turkish coal produce Turkish steel."
+ trx.50.a:0 "Steel for the Republic!"
+
+ trx.51.t:0 "Oil Struck at Raman"
+ trx.51.d:0 "Drillers on Raman Mountain have struck oil. It is not Baku, but it is ours."
+ trx.51.a:0 "Fill the reserve tanks."
+
+ trx.52.t:0 "The First Village Teachers"
+ trx.52.d:0 "The first graduates of the Village Institutes are returning to their villages as teachers, agronomists and nurses. Literacy is spreading faster than anyone dared hope."
+ trx.52.a:0 "Educated citizens are loyal citizens."
+ trx.52.b:0 "Send them where the state needs them most."
+
+ trx.60.t:0 "The Janissaries Parade"
+ trx.60.d:0 "The first battalions of the new Janissary Guard paraded through Ankara today to the old mehter marches. Foreign attachés watched in silence."
+ trx.60.a:0 "Let Europe take note."
+
+ trx.61.t:0 "Akıncı Manoeuvres"
+ trx.61.d:0 "In manoeuvres on the Thracian plain, the new Akıncı cavalry raided a mock enemy's rear areas and vanished before the motorised reserves could react."
+ trx.61.a:0 "Lessons learned."
+
+ trx.70.t:0 "The Dersim Crisis Boils Over"
+ trx.70.d:0 "We failed to settle the Eastern Question in time. Open revolt has broken out in the mountains of Dersim, and the government must act at once."
+ trx.70.a:0 "Send in the army."
+ trx.70.b:0 "Concede and negotiate."
+
+ trx.80.t:0 "Anatolian Ascendancy"
+ trx.80.d:0 "Welcome to §YAnatolian Ascendancy§!.\n\nTurkey has a new national focus tree with five political paths: the §YKemalist Republic§!, the §YDemocratic Opening§!, the §YOttoman Restoration§!, §YTuranism§! and the §YRed Crescent§!. Each path has its own leader and its own formable nation.\n\nNew §Ydecisions§! let you control the Straits, settle the §YEastern Question§!, buy foreign arms and reclaim lost lands. Four new battalions, the §YJanissary Guard§!, §YAkıncı Cavalry§!, §YMountain Commandos§! and §YStraits Fortress Artillery§!, are unlocked through the army branch.\n\nYour first task: settle the §YEastern Question§! before 1938, or face a crisis in the east."
+ trx.80.a:0 "İleri!"
+
+ ### News ###
+ trx_news.1.t:0 "The Montreux Convention Signed"
+ trx_news.1.d:0 "Delegates meeting in Montreux, Switzerland, have agreed to return full sovereignty over the Bosphorus and the Dardanelles to Turkey. Turkish troops may again garrison the Straits, and Ankara may close them to warships of nations at war with Turkey."
+ trx_news.1.a:0 "The keys of the Straits are ours again."
+ trx_news.1.b:0 "Turkey grows bolder."
+
+ trx_news.2.t:0 "Hatay Joins Turkey"
+ trx_news.2.d:0 "The Sanjak of Alexandretta has been transferred to Turkey and renamed Hatay. Celebrations are reported in Antakya and Ankara."
+ trx_news.2.a:0 "Another step towards the National Pact."
+ trx_news.2.b:0 "A small change on the map."
+
+ trx_news.3.t:0 "The Sultanate Restored in Turkey"
+ trx_news.3.d:0 "In a stunning reversal, the Turkish Republic has restored the Ottoman Sultanate. Abdülmecid II, the last Caliph, has returned from his exile in Paris to take the throne of his ancestors."
+ trx_news.3.a:0 "Long live the Padishah!"
+ trx_news.3.b:0 "The old empire stirs."
+
+ trx_news.4.t:0 "Turanists Seize Power in Ankara"
+ trx_news.4.d:0 "The pan-Turkist writer Nihal Atsız has become the leader of Turkey at the head of a radical nationalist movement. He speaks openly of uniting all Turkic peoples from the Balkans to China in a single state."
+ trx_news.4.a:0 "Towards Turan!"
+ trx_news.4.b:0 "Moscow will not be pleased."
+
+ trx_news.5.t:0 "The Red Crescent Revolution"
+ trx_news.5.d:0 "Turkey has become a socialist state. Şefik Hüsnü of the Communist Party of Turkey now leads a government of workers' and peasants' councils."
+ trx_news.5.a:0 "Power to the councils!"
+ trx_news.5.b:0 "A red flag flies over the Bosphorus."
+
+ trx_news.6.t:0 "Free Elections in Turkey"
+ trx_news.6.d:0 "For the first time since the founding of the Republic, Turkish voters have chosen between rival parties. The liberal opposition led by Celal Bayar has won, and the single-party era is over."
+ trx_news.6.a:0 "The nation has spoken."
+ trx_news.6.b:0 "A new democracy is born."
+
+ trx_news.10.t:0 "Greater Turkey Proclaimed"
+ trx_news.10.d:0 "Ankara has proclaimed that every territory named in the National Pact of 1920 is once again Turkish. The Republic now stretches from Western Thrace to Mosul."
+ trx_news.10.a:0 "The Pact is fulfilled."
+ trx_news.10.b:0 "Turkey's appetite grows."
+
+ trx_news.11.t:0 "The Ottoman Empire Reborn"
+ trx_news.11.d:0 "Two decades after its collapse, the Ottoman Empire has risen again. From the Bosphorus the Sultan-Caliph once more rules Damascus, Baghdad, Jerusalem and the Holy Cities."
+ trx_news.11.a:0 "Devlet-i Ebed-müddet!"
+ trx_news.11.b:0 "The sick man of Europe has recovered."
+
+ trx_news.12.t:0 "Caesar of Rome"
+ trx_news.12.d:0 "Holding Rome, Athens, Belgrade, Cairo and Jerusalem, the Ottoman Padishah has proclaimed himself Kayser-i Rûm, Caesar of Rome, heir of both Constantine and Mehmed the Conqueror."
+ trx_news.12.a:0 "The world is ours."
+ trx_news.12.b:0 "Rome has a new emperor."
+
+ trx_news.13.t:0 "Turan Proclaimed"
+ trx_news.13.d:0 "The Turkic peoples from the Bosphorus to Central Asia have been united under a single government in Ankara. The grey wolf banner flies over Baku, Tashkent and Alma-Ata."
+ trx_news.13.a:0 "Turan is real!"
+ trx_news.13.b:0 "A new giant in Asia."
+
+ trx_news.14.t:0 "The Balkan-Anatolian Federation"
+ trx_news.14.d:0 "In a ceremony in Istanbul, the states of the Balkan Pact have merged with Turkey into a single federal state. Old enemies now share one parliament."
+ trx_news.14.a:0 "Unity in diversity."
+ trx_news.14.b:0 "The Balkans are no longer a powder keg."
+
+ trx_news.15.t:0 "The Near Eastern Socialist Federation"
+ trx_news.15.d:0 "The soviet republics of Turkey, Iran, Iraq and the Levant have proclaimed a single socialist federation."
+ trx_news.15.a:0 "Workers of the Near East, unite!"
+ trx_news.15.b:0 "The revolution has reached the Gulf."

@@ -1,0 +1,17 @@
+###########################################################################
+# Anatolian Ascendancy - opinion modifiers
+###########################################################################
+
+opinion_modifiers = {
+	TRX_pact_partner = {
+		value = 25
+	}
+	TRX_arms_customer = {
+		value = 10
+		trade = yes
+	}
+	TRX_territorial_demands = {
+		value = -30
+		decay = 1
+	}
+}
