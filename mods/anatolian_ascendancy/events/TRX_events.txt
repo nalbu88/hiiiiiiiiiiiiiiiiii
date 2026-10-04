@@ -1,0 +1,454 @@
+###########################################################################
+# Anatolian Ascendancy - country events
+#
+# Every event is "is_triggered_only": nothing here is polled by the
+# mean-time-to-happen system, so the events cost nothing until a focus,
+# decision or another event fires them.
+#
+# In events sent by Turkey to another country, ROOT is the receiver and
+# FROM is Turkey.
+###########################################################################
+
+add_namespace = trx
+
+### The Republic at the Crossroads ###
+country_event = {
+	id = trx.1
+	title = trx.1.t
+	desc = trx.1.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+
+	option = {
+		name = trx.1.a
+		add_political_power = 25
+	}
+	option = {
+		name = trx.1.b
+		add_stability = 0.02
+	}
+}
+
+### Hatay: demand sent to the owner of the Sanjak ###
+country_event = {
+	id = trx.2
+	title = trx.2.t
+	desc = trx.2.d
+	picture = GFX_report_event_gre_diplomacy
+	is_triggered_only = yes
+
+	option = {
+		name = trx.2.a
+		ai_chance = {
+			base = 50
+			modifier = { factor = 2 threat > 0.5 }
+			modifier = { factor = 2 has_war = yes }
+		}
+		FROM = { transfer_state = 799 }
+		FROM = { country_event = { id = trx.3 hours = 6 } }
+	}
+	option = {
+		name = trx.2.b
+		ai_chance = {
+			base = 50
+		}
+		add_opinion_modifier = { target = FROM modifier = TRX_territorial_demands }
+		FROM = { country_event = { id = trx.4 hours = 6 } }
+	}
+}
+
+### Hatay: accepted ###
+country_event = {
+	id = trx.3
+	title = trx.3.t
+	desc = trx.3.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+
+	option = {
+		name = trx.3.a
+		add_stability = 0.03
+		hidden_effect = {
+			news_event = { id = trx_news.2 hours = 6 }
+		}
+	}
+}
+
+### Hatay: refused ###
+country_event = {
+	id = trx.4
+	title = trx.4.t
+	desc = trx.4.d
+	picture = GFX_report_event_generic_rally
+	is_triggered_only = yes
+
+	option = {
+		name = trx.4.a
+		ai_chance = { base = 40 }
+		create_wargoal = {
+			type = take_state_focus
+			target = FROM
+			generator = { 799 }
+		}
+	}
+	option = {
+		name = trx.4.b
+		ai_chance = { base = 60 }
+		add_political_power = 50
+	}
+}
+
+### Saadabad Pact proposal (to Iran, Iraq, Afghanistan) ###
+country_event = {
+	id = trx.5
+	title = trx.5.t
+	desc = trx.5.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+
+	option = {
+		name = trx.5.a
+		ai_chance = { base = 90 }
+		diplomatic_relation = {
+			country = FROM
+			relation = non_aggression_pact
+			active = yes
+		}
+		add_opinion_modifier = { target = FROM modifier = TRX_pact_partner }
+		FROM = { add_opinion_modifier = { target = ROOT modifier = TRX_pact_partner } }
+	}
+	option = {
+		name = trx.5.b
+		ai_chance = { base = 10 }
+	}
+}
+
+### Balkan Entente renewal (to Greece, Yugoslavia, Romania) ###
+country_event = {
+	id = trx.6
+	title = trx.6.t
+	desc = trx.6.d
+	picture = GFX_report_event_generic_handshake
+	is_triggered_only = yes
+
+	option = {
+		name = trx.6.a
+		ai_chance = { base = 85 }
+		diplomatic_relation = {
+			country = FROM
+			relation = non_aggression_pact
+			active = yes
+		}
+		add_opinion_modifier = { target = FROM modifier = TRX_pact_partner }
+		FROM = { add_opinion_modifier = { target = ROOT modifier = TRX_pact_partner } }
+	}
+	option = {
+		name = trx.6.b
+		ai_chance = { base = 15 }
+	}
+}
+
+### Invitation to the Saadabad Accord ###
+country_event = {
+	id = trx.8
+	title = trx.8.t
+	desc = trx.8.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+
+	option = {
+		name = trx.8.a
+		ai_chance = {
+			base = 50
+			modifier = { factor = 0 is_in_faction = yes }
+			modifier = { factor = 2 has_opinion = { target = FROM value > 20 } }
+		}
+		trigger = { is_in_faction = no }
+		FROM = { add_to_faction = ROOT }
+	}
+	option = {
+		name = trx.8.b
+		ai_chance = { base = 50 }
+	}
+}
+
+### Invitation to the Balkan Pact ###
+country_event = {
+	id = trx.9
+	title = trx.9.t
+	desc = trx.9.d
+	picture = GFX_report_event_gre_diplomacy
+	is_triggered_only = yes
+
+	option = {
+		name = trx.9.a
+		ai_chance = {
+			base = 45
+			modifier = { factor = 0 is_in_faction = yes }
+			modifier = { factor = 2 has_opinion = { target = FROM value > 20 } }
+		}
+		trigger = { is_in_faction = no }
+		FROM = { add_to_faction = ROOT }
+	}
+	option = {
+		name = trx.9.b
+		ai_chance = { base = 55 }
+	}
+}
+
+### Turkey asks a faction leader for membership ###
+country_event = {
+	id = trx.10
+	title = trx.10.t
+	desc = trx.10.d
+	picture = GFX_report_event_generic_handshake
+	is_triggered_only = yes
+
+	option = {
+		name = trx.10.a
+		ai_chance = {
+			base = 65
+			modifier = { factor = 0 FROM = { is_in_faction = yes } }
+		}
+		add_to_faction = FROM
+		FROM = { country_event = { id = trx.11 hours = 6 } }
+	}
+	option = {
+		name = trx.10.b
+		ai_chance = { base = 35 }
+		FROM = { country_event = { id = trx.12 hours = 6 } }
+	}
+}
+
+country_event = {
+	id = trx.11
+	title = trx.11.t
+	desc = trx.11.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+
+	option = {
+		name = trx.11.a
+		add_war_support = 0.03
+	}
+}
+
+country_event = {
+	id = trx.12
+	title = trx.12.t
+	desc = trx.12.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+
+	option = {
+		name = trx.12.a
+		add_political_power = 25
+	}
+}
+
+### Ottoman path: the Caliph accepts the invitation ###
+country_event = {
+	id = trx.20
+	title = trx.20.t
+	desc = trx.20.d
+	picture = GFX_report_event_eng_royal_family
+	is_triggered_only = yes
+
+	option = {
+		name = trx.20.a
+		add_political_power = -25
+		add_stability = 0.05
+	}
+	option = {
+		name = trx.20.b
+		add_political_power = 25
+	}
+}
+
+### Ottoman path: republican backlash ###
+country_event = {
+	id = trx.21
+	title = trx.21.t
+	desc = trx.21.d
+	picture = GFX_report_event_generic_rally2
+	is_triggered_only = yes
+
+	option = {
+		name = trx.21.a
+		add_stability = -0.05
+		add_war_support = 0.03
+		add_popularity = {
+			ideology = neutrality
+			popularity = 0.05
+		}
+	}
+	option = {
+		name = trx.21.b
+		add_political_power = -50
+		add_stability = 0.03
+	}
+}
+
+### Turanist path: the Grey Wolves rally ###
+country_event = {
+	id = trx.30
+	title = trx.30.t
+	desc = trx.30.d
+	picture = GFX_report_event_generic_rally
+	is_triggered_only = yes
+
+	option = {
+		name = trx.30.a
+		add_war_support = 0.05
+		add_stability = -0.03
+	}
+	option = {
+		name = trx.30.b
+		add_stability = 0.03
+	}
+}
+
+### Socialist path: strike in Istanbul ###
+country_event = {
+	id = trx.40
+	title = trx.40.t
+	desc = trx.40.d
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+
+	option = {
+		name = trx.40.a
+		add_popularity = {
+			ideology = communism
+			popularity = 0.05
+		}
+		add_stability = -0.03
+	}
+	option = {
+		name = trx.40.b
+		add_stability = 0.02
+	}
+}
+
+### Economy: Karabük opens ###
+country_event = {
+	id = trx.50
+	title = trx.50.t
+	desc = trx.50.d
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+
+	option = {
+		name = trx.50.a
+		add_political_power = 25
+	}
+}
+
+### Economy: oil at Raman ###
+country_event = {
+	id = trx.51
+	title = trx.51.t
+	desc = trx.51.d
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+
+	option = {
+		name = trx.51.a
+		add_fuel = 20000
+	}
+}
+
+### Society: first Village Institute graduates ###
+country_event = {
+	id = trx.52
+	title = trx.52.t
+	desc = trx.52.d
+	picture = GFX_report_event_generic_research_lab
+	is_triggered_only = yes
+
+	option = {
+		name = trx.52.a
+		add_stability = 0.03
+	}
+	option = {
+		name = trx.52.b
+		add_political_power = 40
+	}
+}
+
+### Army: the Janissary Guard parades ###
+country_event = {
+	id = trx.60
+	title = trx.60.t
+	desc = trx.60.d
+	picture = GFX_report_event_lithuania_army
+	is_triggered_only = yes
+
+	option = {
+		name = trx.60.a
+		add_war_support = 0.03
+	}
+}
+
+### Army: Akıncı manoeuvres ###
+country_event = {
+	id = trx.61
+	title = trx.61.t
+	desc = trx.61.d
+	picture = GFX_report_event_yugoslavian_cavalry
+	is_triggered_only = yes
+
+	option = {
+		name = trx.61.a
+		army_experience = 10
+	}
+}
+
+### Eastern Question: the Dersim crisis boils over (mission timeout) ###
+country_event = {
+	id = trx.70
+	title = trx.70.t
+	desc = trx.70.d
+	picture = GFX_report_event_dead_soldiers
+	is_triggered_only = yes
+
+	option = {
+		name = trx.70.a
+		ai_chance = { base = 50 }
+		if = {
+			limit = { has_idea = TRX_eastern_question }
+			swap_ideas = {
+				remove_idea = TRX_eastern_question
+				add_idea = TRX_eastern_pacification
+			}
+		}
+		set_country_flag = TRX_eastern_policy_chosen
+		add_stability = -0.05
+	}
+	option = {
+		name = trx.70.b
+		ai_chance = { base = 50 }
+		if = {
+			limit = { has_idea = TRX_eastern_question }
+			swap_ideas = {
+				remove_idea = TRX_eastern_question
+				add_idea = TRX_eastern_reconciliation
+			}
+		}
+		set_country_flag = TRX_eastern_policy_chosen
+		add_political_power = -100
+	}
+}
+
+### Welcome message for a human Turkey ###
+country_event = {
+	id = trx.80
+	title = trx.80.t
+	desc = trx.80.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+
+	option = {
+		name = trx.80.a
+	}
+}

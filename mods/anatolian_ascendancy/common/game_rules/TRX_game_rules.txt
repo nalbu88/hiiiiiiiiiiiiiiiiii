@@ -1,0 +1,43 @@
+###########################################################################
+# Anatolian Ascendancy - game rules
+###########################################################################
+
+TRX_ai_behavior = {
+	name = "TRX_AI_BEHAVIOR"
+	group = "RULE_GROUP_AI_BEHAVIOR"
+	default = {
+		name = DEFAULT
+		text = "TRX_RULE_OPTION_DEFAULT"
+		desc = "TRX_RULE_OPTION_DEFAULT_DESC"
+	}
+	option = {
+		name = KEMALIST
+		text = "TRX_RULE_OPTION_KEMALIST"
+		desc = "TRX_RULE_OPTION_KEMALIST_DESC"
+	}
+	option = {
+		name = DEMOCRATIC
+		text = "TRX_RULE_OPTION_DEMOCRATIC"
+		desc = "TRX_RULE_OPTION_DEMOCRATIC_DESC"
+	}
+	option = {
+		name = OTTOMAN
+		text = "TRX_RULE_OPTION_OTTOMAN"
+		desc = "TRX_RULE_OPTION_OTTOMAN_DESC"
+	}
+	option = {
+		name = TURANIST
+		text = "TRX_RULE_OPTION_TURANIST"
+		desc = "TRX_RULE_OPTION_TURANIST_DESC"
+	}
+	option = {
+		name = SOCIALIST
+		text = "TRX_RULE_OPTION_SOCIALIST"
+		desc = "TRX_RULE_OPTION_SOCIALIST_DESC"
+	}
+	option = {
+		name = RANDOM
+		text = "TRX_RULE_OPTION_RANDOM"
+		desc = "TRX_RULE_OPTION_RANDOM_DESC"
+	}
+}

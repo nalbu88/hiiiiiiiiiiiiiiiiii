@@ -48,7 +48,7 @@ ideas = {
 			}
 		}
 
-		TRX_masters_of_the_straits = {
+		TRX_masters_of_the_straits_idea = {
 			removal_cost = -1
 			modifier = {
 				coastal_bunker_effectiveness_factor = 0.25
@@ -116,7 +116,7 @@ ideas = {
 			}
 		}
 
-		TRX_balkan_partnership = {
+		TRX_balkan_partnership_idea = {
 			removal_cost = -1
 			modifier = {
 				opinion_gain_monthly_factor = 0.25
@@ -157,7 +157,7 @@ ideas = {
 			}
 		}
 
-		TRX_kizil_elma = {
+		TRX_kizil_elma_idea = {
 			removal_cost = -1
 			modifier = {
 				army_attack_factor = 0.07
@@ -168,7 +168,7 @@ ideas = {
 
 		######## Socialist path ########
 
-		TRX_village_soviets = {
+		TRX_village_soviets_idea = {
 			removal_cost = -1
 			modifier = {
 				consumer_goods_factor = -0.03
@@ -197,7 +197,7 @@ ideas = {
 			}
 		}
 
-		TRX_mehmetcik_spirit = {
+		TRX_mehmetcik_spirit_idea = {
 			removal_cost = -1
 			modifier = {
 				army_infantry_defence_factor = 0.10
@@ -205,7 +205,7 @@ ideas = {
 			}
 		}
 
-		TRX_defense_of_anatolia = {
+		TRX_defense_of_anatolia_idea = {
 			removal_cost = -1
 			modifier = {
 				army_core_defence_factor = 0.15
@@ -214,7 +214,7 @@ ideas = {
 			}
 		}
 
-		TRX_akinci_doctrine = {
+		TRX_akinci_doctrine_idea = {
 			removal_cost = -1
 			modifier = {
 				army_speed_factor = 0.10
@@ -223,7 +223,7 @@ ideas = {
 			}
 		}
 
-		TRX_general_mobilization = {
+		TRX_general_mobilization_idea = {
 			removal_cost = -1
 			modifier = {
 				conscription = 0.02
@@ -232,7 +232,7 @@ ideas = {
 			}
 		}
 
-		TRX_army_of_the_republic = {
+		TRX_army_of_the_republic_idea = {
 			removal_cost = -1
 			modifier = {
 				army_attack_factor = 0.05
@@ -243,7 +243,7 @@ ideas = {
 
 		######## Air force ########
 
-		TRX_aeronautical_association = {
+		TRX_aeronautical_association_idea = {
 			removal_cost = -1
 			modifier = {
 				air_training_xp_gain_factor = 0.15
@@ -251,7 +251,7 @@ ideas = {
 			}
 		}
 
-		TRX_modern_air_force = {
+		TRX_modern_air_force_idea = {
 			removal_cost = -1
 			modifier = {
 				air_superiority_efficiency = 0.10
@@ -270,7 +270,7 @@ ideas = {
 			}
 		}
 
-		TRX_statism = {
+		TRX_statism_idea = {
 			removal_cost = -1
 			modifier = {
 				production_speed_industrial_complex_factor = 0.10
@@ -280,7 +280,7 @@ ideas = {
 			}
 		}
 
-		TRX_liberal_market = {
+		TRX_liberal_market_idea = {
 			removal_cost = -1
 			modifier = {
 				trade_opinion_factor = 0.25
@@ -289,7 +289,7 @@ ideas = {
 			}
 		}
 
-		TRX_industrial_heartland = {
+		TRX_industrial_heartland_idea = {
 			removal_cost = -1
 			modifier = {
 				production_factory_max_efficiency_factor = 0.05
@@ -300,7 +300,7 @@ ideas = {
 
 		######## Society and science ########
 
-		TRX_village_institutes = {
+		TRX_village_institutes_idea = {
 			removal_cost = -1
 			modifier = {
 				research_speed_factor = 0.03
@@ -309,14 +309,14 @@ ideas = {
 			}
 		}
 
-		TRX_scientific_republic = {
+		TRX_scientific_republic_idea = {
 			removal_cost = -1
 			modifier = {
 				research_speed_factor = 0.07
 			}
 		}
 
-		TRX_national_unity = {
+		TRX_national_unity_idea = {
 			removal_cost = -1
 			modifier = {
 				stability_factor = 0.10

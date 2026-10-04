@@ -476,7 +476,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_RESEARCH }
 		ai_will_do = { base = 5 }
 		completion_reward = {
-			add_ideas = TRX_mehmetcik_spirit
+			add_ideas = TRX_mehmetcik_spirit_idea
 			add_tech_bonus = {
 				name = TRX_mehmetcik_spirit
 				bonus = 0.5
@@ -700,7 +700,7 @@ focus_tree = {
 			modifier = { factor = 2 is_historical_focus_on = yes }
 		}
 		completion_reward = {
-			add_ideas = TRX_defense_of_anatolia
+			add_ideas = TRX_defense_of_anatolia_idea
 			341 = {
 				add_building_construction = {
 					type = bunker
@@ -732,7 +732,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = { base = 3 }
 		completion_reward = {
-			add_ideas = TRX_akinci_doctrine
+			add_ideas = TRX_akinci_doctrine_idea
 			add_tech_bonus = {
 				name = TRX_akinci_doctrine
 				bonus = 0.5
@@ -759,7 +759,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = { base = 6 }
 		completion_reward = {
-			add_ideas = TRX_general_mobilization
+			add_ideas = TRX_general_mobilization_idea
 			add_manpower = 25000
 		}
 	}
@@ -775,8 +775,1812 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = { base = 6 }
 		completion_reward = {
-			add_ideas = TRX_army_of_the_republic
+			add_ideas = TRX_army_of_the_republic_idea
 			army_experience = 50
 		}
 	}
 
+	#######################################################################
+	# AIR FORCE
+	#######################################################################
+
+	focus = {
+		id = TRX_aeronautical_association
+		icon = GFX_focus_TRX_aeronautical_association
+		x = 22
+		y = 0
+		cost = 10
+		search_filters = { FOCUS_FILTER_AIR_XP FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_ideas = TRX_aeronautical_association_idea
+			air_experience = 25
+			add_tech_bonus = {
+				name = TRX_aeronautical_association
+				bonus = 0.5
+				uses = 1
+				category = light_fighter
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_nuri_demirag_works
+		icon = GFX_focus_TRX_nuri_demirag_works
+		relative_position_id = TRX_aeronautical_association
+		x = -1
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_aeronautical_association }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL_CHARACTER }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			recruit_character = TRX_nuri_demirag
+			797 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_tech_bonus = {
+				name = TRX_nuri_demirag_works
+				bonus = 0.5
+				uses = 1
+				category = air_equipment
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_kayseri_aircraft_factory
+		icon = GFX_focus_TRX_kayseri_aircraft_factory
+		relative_position_id = TRX_aeronautical_association
+		x = 1
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_aeronautical_association }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_AIR_XP }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			348 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_sabiha_gokcen_academy
+		icon = GFX_focus_TRX_sabiha_gokcen_academy
+		relative_position_id = TRX_aeronautical_association
+		x = 0
+		y = 2
+		cost = 10
+		prerequisite = { focus = TRX_nuri_demirag_works focus = TRX_kayseri_aircraft_factory }
+		search_filters = { FOCUS_FILTER_AIR_XP FOCUS_FILTER_MILITARY_CHARACTER }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			recruit_character = TRX_sabiha_gokcen
+			air_experience = 25
+		}
+	}
+
+	focus = {
+		id = TRX_fighter_command
+		icon = GFX_focus_TRX_fighter_command
+		relative_position_id = TRX_sabiha_gokcen_academy
+		x = -1
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_sabiha_gokcen_academy }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_AIR_XP }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = TRX_fighter_command
+				bonus = 1.0
+				uses = 1
+				category = light_fighter
+			}
+			add_doctrine_cost_reduction = {
+				name = TRX_fighter_command
+				cost_reduction = 0.5
+				uses = 1
+				category = air_doctrine
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_bomber_command
+		icon = GFX_focus_TRX_bomber_command
+		relative_position_id = TRX_sabiha_gokcen_academy
+		x = 1
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_sabiha_gokcen_academy }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_AIR_XP }
+		ai_will_do = { base = 3 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = TRX_bomber_command
+				bonus = 0.5
+				uses = 1
+				category = cas_bomber
+			}
+			add_tech_bonus = {
+				name = TRX_bomber_command
+				bonus = 0.5
+				uses = 1
+				category = tactical_bomber
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_modern_air_force
+		icon = GFX_focus_TRX_modern_air_force
+		relative_position_id = TRX_sabiha_gokcen_academy
+		x = 0
+		y = 2
+		cost = 12
+		prerequisite = { focus = TRX_fighter_command }
+		prerequisite = { focus = TRX_bomber_command }
+		search_filters = { FOCUS_FILTER_AIR_XP }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			add_ideas = TRX_modern_air_force_idea
+			air_experience = 50
+		}
+	}
+
+	#######################################################################
+	# NAVY
+	#######################################################################
+
+	focus = {
+		id = TRX_golcuk_shipyards
+		icon = GFX_focus_TRX_golcuk_shipyards
+		x = 27
+		y = 0
+		cost = 10
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_NAVY_XP }
+		ai_will_do = { base = 3 }
+		completion_reward = {
+			navy_experience = 15
+			347 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_refit_the_yavuz
+		icon = GFX_focus_TRX_refit_the_yavuz
+		relative_position_id = TRX_golcuk_shipyards
+		x = -1
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_golcuk_shipyards }
+		search_filters = { FOCUS_FILTER_NAVY_XP FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 2 }
+		completion_reward = {
+			navy_experience = 25
+			add_tech_bonus = {
+				name = TRX_refit_the_yavuz
+				bonus = 0.5
+				uses = 2
+				category = naval_equipment
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_black_sea_submarines
+		icon = GFX_focus_TRX_black_sea_submarines
+		relative_position_id = TRX_golcuk_shipyards
+		x = 1
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_golcuk_shipyards }
+		search_filters = { FOCUS_FILTER_NAVY_XP FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 3 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = TRX_black_sea_submarines
+				bonus = 1.0
+				uses = 1
+				category = ss_tech
+			}
+			add_doctrine_cost_reduction = {
+				name = TRX_black_sea_submarines
+				cost_reduction = 0.5
+				uses = 1
+				category = naval_doctrine
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_coastal_fortifications
+		icon = GFX_focus_TRX_coastal_fortifications
+		relative_position_id = TRX_golcuk_shipyards
+		x = 0
+		y = 2
+		cost = 10
+		prerequisite = { focus = TRX_refit_the_yavuz focus = TRX_black_sea_submarines }
+		search_filters = { FOCUS_FILTER_NAVY_XP }
+		ai_will_do = { base = 3 }
+		completion_reward = {
+			339 = {
+				add_building_construction = {
+					type = coastal_bunker
+					level = 1
+					province = { all_provinces = yes limit_to_coastal = yes }
+					instant_build = yes
+				}
+			}
+			354 = {
+				add_building_construction = {
+					type = coastal_bunker
+					level = 1
+					province = { all_provinces = yes limit_to_coastal = yes }
+					instant_build = yes
+				}
+			}
+			345 = {
+				add_building_construction = {
+					type = coastal_bunker
+					level = 1
+					province = { all_provinces = yes limit_to_coastal = yes }
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_masters_of_the_straits
+		icon = GFX_focus_TRX_masters_of_the_straits
+		relative_position_id = TRX_coastal_fortifications
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_coastal_fortifications }
+		available = {
+			has_completed_focus = TRX_montreux_convention
+		}
+		search_filters = { FOCUS_FILTER_NAVY_XP FOCUS_FILTER_POLITICAL_CHARACTER }
+		ai_will_do = { base = 3 }
+		completion_reward = {
+			recruit_character = TRX_rauf_orbay
+			swap_ideas = {
+				remove_idea = TRX_straits_sovereignty
+				add_idea = TRX_masters_of_the_straits_idea
+			}
+			navy_experience = 25
+		}
+	}
+
+	#######################################################################
+	# POLITICS - root
+	#######################################################################
+
+	focus = {
+		id = TRX_republic_at_the_crossroads
+		icon = GFX_focus_TRX_republic_at_the_crossroads
+		x = 40
+		y = 0
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			add_political_power = 75
+			add_stability = 0.02
+			hidden_effect = {
+				country_event = { id = trx.1 days = 1 }
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_debate_the_future
+		icon = GFX_focus_TRX_debate_the_future
+		relative_position_id = TRX_republic_at_the_crossroads
+		x = 0
+		y = 1
+		cost = 7
+		prerequisite = { focus = TRX_republic_at_the_crossroads }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			add_political_power = 50
+			custom_effect_tooltip = TRX_debate_the_future_tt
+		}
+	}
+
+	#######################################################################
+	# POLITICS - Kemalist Republic (the Six Arrows)
+	#######################################################################
+
+	focus = {
+		id = TRX_kemalist_consolidation
+		icon = GFX_focus_TRX_kemalist_consolidation
+		relative_position_id = TRX_debate_the_future
+		x = -8
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_debate_the_future }
+		mutually_exclusive = {
+			focus = TRX_multi_party_experiment
+			focus = TRX_invite_the_house_of_osman
+			focus = TRX_turanist_awakening
+			focus = TRX_legalize_the_tkp
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_HISTORICAL }
+		ai_will_do = {
+			base = 5
+			modifier = { factor = 20 has_country_flag = TRX_ai_kemalist }
+			modifier = { factor = 0 TRX_ai_on_other_path_than_kemalist = yes }
+		}
+		completion_reward = {
+			add_ideas = TRX_six_arrows_1
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.05
+			}
+			add_country_leader_trait = TRX_trait_father_of_the_turks
+		}
+	}
+
+	focus = {
+		id = TRX_arrow_republicanism
+		icon = GFX_focus_TRX_arrow_republicanism
+		relative_position_id = TRX_kemalist_consolidation
+		x = -1
+		y = 1
+		cost = 7
+		prerequisite = { focus = TRX_kemalist_consolidation }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_political_power = 75
+		}
+	}
+
+	focus = {
+		id = TRX_arrow_nationalism
+		icon = GFX_focus_TRX_arrow_nationalism
+		relative_position_id = TRX_kemalist_consolidation
+		x = 1
+		y = 1
+		cost = 7
+		prerequisite = { focus = TRX_kemalist_consolidation }
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_war_support = 0.05
+			army_experience = 10
+		}
+	}
+
+	focus = {
+		id = TRX_arrow_populism
+		icon = GFX_focus_TRX_arrow_populism
+		relative_position_id = TRX_arrow_republicanism
+		x = 0
+		y = 1
+		cost = 7
+		prerequisite = { focus = TRX_arrow_republicanism }
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_stability = 0.05
+			if = {
+				limit = { has_idea = TRX_six_arrows_1 }
+				swap_ideas = {
+					remove_idea = TRX_six_arrows_1
+					add_idea = TRX_six_arrows_2
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_arrow_statism
+		icon = GFX_focus_TRX_arrow_statism
+		relative_position_id = TRX_arrow_nationalism
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_arrow_nationalism }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			49 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			339 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_arrow_laicism
+		icon = GFX_focus_TRX_arrow_laicism
+		relative_position_id = TRX_arrow_populism
+		x = 0
+		y = 1
+		cost = 7
+		prerequisite = { focus = TRX_arrow_populism }
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_stability = 0.03
+			if = {
+				limit = { has_idea = TRX_six_arrows_2 }
+				swap_ideas = {
+					remove_idea = TRX_six_arrows_2
+					add_idea = TRX_six_arrows_3
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_arrow_revolutionism
+		icon = GFX_focus_TRX_arrow_revolutionism
+		relative_position_id = TRX_arrow_statism
+		x = 0
+		y = 1
+		cost = 7
+		prerequisite = { focus = TRX_arrow_statism }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = TRX_arrow_revolutionism
+				bonus = 0.5
+				uses = 1
+				category = industry
+			}
+			add_tech_bonus = {
+				name = TRX_arrow_revolutionism
+				bonus = 0.5
+				uses = 1
+				category = electronics
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_the_eternal_chief
+		icon = GFX_focus_TRX_the_eternal_chief
+		relative_position_id = TRX_kemalist_consolidation
+		x = 0
+		y = 4
+		cost = 10
+		prerequisite = { focus = TRX_arrow_laicism }
+		prerequisite = { focus = TRX_arrow_revolutionism }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_political_power = 100
+			if = {
+				limit = { has_idea = TRX_six_arrows_3 }
+				swap_ideas = {
+					remove_idea = TRX_six_arrows_3
+					add_idea = TRX_kemalist_state
+				}
+			}
+			else = {
+				add_ideas = TRX_kemalist_state
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_armed_neutrality
+		icon = GFX_focus_TRX_armed_neutrality
+		relative_position_id = TRX_the_eternal_chief
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_the_eternal_chief }
+		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			army_experience = 25
+			air_experience = 25
+			navy_experience = 25
+			add_war_support = 0.05
+		}
+	}
+
+	focus = {
+		id = TRX_leader_of_the_near_east
+		icon = GFX_focus_TRX_leader_of_the_near_east
+		relative_position_id = TRX_armed_neutrality
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_armed_neutrality }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_political_power = 100
+			set_country_flag = TRX_misak_unlocked
+			unlock_decision_tooltip = TRX_form_misak_i_milli
+			add_state_claim = 799
+			add_state_claim = 676
+		}
+	}
+
+	#######################################################################
+	# POLITICS - Democratic Opening
+	#######################################################################
+
+	focus = {
+		id = TRX_multi_party_experiment
+		icon = GFX_focus_TRX_multi_party_experiment
+		relative_position_id = TRX_debate_the_future
+		x = -4
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_debate_the_future }
+		mutually_exclusive = {
+			focus = TRX_kemalist_consolidation
+			focus = TRX_invite_the_house_of_osman
+			focus = TRX_turanist_awakening
+			focus = TRX_legalize_the_tkp
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 0 is_historical_focus_on = yes NOT = { has_country_flag = TRX_ai_democratic } }
+			modifier = { factor = 50 has_country_flag = TRX_ai_democratic }
+			modifier = { factor = 0 TRX_ai_on_other_path_than_democratic = yes }
+		}
+		completion_reward = {
+			add_ideas = TRX_multi_party_democracy
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.15
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_revive_the_free_party
+		icon = GFX_focus_TRX_revive_the_free_party
+		relative_position_id = TRX_multi_party_experiment
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_multi_party_experiment }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			recruit_character = TRX_celal_bayar
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.15
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_free_elections
+		icon = GFX_focus_TRX_free_elections
+		relative_position_id = TRX_revive_the_free_party
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_revive_the_free_party }
+		available = {
+			democratic > 0.3
+			has_civil_war = no
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			set_politics = {
+				ruling_party = democratic
+				elections_allowed = yes
+			}
+			promote_character = TRX_celal_bayar
+			hidden_effect = {
+				news_event = { id = trx_news.6 hours = 12 }
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_democrat_party
+		icon = GFX_focus_TRX_democrat_party
+		relative_position_id = TRX_free_elections
+		x = -1
+		y = 1
+		cost = 7
+		prerequisite = { focus = TRX_free_elections }
+		search_filters = { FOCUS_FILTER_POLITICAL_CHARACTER FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			recruit_character = TRX_adnan_menderes
+			add_stability = 0.05
+			add_political_power = 50
+		}
+	}
+
+	focus = {
+		id = TRX_freedom_of_the_press
+		icon = GFX_focus_TRX_freedom_of_the_press
+		relative_position_id = TRX_free_elections
+		x = 1
+		y = 1
+		cost = 7
+		prerequisite = { focus = TRX_free_elections }
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.10
+			}
+			add_stability = 0.05
+		}
+	}
+
+	focus = {
+		id = TRX_align_with_the_west
+		icon = GFX_focus_TRX_align_with_the_west
+		relative_position_id = TRX_democrat_party
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_democrat_party }
+		available = {
+			is_in_faction = no
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			custom_effect_tooltip = TRX_request_faction_membership_tt
+			hidden_effect = {
+				random_country = {
+					limit = {
+						is_faction_leader = yes
+						has_government = democratic
+						NOT = { has_war_with = ROOT }
+					}
+					country_event = { id = trx.10 hours = 12 }
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_balkan_partnership
+		icon = GFX_focus_TRX_balkan_partnership
+		relative_position_id = TRX_freedom_of_the_press
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_freedom_of_the_press }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_ideas = TRX_balkan_partnership_idea
+		}
+	}
+
+	focus = {
+		id = TRX_balkan_anatolian_federation
+		icon = GFX_focus_TRX_balkan_anatolian_federation
+		relative_position_id = TRX_balkan_partnership
+		x = 0
+		y = 1
+		cost = 12
+		prerequisite = { focus = TRX_balkan_partnership }
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			set_country_flag = TRX_balkan_fed_unlocked
+			unlock_decision_tooltip = TRX_form_balkan_federation
+			add_political_power = 50
+		}
+	}
+
+	#######################################################################
+	# POLITICS - Ottoman Restoration
+	#######################################################################
+
+	focus = {
+		id = TRX_invite_the_house_of_osman
+		icon = GFX_focus_TRX_invite_the_house_of_osman
+		relative_position_id = TRX_debate_the_future
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_debate_the_future }
+		mutually_exclusive = {
+			focus = TRX_kemalist_consolidation
+			focus = TRX_multi_party_experiment
+			focus = TRX_turanist_awakening
+			focus = TRX_legalize_the_tkp
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER }
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 0 is_historical_focus_on = yes NOT = { has_country_flag = TRX_ai_ottoman } }
+			modifier = { factor = 50 has_country_flag = TRX_ai_ottoman }
+			modifier = { factor = 0 TRX_ai_on_other_path_than_ottoman = yes }
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.10
+			}
+			add_stability = -0.03
+			hidden_effect = {
+				country_event = { id = trx.20 days = 3 }
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_restore_the_sultanate
+		icon = GFX_focus_TRX_restore_the_sultanate
+		relative_position_id = TRX_invite_the_house_of_osman
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_invite_the_house_of_osman }
+		available = {
+			has_civil_war = no
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			recruit_character = TRX_abdulmecid_ii
+			recruit_character = TRX_riza_tevfik
+			set_politics = {
+				ruling_party = neutrality
+				elections_allowed = no
+			}
+			promote_character = TRX_abdulmecid_ii
+			add_ideas = TRX_sublime_porte
+			hidden_effect = {
+				news_event = { id = trx_news.3 hours = 12 }
+				country_event = { id = trx.21 days = 30 }
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_reopen_the_sublime_porte
+		icon = GFX_focus_TRX_reopen_the_sublime_porte
+		relative_position_id = TRX_restore_the_sultanate
+		x = -1
+		y = 1
+		cost = 7
+		prerequisite = { focus = TRX_restore_the_sultanate }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_political_power = 100
+			add_stability = 0.05
+		}
+	}
+
+	focus = {
+		id = TRX_a_new_janissary_corps
+		icon = GFX_focus_TRX_a_new_janissary_corps
+		relative_position_id = TRX_restore_the_sultanate
+		x = 1
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_restore_the_sultanate }
+		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			TRX_unlock_janissary_guard = yes
+			army_experience = 20
+			add_unit_bonus = {
+				trx_janissary_guard = {
+					defense = 0.05
+					breakthrough = 0.05
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_reclaim_rumelia
+		icon = GFX_focus_TRX_reclaim_rumelia
+		relative_position_id = TRX_reopen_the_sublime_porte
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_reopen_the_sublime_porte }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			set_country_flag = TRX_rumelia_claims
+			custom_effect_tooltip = TRX_rumelia_claims_tt
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							is_core_of = GRE
+							is_core_of = BUL
+							is_core_of = ALB
+						}
+						NOT = { is_owned_by = ROOT }
+					}
+					add_claim_by = ROOT
+				}
+				106 = { add_claim_by = ROOT }
+				970 = { add_claim_by = ROOT }
+				802 = { add_claim_by = ROOT }
+			}
+			unlock_decision_category_tooltip = TRX_irredentism_category
+		}
+	}
+
+	focus = {
+		id = TRX_reclaim_arabia
+		icon = GFX_focus_TRX_reclaim_arabia
+		relative_position_id = TRX_a_new_janissary_corps
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_a_new_janissary_corps }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			set_country_flag = TRX_arabia_claims
+			add_state_claim = 799
+			add_state_claim = 677
+			add_state_claim = 680
+			add_state_claim = 554
+			add_state_claim = 553
+			add_state_claim = 454
+			add_state_claim = 455
+			add_state_claim = 291
+			add_state_claim = 676
+			add_state_claim = 675
+			add_state_claim = 1010
+			add_state_claim = 1011
+			add_state_claim = 679
+			add_state_claim = 856
+			unlock_decision_category_tooltip = TRX_irredentism_category
+		}
+	}
+
+	focus = {
+		id = TRX_padishah_of_three_continents
+		icon = GFX_focus_TRX_padishah_of_three_continents
+		relative_position_id = TRX_restore_the_sultanate
+		x = 0
+		y = 3
+		cost = 12
+		prerequisite = { focus = TRX_reclaim_rumelia }
+		prerequisite = { focus = TRX_reclaim_arabia }
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_ideas = TRX_ottoman_revival
+			set_country_flag = TRX_ottoman_unlocked
+			unlock_decision_tooltip = TRX_form_ottoman_empire
+		}
+	}
+
+	focus = {
+		id = TRX_kayser_i_rum
+		icon = GFX_focus_TRX_kayser_i_rum
+		relative_position_id = TRX_padishah_of_three_continents
+		x = 0
+		y = 1
+		cost = 12
+		prerequisite = { focus = TRX_padishah_of_three_continents }
+		available = {
+			has_country_flag = TRX_formed_ottoman
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			set_country_flag = TRX_kayser_unlocked
+			unlock_decision_tooltip = TRX_form_kayser_i_rum
+			custom_effect_tooltip = TRX_kayser_claims_tt
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							is_core_of = ITA
+							is_core_of = GRE
+						}
+						NOT = { is_owned_by = ROOT }
+					}
+					add_claim_by = ROOT
+				}
+			}
+		}
+	}
+
+	#######################################################################
+	# POLITICS - Turanism
+	#######################################################################
+
+	focus = {
+		id = TRX_turanist_awakening
+		icon = GFX_focus_TRX_turanist_awakening
+		relative_position_id = TRX_debate_the_future
+		x = 4
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_debate_the_future }
+		mutually_exclusive = {
+			focus = TRX_kemalist_consolidation
+			focus = TRX_multi_party_experiment
+			focus = TRX_invite_the_house_of_osman
+			focus = TRX_legalize_the_tkp
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER }
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 0 is_historical_focus_on = yes NOT = { has_country_flag = TRX_ai_turanist } }
+			modifier = { factor = 50 has_country_flag = TRX_ai_turanist }
+			modifier = { factor = 0 TRX_ai_on_other_path_than_turanist = yes }
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.15
+			}
+			recruit_character = TRX_alparslan_turkes
+		}
+	}
+
+	focus = {
+		id = TRX_the_grey_wolves
+		icon = GFX_focus_TRX_the_grey_wolves
+		relative_position_id = TRX_turanist_awakening
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_turanist_awakening }
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_ideas = TRX_grey_wolves
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.15
+			}
+			hidden_effect = {
+				country_event = { id = trx.30 days = 5 }
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_atsiz_takes_power
+		icon = GFX_focus_TRX_atsiz_takes_power
+		relative_position_id = TRX_the_grey_wolves
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_the_grey_wolves }
+		available = {
+			fascism > 0.3
+			has_civil_war = no
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			recruit_character = TRX_nihal_atsiz
+			set_politics = {
+				ruling_party = fascism
+				elections_allowed = no
+			}
+			promote_character = TRX_nihal_atsiz
+			hidden_effect = {
+				news_event = { id = trx_news.4 hours = 12 }
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_claims_on_the_caucasus
+		icon = GFX_focus_TRX_claims_on_the_caucasus
+		relative_position_id = TRX_atsiz_takes_power
+		x = -1
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_atsiz_takes_power }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_state_claim = 229
+			add_state_claim = 230
+			add_state_claim = 231
+			add_state_claim = 1000
+			add_state_claim = 419
+			unlock_decision_category_tooltip = TRX_irredentism_category
+		}
+	}
+
+	focus = {
+		id = TRX_turkic_brothers_of_the_east
+		icon = GFX_focus_TRX_turkic_brothers_of_the_east
+		relative_position_id = TRX_atsiz_takes_power
+		x = 1
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_atsiz_takes_power }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			custom_effect_tooltip = TRX_turkic_claims_tt
+			hidden_effect = {
+				TRX_claim_turkic_lands = yes
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_seek_axis_partnership
+		icon = GFX_focus_TRX_seek_axis_partnership
+		relative_position_id = TRX_claims_on_the_caucasus
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_claims_on_the_caucasus }
+		available = {
+			is_in_faction = no
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			custom_effect_tooltip = TRX_request_faction_membership_tt
+			hidden_effect = {
+				random_country = {
+					limit = {
+						is_faction_leader = yes
+						has_government = fascism
+						NOT = { has_war_with = ROOT }
+					}
+					country_event = { id = trx.10 hours = 12 }
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_road_to_turan
+		icon = GFX_focus_TRX_road_to_turan
+		relative_position_id = TRX_turkic_brothers_of_the_east
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_turkic_brothers_of_the_east }
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			set_country_flag = TRX_turan_unlocked
+			unlock_decision_tooltip = TRX_form_turan
+			add_war_support = 0.05
+		}
+	}
+
+	focus = {
+		id = TRX_kizil_elma
+		icon = GFX_focus_TRX_kizil_elma
+		relative_position_id = TRX_road_to_turan
+		x = 0
+		y = 1
+		cost = 12
+		prerequisite = { focus = TRX_road_to_turan }
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_ANNEXATION }
+		ai_will_do = {
+			base = 4
+			modifier = {
+				factor = 0
+				229 = { owner = { is_major = yes NOT = { has_war = yes } } }
+			}
+		}
+		completion_reward = {
+			add_ideas = TRX_kizil_elma_idea
+			229 = {
+				if = {
+					limit = {
+						NOT = { is_owned_by = ROOT }
+						owner = { NOT = { is_in_faction_with = ROOT } }
+					}
+					owner = {
+						ROOT = {
+							create_wargoal = {
+								type = take_state_focus
+								target = PREV
+								generator = { 229 230 231 }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	#######################################################################
+	# POLITICS - Socialism (the Red Crescent)
+	#######################################################################
+
+	focus = {
+		id = TRX_legalize_the_tkp
+		icon = GFX_focus_TRX_legalize_the_tkp
+		relative_position_id = TRX_debate_the_future
+		x = 8
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_debate_the_future }
+		mutually_exclusive = {
+			focus = TRX_kemalist_consolidation
+			focus = TRX_multi_party_experiment
+			focus = TRX_invite_the_house_of_osman
+			focus = TRX_turanist_awakening
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER }
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 0 is_historical_focus_on = yes NOT = { has_country_flag = TRX_ai_socialist } }
+			modifier = { factor = 50 has_country_flag = TRX_ai_socialist }
+			modifier = { factor = 0 TRX_ai_on_other_path_than_socialist = yes }
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = communism
+				popularity = 0.15
+			}
+			recruit_character = TRX_nazim_hikmet
+			hidden_effect = {
+				country_event = { id = trx.40 days = 7 }
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_village_soviets
+		icon = GFX_focus_TRX_village_soviets
+		relative_position_id = TRX_legalize_the_tkp
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_legalize_the_tkp }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_ideas = TRX_village_soviets_idea
+			add_popularity = {
+				ideology = communism
+				popularity = 0.15
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_red_crescent_revolution
+		icon = GFX_focus_TRX_red_crescent_revolution
+		relative_position_id = TRX_village_soviets
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_village_soviets }
+		available = {
+			communism > 0.3
+			has_civil_war = no
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			recruit_character = TRX_sefik_husnu
+			set_politics = {
+				ruling_party = communism
+				elections_allowed = no
+			}
+			promote_character = TRX_sefik_husnu
+			hidden_effect = {
+				news_event = { id = trx_news.5 hours = 12 }
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_friendship_with_moscow
+		icon = GFX_focus_TRX_friendship_with_moscow
+		relative_position_id = TRX_red_crescent_revolution
+		x = -1
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_red_crescent_revolution }
+		mutually_exclusive = { focus = TRX_independent_socialism }
+		available = {
+			is_in_faction = no
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			custom_effect_tooltip = TRX_request_faction_membership_tt
+			hidden_effect = {
+				random_country = {
+					limit = {
+						is_faction_leader = yes
+						has_government = communism
+						NOT = { has_war_with = ROOT }
+					}
+					country_event = { id = trx.10 hours = 12 }
+				}
+			}
+			add_tech_bonus = {
+				name = TRX_friendship_with_moscow
+				bonus = 0.5
+				uses = 2
+				category = industry
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_independent_socialism
+		icon = GFX_focus_TRX_independent_socialism
+		relative_position_id = TRX_red_crescent_revolution
+		x = 1
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_red_crescent_revolution }
+		mutually_exclusive = { focus = TRX_friendship_with_moscow }
+		available = {
+			is_in_faction = no
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			create_faction_from_template = {
+				template = TRX_faction_eastern_socialist
+				name = TRX_faction_eastern_socialist_name
+			}
+			add_political_power = 50
+		}
+	}
+
+	focus = {
+		id = TRX_spread_the_revolution
+		icon = GFX_focus_TRX_spread_the_revolution
+		relative_position_id = TRX_red_crescent_revolution
+		x = 0
+		y = 2
+		cost = 10
+		prerequisite = { focus = TRX_friendship_with_moscow focus = TRX_independent_socialism }
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_ideas = TRX_red_crescent
+			set_country_flag = TRX_revolution_export
+			unlock_decision_category_tooltip = TRX_irredentism_category
+		}
+	}
+
+	focus = {
+		id = TRX_near_eastern_federation
+		icon = GFX_focus_TRX_near_eastern_federation
+		relative_position_id = TRX_spread_the_revolution
+		x = 0
+		y = 1
+		cost = 12
+		prerequisite = { focus = TRX_spread_the_revolution }
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			set_country_flag = TRX_nesf_unlocked
+			unlock_decision_tooltip = TRX_form_near_eastern_federation
+			add_political_power = 50
+		}
+	}
+
+	#######################################################################
+	# ECONOMY & INDUSTRY
+	#######################################################################
+
+	focus = {
+		id = TRX_first_five_year_plan
+		icon = GFX_focus_TRX_first_five_year_plan
+		x = 54
+		y = 0
+		cost = 10
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_HISTORICAL }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			add_ideas = TRX_statist_drive
+			49 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_sumerbank
+		icon = GFX_focus_TRX_sumerbank
+		relative_position_id = TRX_first_five_year_plan
+		x = -2
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_first_five_year_plan }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_HISTORICAL }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			340 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			339 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_etibank
+		icon = GFX_focus_TRX_etibank
+		relative_position_id = TRX_first_five_year_plan
+		x = 2
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_first_five_year_plan }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_HISTORICAL }
+		ai_will_do = { base = 7 }
+		completion_reward = {
+			344 = {
+				add_resource = {
+					type = chromium
+					amount = 8
+				}
+			}
+			356 = {
+				add_resource = {
+					type = steel
+					amount = 4
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_nationalize_the_railways
+		icon = GFX_focus_TRX_nationalize_the_railways
+		relative_position_id = TRX_sumerbank
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_sumerbank }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			49 = { add_building_construction = { type = infrastructure level = 1 instant_build = yes } }
+			346 = { add_building_construction = { type = infrastructure level = 1 instant_build = yes } }
+			348 = { add_building_construction = { type = infrastructure level = 1 instant_build = yes } }
+			349 = { add_building_construction = { type = infrastructure level = 1 instant_build = yes } }
+			343 = { add_building_construction = { type = infrastructure level = 1 instant_build = yes } }
+		}
+	}
+
+	focus = {
+		id = TRX_karabuk_steel_works
+		icon = GFX_focus_TRX_karabuk_steel_works
+		relative_position_id = TRX_etibank
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_etibank }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_HISTORICAL }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			356 = {
+				add_resource = {
+					type = steel
+					amount = 6
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			hidden_effect = {
+				country_event = { id = trx.50 days = 14 }
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_statism
+		icon = GFX_focus_TRX_statism
+		relative_position_id = TRX_first_five_year_plan
+		x = -1
+		y = 3
+		cost = 10
+		prerequisite = { focus = TRX_nationalize_the_railways focus = TRX_karabuk_steel_works }
+		mutually_exclusive = { focus = TRX_liberal_market }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = {
+			base = 5
+			modifier = { factor = 2 is_historical_focus_on = yes }
+			modifier = { factor = 2 has_government = communism }
+		}
+		completion_reward = {
+			add_ideas = TRX_statism_idea
+			add_political_power = 50
+		}
+	}
+
+	focus = {
+		id = TRX_liberal_market
+		icon = GFX_focus_TRX_liberal_market
+		relative_position_id = TRX_first_five_year_plan
+		x = 1
+		y = 3
+		cost = 10
+		prerequisite = { focus = TRX_nationalize_the_railways focus = TRX_karabuk_steel_works }
+		mutually_exclusive = { focus = TRX_statism }
+		available = {
+			NOT = { has_government = communism }
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_INTERNATIONAL_TRADE }
+		ai_will_do = {
+			base = 4
+			modifier = { factor = 2 has_government = democratic }
+		}
+		completion_reward = {
+			add_ideas = TRX_liberal_market_idea
+			recruit_character = TRX_vehbi_koc
+		}
+	}
+
+	focus = {
+		id = TRX_eastern_railways
+		icon = GFX_focus_TRX_eastern_railways
+		relative_position_id = TRX_statism
+		x = -1
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_statism focus = TRX_liberal_market }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			350 = { add_building_construction = { type = infrastructure level = 2 instant_build = yes } }
+			352 = { add_building_construction = { type = infrastructure level = 2 instant_build = yes } }
+			353 = { add_building_construction = { type = infrastructure level = 2 instant_build = yes } }
+			800 = { add_building_construction = { type = infrastructure level = 2 instant_build = yes } }
+			354 = { add_building_construction = { type = infrastructure level = 1 instant_build = yes } }
+			344 = { add_building_construction = { type = infrastructure level = 1 instant_build = yes } }
+		}
+	}
+
+	focus = {
+		id = TRX_second_five_year_plan
+		icon = GFX_focus_TRX_second_five_year_plan
+		relative_position_id = TRX_first_five_year_plan
+		x = 0
+		y = 4
+		cost = 12
+		prerequisite = { focus = TRX_statism focus = TRX_liberal_market }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			797 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			345 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			346 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_raman_oil_fields
+		icon = GFX_focus_TRX_raman_oil_fields
+		relative_position_id = TRX_karabuk_steel_works
+		x = 0
+		y = 2
+		cost = 10
+		prerequisite = { focus = TRX_karabuk_steel_works }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 7 }
+		completion_reward = {
+			350 = {
+				add_resource = {
+					type = oil
+					amount = 6
+				}
+			}
+			hidden_effect = {
+				country_event = { id = trx.51 days = 30 }
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_harness_the_euphrates
+		icon = GFX_focus_TRX_harness_the_euphrates
+		relative_position_id = TRX_eastern_railways
+		x = 1
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_eastern_railways focus = TRX_second_five_year_plan }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			344 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			350 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_synthetic_fuel_program
+		icon = GFX_focus_TRX_synthetic_fuel_program
+		relative_position_id = TRX_raman_oil_fields
+		x = -1
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_raman_oil_fields focus = TRX_second_five_year_plan }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			797 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = synthetic_refinery
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_tech_bonus = {
+				name = TRX_synthetic_fuel_program
+				bonus = 0.5
+				uses = 1
+				category = synth_resources
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_industrial_heartland
+		icon = GFX_focus_TRX_industrial_heartland
+		relative_position_id = TRX_second_five_year_plan
+		x = 0
+		y = 2
+		cost = 12
+		prerequisite = { focus = TRX_harness_the_euphrates }
+		prerequisite = { focus = TRX_synthetic_fuel_program }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_ideas = TRX_industrial_heartland_idea
+			49 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			797 = { add_extra_state_shared_building_slots = 1 }
+			339 = { add_extra_state_shared_building_slots = 1 }
+		}
+	}
+
+	#######################################################################
+	# SOCIETY & SCIENCE
+	#######################################################################
+
+	focus = {
+		id = TRX_village_institutes
+		icon = GFX_focus_TRX_village_institutes
+		x = 60
+		y = 0
+		cost = 10
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_STABILITY FOCUS_FILTER_HISTORICAL }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_ideas = TRX_village_institutes_idea
+			recruit_character = TRX_hasan_ali_yucel
+			hidden_effect = {
+				country_event = { id = trx.52 days = 180 }
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_language_revolution
+		icon = GFX_focus_TRX_language_revolution
+		relative_position_id = TRX_village_institutes
+		x = -1
+		y = 1
+		cost = 7
+		prerequisite = { focus = TRX_village_institutes }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_political_power = 75
+			add_stability = 0.03
+		}
+	}
+
+	focus = {
+		id = TRX_university_reform
+		icon = GFX_focus_TRX_university_reform
+		relative_position_id = TRX_village_institutes
+		x = 1
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_village_institutes }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = TRX_university_reform
+				bonus = 0.5
+				uses = 1
+				category = electronics
+			}
+			add_tech_bonus = {
+				name = TRX_university_reform
+				bonus = 0.5
+				uses = 1
+				category = industry
+			}
+		}
+	}
+
+	focus = {
+		id = TRX_eastern_development_plan
+		icon = GFX_focus_TRX_eastern_development_plan
+		relative_position_id = TRX_language_revolution
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_language_revolution }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			set_country_flag = TRX_eastern_development_unlocked
+			recruit_character = TRX_kazim_karabekir
+			custom_effect_tooltip = TRX_eastern_development_plan_tt
+		}
+	}
+
+	focus = {
+		id = TRX_scientific_republic
+		icon = GFX_focus_TRX_scientific_republic
+		relative_position_id = TRX_university_reform
+		x = 0
+		y = 1
+		cost = 12
+		prerequisite = { focus = TRX_university_reform }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_research_slot = 1
+			add_ideas = TRX_scientific_republic_idea
+		}
+	}
+
+	focus = {
+		id = TRX_national_unity
+		icon = GFX_focus_TRX_national_unity
+		relative_position_id = TRX_village_institutes
+		x = 0
+		y = 3
+		cost = 10
+		prerequisite = { focus = TRX_eastern_development_plan }
+		prerequisite = { focus = TRX_scientific_republic }
+		available = {
+			NOT = { has_idea = TRX_eastern_question }
+		}
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_ideas = TRX_national_unity_idea
+		}
+	}
+
+	focus = {
+		id = TRX_peoples_houses
+		icon = GFX_focus_TRX_peoples_houses
+		relative_position_id = TRX_national_unity
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = TRX_national_unity }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_stability = 0.05
+			add_war_support = 0.05
+			add_political_power = 100
+		}
+	}
+}

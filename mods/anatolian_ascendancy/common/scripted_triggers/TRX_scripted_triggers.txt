@@ -1,0 +1,62 @@
+###########################################################################
+# Anatolian Ascendancy - scripted triggers
+# Used by AI weights of the political path heads. Flags are only set for
+# an AI-controlled Turkey (see TRX_set_ai_path).
+###########################################################################
+
+TRX_ai_on_other_path_than_kemalist = {
+	OR = {
+		has_country_flag = TRX_ai_democratic
+		has_country_flag = TRX_ai_ottoman
+		has_country_flag = TRX_ai_turanist
+		has_country_flag = TRX_ai_socialist
+	}
+}
+
+TRX_ai_on_other_path_than_democratic = {
+	OR = {
+		has_country_flag = TRX_ai_kemalist
+		has_country_flag = TRX_ai_ottoman
+		has_country_flag = TRX_ai_turanist
+		has_country_flag = TRX_ai_socialist
+	}
+}
+
+TRX_ai_on_other_path_than_ottoman = {
+	OR = {
+		has_country_flag = TRX_ai_kemalist
+		has_country_flag = TRX_ai_democratic
+		has_country_flag = TRX_ai_turanist
+		has_country_flag = TRX_ai_socialist
+	}
+}
+
+TRX_ai_on_other_path_than_turanist = {
+	OR = {
+		has_country_flag = TRX_ai_kemalist
+		has_country_flag = TRX_ai_democratic
+		has_country_flag = TRX_ai_ottoman
+		has_country_flag = TRX_ai_socialist
+	}
+}
+
+TRX_ai_on_other_path_than_socialist = {
+	OR = {
+		has_country_flag = TRX_ai_kemalist
+		has_country_flag = TRX_ai_democratic
+		has_country_flag = TRX_ai_ottoman
+		has_country_flag = TRX_ai_turanist
+	}
+}
+
+# True for a country that has already proclaimed one of the formables.
+TRX_has_formed_any_nation = {
+	OR = {
+		has_country_flag = TRX_formed_misak
+		has_country_flag = TRX_formed_ottoman
+		has_country_flag = TRX_formed_kayser
+		has_country_flag = TRX_formed_turan
+		has_country_flag = TRX_formed_balkan_federation
+		has_country_flag = TRX_formed_nesf
+	}
+}

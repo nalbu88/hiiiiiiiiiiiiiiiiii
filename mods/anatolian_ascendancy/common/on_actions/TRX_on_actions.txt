@@ -1,0 +1,26 @@
+###########################################################################
+# Anatolian Ascendancy - on actions
+#
+# Deliberately minimal: a single one-time startup hook. The mod adds no
+# daily, weekly or monthly pulses, so it costs nothing per game tick.
+###########################################################################
+
+on_actions = {
+	on_startup = {
+		effect = {
+			if = {
+				limit = { country_exists = TUR }
+				TUR = {
+					add_ideas = TRX_eastern_question
+					if = {
+						limit = { is_ai = yes }
+						TRX_set_ai_path = yes
+					}
+					else = {
+						country_event = { id = trx.80 days = 1 }
+					}
+				}
+			}
+		}
+	}
+}

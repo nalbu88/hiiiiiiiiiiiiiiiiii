@@ -1,0 +1,870 @@
+###########################################################################
+# Anatolian Ascendancy - decisions
+#
+# Performance notes:
+#  - Every decision is gated by "allowed = { original_tag = TUR }", which
+#    the game evaluates once at start-up. No other country ever evaluates
+#    any trigger in this file.
+#  - The state-targeted decision uses an explicit "targets" list instead of
+#    scanning the whole map.
+###########################################################################
+
+#######################################################################
+# THE STRAITS
+#######################################################################
+
+TRX_straits_category = {
+
+	TRX_levy_straits_transit_fees = {
+		icon = generic_industry
+		allowed = { original_tag = TUR }
+		available = {
+			has_war = no
+			owns_state = 797
+		}
+		cost = 0
+		days_re_enable = 180
+		complete_effect = {
+			add_political_power = 50
+		}
+		ai_will_do = { base = 10 }
+	}
+
+	TRX_fortify_the_bosphorus = {
+		icon = generic_construction
+		allowed = { original_tag = TUR }
+		available = {
+			owns_state = 797
+		}
+		highlight_states = {
+			highlight_state_targets = { state = 797 }
+		}
+		cost = 50
+		fire_only_once = yes
+		days_remove = 60
+		remove_effect = {
+			797 = {
+				add_building_construction = {
+					type = coastal_bunker
+					level = 2
+					province = { all_provinces = yes limit_to_coastal = yes }
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = bunker
+					level = 2
+					province = { all_provinces = yes limit_to_border = yes }
+					instant_build = yes
+				}
+			}
+		}
+		ai_will_do = {
+			base = 3
+			modifier = { factor = 3 threat > 0.5 }
+		}
+	}
+
+	TRX_fortify_the_dardanelles = {
+		icon = generic_construction
+		allowed = { original_tag = TUR }
+		available = {
+			owns_state = 341
+			owns_state = 340
+		}
+		highlight_states = {
+			highlight_state_targets = { state = 341 state = 340 }
+		}
+		cost = 50
+		fire_only_once = yes
+		days_remove = 60
+		remove_effect = {
+			341 = {
+				add_building_construction = {
+					type = coastal_bunker
+					level = 2
+					province = { all_provinces = yes limit_to_coastal = yes }
+					instant_build = yes
+				}
+			}
+			340 = {
+				add_building_construction = {
+					type = coastal_bunker
+					level = 2
+					province = { all_provinces = yes limit_to_coastal = yes }
+					instant_build = yes
+				}
+			}
+		}
+		ai_will_do = {
+			base = 3
+			modifier = { factor = 3 threat > 0.5 }
+		}
+	}
+
+	TRX_close_the_straits = {
+		icon = generic_protection
+		allowed = { original_tag = TUR }
+		available = {
+			has_war = yes
+			owns_state = 797
+		}
+		cost = 25
+		days_remove = 180
+		days_re_enable = 90
+		modifier = {
+			coastal_bunker_effectiveness_factor = 0.25
+			navy_org_factor = 0.10
+			naval_coordination = 0.10
+		}
+		ai_will_do = { base = 10 }
+	}
+}
+
+#######################################################################
+# THE EASTERN QUESTION
+#######################################################################
+
+TRX_eastern_development_category = {
+
+	TRX_policy_of_reconciliation = {
+		icon = generic_civil_support
+		allowed = { original_tag = TUR }
+		visible = {
+			NOT = { has_country_flag = TRX_eastern_policy_chosen }
+		}
+		available = {
+			has_idea = TRX_eastern_question
+			has_stability > 0.35
+		}
+		cost = 100
+		fire_only_once = yes
+		days_remove = 60
+		complete_effect = {
+			set_country_flag = TRX_eastern_policy_chosen
+		}
+		remove_effect = {
+			if = {
+				limit = { has_idea = TRX_eastern_question }
+				swap_ideas = {
+					remove_idea = TRX_eastern_question
+					add_idea = TRX_eastern_reconciliation
+				}
+			}
+		}
+		ai_will_do = {
+			base = 10
+			modifier = { factor = 0.5 has_government = fascism }
+		}
+	}
+
+	TRX_policy_of_pacification = {
+		icon = oppression
+		allowed = { original_tag = TUR }
+		visible = {
+			NOT = { has_country_flag = TRX_eastern_policy_chosen }
+		}
+		available = {
+			has_idea = TRX_eastern_question
+		}
+		cost = 50
+		fire_only_once = yes
+		days_remove = 30
+		modifier = {
+			stability_factor = -0.05
+		}
+		complete_effect = {
+			set_country_flag = TRX_eastern_policy_chosen
+			army_experience = 5
+		}
+		remove_effect = {
+			if = {
+				limit = { has_idea = TRX_eastern_question }
+				swap_ideas = {
+					remove_idea = TRX_eastern_question
+					add_idea = TRX_eastern_pacification
+				}
+			}
+		}
+		ai_will_do = {
+			base = 5
+			modifier = { factor = 3 has_government = fascism }
+		}
+	}
+
+	TRX_develop_eastern_province = {
+		icon = generic_construction
+		allowed = { original_tag = TUR }
+		state_target = yes
+		targets = { 350 352 353 800 344 354 349 }
+		target_root_trigger = {
+			has_country_flag = TRX_eastern_development_unlocked
+		}
+		target_trigger = {
+			FROM = {
+				is_owned_by = ROOT
+				is_controlled_by = ROOT
+			}
+		}
+		on_map_mode = map_and_decisions_view
+		cost = 40
+		fire_only_once = yes
+		days_remove = 45
+		remove_effect = {
+			FROM = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	TRX_dersim_crisis = {
+		icon = generic_civil_support
+		allowed = { original_tag = TUR }
+		activation = {
+			date > 1937.6.1
+			has_idea = TRX_eastern_question
+		}
+		available = {
+			NOT = { has_idea = TRX_eastern_question }
+		}
+		days_mission_timeout = 180
+		fire_only_once = yes
+		complete_effect = {
+			add_stability = 0.05
+		}
+		timeout_effect = {
+			add_stability = -0.05
+			country_event = { id = trx.70 }
+		}
+	}
+}
+
+#######################################################################
+# ARMS PROCUREMENT
+#######################################################################
+
+TRX_procurement_category = {
+
+	TRX_buy_german_rifles = {
+		icon = generic_military
+		allowed = { original_tag = TUR }
+		visible = { country_exists = GER }
+		available = {
+			NOT = { has_war_with = GER }
+			GER = { has_war = no }
+		}
+		cost = 60
+		days_re_enable = 120
+		complete_effect = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 1500
+				producer = GER
+			}
+			GER = {
+				add_opinion_modifier = { target = ROOT modifier = TRX_arms_customer }
+			}
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 3 threat > 0.5 }
+		}
+	}
+
+	TRX_buy_soviet_artillery = {
+		icon = generic_military
+		allowed = { original_tag = TUR }
+		visible = { country_exists = SOV }
+		available = {
+			NOT = { has_war_with = SOV }
+			SOV = { has_war = no }
+			NOT = { has_government = fascism }
+		}
+		cost = 60
+		days_re_enable = 120
+		complete_effect = {
+			add_equipment_to_stockpile = {
+				type = artillery_equipment
+				amount = 150
+				producer = SOV
+			}
+			SOV = {
+				add_opinion_modifier = { target = ROOT modifier = TRX_arms_customer }
+			}
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 3 threat > 0.5 }
+		}
+	}
+
+	TRX_buy_british_trucks = {
+		icon = generic_military
+		allowed = { original_tag = TUR }
+		visible = { country_exists = ENG }
+		available = {
+			NOT = { has_war_with = ENG }
+			ENG = { has_war = no }
+		}
+		cost = 50
+		days_re_enable = 120
+		complete_effect = {
+			add_equipment_to_stockpile = {
+				type = motorized_equipment
+				amount = 200
+				producer = ENG
+			}
+			ENG = {
+				add_opinion_modifier = { target = ROOT modifier = TRX_arms_customer }
+			}
+		}
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 2 threat > 0.5 }
+		}
+	}
+
+	TRX_buy_american_supplies = {
+		icon = generic_military
+		allowed = { original_tag = TUR }
+		visible = { country_exists = USA }
+		available = {
+			NOT = { has_war_with = USA }
+		}
+		cost = 40
+		days_re_enable = 120
+		complete_effect = {
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = 400
+				producer = USA
+			}
+			USA = {
+				add_opinion_modifier = { target = ROOT modifier = TRX_arms_customer }
+			}
+		}
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 2 threat > 0.5 }
+		}
+	}
+}
+
+#######################################################################
+# FORMABLE NATIONS
+#######################################################################
+
+TRX_formables_category = {
+
+	# Kemalist / foreign-policy path: the 1920 National Pact borders.
+	TRX_form_misak_i_milli = {
+		icon = generic_form_nation
+		allowed = { original_tag = TUR }
+		visible = {
+			has_country_flag = TRX_misak_unlocked
+			NOT = { TRX_has_formed_any_nation = yes }
+		}
+		available = {
+			is_subject = no
+			controls_state = 799
+			controls_state = 676
+			controls_state = 184
+			controls_state = 187
+		}
+		highlight_states = {
+			highlight_state_targets = { state = 799 state = 676 state = 184 state = 187 }
+		}
+		cost = 50
+		fire_only_once = yes
+		complete_effect = {
+			set_country_flag = TRX_formed_misak
+			set_cosmetic_tag = TRX_MISAK
+			add_ideas = TRX_spirit_misak_fulfilled
+			799 = { add_core_of = ROOT }
+			676 = { add_core_of = ROOT }
+			675 = { add_core_of = ROOT }
+			184 = { add_core_of = ROOT }
+			187 = { add_core_of = ROOT }
+			hidden_effect = {
+				news_event = { id = trx_news.10 hours = 6 }
+			}
+		}
+		ai_will_do = { base = 100 }
+	}
+
+	# Ottoman path: the Sublime State returns.
+	TRX_form_ottoman_empire = {
+		icon = generic_form_nation
+		allowed = { original_tag = TUR }
+		visible = {
+			has_country_flag = TRX_ottoman_unlocked
+			NOT = { has_country_flag = TRX_formed_ottoman }
+		}
+		available = {
+			is_subject = no
+			controls_state = 799
+			controls_state = 677
+			controls_state = 554
+			controls_state = 553
+			controls_state = 454
+			controls_state = 455
+			controls_state = 291
+			controls_state = 676
+			controls_state = 679
+			controls_state = 856
+		}
+		highlight_states = {
+			highlight_state_targets = {
+				state = 799 state = 677 state = 554 state = 553 state = 454
+				state = 455 state = 291 state = 676 state = 679 state = 856
+			}
+		}
+		cost = 75
+		fire_only_once = yes
+		complete_effect = {
+			set_country_flag = TRX_formed_ottoman
+			set_cosmetic_tag = TRX_OTTOMAN
+			if = {
+				limit = { has_idea = TRX_spirit_misak_fulfilled }
+				remove_ideas = TRX_spirit_misak_fulfilled
+			}
+			add_ideas = TRX_spirit_ottoman_restored
+			custom_effect_tooltip = TRX_ottoman_cores_tt
+			hidden_effect = {
+				TRX_core_ottoman_lands = yes
+				news_event = { id = trx_news.11 hours = 6 }
+			}
+		}
+		ai_will_do = { base = 100 }
+	}
+
+	# Ottoman path, late game: the Caesar of Rome.
+	TRX_form_kayser_i_rum = {
+		icon = generic_form_nation
+		allowed = { original_tag = TUR }
+		visible = {
+			has_country_flag = TRX_kayser_unlocked
+			has_country_flag = TRX_formed_ottoman
+			NOT = { has_country_flag = TRX_formed_kayser }
+		}
+		available = {
+			is_subject = no
+			controls_state = 2
+			controls_state = 47
+			controls_state = 107
+			controls_state = 907
+			controls_state = 454
+		}
+		highlight_states = {
+			highlight_state_targets = { state = 2 state = 47 state = 107 state = 907 state = 454 }
+		}
+		cost = 100
+		fire_only_once = yes
+		complete_effect = {
+			set_country_flag = TRX_formed_kayser
+			set_cosmetic_tag = TRX_KAYSER_I_RUM
+			swap_ideas = {
+				remove_idea = TRX_spirit_ottoman_restored
+				add_idea = TRX_spirit_kayser_i_rum
+			}
+			custom_effect_tooltip = TRX_kayser_cores_tt
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							is_core_of = ITA
+							is_core_of = GRE
+							state = 907 state = 446 state = 447 state = 452
+							state = 453 state = 456 state = 457
+						}
+					}
+					add_core_of = ROOT
+				}
+				news_event = { id = trx_news.12 hours = 6 }
+			}
+		}
+		ai_will_do = { base = 100 }
+	}
+
+	# Turanist path: the union of the Turkic peoples.
+	TRX_form_turan = {
+		icon = generic_form_nation
+		allowed = { original_tag = TUR }
+		visible = {
+			has_country_flag = TRX_turan_unlocked
+			NOT = { TRX_has_formed_any_nation = yes }
+		}
+		available = {
+			is_subject = no
+			controls_state = 229
+			controls_state = 405
+			controls_state = 584
+			controls_state = 586
+			controls_state = 249
+		}
+		highlight_states = {
+			highlight_state_targets = { state = 229 state = 405 state = 584 state = 586 state = 249 }
+		}
+		cost = 75
+		fire_only_once = yes
+		complete_effect = {
+			set_country_flag = TRX_formed_turan
+			set_cosmetic_tag = TRX_TURAN
+			add_ideas = TRX_spirit_turan_unity
+			custom_effect_tooltip = TRX_turan_cores_tt
+			hidden_effect = {
+				TRX_core_turkic_lands = yes
+				news_event = { id = trx_news.13 hours = 6 }
+			}
+		}
+		ai_will_do = { base = 100 }
+	}
+
+	# Democratic path: a peaceful union with the Balkan Entente.
+	TRX_form_balkan_federation = {
+		icon = generic_form_nation
+		allowed = { original_tag = TUR }
+		visible = {
+			has_country_flag = TRX_balkan_fed_unlocked
+			NOT = { TRX_has_formed_any_nation = yes }
+		}
+		available = {
+			is_subject = no
+			custom_trigger_tooltip = {
+				tooltip = TRX_federation_greece_tt
+				OR = {
+					controls_state = 47
+					AND = {
+						country_exists = GRE
+						GRE = { OR = { is_in_faction_with = ROOT is_subject_of = ROOT } }
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = TRX_federation_bulgaria_tt
+				OR = {
+					controls_state = 48
+					AND = {
+						country_exists = BUL
+						BUL = { OR = { is_in_faction_with = ROOT is_subject_of = ROOT } }
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = TRX_federation_yugoslavia_tt
+				OR = {
+					controls_state = 107
+					AND = {
+						country_exists = YUG
+						YUG = { OR = { is_in_faction_with = ROOT is_subject_of = ROOT } }
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = TRX_federation_albania_tt
+				OR = {
+					controls_state = 44
+					AND = {
+						country_exists = ALB
+						ALB = { OR = { is_in_faction_with = ROOT is_subject_of = ROOT } }
+					}
+				}
+			}
+		}
+		cost = 75
+		fire_only_once = yes
+		complete_effect = {
+			set_country_flag = TRX_formed_balkan_federation
+			set_cosmetic_tag = TRX_BALKAN_FED
+			add_ideas = TRX_spirit_balkan_federation
+			custom_effect_tooltip = TRX_federation_union_tt
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							is_core_of = GRE
+							is_core_of = BUL
+							is_core_of = YUG
+							is_core_of = ALB
+						}
+					}
+					add_core_of = ROOT
+				}
+				if = {
+					limit = { country_exists = GRE GRE = { OR = { is_in_faction_with = ROOT is_subject_of = ROOT } } }
+					annex_country = { target = GRE transfer_troops = yes }
+				}
+				if = {
+					limit = { country_exists = BUL BUL = { OR = { is_in_faction_with = ROOT is_subject_of = ROOT } } }
+					annex_country = { target = BUL transfer_troops = yes }
+				}
+				if = {
+					limit = { country_exists = YUG YUG = { OR = { is_in_faction_with = ROOT is_subject_of = ROOT } } }
+					annex_country = { target = YUG transfer_troops = yes }
+				}
+				if = {
+					limit = { country_exists = ALB ALB = { OR = { is_in_faction_with = ROOT is_subject_of = ROOT } } }
+					annex_country = { target = ALB transfer_troops = yes }
+				}
+				news_event = { id = trx_news.14 hours = 6 }
+			}
+		}
+		ai_will_do = { base = 100 }
+	}
+
+	# Socialist path: a federation of Near Eastern soviet republics.
+	TRX_form_near_eastern_federation = {
+		icon = generic_form_nation
+		allowed = { original_tag = TUR }
+		visible = {
+			has_country_flag = TRX_nesf_unlocked
+			NOT = { TRX_has_formed_any_nation = yes }
+		}
+		available = {
+			is_subject = no
+			has_government = communism
+			controls_state = 554
+			controls_state = 553
+			custom_trigger_tooltip = {
+				tooltip = TRX_nesf_persia_tt
+				OR = {
+					controls_state = 266
+					AND = {
+						country_exists = PER
+						PER = {
+							has_government = communism
+							OR = { is_in_faction_with = ROOT is_subject_of = ROOT }
+						}
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = TRX_nesf_iraq_tt
+				OR = {
+					controls_state = 291
+					AND = {
+						country_exists = IRQ
+						IRQ = {
+							has_government = communism
+							OR = { is_in_faction_with = ROOT is_subject_of = ROOT }
+						}
+					}
+				}
+			}
+		}
+		cost = 75
+		fire_only_once = yes
+		complete_effect = {
+			set_country_flag = TRX_formed_nesf
+			set_cosmetic_tag = TRX_NESF
+			add_ideas = TRX_spirit_near_east_socialist
+			custom_effect_tooltip = TRX_nesf_union_tt
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							is_core_of = PER
+							is_core_of = IRQ
+							state = 554 state = 677 state = 680 state = 553
+							state = 799 state = 454 state = 455
+						}
+					}
+					add_core_of = ROOT
+				}
+				if = {
+					limit = { country_exists = PER PER = { has_government = communism OR = { is_in_faction_with = ROOT is_subject_of = ROOT } } }
+					annex_country = { target = PER transfer_troops = yes }
+				}
+				if = {
+					limit = { country_exists = IRQ IRQ = { has_government = communism OR = { is_in_faction_with = ROOT is_subject_of = ROOT } } }
+					annex_country = { target = IRQ transfer_troops = yes }
+				}
+				news_event = { id = trx_news.15 hours = 6 }
+			}
+		}
+		ai_will_do = { base = 100 }
+	}
+}
+
+#######################################################################
+# IRREDENTISM AND WARS OF EXPANSION
+#######################################################################
+
+TRX_irredentism_category = {
+
+	# Ottoman path: annex a Balkan state.
+	TRX_reclaim_rumelia_war = {
+		icon = border_war
+		allowed = { original_tag = TUR }
+		targets = { GRE BUL ALB YUG }
+		target_root_trigger = {
+			has_country_flag = TRX_rumelia_claims
+			is_subject = no
+		}
+		target_trigger = {
+			FROM = {
+				exists = yes
+				NOT = { has_war_with = ROOT }
+				NOT = { is_in_faction_with = ROOT }
+				NOT = { is_subject_of = ROOT }
+			}
+		}
+		cost = 50
+		fire_only_once = yes
+		war_with_target_on_complete = yes
+		complete_effect = {
+			create_wargoal = {
+				type = annex_everything
+				target = FROM
+			}
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 0 has_war = yes }
+			modifier = { factor = 0 FROM = { is_in_faction = yes } }
+		}
+	}
+
+	# Ottoman path: annex an Arab state.
+	TRX_reclaim_arabia_war = {
+		icon = border_war
+		allowed = { original_tag = TUR }
+		targets = { IRQ SAU YEM KUW JOR SYR LEB PAL }
+		target_root_trigger = {
+			has_country_flag = TRX_arabia_claims
+			is_subject = no
+		}
+		target_trigger = {
+			FROM = {
+				exists = yes
+				NOT = { has_war_with = ROOT }
+				NOT = { is_in_faction_with = ROOT }
+				NOT = { is_subject_of = ROOT }
+			}
+		}
+		cost = 50
+		fire_only_once = yes
+		war_with_target_on_complete = yes
+		complete_effect = {
+			create_wargoal = {
+				type = annex_everything
+				target = FROM
+			}
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 0 has_war = yes }
+			modifier = { factor = 0 FROM = { is_in_faction = yes } }
+		}
+	}
+
+	# Turanist path: tear the Caucasus away from its owner.
+	TRX_liberate_the_caucasus = {
+		icon = border_war
+		allowed = { original_tag = TUR }
+		visible = {
+			has_completed_focus = TRX_claims_on_the_caucasus
+		}
+		available = {
+			229 = {
+				NOT = { is_owned_by = ROOT }
+				owner = {
+					NOT = { is_in_faction_with = ROOT }
+					NOT = { has_war_with = ROOT }
+				}
+			}
+		}
+		cost = 75
+		fire_only_once = yes
+		complete_effect = {
+			229 = {
+				owner = {
+					ROOT = {
+						create_wargoal = {
+							type = take_state_focus
+							target = PREV
+							generator = { 229 230 231 }
+						}
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			base = 1
+			modifier = {
+				factor = 0
+				229 = { owner = { is_major = yes NOT = { has_war = yes } } }
+			}
+		}
+	}
+
+	# Turanist path: bring East Turkestan into the fold.
+	TRX_liberate_east_turkestan = {
+		icon = border_war
+		allowed = { original_tag = TUR }
+		visible = {
+			has_completed_focus = TRX_turkic_brothers_of_the_east
+			country_exists = SIK
+		}
+		available = {
+			NOT = { has_war_with = SIK }
+			SIK = { NOT = { is_in_faction_with = ROOT } }
+		}
+		cost = 50
+		fire_only_once = yes
+		war_with_on_complete = SIK
+		complete_effect = {
+			create_wargoal = {
+				type = annex_everything
+				target = SIK
+			}
+		}
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 0 has_war = yes }
+		}
+	}
+
+	# Socialist path: install a sister revolution.
+	TRX_export_the_revolution = {
+		icon = generic_ignite_civil_war
+		allowed = { original_tag = TUR }
+		targets = { PER IRQ AFG SAU GRE BUL }
+		target_root_trigger = {
+			has_country_flag = TRX_revolution_export
+			has_government = communism
+		}
+		target_trigger = {
+			FROM = {
+				exists = yes
+				NOT = { has_government = communism }
+				NOT = { has_war_with = ROOT }
+				NOT = { is_in_faction_with = ROOT }
+			}
+		}
+		cost = 50
+		fire_only_once = yes
+		war_with_target_on_complete = yes
+		complete_effect = {
+			create_wargoal = {
+				type = topple_government
+				target = FROM
+			}
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 0 has_war = yes }
+			modifier = { factor = 0 FROM = { is_in_faction = yes } }
+		}
+	}
+}

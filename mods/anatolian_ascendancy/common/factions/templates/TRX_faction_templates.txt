@@ -1,0 +1,32 @@
+###########################################################################
+# Anatolian Ascendancy - faction templates
+# Created by focus rewards only (create_faction_from_template), so they are
+# hidden from the faction creation screen.
+###########################################################################
+
+TRX_faction_saadabad = {
+	name = TRX_faction_saadabad_name
+	icon = GFX_faction_logo_generic_democratic
+	color = { 46 139 120 }
+	visible = {
+		always = no
+	}
+}
+
+TRX_faction_balkan_pact = {
+	name = TRX_faction_balkan_pact_name
+	icon = GFX_faction_logo_generic_democratic
+	color = { 56 98 168 }
+	visible = {
+		always = no
+	}
+}
+
+TRX_faction_eastern_socialist = {
+	name = TRX_faction_eastern_socialist_name
+	icon = GFX_faction_logo_generic_democratic
+	color = { 178 34 34 }
+	visible = {
+		always = no
+	}
+}
