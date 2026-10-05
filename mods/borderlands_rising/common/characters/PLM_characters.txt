@@ -1,0 +1,100 @@
+###########################################################################
+# Borderlands Rising - Lithuania (Palanmir) characters
+#
+# Teter Phiel and his technocrats are fictional satire: a contrarian
+# financier who sells the Lithuanian state a machine that sees everything.
+# None of them is a real person. Vanilla Lithuanian characters are left
+# untouched.
+###########################################################################
+
+characters = {
+
+	PLM_teter_phiel = {
+		name = PLM_teter_phiel
+		portraits = {
+			civilian = {
+				large = GFX_portrait_PLM_teter_phiel
+				small = GFX_portrait_PLM_teter_phiel_small
+			}
+		}
+		country_leader = {
+			desc = PLM_teter_phiel_desc
+			ideology = oligarchism
+			traits = { PLM_trait_chief_executive_of_the_nation }
+			expire = "2065.1.1.1"
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = PLM_teter_phiel_advisor
+			cost = 50
+			allowed = { original_tag = LIT }
+			visible = { NOT = { has_country_flag = PLM_phiel_in_power } }
+			traits = { PLM_trait_contrarian_financier }
+			ai_will_do = { factor = 3 }
+		}
+	}
+
+	PLM_adele_karpaite = {
+		name = PLM_adele_karpaite
+		gender = female
+		advisor = {
+			slot = political_advisor
+			idea_token = PLM_adele_karpaite_advisor
+			cost = 100
+			allowed = { original_tag = LIT }
+			traits = { PLM_trait_chief_data_officer }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	PLM_mindaugas_saltis = {
+		name = PLM_mindaugas_saltis
+		advisor = {
+			slot = theorist
+			idea_token = PLM_mindaugas_saltis_theorist
+			ledger = army
+			cost = 100
+			allowed = { original_tag = LIT }
+			traits = { PLM_trait_predictive_logistician }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	PLM_ieva_stonkute = {
+		name = PLM_ieva_stonkute
+		gender = female
+		advisor = {
+			slot = political_advisor
+			idea_token = PLM_ieva_stonkute_advisor
+			cost = 100
+			allowed = { original_tag = LIT }
+			traits = { PLM_trait_integration_architect }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	PLM_algirdas_tinklas = {
+		name = PLM_algirdas_tinklas
+		corps_commander = {
+			traits = { career_officer trait_engineer }
+			skill = 3
+			attack_skill = 3
+			defense_skill = 3
+			planning_skill = 4
+			logistics_skill = 3
+		}
+	}
+
+	PLM_rasa_debesyte = {
+		name = PLM_rasa_debesyte
+		gender = female
+		advisor = {
+			slot = air_chief
+			idea_token = PLM_rasa_debesyte_air_chief
+			cost = 100
+			allowed = { original_tag = LIT }
+			traits = { air_chief_reform_2 }
+			ai_will_do = { factor = 1 }
+		}
+	}
+}

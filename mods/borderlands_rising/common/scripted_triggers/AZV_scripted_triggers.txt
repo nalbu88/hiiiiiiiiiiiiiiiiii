@@ -1,0 +1,30 @@
+###########################################################################
+# Borderlands Rising - South Russia / Azov United scripted triggers
+###########################################################################
+
+# Country scope (the Soviet Union): too busy to crush South Russia.
+AZV_soviets_are_busy = {
+	custom_trigger_tooltip = {
+		tooltip = AZV_soviets_are_busy_tt
+		OR = {
+			has_civil_war = yes
+			surrender_progress > 0.1
+			any_enemy_country = { is_major = yes }
+		}
+	}
+}
+
+# The Arsenal tiers, unlocked by the economy branch.
+AZV_arsenal_tier_2_open = {
+	custom_trigger_tooltip = {
+		tooltip = AZV_arsenal_tier_2_open_tt
+		has_country_flag = AZV_arsenal_tier_2
+	}
+}
+
+AZV_arsenal_tier_3_open = {
+	custom_trigger_tooltip = {
+		tooltip = AZV_arsenal_tier_3_open_tt
+		has_country_flag = AZV_arsenal_tier_3
+	}
+}

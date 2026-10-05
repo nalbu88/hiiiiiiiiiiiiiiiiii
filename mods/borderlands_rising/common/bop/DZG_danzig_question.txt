@@ -1,0 +1,107 @@
+###########################################################################
+# Borderlands Rising - the Danzig Question (balance of power)
+#
+# Left: Berlin's influence (the NSDAP, Gauleiter Forster, German money).
+# Right: Warsaw's influence (the customs union, the railways, the port of
+# Gdynia next door). The middle is the Free City actually being free.
+#
+# Leaning one way makes it easier to take land from the other neighbour:
+# see the claims decisions in common/decisions/DZG_decisions.txt.
+# Drift comes from static modifiers in common/modifiers/DZG_bop_modifiers.txt.
+###########################################################################
+
+DZG_danzig_question = {
+	initial_value = -0.35
+	left_side = DZG_bop_berlin_side
+	right_side = DZG_bop_warsaw_side
+	decision_category = DZG_danzig_question_category
+
+	range = {
+		id = DZG_bop_free_city_range
+		min = -0.15
+		max = 0.15
+		modifier = {
+			political_power_factor = 0.10
+			stability_factor = 0.05
+		}
+	}
+
+	side = {
+		id = DZG_bop_berlin_side
+		icon = GFX_bop_DZG_berlin_side
+
+		range = {
+			id = DZG_bop_berlin_patronage_range
+			min = -0.55
+			max = -0.15
+			modifier = {
+				war_support_factor = 0.05
+				experience_gain_army_factor = 0.10
+				stability_factor = -0.05
+			}
+		}
+
+		range = {
+			id = DZG_bop_berlin_puppet_range
+			min = -1.00
+			max = -0.55
+			modifier = {
+				war_support_factor = 0.10
+				industrial_capacity_factory = 0.10
+				political_power_factor = -0.15
+				stability_factor = -0.10
+			}
+			on_activate = {
+				if = {
+					limit = {
+						NOT = { has_country_flag = DZG_broke_with_berlin }
+						NOT = { has_country_flag = DZG_anschluss_offered }
+						country_exists = GER
+						GER = { has_government = fascism }
+					}
+					set_country_flag = DZG_anschluss_offered
+					country_event = { id = dzg.91 days = 7 }
+				}
+			}
+		}
+	}
+
+	side = {
+		id = DZG_bop_warsaw_side
+		icon = GFX_bop_DZG_warsaw_side
+
+		range = {
+			id = DZG_bop_warsaw_partnership_range
+			min = 0.15
+			max = 0.55
+			modifier = {
+				production_speed_industrial_complex_factor = 0.10
+				consumer_goods_factor = -0.02
+				war_support_factor = -0.05
+			}
+		}
+
+		range = {
+			id = DZG_bop_warsaw_ward_range
+			min = 0.55
+			max = 1.00
+			modifier = {
+				production_speed_buildings_factor = 0.20
+				stability_factor = 0.10
+				war_support_factor = -0.15
+				political_power_factor = -0.10
+			}
+			on_activate = {
+				if = {
+					limit = {
+						NOT = { has_country_flag = DZG_polish_union_offered }
+						country_exists = POL
+						NOT = { has_war_with = POL }
+					}
+					set_country_flag = DZG_polish_union_offered
+					country_event = { id = dzg.90 days = 7 }
+				}
+			}
+		}
+	}
+}

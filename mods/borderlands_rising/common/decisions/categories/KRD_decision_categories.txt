@@ -1,0 +1,17 @@
+###########################################################################
+# Borderlands Rising - the Kurdish question (Turkey and Iraq)
+###########################################################################
+
+KRD_kurdish_category = {
+	icon = GFX_decision_category_KRD_kurdish_question
+	allowed = {
+		OR = {
+			original_tag = TUR
+			original_tag = IRQ
+		}
+	}
+	visible = {
+		any_owned_state = { has_state_flag = KRD_kurdish_state }
+	}
+	priority = 90
+}

@@ -1,0 +1,196 @@
+###########################################################################
+# Borderlands Rising - Kurdish resistance scripted effects
+#
+# Game start (common/on_actions/BRS_on_actions.txt): every Kurdish state
+# owned by Turkey or Iraq gets a Kurdistan core, forced resistance and the
+# Kurdish resistance modifier. A hidden monthly event (krd.100) for Turkey
+# and Iraq then rolls for uprisings and, in wartime, for open revolt.
+###########################################################################
+
+KRD_setup_kurdish_resistance = {
+	every_state = {
+		limit = {
+			KRD_is_kurdish_state = yes
+			OR = {
+				is_owned_by = TUR
+				is_owned_by = IRQ
+			}
+		}
+		KRD_ignite_state = yes
+	}
+	if = {
+		limit = { country_exists = TUR }
+		TUR = { country_event = { id = krd.100 days = 30 } }
+	}
+	if = {
+		limit = { country_exists = IRQ }
+		IRQ = { country_event = { id = krd.100 days = 33 } }
+	}
+}
+
+# State scope.
+KRD_ignite_state = {
+	set_state_flag = KRD_kurdish_state
+	if = {
+		limit = { NOT = { is_core_of = KUR } }
+		add_core_of = KUR
+	}
+	if = {
+		limit = { is_owned_by = TUR }
+		force_enable_resistance = TUR
+	}
+	else_if = {
+		limit = { is_owned_by = IRQ }
+		force_enable_resistance = IRQ
+	}
+	start_resistance = KUR
+	if = {
+		limit = { has_game_rule = { rule = BRS_kurdish_resistance option = EXTREME } }
+		add_dynamic_modifier = { modifier = KRD_kurdish_resistance_extreme }
+		set_resistance = 50
+		set_compliance = 0
+	}
+	else = {
+		add_dynamic_modifier = { modifier = KRD_kurdish_resistance }
+		set_resistance = 35
+		set_compliance = 5
+	}
+}
+
+# Monthly, in the scope of Turkey or Iraq (event krd.100).
+KRD_monthly_tick = {
+	# Kurdish states taken from a neighbour join the struggle.
+	every_owned_state = {
+		limit = {
+			KRD_is_kurdish_state = yes
+			NOT = { has_state_flag = KRD_kurdish_state }
+		}
+		KRD_ignite_state = yes
+	}
+	# Resistance follows the state to its new Turkish or Iraqi owner.
+	every_owned_state = {
+		limit = { has_state_flag = KRD_kurdish_state }
+		force_enable_resistance = ROOT
+	}
+	# Uprisings
+	every_owned_state = {
+		limit = {
+			has_state_flag = KRD_kurdish_state
+			NOT = { has_state_flag = KRD_autonomy }
+			resistance > 40
+		}
+		random_list = {
+			70 = {
+				modifier = {
+					factor = 0.6
+					has_game_rule = { rule = BRS_kurdish_resistance option = EXTREME }
+				}
+			}
+			30 = {
+				KRD_uprising = yes
+			}
+		}
+	}
+	if = {
+		limit = { has_country_flag = KRD_uprising_this_month }
+		add_stability = -0.01
+		if = {
+			limit = { is_ai = no }
+			country_event = { id = krd.1 }
+		}
+	}
+	KRD_check_revolt = yes
+}
+
+# State scope, ROOT = the owner.
+KRD_uprising = {
+	add_resistance = 10
+	damage_building = {
+		type = infrastructure
+		damage = 1
+	}
+	save_event_target_as = KRD_uprising_state
+	ROOT = {
+		set_country_flag = { flag = KRD_uprising_this_month days = 25 }
+		add_manpower = -500
+	}
+}
+
+# Country scope (Turkey or Iraq). Open revolt: at least two Kurdish states
+# in revolt while the owner is distracted. Once per owner and only while
+# there is no Kurdistan.
+KRD_check_revolt = {
+	if = {
+		limit = {
+			NOT = { has_country_flag = KRD_revolt_fired }
+			NOT = { country_exists = KUR }
+			KRD_owner_is_distracted = yes
+			count_triggers = {
+				amount = 2
+				350 = { KRD_state_in_revolt = yes }
+				352 = { KRD_state_in_revolt = yes }
+				353 = { KRD_state_in_revolt = yes }
+				800 = { KRD_state_in_revolt = yes }
+				676 = { KRD_state_in_revolt = yes }
+				1001 = { KRD_state_in_revolt = yes }
+				419 = { KRD_state_in_revolt = yes }
+				680 = { KRD_state_in_revolt = yes }
+			}
+		}
+		set_country_flag = KRD_revolt_fired
+		country_event = { id = krd.10 }
+	}
+}
+
+# Country scope (Turkey or Iraq): the Kurds proclaim Kurdistan.
+KRD_start_revolt = {
+	release = KUR
+	KUR = {
+		division_template = {
+			name = "Peshmerga Brigade"
+			regiments = {
+				infantry = { x = 0 y = 0 }
+				infantry = { x = 0 y = 1 }
+				infantry = { x = 1 y = 0 }
+				infantry = { x = 1 y = 1 }
+			}
+		}
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 3000
+		}
+		add_manpower = 20000
+		every_owned_state = {
+			create_unit = {
+				division = "name = \"Peshmerga Brigade\" division_template = \"Peshmerga Brigade\" start_experience_factor = 0.3 start_equipment_factor = 0.8"
+				owner = KUR
+				count = 2
+			}
+			if = {
+				limit = { has_game_rule = { rule = BRS_kurdish_resistance option = EXTREME } }
+				create_unit = {
+					division = "name = \"Peshmerga Brigade\" division_template = \"Peshmerga Brigade\" start_experience_factor = 0.3 start_equipment_factor = 0.8"
+					owner = KUR
+					count = 1
+				}
+			}
+		}
+	}
+	declare_war_on = {
+		target = KUR
+		type = annex_everything
+	}
+	hidden_effect = {
+		news_event = { id = brs_news.40 hours = 6 }
+	}
+}
+
+# State scope (decision target): cultural concessions.
+KRD_grant_autonomy = {
+	set_state_flag = KRD_autonomy
+	remove_dynamic_modifier = { modifier = KRD_kurdish_resistance }
+	remove_dynamic_modifier = { modifier = KRD_kurdish_resistance_extreme }
+	add_dynamic_modifier = { modifier = KRD_kurdish_autonomy }
+	add_resistance = -25
+	add_compliance = 15
+}

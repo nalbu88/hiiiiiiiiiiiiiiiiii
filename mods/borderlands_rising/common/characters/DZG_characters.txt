@@ -1,0 +1,200 @@
+###########################################################################
+# Borderlands Rising - Free City of Danzig characters
+#
+# Every country leader here is a real politician of the Free City (or, for
+# the monarchy, of the House of Hohenzollern). The party leaders of 1936
+# are recruited in history/countries/DNZ - Danzig.txt; everybody else is
+# recruited by the focus that brings them to power.
+#
+# No portraits are assigned: the game picks a fitting generic portrait.
+# See mods/README.md for how to add CC-licensed portraits.
+###########################################################################
+
+characters = {
+
+	### Country leaders ###
+
+	# Senate President 1934-1939, NSDAP. Historically Gauleiter Forster's
+	# bitter rival inside the Danzig party.
+	DZG_arthur_greiser = {
+		name = DZG_arthur_greiser
+		country_leader = {
+			desc = DZG_arthur_greiser_desc
+			ideology = nazism
+			traits = { DZG_trait_senate_president }
+			expire = "1965.1.1.1"
+		}
+	}
+
+	# Irish diplomat, League of Nations High Commissioner in Danzig 1934-1937.
+	DZG_sean_lester = {
+		name = DZG_sean_lester
+		country_leader = {
+			desc = DZG_sean_lester_desc
+			ideology = liberalism
+			traits = { DZG_trait_league_high_commissioner }
+			expire = "1965.1.1.1"
+		}
+	}
+
+	# Chairman of the Danzig SPD 1921-1936.
+	DZG_arthur_brill = {
+		name = DZG_arthur_brill
+		country_leader = {
+			desc = DZG_arthur_brill_desc
+			ideology = socialism
+			traits = { DZG_trait_dockside_social_democrat }
+			expire = "1965.1.1.1"
+		}
+	}
+
+	# Catholic priest, leader of the Danzig Centre Party in the 1935 Volkstag.
+	DZG_richard_stachnik = {
+		name = DZG_richard_stachnik
+		country_leader = {
+			desc = DZG_richard_stachnik_desc
+			ideology = conservatism
+			traits = { DZG_trait_catholic_centrist }
+			expire = "1965.1.1.1"
+		}
+	}
+
+	# Led the banned Danzig KPD into the 1935 election as "List Plenikowski".
+	DZG_anton_plenikowski = {
+		name = DZG_anton_plenikowski
+		country_leader = {
+			desc = DZG_anton_plenikowski_desc
+			ideology = marxism
+			traits = { DZG_trait_underground_organiser }
+			expire = "1965.1.1.1"
+		}
+	}
+
+	# DNVP, Senate President 1931-1933. Leads the non-aligned party in 1936.
+	DZG_ernst_ziehm = {
+		name = DZG_ernst_ziehm
+		country_leader = {
+			desc = DZG_ernst_ziehm_desc
+			ideology = oligarchism
+			traits = { DZG_trait_old_senate_hand }
+			expire = "1965.1.1.1"
+		}
+	}
+
+	# Senate President 1933-1934, broke with Hitler and left the party.
+	DZG_hermann_rauschning = {
+		name = DZG_hermann_rauschning
+		country_leader = {
+			desc = DZG_hermann_rauschning_desc
+			ideology = oligarchism
+			traits = { DZG_trait_conservative_apostate }
+			expire = "1965.1.1.1"
+		}
+	}
+
+	# Grandson of Wilhelm II, heir of the House of Hohenzollern after his
+	# elder brother renounced his rights in 1933. Lufthansa pilot.
+	DZG_louis_ferdinand = {
+		name = DZG_louis_ferdinand
+		country_leader = {
+			desc = DZG_louis_ferdinand_desc
+			ideology = despotism
+			traits = { DZG_trait_aviator_prince }
+			expire = "1965.1.1.1"
+		}
+	}
+
+	### Advisors ###
+
+	# Gauleiter of Danzig, Berlin's man in the Free City.
+	DZG_albert_forster = {
+		name = DZG_albert_forster
+		advisor = {
+			slot = political_advisor
+			idea_token = DZG_albert_forster_advisor
+			cost = 50
+			allowed = { original_tag = DNZ }
+			visible = {
+				NOT = { has_country_flag = DZG_forster_purged }
+				has_government = fascism
+			}
+			traits = { DZG_trait_berlins_gauleiter }
+			ai_will_do = { factor = 0.5 }
+		}
+	}
+
+	# First Senate President of the Free City (1920-1931).
+	DZG_heinrich_sahm = {
+		name = DZG_heinrich_sahm
+		advisor = {
+			slot = political_advisor
+			idea_token = DZG_heinrich_sahm_advisor
+			cost = 100
+			allowed = { original_tag = DNZ }
+			traits = { DZG_trait_founding_administrator }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	# Swiss historian, League High Commissioner in Danzig 1937-1939.
+	DZG_carl_jacob_burckhardt = {
+		name = DZG_carl_jacob_burckhardt
+		advisor = {
+			slot = political_advisor
+			idea_token = DZG_carl_jacob_burckhardt_advisor
+			cost = 100
+			allowed = { original_tag = DNZ }
+			traits = { DZG_trait_league_mediator }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	### Military ###
+
+	# Commander of the Danzig Landespolizei.
+	DZG_friedrich_georg_eberhardt = {
+		name = DZG_friedrich_georg_eberhardt
+		corps_commander = {
+			traits = { career_officer trait_engineer }
+			skill = 3
+			attack_skill = 3
+			defense_skill = 3
+			planning_skill = 2
+			logistics_skill = 2
+		}
+		advisor = {
+			slot = army_chief
+			idea_token = DZG_friedrich_georg_eberhardt_army_chief
+			cost = 100
+			allowed = { original_tag = DNZ }
+			traits = { army_chief_drill_2 }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	# Eldest son of the Crown Prince; renounced the succession in 1933.
+	DZG_prince_wilhelm_of_prussia = {
+		name = DZG_prince_wilhelm_of_prussia
+		corps_commander = {
+			traits = { career_officer trait_reckless }
+			skill = 2
+			attack_skill = 3
+			defense_skill = 1
+			planning_skill = 2
+			logistics_skill = 1
+		}
+	}
+
+	# Son of Wilhelm II, Generalmajor of the Imperial Army.
+	DZG_prince_oskar_of_prussia = {
+		name = DZG_prince_oskar_of_prussia
+		field_marshal = {
+			traits = { old_guard thorough_planner }
+			skill = 3
+			attack_skill = 2
+			defense_skill = 3
+			planning_skill = 3
+			logistics_skill = 3
+		}
+	}
+}

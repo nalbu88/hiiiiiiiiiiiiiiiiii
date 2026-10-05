@@ -1,0 +1,168 @@
+###########################################################################
+# Borderlands Rising - Azerbaijan characters
+#
+# The President of the Republic is Ilham Aliyev - as a baby. He is a
+# deliberate anachronism and a joke, treated affectionately: the Regency
+# Council governs until the focus tree has let him grow up.
+#
+# Everyone else is a real Azerbaijani statesman, soldier or scientist of
+# the period. The Baku Oil Council is a body, not a person: it stands for
+# the oil industrialists in the Regency Council.
+###########################################################################
+
+characters = {
+
+	### Country leaders ###
+
+	ODL_ilham_aliyev = {
+		name = ODL_ilham_aliyev
+		portraits = {
+			civilian = {
+				large = GFX_portrait_ODL_baby_ilham
+				small = GFX_portrait_ODL_baby_ilham_small
+			}
+		}
+		country_leader = {
+			desc = ODL_ilham_aliyev_desc
+			ideology = moderatism
+			traits = { ODL_trait_infant_president }
+			expire = "2065.1.1.1"
+		}
+	}
+
+	# Founder of the Azerbaijan Democratic Republic (1918). Returns from
+	# exile to head the Regency Council, and leads the democrats.
+	ODL_mammad_amin_rasulzade = {
+		name = ODL_mammad_amin_rasulzade
+		country_leader = {
+			desc = ODL_mammad_amin_rasulzade_desc
+			ideology = liberalism
+			traits = { ODL_trait_father_of_the_republic }
+			expire = "1965.1.1.1"
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = ODL_mammad_amin_rasulzade_advisor
+			cost = 50
+			allowed = { original_tag = AZR }
+			traits = { ODL_trait_father_of_the_republic }
+			ai_will_do = { factor = 2 }
+		}
+	}
+
+	# Azerbaijani communist leader of the 1920s and 1930s.
+	ODL_ruhulla_akhundov = {
+		name = ODL_ruhulla_akhundov
+		country_leader = {
+			desc = ODL_ruhulla_akhundov_desc
+			ideology = leninism
+			traits = { }
+			expire = "1965.1.1.1"
+		}
+	}
+
+	### Political advisors ###
+
+	# Journalist and Musavat activist in Paris.
+	ODL_jeyhun_hajibeyli = {
+		name = ODL_jeyhun_hajibeyli
+		advisor = {
+			slot = political_advisor
+			idea_token = ODL_jeyhun_hajibeyli_advisor
+			cost = 100
+			allowed = { original_tag = AZR }
+			traits = { ODL_trait_paris_publicist }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	# Minister of the Democratic Republic, later its envoy to Turkey.
+	ODL_khalil_bey_khasmammadov = {
+		name = ODL_khalil_bey_khasmammadov
+		advisor = {
+			slot = political_advisor
+			idea_token = ODL_khalil_bey_khasmammadov_advisor
+			cost = 100
+			allowed = { original_tag = AZR }
+			traits = { ODL_trait_caspian_diplomat }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	ODL_baku_oil_council = {
+		name = ODL_baku_oil_council
+		advisor = {
+			slot = political_advisor
+			idea_token = ODL_baku_oil_council_advisor
+			cost = 100
+			allowed = { original_tag = AZR }
+			traits = { ODL_trait_oil_baron }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	# Petroleum chemist, later founder of Azerbaijani petrochemistry.
+	ODL_yusif_mammadaliyev = {
+		name = ODL_yusif_mammadaliyev
+		advisor = {
+			slot = theorist
+			idea_token = ODL_yusif_mammadaliyev_theorist
+			ledger = army
+			cost = 100
+			allowed = { original_tag = AZR }
+			traits = { ODL_trait_petrochemist }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	### Military ###
+
+	# Lieutenant-general of artillery, "the god of artillery" of the
+	# Russian Imperial Army and Deputy War Minister of the Republic.
+	ODL_aliagha_shikhlinski = {
+		name = ODL_aliagha_shikhlinski
+		field_marshal = {
+			traits = { old_guard thorough_planner }
+			skill = 4
+			attack_skill = 3
+			defense_skill = 4
+			planning_skill = 4
+			logistics_skill = 2
+		}
+		advisor = {
+			slot = army_chief
+			idea_token = ODL_aliagha_shikhlinski_army_chief
+			cost = 100
+			allowed = { original_tag = AZR }
+			traits = { ODL_trait_god_of_artillery }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	# Cavalry officer of the Republic's army in 1918-1920.
+	ODL_jamshid_nakhchivanski = {
+		name = ODL_jamshid_nakhchivanski
+		corps_commander = {
+			traits = { cavalry_officer war_hero }
+			skill = 3
+			attack_skill = 3
+			defense_skill = 2
+			planning_skill = 3
+			logistics_skill = 2
+		}
+	}
+
+	# A young officer in 1936, later one of the best tank commanders of
+	# the Second World War.
+	ODL_hazi_aslanov = {
+		name = ODL_hazi_aslanov
+		corps_commander = {
+			traits = { armor_officer }
+			skill = 2
+			attack_skill = 3
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 1
+		}
+	}
+}

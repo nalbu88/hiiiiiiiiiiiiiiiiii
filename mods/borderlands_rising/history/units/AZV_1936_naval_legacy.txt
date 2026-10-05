@@ -1,0 +1,26 @@
+###########################################################################
+# Borderlands Rising - the Black Sea Squadron of South Russia (no Man the Guns)
+###########################################################################
+
+units = {
+	fleet = {
+		name = "Black Sea Squadron"
+		naval_base = 3686 # Sevastopol
+		task_force = {
+			name = "Black Sea Squadron"
+			location = 3686 # Sevastopol
+			ship = { name = "General Alekseyev" definition = battleship equipment = { battleship_1 = { amount = 1 owner = CRI } } }
+			ship = { name = "General Kornilov" definition = light_cruiser equipment = { light_cruiser_1 = { amount = 1 owner = CRI } } }
+			ship = { name = "Derzky" definition = destroyer equipment = { destroyer_1 = { amount = 1 owner = CRI version_name = "Novik Class" } } }
+			ship = { name = "Gnevny" definition = destroyer equipment = { destroyer_1 = { amount = 1 owner = CRI version_name = "Novik Class" } } }
+			ship = { name = "Pospeshny" definition = destroyer equipment = { destroyer_1 = { amount = 1 owner = CRI version_name = "Novik Class" } } }
+			ship = { name = "Tserigo" definition = destroyer equipment = { destroyer_1 = { amount = 1 owner = CRI version_name = "Novik Class" } } }
+		}
+		task_force = {
+			name = "Submarine Division"
+			location = 3686 # Sevastopol
+			ship = { name = "Utka" definition = submarine equipment = { submarine_1 = { amount = 1 owner = CRI } } }
+			ship = { name = "Burevestnik" definition = submarine equipment = { submarine_1 = { amount = 1 owner = CRI } } }
+		}
+	}
+}

@@ -1,0 +1,3073 @@
+###########################################################################
+# Borderlands Rising - Free City of Danzig national focus tree
+#
+# 150 focuses. No focus takes more than 42 days (cost 6); most take
+# 21 to 35 days.
+#
+# Layout (absolute x columns):
+#    0-11  Foreign policy: the Danzig Question, claims on both neighbours
+#   15-24  Army (the Oppressed Soldiers line runs down x 22-24)
+#   27-31  Navy
+#   33-37  Air force
+#   40-73  Politics: Fascist (40-47) | Democratic (48-54) |
+#          Non-aligned (55-60) | Monarchist (61-65) | Communist (66-73)
+#   76-90  Economy and research
+#   93-97  Society: the Forest Opera and the Open Air Concert
+#
+# Performance: every trigger is a cheap country or state check, and
+# map-wide loops only run once inside completion rewards.
+###########################################################################
+
+focus_tree = {
+	id = DZG_danzig_focus_tree
+
+	country = {
+		factor = 0
+		modifier = {
+			add = 200
+			original_tag = DNZ
+		}
+	}
+
+	default = no
+	reset_on_civilwar = no
+
+	initial_show_position = {
+		focus = DZG_the_volkstag_crisis
+	}
+
+	continuous_focus_position = { x = 50 y = 1300 }
+
+	shortcut = {
+		name = DZG_shortcut_foreign
+		target = DZG_the_danzig_question
+		scroll_wheel_factor = 0.6
+	}
+	shortcut = {
+		name = DZG_shortcut_military
+		target = DZG_the_landespolizei
+		scroll_wheel_factor = 0.6
+	}
+	shortcut = {
+		name = DZG_shortcut_politics
+		target = DZG_the_volkstag_crisis
+		scroll_wheel_factor = 0.6
+	}
+	shortcut = {
+		name = DZG_shortcut_economy
+		target = DZG_the_free_port
+		scroll_wheel_factor = 0.6
+	}
+	shortcut = {
+		name = DZG_shortcut_society
+		target = DZG_the_waldoper_zoppot
+		scroll_wheel_factor = 0.6
+	}
+
+	#######################################################################
+	# FOREIGN POLICY - THE DANZIG QUESTION
+	#######################################################################
+
+	focus = {
+		id = DZG_the_danzig_question
+		icon = GFX_focus_DZG_the_danzig_question
+		x = 6
+		y = 0
+		cost = 4
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_political_power = 60
+			add_power_balance_value = {
+				id = DZG_danzig_question
+				value = 0.05
+				tooltip_side = DZG_bop_warsaw_side
+			}
+			custom_effect_tooltip = DZG_the_danzig_question_tt
+		}
+	}
+
+	focus = {
+		id = DZG_lean_on_berlin
+		icon = GFX_focus_DZG_lean_on_berlin
+		x = 2
+		y = 1
+		cost = 4
+		prerequisite = { focus = DZG_the_danzig_question }
+		available = {
+			NOT = { has_country_flag = DZG_broke_with_berlin }
+			country_exists = GER
+			NOT = { has_war_with = GER }
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INTERNATIONAL_TRADE }
+		ai_will_do = {
+			base = 5
+			modifier = { factor = 3 has_government = fascism }
+			modifier = { factor = 0.2 has_government = democratic }
+			modifier = { factor = 0 has_government = communism }
+		}
+		completion_reward = {
+			add_power_balance_value = {
+				id = DZG_danzig_question
+				value = -0.15
+				tooltip_side = DZG_bop_berlin_side
+			}
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 1500
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = 200
+				producer = GER
+			}
+			GER = { add_opinion_modifier = { target = ROOT modifier = DZG_good_neighbour } }
+			DZG_forster_network_up_10 = yes
+		}
+	}
+
+	focus = {
+		id = DZG_the_westerplatte_question
+		icon = GFX_focus_DZG_the_westerplatte_question
+		x = 6
+		y = 1
+		cost = 4
+		prerequisite = { focus = DZG_the_danzig_question }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			country_event = { id = dzg.1 }
+		}
+	}
+
+	focus = {
+		id = DZG_lean_on_warsaw
+		icon = GFX_focus_DZG_lean_on_warsaw
+		x = 10
+		y = 1
+		cost = 4
+		prerequisite = { focus = DZG_the_danzig_question }
+		available = {
+			country_exists = POL
+			NOT = { has_war_with = POL }
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
+		ai_will_do = {
+			base = 5
+			modifier = { factor = 3 has_government = democratic }
+			modifier = { factor = 0.3 has_government = fascism }
+		}
+		completion_reward = {
+			add_power_balance_value = {
+				id = DZG_danzig_question
+				value = 0.15
+				tooltip_side = DZG_bop_warsaw_side
+			}
+			add_offsite_building = {
+				type = industrial_complex
+				level = 1
+			}
+			POL = { add_opinion_modifier = { target = ROOT modifier = DZG_good_neighbour } }
+		}
+	}
+
+	focus = {
+		id = DZG_the_corridor_question
+		icon = GFX_focus_DZG_the_corridor_question
+		x = 1
+		y = 2
+		cost = 5
+		prerequisite = { focus = DZG_lean_on_berlin }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			add_state_claim = 807
+			DZG_unlock_claims = yes
+		}
+	}
+
+	focus = {
+		id = DZG_break_the_customs_union
+		icon = GFX_focus_DZG_break_the_customs_union
+		x = 3
+		y = 2
+		cost = 4
+		prerequisite = { focus = DZG_lean_on_berlin focus = DZG_the_westerplatte_question }
+		available = {
+			has_idea = DZG_polish_customs_union
+		}
+		bypass = {
+			NOT = { has_idea = DZG_polish_customs_union }
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			DZG_set_port_status_sovereign = yes
+			if = {
+				limit = { country_exists = POL }
+				POL = { add_opinion_modifier = { target = ROOT modifier = DZG_treaty_breaker } }
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_memel_free_port_treaty
+		icon = GFX_focus_DZG_memel_free_port_treaty
+		x = 6
+		y = 2
+		cost = 4
+		prerequisite = { focus = DZG_the_westerplatte_question }
+		search_filters = { FOCUS_FILTER_INTERNATIONAL_TRADE FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			add_political_power = 50
+			add_state_claim = 188
+			DZG_unlock_claims = yes
+			if = {
+				limit = { country_exists = LIT }
+				LIT = { add_opinion_modifier = { target = ROOT modifier = DZG_trade_partner } }
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_the_kashubian_question
+		icon = GFX_focus_DZG_the_kashubian_question
+		x = 9
+		y = 2
+		cost = 4
+		prerequisite = { focus = DZG_lean_on_warsaw }
+		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			add_manpower = 5000
+			add_state_claim = 807
+			DZG_unlock_claims = yes
+		}
+	}
+
+	focus = {
+		id = DZG_the_vistula_delta
+		icon = GFX_focus_DZG_the_vistula_delta
+		x = 11
+		y = 2
+		cost = 5
+		prerequisite = { focus = DZG_lean_on_warsaw }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			add_state_claim = 5
+			DZG_unlock_claims = yes
+		}
+	}
+
+	focus = {
+		id = DZG_pomeranian_ambitions
+		icon = GFX_focus_DZG_pomeranian_ambitions
+		x = 1
+		y = 3
+		cost = 5
+		prerequisite = { focus = DZG_the_corridor_question }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { base = 3 }
+		completion_reward = {
+			add_state_claim = 63
+			DZG_unlock_claims = yes
+		}
+	}
+
+	focus = {
+		id = DZG_the_polish_post_office
+		icon = GFX_focus_DZG_the_polish_post_office
+		x = 3
+		y = 3
+		cost = 4
+		prerequisite = { focus = DZG_break_the_customs_union }
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			add_war_support = 0.05
+			85 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_power_balance_value = {
+				id = DZG_danzig_question
+				value = -0.05
+				tooltip_side = DZG_bop_berlin_side
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_baltic_diplomacy
+		icon = GFX_focus_DZG_baltic_diplomacy
+		x = 6
+		y = 3
+		cost = 4
+		prerequisite = { focus = DZG_memel_free_port_treaty }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INTERNATIONAL_TRADE }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_political_power = 50
+			DZG_befriend_the_baltic = yes
+		}
+	}
+
+	focus = {
+		id = DZG_kashubian_volunteers
+		icon = GFX_focus_DZG_kashubian_volunteers
+		x = 9
+		y = 3
+		cost = 4
+		prerequisite = { focus = DZG_the_kashubian_question }
+		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			add_manpower = 5000
+			army_experience = 15
+			add_war_support = 0.03
+		}
+	}
+
+	focus = {
+		id = DZG_east_prussian_ambitions
+		icon = GFX_focus_DZG_east_prussian_ambitions
+		x = 11
+		y = 3
+		cost = 5
+		prerequisite = { focus = DZG_the_vistula_delta }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { base = 3 }
+		completion_reward = {
+			add_state_claim = 763
+			DZG_unlock_claims = yes
+		}
+	}
+
+	focus = {
+		id = DZG_rival_of_warsaw
+		icon = GFX_focus_DZG_rival_of_warsaw
+		x = 1
+		y = 4
+		cost = 6
+		prerequisite = { focus = DZG_pomeranian_ambitions }
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 3 }
+		completion_reward = {
+			set_country_flag = DZG_rival_of_warsaw
+			army_experience = 20
+			custom_effect_tooltip = DZG_rival_of_warsaw_tt
+		}
+	}
+
+	focus = {
+		id = DZG_seek_a_great_power_patron
+		icon = GFX_focus_DZG_seek_a_great_power_patron
+		x = 6
+		y = 4
+		cost = 5
+		prerequisite = { focus = DZG_baltic_diplomacy }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			country_event = { id = dzg.2 }
+		}
+	}
+
+	focus = {
+		id = DZG_rival_of_berlin
+		icon = GFX_focus_DZG_rival_of_berlin
+		x = 11
+		y = 4
+		cost = 6
+		prerequisite = { focus = DZG_east_prussian_ambitions }
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 3 }
+		completion_reward = {
+			set_country_flag = DZG_rival_of_berlin
+			army_experience = 20
+			custom_effect_tooltip = DZG_rival_of_berlin_tt
+		}
+	}
+
+	focus = {
+		id = DZG_integrate_the_new_territories
+		icon = GFX_focus_DZG_integrate_the_new_territories
+		x = 6
+		y = 5
+		cost = 5
+		prerequisite = { focus = DZG_rival_of_warsaw focus = DZG_seek_a_great_power_patron focus = DZG_rival_of_berlin }
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			DZG_integrate_claimed_states = yes
+			set_country_flag = DZG_integration_unlocked
+			unlock_decision_tooltip = DZG_integrate_state
+		}
+	}
+
+	focus = {
+		id = DZG_the_baltic_shield
+		icon = GFX_focus_DZG_the_baltic_shield
+		x = 9
+		y = 5
+		cost = 5
+		prerequisite = { focus = DZG_seek_a_great_power_patron }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			if = {
+				limit = { is_in_faction = no }
+				DZG_create_baltic_shield_faction = yes
+				DZG_invite_baltic_shield_members = yes
+			}
+			else = {
+				add_stability = 0.05
+				add_war_support = 0.05
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_queen_of_the_vistula
+		icon = GFX_focus_DZG_queen_of_the_vistula
+		x = 6
+		y = 6
+		cost = 6
+		prerequisite = { focus = DZG_integrate_the_new_territories }
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_ideas = DZG_queen_of_the_vistula_idea
+			add_state_claim = 807
+			add_state_claim = 5
+			add_state_claim = 763
+			add_state_claim = 63
+			add_state_claim = 188
+			DZG_unlock_claims = yes
+		}
+	}
+
+	#######################################################################
+	# ARMY
+	#######################################################################
+
+	focus = {
+		id = DZG_the_landespolizei
+		icon = GFX_focus_DZG_the_landespolizei
+		x = 20
+		y = 0
+		cost = 4
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			army_experience = 15
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = 100
+			}
+			add_unit_bonus = {
+				infantry = {
+					defense = 0.05
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_tear_up_the_demilitarisation_clause
+		icon = GFX_focus_DZG_tear_up_the_demilitarisation_clause
+		x = 17
+		y = 1
+		cost = 4
+		prerequisite = { focus = DZG_the_landespolizei }
+		available = {
+			85 = { is_demilitarized_zone = yes }
+		}
+		bypass = {
+			OR = {
+				NOT = { owns_state = 85 }
+				85 = { is_demilitarized_zone = no }
+			}
+		}
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			85 = { set_demilitarized_zone = no }
+			set_country_flag = DZG_demilitarisation_torn
+			add_war_support = 0.05
+			if = {
+				limit = { has_idea = DZG_league_protectorate }
+				remove_ideas = DZG_league_protectorate
+			}
+			if = {
+				limit = { has_idea = DZG_league_shield }
+				remove_ideas = DZG_league_shield
+			}
+			if = {
+				limit = { country_exists = POL }
+				POL = { add_opinion_modifier = { target = ROOT modifier = DZG_treaty_breaker } }
+			}
+			if = {
+				limit = { country_exists = ENG }
+				ENG = { add_opinion_modifier = { target = ROOT modifier = DZG_treaty_breaker } }
+			}
+			if = {
+				limit = { country_exists = FRA }
+				FRA = { add_opinion_modifier = { target = ROOT modifier = DZG_treaty_breaker } }
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_the_oppressed_soldiers
+		icon = GFX_focus_DZG_the_oppressed_soldiers
+		x = 23
+		y = 1
+		cost = 5
+		prerequisite = { focus = DZG_the_landespolizei }
+		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 12 }
+		completion_reward = {
+			unlock_subunit = dzg_oppressed_soldiers
+			division_template = {
+				name = "Oppressed Soldiers"
+				regiments = {
+					dzg_oppressed_soldiers = { x = 0 y = 0 }
+					dzg_oppressed_soldiers = { x = 0 y = 1 }
+					dzg_oppressed_soldiers = { x = 0 y = 2 }
+					dzg_oppressed_soldiers = { x = 1 y = 0 }
+					dzg_oppressed_soldiers = { x = 1 y = 1 }
+					dzg_oppressed_soldiers = { x = 1 y = 2 }
+				}
+				support = {
+					artillery = { x = 0 y = 0 }
+				}
+			}
+			add_manpower = 3000
+			custom_effect_tooltip = DZG_the_oppressed_soldiers_tt
+		}
+	}
+
+	focus = {
+		id = DZG_bischofsberg_barracks
+		icon = GFX_focus_DZG_bischofsberg_barracks
+		x = 15
+		y = 2
+		cost = 4
+		prerequisite = { focus = DZG_tear_up_the_demilitarisation_clause }
+		available = { owns_state = 85 }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			85 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			army_experience = 5
+		}
+	}
+
+	focus = {
+		id = DZG_hagelsberg_fortress
+		icon = GFX_focus_DZG_hagelsberg_fortress
+		x = 17
+		y = 2
+		cost = 4
+		prerequisite = { focus = DZG_tear_up_the_demilitarisation_clause }
+		available = { owns_state = 85 }
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			85 = {
+				add_building_construction = {
+					type = bunker
+					level = 3
+					province = { all_provinces = yes }
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 2
+					province = { all_provinces = yes limit_to_coastal = yes }
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_citizens_in_arms
+		icon = GFX_focus_DZG_citizens_in_arms
+		x = 19
+		y = 2
+		cost = 4
+		prerequisite = { focus = DZG_tear_up_the_demilitarisation_clause }
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_ideas = DZG_citizens_in_arms_idea
+		}
+	}
+
+	focus = {
+		id = DZG_oppressed_soldiers_doctrine
+		icon = GFX_focus_DZG_oppressed_soldiers_doctrine
+		x = 22
+		y = 2
+		cost = 5
+		prerequisite = { focus = DZG_the_oppressed_soldiers }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_unit_bonus = {
+				dzg_oppressed_soldiers = {
+					soft_attack = 0.10
+					defense = 0.10
+					breakthrough = 0.05
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_street_fighting_doctrine
+		icon = GFX_focus_DZG_street_fighting_doctrine
+		x = 24
+		y = 2
+		cost = 4
+		prerequisite = { focus = DZG_the_oppressed_soldiers }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_ideas = DZG_street_fighters
+		}
+	}
+
+	focus = {
+		id = DZG_vistula_pioneers
+		icon = GFX_focus_DZG_vistula_pioneers
+		x = 15
+		y = 3
+		cost = 4
+		prerequisite = { focus = DZG_bischofsberg_barracks }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			army_experience = 10
+			add_tech_bonus = {
+				name = DZG_vistula_pioneers
+				bonus = 0.5
+				uses = 2
+				category = infantry_weapons
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_artillery_of_the_bastions
+		icon = GFX_focus_DZG_artillery_of_the_bastions
+		x = 17
+		y = 3
+		cost = 4
+		prerequisite = { focus = DZG_hagelsberg_fortress }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = DZG_artillery_of_the_bastions
+				bonus = 0.5
+				uses = 2
+				category = artillery
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_staff_college
+		icon = GFX_focus_DZG_staff_college
+		x = 19
+		y = 3
+		cost = 5
+		prerequisite = { focus = DZG_citizens_in_arms }
+		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			army_experience = 15
+			add_doctrine_cost_reduction = {
+				name = DZG_staff_college
+				cost_reduction = 0.5
+				uses = 1
+				category = land_doctrine
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_motorised_police
+		icon = GFX_focus_DZG_motorised_police
+		x = 22
+		y = 3
+		cost = 4
+		prerequisite = { focus = DZG_oppressed_soldiers_doctrine }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = DZG_motorised_police
+				bonus = 0.5
+				uses = 1
+				category = motorized_equipment
+			}
+			add_equipment_to_stockpile = {
+				type = motorized_equipment
+				amount = 100
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_armoured_cars_of_the_free_city
+		icon = GFX_focus_DZG_armoured_cars_of_the_free_city
+		x = 24
+		y = 3
+		cost = 5
+		prerequisite = { focus = DZG_street_fighting_doctrine }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = DZG_armoured_cars_of_the_free_city
+				bonus = 0.5
+				uses = 2
+				category = armor
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_the_unbreakable_city
+		icon = GFX_focus_DZG_the_unbreakable_city
+		x = 16
+		y = 4
+		cost = 6
+		prerequisite = { focus = DZG_vistula_pioneers focus = DZG_artillery_of_the_bastions }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_ideas = DZG_unbreakable_city
+		}
+	}
+
+	focus = {
+		id = DZG_veterans_of_the_great_war
+		icon = GFX_focus_DZG_veterans_of_the_great_war
+		x = 19
+		y = 4
+		cost = 5
+		prerequisite = { focus = DZG_staff_college }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			army_experience = 25
+			add_command_power = 30
+		}
+	}
+
+	focus = {
+		id = DZG_officer_school_of_langfuhr
+		icon = GFX_focus_DZG_officer_school_of_langfuhr
+		x = 21
+		y = 4
+		cost = 4
+		prerequisite = { focus = DZG_staff_college }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = DZG_officer_school_of_langfuhr
+				cost_reduction = 0.5
+				uses = 2
+				category = land_doctrine
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_the_mobile_reserve
+		icon = GFX_focus_DZG_the_mobile_reserve
+		x = 23
+		y = 4
+		cost = 5
+		prerequisite = { focus = DZG_motorised_police focus = DZG_armoured_cars_of_the_free_city }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			army_experience = 10
+			division_template = {
+				name = "Motorised Police Brigade"
+				regiments = {
+					motorized = { x = 0 y = 0 }
+					motorized = { x = 0 y = 1 }
+					motorized = { x = 1 y = 0 }
+					motorized = { x = 1 y = 1 }
+				}
+			}
+			add_equipment_to_stockpile = {
+				type = motorized_equipment
+				amount = 150
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_army_of_the_free_city
+		icon = GFX_focus_DZG_army_of_the_free_city
+		x = 20
+		y = 5
+		cost = 6
+		prerequisite = { focus = DZG_veterans_of_the_great_war }
+		prerequisite = { focus = DZG_the_unbreakable_city focus = DZG_the_mobile_reserve }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_ideas = DZG_army_of_the_free_city_idea
+		}
+	}
+
+	focus = {
+		id = DZG_brotherhood_of_the_oppressed
+		icon = GFX_focus_DZG_brotherhood_of_the_oppressed
+		x = 23
+		y = 5
+		cost = 5
+		prerequisite = { focus = DZG_the_mobile_reserve }
+		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_manpower = 5000
+			add_unit_bonus = {
+				dzg_oppressed_soldiers = {
+					soft_attack = 0.05
+					defense = 0.05
+				}
+			}
+		}
+	}
+
+	#######################################################################
+	# NAVY
+	#######################################################################
+
+	focus = {
+		id = DZG_schichau_contracts
+		icon = GFX_focus_DZG_schichau_contracts
+		x = 29
+		y = 0
+		cost = 4
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_NAVY_XP }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			navy_experience = 10
+			85 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_danziger_werft
+		icon = GFX_focus_DZG_danziger_werft
+		x = 27
+		y = 1
+		cost = 4
+		prerequisite = { focus = DZG_schichau_contracts }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_NAVY_XP }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = DZG_danziger_werft
+				bonus = 0.5
+				uses = 2
+				category = ss_tech
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_coastal_flotilla
+		icon = GFX_focus_DZG_coastal_flotilla
+		x = 31
+		y = 1
+		cost = 4
+		prerequisite = { focus = DZG_schichau_contracts }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_NAVY_XP }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = DZG_coastal_flotilla
+				bonus = 0.5
+				uses = 2
+				category = dd_tech
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_neufahrwasser_u_boat_pens
+		icon = GFX_focus_DZG_neufahrwasser_u_boat_pens
+		x = 27
+		y = 2
+		cost = 5
+		prerequisite = { focus = DZG_danziger_werft }
+		available = { owns_state = 85 }
+		search_filters = { FOCUS_FILTER_NAVY_XP }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			navy_experience = 10
+			85 = {
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					province = 362
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_minefields_of_the_bay
+		icon = GFX_focus_DZG_minefields_of_the_bay
+		x = 31
+		y = 2
+		cost = 4
+		prerequisite = { focus = DZG_coastal_flotilla }
+		available = { owns_state = 85 }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_NAVY_XP }
+		ai_will_do = { base = 3 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = DZG_minefields_of_the_bay
+				bonus = 0.5
+				uses = 1
+				category = naval_equipment
+			}
+			85 = {
+				add_building_construction = {
+					type = coastal_bunker
+					level = 2
+					province = { all_provinces = yes limit_to_coastal = yes }
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_baltic_raiders
+		icon = GFX_focus_DZG_baltic_raiders
+		x = 27
+		y = 3
+		cost = 5
+		prerequisite = { focus = DZG_neufahrwasser_u_boat_pens }
+		search_filters = { FOCUS_FILTER_NAVY_XP }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			add_ideas = DZG_baltic_raiders_idea
+		}
+	}
+
+	focus = {
+		id = DZG_marine_infantry
+		icon = GFX_focus_DZG_marine_infantry
+		x = 31
+		y = 3
+		cost = 5
+		prerequisite = { focus = DZG_minefields_of_the_bay }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_NAVY_XP }
+		ai_will_do = { base = 3 }
+		completion_reward = {
+			navy_experience = 15
+			add_tech_bonus = {
+				name = DZG_marine_infantry
+				bonus = 0.5
+				uses = 1
+				category = marine_tech
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_free_city_navy
+		icon = GFX_focus_DZG_free_city_navy
+		x = 29
+		y = 4
+		cost = 6
+		prerequisite = { focus = DZG_baltic_raiders focus = DZG_marine_infantry }
+		search_filters = { FOCUS_FILTER_NAVY_XP FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			add_ideas = DZG_free_city_navy_idea
+			if = {
+				limit = { owns_state = 85 }
+				85 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = dockyard
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+
+	#######################################################################
+	# AIR FORCE
+	#######################################################################
+
+	focus = {
+		id = DZG_danziger_luftpost
+		icon = GFX_focus_DZG_danziger_luftpost
+		x = 35
+		y = 0
+		cost = 4
+		search_filters = { FOCUS_FILTER_AIR_XP }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			air_experience = 10
+			85 = {
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_junkers_licence
+		icon = GFX_focus_DZG_junkers_licence
+		x = 33
+		y = 1
+		cost = 4
+		prerequisite = { focus = DZG_danziger_luftpost }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_AIR_XP }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = DZG_junkers_licence
+				bonus = 0.5
+				uses = 2
+				category = light_fighter
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_langfuhr_fighter_wing
+		icon = GFX_focus_DZG_langfuhr_fighter_wing
+		x = 37
+		y = 1
+		cost = 4
+		prerequisite = { focus = DZG_danziger_luftpost }
+		search_filters = { FOCUS_FILTER_AIR_XP }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			air_experience = 15
+			add_tech_bonus = {
+				name = DZG_langfuhr_fighter_wing
+				bonus = 0.5
+				uses = 1
+				category = air_equipment
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_dive_bomber_staffel
+		icon = GFX_focus_DZG_dive_bomber_staffel
+		x = 33
+		y = 2
+		cost = 4
+		prerequisite = { focus = DZG_junkers_licence }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_AIR_XP }
+		ai_will_do = { base = 3 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = DZG_dive_bomber_staffel
+				bonus = 0.5
+				uses = 2
+				category = cas_bomber
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_coastal_patrol_squadron
+		icon = GFX_focus_DZG_coastal_patrol_squadron
+		x = 37
+		y = 2
+		cost = 4
+		prerequisite = { focus = DZG_langfuhr_fighter_wing }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_AIR_XP }
+		ai_will_do = { base = 3 }
+		completion_reward = {
+			air_experience = 10
+			add_tech_bonus = {
+				name = DZG_coastal_patrol_squadron
+				bonus = 0.5
+				uses = 1
+				category = naval_bomber
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_baltic_air_shield
+		icon = GFX_focus_DZG_baltic_air_shield
+		x = 35
+		y = 3
+		cost = 5
+		prerequisite = { focus = DZG_dive_bomber_staffel focus = DZG_coastal_patrol_squadron }
+		search_filters = { FOCUS_FILTER_AIR_XP }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			add_ideas = DZG_baltic_air_shield_idea
+			if = {
+				limit = { owns_state = 85 }
+				85 = {
+					add_building_construction = {
+						type = anti_air_building
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_the_bomber_wing
+		icon = GFX_focus_DZG_the_bomber_wing
+		x = 35
+		y = 4
+		cost = 5
+		prerequisite = { focus = DZG_baltic_air_shield }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_AIR_XP }
+		ai_will_do = { base = 3 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = DZG_the_bomber_wing
+				bonus = 0.5
+				uses = 1
+				category = tactical_bomber
+			}
+			add_doctrine_cost_reduction = {
+				name = DZG_the_bomber_wing
+				cost_reduction = 0.5
+				uses = 1
+				category = air_doctrine
+			}
+		}
+	}
+
+	#######################################################################
+	# POLITICS - THE VOLKSTAG CRISIS
+	#######################################################################
+
+	focus = {
+		id = DZG_the_volkstag_crisis
+		icon = GFX_focus_DZG_the_volkstag_crisis
+		x = 56
+		y = 0
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_HISTORICAL }
+		ai_will_do = { base = 15 }
+		completion_reward = {
+			add_political_power = 75
+			add_stability = 0.03
+			custom_effect_tooltip = DZG_the_volkstag_crisis_tt
+		}
+	}
+
+	### Fascist path: Greiser's Senate ###
+
+	focus = {
+		id = DZG_greisers_senate
+		icon = GFX_focus_DZG_greisers_senate
+		x = 43
+		y = 1
+		cost = 4
+		prerequisite = { focus = DZG_the_volkstag_crisis }
+		mutually_exclusive = { focus = DZG_the_geneva_appeal focus = DZG_red_danzig }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_HISTORICAL }
+		ai_will_do = {
+			base = 1
+			modifier = { add = 100 DZG_ai_rule_fascist = yes }
+			modifier = { add = 20 DZG_ai_rule_random = yes }
+		}
+		completion_reward = {
+			if = {
+				limit = { NOT = { has_government = fascism } }
+				set_politics = {
+					ruling_party = fascism
+					elections_allowed = no
+				}
+			}
+			add_popularity = { ideology = fascism popularity = 0.10 }
+			promote_character = DZG_arthur_greiser
+			add_political_power = 50
+		}
+	}
+
+	focus = {
+		id = DZG_the_enabling_decree
+		icon = GFX_focus_DZG_the_enabling_decree
+		x = 41
+		y = 2
+		cost = 4
+		prerequisite = { focus = DZG_greisers_senate }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			add_ideas = DZG_emergency_decree
+			set_country_flag = DZG_forster_network_unlocked
+			unlock_decision_category_tooltip = DZG_forster_category
+		}
+	}
+
+	focus = {
+		id = DZG_the_senate_police
+		icon = GFX_focus_DZG_the_senate_police
+		x = 45
+		y = 2
+		cost = 4
+		prerequisite = { focus = DZG_greisers_senate }
+		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_MANPOWER }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			set_country_flag = DZG_senate_police_raised
+			add_manpower = 3000
+			add_war_support = 0.05
+			army_experience = 10
+		}
+	}
+
+	focus = {
+		id = DZG_purge_the_gau
+		icon = GFX_focus_DZG_purge_the_gau
+		x = 41
+		y = 3
+		cost = 5
+		prerequisite = { focus = DZG_the_enabling_decree }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = DZG_forster_network_below_40_tt
+				check_variable = { DZG_forster_network < 41 }
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			DZG_purge_forster = yes
+			add_stability = 0.05
+			add_power_balance_value = {
+				id = DZG_danzig_question
+				value = 0.15
+				tooltip_side = DZG_bop_warsaw_side
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_danzig_first
+		icon = GFX_focus_DZG_danzig_first
+		x = 45
+		y = 3
+		cost = 4
+		prerequisite = { focus = DZG_the_senate_police }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_country_leader_trait = DZG_trait_danziger_first
+			add_popularity = { ideology = fascism popularity = 0.05 }
+			add_political_power = 50
+		}
+	}
+
+	focus = {
+		id = DZG_the_corporate_senate
+		icon = GFX_focus_DZG_the_corporate_senate
+		x = 40
+		y = 4
+		cost = 4
+		prerequisite = { focus = DZG_purge_the_gau }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_ideas = DZG_corporate_senate
+		}
+	}
+
+	focus = {
+		id = DZG_the_vistula_doctrine
+		icon = GFX_focus_DZG_the_vistula_doctrine
+		x = 43
+		y = 4
+		cost = 5
+		prerequisite = { focus = DZG_purge_the_gau }
+		prerequisite = { focus = DZG_danzig_first }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_state_claim = 807
+			add_state_claim = 5
+			DZG_unlock_claims = yes
+			army_experience = 10
+		}
+	}
+
+	focus = {
+		id = DZG_break_with_berlin
+		icon = GFX_focus_DZG_break_with_berlin
+		x = 46
+		y = 4
+		cost = 5
+		prerequisite = { focus = DZG_danzig_first }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			DZG_break_with_berlin_effect = yes
+		}
+	}
+
+	focus = {
+		id = DZG_free_state_youth
+		icon = GFX_focus_DZG_free_state_youth
+		x = 40
+		y = 5
+		cost = 4
+		prerequisite = { focus = DZG_the_corporate_senate }
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_ideas = DZG_free_state_youth_idea
+		}
+	}
+
+	focus = {
+		id = DZG_the_baltic_axis
+		icon = GFX_focus_DZG_the_baltic_axis
+		x = 42
+		y = 5
+		cost = 5
+		prerequisite = { focus = DZG_the_vistula_doctrine }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			if = {
+				limit = { is_in_faction = no }
+				DZG_create_baltic_axis_faction = yes
+				DZG_invite_baltic_axis_members = yes
+			}
+			else = {
+				add_war_support = 0.05
+				army_experience = 15
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_greater_danzig
+		icon = GFX_focus_DZG_greater_danzig
+		x = 45
+		y = 5
+		cost = 5
+		prerequisite = { focus = DZG_the_vistula_doctrine }
+		prerequisite = { focus = DZG_break_with_berlin }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_state_claim = 763
+			add_state_claim = 63
+			add_state_claim = 188
+			DZG_unlock_claims = yes
+			set_country_flag = DZG_rival_of_berlin
+			set_country_flag = DZG_rival_of_warsaw
+			custom_effect_tooltip = DZG_both_rivals_tt
+		}
+	}
+
+	focus = {
+		id = DZG_the_baltic_war_plan
+		icon = GFX_focus_DZG_the_baltic_war_plan
+		x = 42
+		y = 6
+		cost = 5
+		prerequisite = { focus = DZG_the_baltic_axis }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			army_experience = 20
+			add_doctrine_cost_reduction = {
+				name = DZG_the_baltic_war_plan
+				cost_reduction = 0.5
+				uses = 2
+				category = land_doctrine
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_the_eastern_march
+		icon = GFX_focus_DZG_the_eastern_march
+		x = 45
+		y = 6
+		cost = 6
+		prerequisite = { focus = DZG_greater_danzig }
+		available = {
+			has_war = no
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = {
+			base = 4
+			modifier = { factor = 0 date < 1938.1.1 }
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					country_exists = POL
+					POL = { owns_state = 807 }
+				}
+				create_wargoal = {
+					type = take_claimed_state
+					target = POL
+					generator = { 807 }
+				}
+			}
+			army_experience = 15
+		}
+	}
+
+	focus = {
+		id = DZG_the_danziger_reich
+		icon = GFX_focus_DZG_the_danziger_reich
+		x = 43
+		y = 7
+		cost = 6
+		prerequisite = { focus = DZG_the_baltic_war_plan focus = DZG_the_eastern_march }
+		available = {
+			has_government = fascism
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			set_cosmetic_tag = DZG_DANZIGER_REICH
+			add_ideas = DZG_danziger_reich_spirit
+			DZG_integrate_claimed_states = yes
+			hidden_effect = {
+				news_event = { id = brs_news.5 hours = 6 }
+			}
+		}
+	}
+
+	### Democratic path: the Hanseatic Republic ###
+
+	focus = {
+		id = DZG_the_geneva_appeal
+		icon = GFX_focus_DZG_the_geneva_appeal
+		x = 54
+		y = 1
+		cost = 4
+		prerequisite = { focus = DZG_the_volkstag_crisis }
+		mutually_exclusive = { focus = DZG_greisers_senate focus = DZG_red_danzig }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_HISTORICAL }
+		ai_will_do = {
+			base = 1
+			modifier = { add = 100 DZG_ai_rule_democratic = yes }
+			modifier = { add = 100 DZG_ai_rule_nonaligned = yes }
+			modifier = { add = 100 DZG_ai_rule_monarchist = yes }
+			modifier = { add = 60 DZG_ai_rule_random = yes }
+		}
+		completion_reward = {
+			recruit_character = DZG_sean_lester
+			add_popularity = { ideology = democratic popularity = 0.10 }
+			add_popularity = { ideology = fascism popularity = -0.05 }
+			add_power_balance_value = {
+				id = DZG_danzig_question
+				value = 0.10
+				tooltip_side = DZG_bop_warsaw_side
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_lesters_restoration
+		icon = GFX_focus_DZG_lesters_restoration
+		x = 50
+		y = 2
+		cost = 5
+		prerequisite = { focus = DZG_the_geneva_appeal }
+		mutually_exclusive = { focus = DZG_the_senate_of_notables }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER }
+		ai_will_do = {
+			base = 1
+			modifier = { add = 100 DZG_ai_rule_democratic = yes }
+			modifier = { add = 20 DZG_ai_rule_random = yes }
+		}
+		completion_reward = {
+			set_politics = {
+				ruling_party = democratic
+				elections_allowed = yes
+			}
+			promote_character = DZG_sean_lester
+			add_ideas = DZG_restored_constitution
+			add_popularity = { ideology = fascism popularity = -0.15 }
+			DZG_purge_forster = yes
+		}
+	}
+
+	focus = {
+		id = DZG_free_volkstag_elections
+		icon = GFX_focus_DZG_free_volkstag_elections
+		x = 50
+		y = 3
+		cost = 4
+		prerequisite = { focus = DZG_lesters_restoration }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			add_popularity = { ideology = democratic popularity = 0.10 }
+			add_stability = 0.05
+			add_political_power = 50
+		}
+	}
+
+	focus = {
+		id = DZG_the_brill_coalition
+		icon = GFX_focus_DZG_the_brill_coalition
+		x = 48
+		y = 4
+		cost = 4
+		prerequisite = { focus = DZG_free_volkstag_elections }
+		mutually_exclusive = { focus = DZG_the_stachnik_coalition }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			promote_character = DZG_arthur_brill
+			add_ideas = DZG_dockworkers_charter
+		}
+	}
+
+	focus = {
+		id = DZG_the_stachnik_coalition
+		icon = GFX_focus_DZG_the_stachnik_coalition
+		x = 52
+		y = 4
+		cost = 4
+		prerequisite = { focus = DZG_free_volkstag_elections }
+		mutually_exclusive = { focus = DZG_the_brill_coalition }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			recruit_character = DZG_richard_stachnik
+			promote_character = DZG_richard_stachnik
+			add_ideas = DZG_catholic_social_compact
+		}
+	}
+
+	focus = {
+		id = DZG_social_insurance_act
+		icon = GFX_focus_DZG_social_insurance_act
+		x = 48
+		y = 5
+		cost = 4
+		prerequisite = { focus = DZG_the_brill_coalition focus = DZG_the_stachnik_coalition }
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_MANPOWER }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_ideas = DZG_social_insurance
+		}
+	}
+
+	focus = {
+		id = DZG_hanseatic_kontors
+		icon = GFX_focus_DZG_hanseatic_kontors
+		x = 50
+		y = 5
+		cost = 4
+		prerequisite = { focus = DZG_the_brill_coalition focus = DZG_the_stachnik_coalition }
+		search_filters = { FOCUS_FILTER_INTERNATIONAL_TRADE }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			set_country_flag = DZG_kontors_unlocked
+			unlock_decision_category_tooltip = DZG_hansa_category
+		}
+	}
+
+	focus = {
+		id = DZG_appeal_to_london_and_paris
+		icon = GFX_focus_DZG_appeal_to_london_and_paris
+		x = 52
+		y = 5
+		cost = 4
+		prerequisite = { focus = DZG_the_brill_coalition focus = DZG_the_stachnik_coalition }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			custom_effect_tooltip = DZG_appeal_to_london_and_paris_tt
+			hidden_effect = {
+				if = {
+					limit = { country_exists = ENG NOT = { has_war_with = ENG } }
+					ENG = { country_event = { id = dzg.31 hours = 12 } }
+				}
+				if = {
+					limit = { country_exists = FRA NOT = { has_war_with = FRA } }
+					FRA = { country_event = { id = dzg.31 hours = 12 } }
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_league_arbitration
+		icon = GFX_focus_DZG_league_arbitration
+		x = 48
+		y = 6
+		cost = 5
+		prerequisite = { focus = DZG_social_insurance_act }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			set_country_flag = DZG_league_arbitration
+			recruit_character = DZG_carl_jacob_burckhardt
+			custom_effect_tooltip = DZG_league_arbitration_tt
+		}
+	}
+
+	focus = {
+		id = DZG_reconciliation_with_warsaw
+		icon = GFX_focus_DZG_reconciliation_with_warsaw
+		x = 50
+		y = 6
+		cost = 4
+		prerequisite = { focus = DZG_hanseatic_kontors }
+		available = {
+			country_exists = POL
+			NOT = { has_war_with = POL }
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			DZG_set_port_status_warsaw = yes
+			POL = { country_event = { id = dzg.32 hours = 12 } }
+		}
+	}
+
+	focus = {
+		id = DZG_the_leagues_shield
+		icon = GFX_focus_DZG_the_leagues_shield
+		x = 52
+		y = 6
+		cost = 5
+		prerequisite = { focus = DZG_appeal_to_london_and_paris }
+		available = {
+			NOT = { has_country_flag = DZG_demilitarisation_torn }
+		}
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			if = {
+				limit = { has_idea = DZG_league_protectorate }
+				swap_ideas = {
+					remove_idea = DZG_league_protectorate
+					add_idea = DZG_league_shield
+				}
+			}
+			else = {
+				add_ideas = DZG_league_shield
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_reclaim_the_hansa_ports
+		icon = GFX_focus_DZG_reclaim_the_hansa_ports
+		x = 48
+		y = 7
+		cost = 5
+		prerequisite = { focus = DZG_league_arbitration }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			add_state_claim = 807
+			add_state_claim = 763
+			add_state_claim = 188
+			DZG_unlock_claims = yes
+		}
+	}
+
+	focus = {
+		id = DZG_the_new_hanseatic_league
+		icon = GFX_focus_DZG_the_new_hanseatic_league
+		x = 50
+		y = 7
+		cost = 6
+		prerequisite = { focus = DZG_reconciliation_with_warsaw }
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = DZG_three_kontors_tt
+				check_variable = { DZG_kontor_count > 2 }
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INTERNATIONAL_TRADE }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			if = {
+				limit = { is_in_faction = no }
+				DZG_create_hansa_faction = yes
+			}
+			DZG_invite_hansa_members = yes
+			hidden_effect = {
+				news_event = { id = brs_news.2 hours = 6 }
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_join_the_democracies
+		icon = GFX_focus_DZG_join_the_democracies
+		x = 52
+		y = 7
+		cost = 5
+		prerequisite = { focus = DZG_the_leagues_shield }
+		available = {
+			is_in_faction = no
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			DZG_request_allied_membership = yes
+		}
+	}
+
+	focus = {
+		id = DZG_the_hanseatic_republic
+		icon = GFX_focus_DZG_the_hanseatic_republic
+		x = 50
+		y = 8
+		cost = 6
+		prerequisite = { focus = DZG_the_new_hanseatic_league }
+		available = {
+			has_government = democratic
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INTERNATIONAL_TRADE }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			set_cosmetic_tag = DZG_HANSEATIC_REPUBLIC
+			add_ideas = DZG_hanseatic_spirit
+			add_country_leader_trait = DZG_trait_first_citizen_of_the_hansa
+		}
+	}
+
+	### Non-aligned: the Senate of Notables ###
+
+	focus = {
+		id = DZG_the_senate_of_notables
+		icon = GFX_focus_DZG_the_senate_of_notables
+		x = 60
+		y = 2
+		cost = 4
+		prerequisite = { focus = DZG_the_geneva_appeal }
+		mutually_exclusive = { focus = DZG_lesters_restoration }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			base = 1
+			modifier = { add = 100 DZG_ai_rule_nonaligned = yes }
+			modifier = { add = 100 DZG_ai_rule_monarchist = yes }
+			modifier = { add = 40 DZG_ai_rule_random = yes }
+		}
+		completion_reward = {
+			add_popularity = { ideology = neutrality popularity = 0.15 }
+			add_popularity = { ideology = fascism popularity = -0.10 }
+			recruit_character = DZG_heinrich_sahm
+			add_political_power = 50
+		}
+	}
+
+	focus = {
+		id = DZG_rauschning_returns
+		icon = GFX_focus_DZG_rauschning_returns
+		x = 57
+		y = 3
+		cost = 5
+		prerequisite = { focus = DZG_the_senate_of_notables }
+		mutually_exclusive = { focus = DZG_the_prussian_question }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER }
+		ai_will_do = {
+			base = 1
+			modifier = { add = 100 DZG_ai_rule_nonaligned = yes }
+			modifier = { add = 20 DZG_ai_rule_random = yes }
+		}
+		completion_reward = {
+			recruit_character = DZG_hermann_rauschning
+			set_politics = {
+				ruling_party = neutrality
+				elections_allowed = no
+			}
+			promote_character = DZG_hermann_rauschning
+			add_popularity = { ideology = neutrality popularity = 0.10 }
+		}
+	}
+
+	focus = {
+		id = DZG_the_revolution_of_nihilism
+		icon = GFX_focus_DZG_the_revolution_of_nihilism
+		x = 55
+		y = 4
+		cost = 4
+		prerequisite = { focus = DZG_rauschning_returns }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_popularity = { ideology = fascism popularity = -0.15 }
+			add_stability = 0.05
+			DZG_purge_forster = yes
+		}
+	}
+
+	focus = {
+		id = DZG_neutral_harbour
+		icon = GFX_focus_DZG_neutral_harbour
+		x = 59
+		y = 4
+		cost = 4
+		prerequisite = { focus = DZG_rauschning_returns }
+		search_filters = { FOCUS_FILTER_INTERNATIONAL_TRADE }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			set_country_flag = DZG_harbour_unlocked
+			unlock_decision_category_tooltip = DZG_harbour_category
+		}
+	}
+
+	focus = {
+		id = DZG_the_bank_of_danzig
+		icon = GFX_focus_DZG_the_bank_of_danzig
+		x = 55
+		y = 5
+		cost = 4
+		prerequisite = { focus = DZG_the_revolution_of_nihilism }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_ideas = DZG_gulden_reserves
+			set_country_flag = DZG_bank_unlocked
+			unlock_decision_tooltip = DZG_purchase_state
+		}
+	}
+
+	focus = {
+		id = DZG_armed_neutrality
+		icon = GFX_focus_DZG_armed_neutrality
+		x = 59
+		y = 5
+		cost = 5
+		prerequisite = { focus = DZG_neutral_harbour }
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_ideas = DZG_armed_neutrality_idea
+		}
+	}
+
+	focus = {
+		id = DZG_purchase_the_delta
+		icon = GFX_focus_DZG_purchase_the_delta
+		x = 55
+		y = 6
+		cost = 4
+		prerequisite = { focus = DZG_the_bank_of_danzig }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_state_claim = 5
+			add_state_claim = 807
+			DZG_unlock_claims = yes
+		}
+	}
+
+	focus = {
+		id = DZG_balance_the_giants
+		icon = GFX_focus_DZG_balance_the_giants
+		x = 57
+		y = 6
+		cost = 5
+		prerequisite = { focus = DZG_the_bank_of_danzig }
+		prerequisite = { focus = DZG_armed_neutrality }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			set_power_balance = {
+				id = DZG_danzig_question
+				set_value = 0
+			}
+			DZG_set_port_status_sovereign = yes
+			add_political_power = 75
+		}
+	}
+
+	focus = {
+		id = DZG_the_neutral_arsenal
+		icon = GFX_focus_DZG_the_neutral_arsenal
+		x = 59
+		y = 6
+		cost = 4
+		prerequisite = { focus = DZG_armed_neutrality }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_equipment_to_stockpile = { type = infantry_equipment amount = 2000 }
+			add_equipment_to_stockpile = { type = support_equipment amount = 300 }
+			add_equipment_to_stockpile = { type = artillery_equipment amount = 200 }
+		}
+	}
+
+	focus = {
+		id = DZG_the_free_city_directorate
+		icon = GFX_focus_DZG_the_free_city_directorate
+		x = 57
+		y = 7
+		cost = 6
+		prerequisite = { focus = DZG_balance_the_giants }
+		available = {
+			has_government = neutrality
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			set_cosmetic_tag = DZG_DIRECTORATE
+			add_ideas = DZG_directorate
+			add_country_leader_trait = DZG_trait_director_of_the_free_city
+		}
+	}
+
+	focus = {
+		id = DZG_the_baltic_switzerland
+		icon = GFX_focus_DZG_the_baltic_switzerland
+		x = 57
+		y = 8
+		cost = 6
+		prerequisite = { focus = DZG_the_free_city_directorate }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_stability = 0.10
+			custom_effect_tooltip = DZG_the_baltic_switzerland_tt
+			hidden_effect = {
+				if = {
+					limit = { country_exists = GER NOT = { has_war_with = GER } }
+					GER = { country_event = { id = dzg.7 hours = 12 } }
+				}
+				if = {
+					limit = { country_exists = POL NOT = { has_war_with = POL } }
+					POL = { country_event = { id = dzg.7 hours = 12 } }
+				}
+			}
+		}
+	}
+
+	### Monarchist: the Prussian Crown ###
+
+	focus = {
+		id = DZG_the_prussian_question
+		icon = GFX_focus_DZG_the_prussian_question
+		x = 63
+		y = 3
+		cost = 5
+		prerequisite = { focus = DZG_the_senate_of_notables }
+		mutually_exclusive = { focus = DZG_rauschning_returns }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER }
+		ai_will_do = {
+			base = 1
+			modifier = { add = 100 DZG_ai_rule_monarchist = yes }
+			modifier = { add = 20 DZG_ai_rule_random = yes }
+		}
+		completion_reward = {
+			add_popularity = { ideology = neutrality popularity = 0.10 }
+			country_event = { id = dzg.40 }
+		}
+	}
+
+	focus = {
+		id = DZG_coronation_in_the_marienkirche
+		icon = GFX_focus_DZG_coronation_in_the_marienkirche
+		x = 63
+		y = 4
+		cost = 5
+		prerequisite = { focus = DZG_the_prussian_question }
+		available = {
+			has_character = DZG_louis_ferdinand
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			set_politics = {
+				ruling_party = neutrality
+				elections_allowed = no
+			}
+			promote_character = DZG_louis_ferdinand
+			set_cosmetic_tag = DZG_ROYAL_DANZIG
+			add_stability = 0.10
+			add_popularity = { ideology = fascism popularity = -0.10 }
+			DZG_purge_forster = yes
+		}
+	}
+
+	focus = {
+		id = DZG_the_junker_network
+		icon = GFX_focus_DZG_the_junker_network
+		x = 61
+		y = 5
+		cost = 4
+		prerequisite = { focus = DZG_coronation_in_the_marienkirche }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			set_country_flag = DZG_junkers_unlocked
+			unlock_decision_category_tooltip = DZG_crown_category
+		}
+	}
+
+	focus = {
+		id = DZG_order_of_the_black_eagle
+		icon = GFX_focus_DZG_order_of_the_black_eagle
+		x = 63
+		y = 5
+		cost = 4
+		prerequisite = { focus = DZG_coronation_in_the_marienkirche }
+		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_MILITARY_CHARACTER }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_ideas = DZG_black_eagle_order
+			recruit_character = DZG_prince_oskar_of_prussia
+			recruit_character = DZG_prince_wilhelm_of_prussia
+		}
+	}
+
+	focus = {
+		id = DZG_the_royal_wedding
+		icon = GFX_focus_DZG_the_royal_wedding
+		x = 65
+		y = 5
+		cost = 4
+		prerequisite = { focus = DZG_coronation_in_the_marienkirche }
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_stability = 0.05
+			country_event = { id = dzg.41 }
+		}
+	}
+
+	focus = {
+		id = DZG_claim_the_prussian_inheritance
+		icon = GFX_focus_DZG_claim_the_prussian_inheritance
+		x = 61
+		y = 6
+		cost = 5
+		prerequisite = { focus = DZG_the_junker_network }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_state_claim = 5
+			add_state_claim = 763
+			add_state_claim = 63
+			DZG_unlock_claims = yes
+			set_country_flag = DZG_rival_of_berlin
+		}
+	}
+
+	focus = {
+		id = DZG_royal_prussian_army
+		icon = GFX_focus_DZG_royal_prussian_army
+		x = 63
+		y = 6
+		cost = 5
+		prerequisite = { focus = DZG_order_of_the_black_eagle }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_ideas = DZG_royal_prussian_army_idea
+		}
+	}
+
+	focus = {
+		id = DZG_the_kings_diplomacy
+		icon = GFX_focus_DZG_the_kings_diplomacy
+		x = 65
+		y = 6
+		cost = 4
+		prerequisite = { focus = DZG_the_royal_wedding }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			DZG_befriend_the_monarchies = yes
+		}
+	}
+
+	focus = {
+		id = DZG_restore_the_kingdom_of_prussia
+		icon = GFX_focus_DZG_restore_the_kingdom_of_prussia
+		x = 62
+		y = 7
+		cost = 6
+		prerequisite = { focus = DZG_claim_the_prussian_inheritance }
+		prerequisite = { focus = DZG_royal_prussian_army }
+		available = {
+			has_government = neutrality
+			OR = {
+				controls_state = 5
+				controls_state = 763
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			set_cosmetic_tag = DZG_KINGDOM_OF_PRUSSIA
+			add_ideas = DZG_kingdom_of_prussia_spirit
+			add_country_leader_trait = DZG_trait_king_in_prussia
+			DZG_integrate_claimed_states = yes
+			hidden_effect = {
+				news_event = { id = brs_news.3 hours = 6 }
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_monarchist_societies_in_the_reich
+		icon = GFX_focus_DZG_monarchist_societies_in_the_reich
+		x = 65
+		y = 7
+		cost = 5
+		prerequisite = { focus = DZG_the_kings_diplomacy }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			set_country_flag = DZG_royal_pamphlets_unlocked
+			unlock_decision_tooltip = DZG_royal_pamphlets
+		}
+	}
+
+	focus = {
+		id = DZG_the_german_crown
+		icon = GFX_focus_DZG_the_german_crown
+		x = 63
+		y = 8
+		cost = 6
+		prerequisite = { focus = DZG_restore_the_kingdom_of_prussia }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			set_country_flag = DZG_german_crown
+			unlock_decision_tooltip = DZG_crown_war_on_berlin
+			custom_effect_tooltip = DZG_the_german_crown_tt
+			hidden_effect = {
+				every_state = {
+					limit = {
+						is_core_of = GER
+						NOT = { is_owned_by = ROOT }
+					}
+					add_claim_by = ROOT
+				}
+			}
+		}
+	}
+
+	### Communist path: Red Danzig ###
+
+	focus = {
+		id = DZG_red_danzig
+		icon = GFX_focus_DZG_red_danzig
+		x = 70
+		y = 1
+		cost = 4
+		prerequisite = { focus = DZG_the_volkstag_crisis }
+		mutually_exclusive = { focus = DZG_greisers_senate focus = DZG_the_geneva_appeal }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			base = 1
+			modifier = { add = 100 DZG_ai_rule_communist = yes }
+			modifier = { add = 20 DZG_ai_rule_random = yes }
+		}
+		completion_reward = {
+			add_popularity = { ideology = communism popularity = 0.10 }
+			set_country_flag = DZG_strikes_unlocked
+			unlock_decision_category_tooltip = DZG_red_category
+		}
+	}
+
+	focus = {
+		id = DZG_the_shipyard_cells
+		icon = GFX_focus_DZG_the_shipyard_cells
+		x = 70
+		y = 2
+		cost = 4
+		prerequisite = { focus = DZG_red_danzig }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			add_popularity = { ideology = communism popularity = 0.10 }
+			add_manpower = 2000
+		}
+	}
+
+	focus = {
+		id = DZG_the_general_strike
+		icon = GFX_focus_DZG_the_general_strike
+		x = 70
+		y = 3
+		cost = 5
+		prerequisite = { focus = DZG_the_shipyard_cells }
+		available = {
+			communism > 0.34
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			country_event = { id = dzg.50 }
+		}
+	}
+
+	focus = {
+		id = DZG_workers_militia
+		icon = GFX_focus_DZG_workers_militia
+		x = 68
+		y = 4
+		cost = 4
+		prerequisite = { focus = DZG_the_general_strike }
+		available = {
+			has_government = communism
+		}
+		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_manpower = 4000
+			division_template = {
+				name = "Red Shipyard Guard"
+				regiments = {
+					infantry = { x = 0 y = 0 }
+					infantry = { x = 0 y = 1 }
+					infantry = { x = 0 y = 2 }
+					infantry = { x = 1 y = 0 }
+					infantry = { x = 1 y = 1 }
+					infantry = { x = 1 y = 2 }
+					infantry = { x = 2 y = 0 }
+				}
+			}
+			if = {
+				limit = { has_completed_focus = DZG_the_oppressed_soldiers }
+				add_unit_bonus = {
+					dzg_oppressed_soldiers = {
+						soft_attack = 0.05
+						breakthrough = 0.05
+					}
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_the_peoples_tribunals
+		icon = GFX_focus_DZG_the_peoples_tribunals
+		x = 70
+		y = 4
+		cost = 4
+		prerequisite = { focus = DZG_the_general_strike }
+		available = {
+			has_government = communism
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_ideas = DZG_peoples_tribunals
+		}
+	}
+
+	focus = {
+		id = DZG_collectivise_the_werder
+		icon = GFX_focus_DZG_collectivise_the_werder
+		x = 72
+		y = 4
+		cost = 4
+		prerequisite = { focus = DZG_the_general_strike }
+		available = {
+			has_government = communism
+		}
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_ideas = DZG_collective_werder
+		}
+	}
+
+	focus = {
+		id = DZG_red_sailors
+		icon = GFX_focus_DZG_red_sailors
+		x = 68
+		y = 5
+		cost = 4
+		prerequisite = { focus = DZG_workers_militia }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			set_country_flag = DZG_red_sailors_unlocked
+			unlock_decision_tooltip = DZG_plant_red_cells
+		}
+	}
+
+	focus = {
+		id = DZG_join_the_comintern
+		icon = GFX_focus_DZG_join_the_comintern
+		x = 70
+		y = 5
+		cost = 5
+		prerequisite = { focus = DZG_the_peoples_tribunals }
+		mutually_exclusive = { focus = DZG_the_baltic_commune }
+		available = {
+			country_exists = SOV
+			SOV = { has_government = communism }
+			NOT = { has_war_with = SOV }
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			custom_effect_tooltip = DZG_join_the_comintern_tt
+			SOV = { country_event = { id = dzg.51 hours = 12 } }
+		}
+	}
+
+	focus = {
+		id = DZG_the_baltic_commune
+		icon = GFX_focus_DZG_the_baltic_commune
+		x = 72
+		y = 5
+		cost = 5
+		prerequisite = { focus = DZG_collectivise_the_werder }
+		mutually_exclusive = { focus = DZG_join_the_comintern }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_country_leader_trait = DZG_trait_chairman_of_the_baltic_commune
+			if = {
+				limit = { is_in_faction = no }
+				DZG_create_commune_faction = yes
+			}
+			add_political_power = 50
+		}
+	}
+
+	focus = {
+		id = DZG_export_the_revolution
+		icon = GFX_focus_DZG_export_the_revolution
+		x = 68
+		y = 6
+		cost = 5
+		prerequisite = { focus = DZG_red_sailors }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_state_claim = 807
+			add_state_claim = 763
+			add_state_claim = 188
+			DZG_unlock_claims = yes
+			set_country_flag = DZG_rival_of_berlin
+			set_country_flag = DZG_rival_of_warsaw
+			custom_effect_tooltip = DZG_both_rivals_tt
+		}
+	}
+
+	focus = {
+		id = DZG_the_red_baltic_fleet
+		icon = GFX_focus_DZG_the_red_baltic_fleet
+		x = 72
+		y = 6
+		cost = 5
+		prerequisite = { focus = DZG_join_the_comintern focus = DZG_the_baltic_commune }
+		search_filters = { FOCUS_FILTER_NAVY_XP FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			navy_experience = 25
+			add_tech_bonus = {
+				name = DZG_the_red_baltic_fleet
+				bonus = 0.5
+				uses = 2
+				category = naval_equipment
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_the_baltic_socialist_federation
+		icon = GFX_focus_DZG_the_baltic_socialist_federation
+		x = 70
+		y = 7
+		cost = 6
+		prerequisite = { focus = DZG_export_the_revolution }
+		prerequisite = { focus = DZG_join_the_comintern focus = DZG_the_baltic_commune }
+		available = {
+			has_government = communism
+			num_of_controlled_states > 1
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			set_cosmetic_tag = DZG_BALTIC_SOVIET
+			add_ideas = DZG_baltic_commune_spirit
+			DZG_integrate_claimed_states = yes
+			hidden_effect = {
+				news_event = { id = brs_news.4 hours = 6 }
+			}
+		}
+	}
+
+	#######################################################################
+	# ECONOMY AND RESEARCH
+	# Danzig is a single city: most industry focuses add building slots
+	# to the city before they build anything.
+	#######################################################################
+
+	focus = {
+		id = DZG_the_free_port
+		icon = GFX_focus_DZG_the_free_port
+		x = 83
+		y = 0
+		cost = 4
+		available = { owns_state = 85 }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_INTERNATIONAL_TRADE }
+		ai_will_do = { base = 12 }
+		completion_reward = {
+			add_political_power = 50
+			85 = { add_extra_state_shared_building_slots = 1 }
+		}
+	}
+
+	focus = {
+		id = DZG_expand_the_industrial_quarter
+		icon = GFX_focus_DZG_expand_the_industrial_quarter
+		x = 78
+		y = 1
+		cost = 4
+		prerequisite = { focus = DZG_the_free_port }
+		available = { owns_state = 85 }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			85 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_kaiserhafen_expansion
+		icon = GFX_focus_DZG_kaiserhafen_expansion
+		x = 83
+		y = 1
+		cost = 4
+		prerequisite = { focus = DZG_the_free_port }
+		available = { owns_state = 85 }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_NAVY_XP }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			85 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = naval_base
+					level = 1
+					province = 362
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_gulden_reform
+		icon = GFX_focus_DZG_gulden_reform
+		x = 88
+		y = 1
+		cost = 4
+		prerequisite = { focus = DZG_the_free_port }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_ideas = DZG_danzig_gulden
+		}
+	}
+
+	focus = {
+		id = DZG_the_holm_refinery
+		icon = GFX_focus_DZG_the_holm_refinery
+		x = 76
+		y = 2
+		cost = 4
+		prerequisite = { focus = DZG_expand_the_industrial_quarter }
+		available = { owns_state = 85 }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			85 = {
+				add_building_construction = {
+					type = fuel_silo
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_tech_bonus = {
+				name = DZG_the_holm_refinery
+				bonus = 0.5
+				uses = 1
+				category = synth_resources
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_vistula_delta_polders
+		icon = GFX_focus_DZG_vistula_delta_polders
+		x = 78
+		y = 2
+		cost = 5
+		prerequisite = { focus = DZG_expand_the_industrial_quarter }
+		available = { owns_state = 85 }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			85 = { add_extra_state_shared_building_slots = 2 }
+			add_stability = 0.03
+		}
+	}
+
+	focus = {
+		id = DZG_shipyard_expansion
+		icon = GFX_focus_DZG_shipyard_expansion
+		x = 82
+		y = 2
+		cost = 4
+		prerequisite = { focus = DZG_kaiserhafen_expansion }
+		available = { owns_state = 85 }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_NAVY_XP }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			85 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_ostbahn_rail_hub
+		icon = GFX_focus_DZG_ostbahn_rail_hub
+		x = 84
+		y = 2
+		cost = 4
+		prerequisite = { focus = DZG_kaiserhafen_expansion }
+		available = { owns_state = 85 }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			85 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_offsite_building = {
+				type = industrial_complex
+				level = 1
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_amber_workshops
+		icon = GFX_focus_DZG_amber_workshops
+		x = 86
+		y = 2
+		cost = 4
+		prerequisite = { focus = DZG_gulden_reform }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_political_power = 100
+			add_stability = 0.03
+		}
+	}
+
+	focus = {
+		id = DZG_zoppot_casino
+		icon = GFX_focus_DZG_zoppot_casino
+		x = 88
+		y = 2
+		cost = 4
+		prerequisite = { focus = DZG_gulden_reform }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_ideas = DZG_zoppot_casino_idea
+			set_country_flag = DZG_casino_unlocked
+			unlock_decision_tooltip = DZG_casino_night
+		}
+	}
+
+	focus = {
+		id = DZG_baltic_grain_trade
+		icon = GFX_focus_DZG_baltic_grain_trade
+		x = 90
+		y = 2
+		cost = 4
+		prerequisite = { focus = DZG_gulden_reform }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_INTERNATIONAL_TRADE }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_offsite_building = {
+				type = industrial_complex
+				level = 1
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_chemical_works
+		icon = GFX_focus_DZG_chemical_works
+		x = 76
+		y = 3
+		cost = 4
+		prerequisite = { focus = DZG_the_holm_refinery }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = DZG_chemical_works
+				bonus = 0.5
+				uses = 1
+				category = synth_resources
+			}
+			add_tech_bonus = {
+				name = DZG_chemical_works
+				bonus = 0.5
+				uses = 1
+				category = industry
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_heavy_industry_of_the_free_city
+		icon = GFX_focus_DZG_heavy_industry_of_the_free_city
+		x = 78
+		y = 3
+		cost = 5
+		prerequisite = { focus = DZG_vistula_delta_polders }
+		available = { owns_state = 85 }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			85 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_arms_exports
+		icon = GFX_focus_DZG_arms_exports
+		x = 83
+		y = 3
+		cost = 4
+		prerequisite = { focus = DZG_shipyard_expansion focus = DZG_ostbahn_rail_hub }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_political_power = 50
+			add_offsite_building = {
+				type = arms_factory
+				level = 1
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_technische_hochschule
+		icon = GFX_focus_DZG_technische_hochschule
+		x = 86
+		y = 3
+		cost = 5
+		prerequisite = { focus = DZG_amber_workshops }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_ideas = DZG_technische_hochschule_idea
+			add_tech_bonus = {
+				name = DZG_technische_hochschule
+				bonus = 0.5
+				uses = 1
+				category = electronics
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_neutral_banking
+		icon = GFX_focus_DZG_neutral_banking
+		x = 89
+		y = 3
+		cost = 5
+		prerequisite = { focus = DZG_zoppot_casino focus = DZG_baltic_grain_trade }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_political_power = 50
+			add_offsite_building = {
+				type = industrial_complex
+				level = 1
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_electrification_of_the_werder
+		icon = GFX_focus_DZG_electrification_of_the_werder
+		x = 77
+		y = 4
+		cost = 5
+		prerequisite = { focus = DZG_chemical_works focus = DZG_heavy_industry_of_the_free_city }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			if = {
+				limit = { owns_state = 85 }
+				85 = {
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			add_tech_bonus = {
+				name = DZG_electrification_of_the_werder
+				bonus = 0.5
+				uses = 1
+				category = industry
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_free_trade_zone
+		icon = GFX_focus_DZG_free_trade_zone
+		x = 83
+		y = 4
+		cost = 4
+		prerequisite = { focus = DZG_arms_exports }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_INTERNATIONAL_TRADE }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_offsite_building = {
+				type = industrial_complex
+				level = 1
+			}
+			add_political_power = 25
+		}
+	}
+
+	focus = {
+		id = DZG_polytechnic_laboratories
+		icon = GFX_focus_DZG_polytechnic_laboratories
+		x = 85
+		y = 4
+		cost = 5
+		prerequisite = { focus = DZG_technische_hochschule }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = DZG_polytechnic_laboratories
+				bonus = 0.75
+				uses = 1
+				category = industry
+			}
+			add_tech_bonus = {
+				name = DZG_polytechnic_laboratories
+				bonus = 0.75
+				uses = 1
+				category = electronics
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_electrical_works
+		icon = GFX_focus_DZG_electrical_works
+		x = 87
+		y = 4
+		cost = 4
+		prerequisite = { focus = DZG_technische_hochschule }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = DZG_electrical_works
+				bonus = 0.5
+				uses = 2
+				category = electronics
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_baltic_trade_hub
+		icon = GFX_focus_DZG_baltic_trade_hub
+		x = 89
+		y = 4
+		cost = 5
+		prerequisite = { focus = DZG_neutral_banking }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_INTERNATIONAL_TRADE }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_offsite_building = {
+				type = industrial_complex
+				level = 1
+			}
+			add_political_power = 50
+		}
+	}
+
+	focus = {
+		id = DZG_free_city_industrial_plan
+		icon = GFX_focus_DZG_free_city_industrial_plan
+		x = 80
+		y = 5
+		cost = 6
+		prerequisite = { focus = DZG_electrification_of_the_werder }
+		prerequisite = { focus = DZG_free_trade_zone }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_ideas = DZG_industrial_plan
+			if = {
+				limit = { owns_state = 85 }
+				85 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_institute_of_physics
+		icon = GFX_focus_DZG_institute_of_physics
+		x = 86
+		y = 5
+		cost = 6
+		prerequisite = { focus = DZG_polytechnic_laboratories focus = DZG_electrical_works }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+
+	focus = {
+		id = DZG_the_spa_of_zoppot
+		icon = GFX_focus_DZG_the_spa_of_zoppot
+		x = 89
+		y = 5
+		cost = 4
+		prerequisite = { focus = DZG_baltic_trade_hub }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			add_political_power = 100
+			add_stability = 0.05
+		}
+	}
+
+	#######################################################################
+	# SOCIETY - THE FOREST OPERA OF ZOPPOT
+	#######################################################################
+
+	focus = {
+		id = DZG_the_waldoper_zoppot
+		icon = GFX_focus_DZG_the_waldoper_zoppot
+		x = 95
+		y = 0
+		cost = 4
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			add_stability = 0.03
+			add_political_power = 50
+		}
+	}
+
+	focus = {
+		id = DZG_hold_an_open_air_concert
+		icon = GFX_focus_DZG_hold_an_open_air_concert
+		x = 95
+		y = 1
+		cost = 5
+		prerequisite = { focus = DZG_the_waldoper_zoppot }
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER }
+		ai_will_do = { base = 15 }
+		completion_reward = {
+			add_ideas = DZG_open_air_concert
+			hidden_effect = {
+				country_event = { id = dzg.60 days = 1 }
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_the_bayreuth_of_the_north
+		icon = GFX_focus_DZG_the_bayreuth_of_the_north
+		x = 93
+		y = 2
+		cost = 4
+		prerequisite = { focus = DZG_hold_an_open_air_concert }
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_war_support = 0.05
+			add_political_power = 50
+		}
+	}
+
+	focus = {
+		id = DZG_marienkirche_restoration
+		icon = GFX_focus_DZG_marienkirche_restoration
+		x = 95
+		y = 2
+		cost = 4
+		prerequisite = { focus = DZG_hold_an_open_air_concert }
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_stability = 0.05
+		}
+	}
+
+	focus = {
+		id = DZG_minority_schools
+		icon = GFX_focus_DZG_minority_schools
+		x = 97
+		y = 2
+		cost = 4
+		prerequisite = { focus = DZG_hold_an_open_air_concert }
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_MANPOWER }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			add_stability = 0.03
+			add_manpower = 2000
+			add_power_balance_value = {
+				id = DZG_danzig_question
+				value = 0.05
+				tooltip_side = DZG_bop_warsaw_side
+			}
+		}
+	}
+
+	focus = {
+		id = DZG_danziger_neueste_nachrichten
+		icon = GFX_focus_DZG_danziger_neueste_nachrichten
+		x = 93
+		y = 3
+		cost = 4
+		prerequisite = { focus = DZG_the_bayreuth_of_the_north }
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			add_war_support = 0.05
+			DZG_boost_ruling_party = yes
+		}
+	}
+
+	focus = {
+		id = DZG_free_city_citizenship
+		icon = GFX_focus_DZG_free_city_citizenship
+		x = 97
+		y = 3
+		cost = 5
+		prerequisite = { focus = DZG_minority_schools }
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_manpower = 5000
+			add_stability = 0.03
+		}
+	}
+
+	focus = {
+		id = DZG_the_baltic_pearl
+		icon = GFX_focus_DZG_the_baltic_pearl
+		x = 95
+		y = 4
+		cost = 6
+		prerequisite = { focus = DZG_marienkirche_restoration }
+		prerequisite = { focus = DZG_danziger_neueste_nachrichten focus = DZG_free_city_citizenship }
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_ideas = DZG_baltic_pearl
+		}
+	}
+}

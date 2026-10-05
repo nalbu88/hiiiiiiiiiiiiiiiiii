@@ -1,0 +1,81 @@
+###########################################################################
+# Borderlands Rising - game rules
+###########################################################################
+
+# Which political path an AI-controlled Danzig takes.
+BRS_danzig_ai = {
+	name = "BRS_DANZIG_AI"
+	group = "RULE_GROUP_AI_BEHAVIOR"
+	default = {
+		name = DEFAULT
+		text = "BRS_DANZIG_AI_DEFAULT"
+		desc = "BRS_DANZIG_AI_DEFAULT_DESC"
+	}
+	option = {
+		name = FASCIST
+		text = "BRS_DANZIG_AI_FASCIST"
+		desc = "BRS_DANZIG_AI_FASCIST_DESC"
+	}
+	option = {
+		name = DEMOCRATIC
+		text = "BRS_DANZIG_AI_DEMOCRATIC"
+		desc = "BRS_DANZIG_AI_DEMOCRATIC_DESC"
+	}
+	option = {
+		name = NONALIGNED
+		text = "BRS_DANZIG_AI_NONALIGNED"
+		desc = "BRS_DANZIG_AI_NONALIGNED_DESC"
+	}
+	option = {
+		name = MONARCHIST
+		text = "BRS_DANZIG_AI_MONARCHIST"
+		desc = "BRS_DANZIG_AI_MONARCHIST_DESC"
+	}
+	option = {
+		name = COMMUNIST
+		text = "BRS_DANZIG_AI_COMMUNIST"
+		desc = "BRS_DANZIG_AI_COMMUNIST_DESC"
+	}
+	option = {
+		name = RANDOM
+		text = "BRS_DANZIG_AI_RANDOM"
+		desc = "BRS_DANZIG_AI_RANDOM_DESC"
+	}
+}
+
+# Lithuania's focus tree: the Palanmir Technate, or the vanilla tree.
+BRS_lithuania_tree = {
+	name = "BRS_LITHUANIA_TREE"
+	group = "BRS_RULE_GROUP"
+	default = {
+		name = PALANMIR
+		text = "BRS_LITHUANIA_TREE_PALANMIR"
+		desc = "BRS_LITHUANIA_TREE_PALANMIR_DESC"
+	}
+	option = {
+		name = VANILLA
+		text = "BRS_LITHUANIA_TREE_VANILLA"
+		desc = "BRS_LITHUANIA_TREE_VANILLA_DESC"
+	}
+}
+
+# How hard the Kurds resist Turkish and Iraqi rule.
+BRS_kurdish_resistance = {
+	name = "BRS_KURDISH_RESISTANCE"
+	group = "BRS_RULE_GROUP"
+	default = {
+		name = STRONG
+		text = "BRS_KURDISH_RESISTANCE_STRONG"
+		desc = "BRS_KURDISH_RESISTANCE_STRONG_DESC"
+	}
+	option = {
+		name = EXTREME
+		text = "BRS_KURDISH_RESISTANCE_EXTREME"
+		desc = "BRS_KURDISH_RESISTANCE_EXTREME_DESC"
+	}
+	option = {
+		name = VANILLA
+		text = "BRS_KURDISH_RESISTANCE_VANILLA"
+		desc = "BRS_KURDISH_RESISTANCE_VANILLA_DESC"
+	}
+}

@@ -1,0 +1,192 @@
+###########################################################################
+# Borderlands Rising - South Russia / Azov United events
+#
+# Every event is "is_triggered_only": nothing here is polled.
+# In events sent by South Russia to another country, ROOT is the receiver
+# and FROM is South Russia.
+###########################################################################
+
+add_namespace = azv
+
+### The Azov Congress ###
+country_event = {
+	id = azv.1
+	title = azv.1.t
+	desc = azv.1.d
+	picture = GFX_report_event_generic_rally
+	is_triggered_only = yes
+
+	option = {
+		name = azv.1.a
+		ai_chance = { base = 10 }
+		add_popularity = { ideology = fascism popularity = 0.05 }
+		add_war_support = 0.05
+	}
+	option = {
+		name = azv.1.b
+		ai_chance = { base = 5 }
+		add_political_power = 75
+		add_stability = 0.02
+	}
+}
+
+### The March on Simferopol ###
+country_event = {
+	id = azv.2
+	title = azv.2.t
+	desc = azv.2.d
+	picture = GFX_report_event_generic_rally2
+	is_triggered_only = yes
+
+	# The generals have been won over: the Baron hands over his sword.
+	option = {
+		name = azv.2.a
+		trigger = { has_country_flag = AZV_generals_won_over }
+		ai_chance = { base = 20 }
+		AZV_turkul_takes_power = yes
+		add_stability = 0.05
+	}
+	# Storm the Governor's Palace.
+	option = {
+		name = azv.2.b
+		ai_chance = { base = 5 }
+		AZV_turkul_takes_power = yes
+		add_stability = -0.05
+		add_war_support = 0.10
+		army_experience = 25
+		if = {
+			limit = { has_character = AZV_pyotr_wrangel }
+			retire_character = AZV_pyotr_wrangel
+		}
+	}
+}
+
+### Moscow learns that the armistice is over (Soviet Union) ###
+country_event = {
+	id = azv.4
+	title = azv.4.t
+	desc = azv.4.d
+	picture = GFX_report_event_soviet_purge_trial
+	is_triggered_only = yes
+
+	option = {
+		name = azv.4.a
+		ai_chance = { base = 10 }
+		create_wargoal = {
+			type = annex_everything
+			target = FROM
+		}
+	}
+	option = {
+		name = azv.4.b
+		ai_chance = { base = 2 }
+		add_political_power = 25
+	}
+}
+
+### The OGPU in Sevastopol ###
+country_event = {
+	id = azv.5
+	title = azv.5.t
+	desc = azv.5.d
+	picture = GFX_report_event_spr_spanish_civil_war
+	is_triggered_only = yes
+
+	option = {
+		name = azv.5.a
+		ai_chance = { base = 10 }
+		add_stability = 0.03
+		add_political_power = -25
+	}
+	option = {
+		name = azv.5.b
+		ai_chance = { base = 5 }
+		add_war_support = 0.05
+		add_popularity = { ideology = fascism popularity = 0.03 }
+	}
+}
+
+### Invitation to the White Crusade (other countries) ###
+country_event = {
+	id = azv.10
+	title = azv.10.t
+	desc = azv.10.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+
+	option = {
+		name = azv.10.a
+		trigger = {
+			FROM = { is_faction_leader = yes }
+			is_in_faction = no
+		}
+		ai_chance = {
+			base = 5
+			modifier = { factor = 2 has_government = fascism }
+			modifier = { factor = 0 is_major = yes }
+			modifier = { factor = 0.2 has_government = democratic }
+		}
+		FROM = { add_to_faction = ROOT }
+		add_opinion_modifier = { target = FROM modifier = AZV_white_crusade }
+	}
+	option = {
+		name = azv.10.b
+		ai_chance = { base = 10 }
+		FROM = { country_event = { id = azv.11 hours = 6 } }
+	}
+}
+
+### Our invitation was declined (South Russia) ###
+country_event = {
+	id = azv.11
+	title = azv.11.t
+	desc = azv.11.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+
+	option = {
+		name = azv.11.a
+		add_political_power = 10
+	}
+}
+
+### South Russia asks to join our faction (faction leader) ###
+country_event = {
+	id = azv.12
+	title = azv.12.t
+	desc = azv.12.d
+	picture = GFX_report_event_generic_handshake
+	is_triggered_only = yes
+
+	option = {
+		name = azv.12.a
+		trigger = {
+			is_faction_leader = yes
+			FROM = { is_in_faction = no }
+		}
+		ai_chance = { base = 10 }
+		add_to_faction = FROM
+	}
+	option = {
+		name = azv.12.b
+		ai_chance = {
+			base = 4
+			modifier = { factor = 3 has_non_aggression_pact_with = SOV }
+		}
+		FROM = { country_event = { id = azv.13 hours = 6 } }
+	}
+}
+
+### Our request was refused (South Russia) ###
+country_event = {
+	id = azv.13
+	title = azv.13.t
+	desc = azv.13.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+
+	option = {
+		name = azv.13.a
+		add_war_support = 0.03
+	}
+}

@@ -1,0 +1,101 @@
+###########################################################################
+# Borderlands Rising - the Kurdish question (Turkey and Iraq)
+#
+# Counterplay to the Kurdish resistance: force, tribal militias or
+# concessions. All three target Kurdish states the country owns.
+###########################################################################
+
+KRD_kurdish_category = {
+
+	KRD_mountain_sweep = {
+		icon = generic_military
+		allowed = {
+			OR = {
+				original_tag = TUR
+				original_tag = IRQ
+			}
+		}
+		state_target = any_owned_state
+		target_trigger = {
+			FROM = {
+				has_state_flag = KRD_kurdish_state
+				NOT = { has_state_flag = KRD_autonomy }
+			}
+		}
+		on_map_mode = map_and_decisions_view
+		cost = 40
+		days_re_enable = 90
+		complete_effect = {
+			FROM = {
+				add_resistance = -20
+				add_dynamic_modifier = { modifier = KRD_reprisals days = 180 }
+			}
+			add_war_support = -0.01
+		}
+		ai_will_do = {
+			base = 5
+			modifier = { factor = 0 FROM = { resistance < 40 } }
+		}
+	}
+
+	KRD_arm_loyal_tribes = {
+		icon = generic_army_support
+		allowed = {
+			OR = {
+				original_tag = TUR
+				original_tag = IRQ
+			}
+		}
+		state_target = any_owned_state
+		target_trigger = {
+			FROM = {
+				has_state_flag = KRD_kurdish_state
+			}
+		}
+		on_map_mode = map_and_decisions_view
+		cost = 30
+		days_re_enable = 120
+		complete_effect = {
+			FROM = {
+				add_compliance = 10
+				add_resistance = -5
+			}
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -300
+			}
+		}
+		ai_will_do = {
+			base = 3
+			modifier = { factor = 0 has_equipment = { infantry_equipment < 1000 } }
+		}
+	}
+
+	KRD_cultural_concessions = {
+		icon = generic_civil_support
+		allowed = {
+			OR = {
+				original_tag = TUR
+				original_tag = IRQ
+			}
+		}
+		state_target = any_owned_state
+		target_trigger = {
+			FROM = {
+				has_state_flag = KRD_kurdish_state
+				NOT = { has_state_flag = KRD_autonomy }
+			}
+		}
+		on_map_mode = map_and_decisions_view
+		cost = 75
+		days_remove = 60
+		remove_effect = {
+			FROM = { KRD_grant_autonomy = yes }
+			add_stability = -0.02
+		}
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 3 has_stability < 0.4 }
+		}
+	}
+}

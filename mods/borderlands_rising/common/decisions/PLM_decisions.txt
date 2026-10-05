@@ -1,0 +1,147 @@
+###########################################################################
+# Borderlands Rising - Lithuania (Palanmir) decisions
+#
+# Palanmir collects data every month (event plm.100). These decisions
+# feed it, sell it abroad and - the heart of the system - integrate
+# controlled states into it, which gives Lithuania a core on them.
+###########################################################################
+
+PLM_palanmir_category = {
+
+	# Core any state Lithuania controls by wiring it into Palanmir.
+	PLM_integrate_state = {
+		icon = generic_construction
+		allowed = { original_tag = LIT }
+		state_target = any_controlled_state
+		target_root_trigger = {
+			has_country_flag = PLM_integration_unlocked
+		}
+		target_trigger = {
+			FROM = {
+				is_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		available = {
+			PLM_palanmir_level_2 = yes
+		}
+		on_map_mode = map_and_decisions_view
+		cost = 50
+		days_remove = 45
+		remove_effect = {
+			PLM_complete_integration = yes
+		}
+		ai_will_do = {
+			base = 10
+			modifier = { factor = 0 has_political_power < 60 }
+		}
+	}
+
+	PLM_data_harvest = {
+		icon = generic_research
+		allowed = { original_tag = LIT }
+		visible = { has_country_flag = PLM_data_harvest_unlocked }
+		cost = 25
+		days_re_enable = 30
+		complete_effect = {
+			PLM_data_up_50 = yes
+			add_stability = -0.01
+		}
+		ai_will_do = {
+			base = 4
+			modifier = { factor = 0 has_stability < 0.35 }
+		}
+	}
+
+	PLM_mandatory_data_sharing = {
+		icon = oppression
+		allowed = { original_tag = LIT }
+		visible = { has_country_flag = PLM_phiel_in_power }
+		fire_only_once = yes
+		cost = 75
+		complete_effect = {
+			PLM_data_rate_up_10 = yes
+			add_stability = -0.05
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	# The survey always finds that the people are fine.
+	PLM_wellbeing_survey = {
+		icon = generic_civil_support
+		allowed = { original_tag = LIT }
+		visible = { has_country_flag = PLM_phiel_in_power }
+		cost = 50
+		days_re_enable = 120
+		complete_effect = {
+			add_stability = 0.04
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 5 has_stability < 0.35 }
+		}
+	}
+
+	PLM_sell_palanmir_licence = {
+		icon = generic_political_discourse
+		allowed = { original_tag = LIT }
+		visible = { has_country_flag = PLM_clients_unlocked }
+		targets = { GER ENG FRA ITA USA SOV JAP POL LAT EST FIN SWE }
+		target_trigger = {
+			FROM = {
+				exists = yes
+				NOT = { has_war_with = ROOT }
+				NOT = { has_country_flag = PLM_palanmir_client }
+			}
+		}
+		available = {
+			OR = {
+				custom_trigger_tooltip = {
+					tooltip = PLM_client_limit_tt
+					NOT = { check_variable = { PLM_clients > 2 } }
+				}
+				custom_trigger_tooltip = {
+					tooltip = PLM_client_limit_export_tt
+					has_country_flag = PLM_more_clients
+					NOT = { check_variable = { PLM_clients > 5 } }
+				}
+			}
+		}
+		cost = 25
+		days_remove = 30
+		remove_effect = {
+			FROM = {
+				set_country_flag = PLM_palanmir_client
+				add_opinion_modifier = { target = ROOT modifier = PLM_data_client }
+			}
+			add_to_variable = { PLM_clients = 1 }
+			add_political_power = 50
+			custom_effect_tooltip = PLM_client_data_tt
+			if = {
+				limit = {
+					OR = {
+						check_variable = { PLM_clients = 2 }
+						check_variable = { PLM_clients = 4 }
+						check_variable = { PLM_clients = 6 }
+					}
+				}
+				add_offsite_building = {
+					type = industrial_complex
+					level = 1
+				}
+			}
+			# One client in four finds out what else Palanmir collects.
+			random_list = {
+				75 = { }
+				25 = {
+					FROM = {
+						save_event_target_as = PLM_leak_client
+						add_opinion_modifier = { target = ROOT modifier = PLM_surveillance_scandal }
+					}
+					country_event = { id = plm.20 }
+				}
+			}
+		}
+		ai_will_do = { base = 5 }
+	}
+}

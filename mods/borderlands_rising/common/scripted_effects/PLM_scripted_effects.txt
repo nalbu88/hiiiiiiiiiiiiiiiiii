@@ -1,0 +1,190 @@
+###########################################################################
+# Borderlands Rising - Lithuania (Palanmir) scripted effects
+#
+# Palanmir variables (country scope):
+#   PLM_data              data collected so far
+#   PLM_data_rate         data collected every month
+#   PLM_integrated_states states integrated into Palanmir (+2 data a month each)
+#   PLM_clients           foreign Palanmir licences sold (+3 data a month each)
+#   PLM_palanmir_level    1-5: 100, 250, 500 and 1000 data
+#   PLM_palanmir_*        the values of the Palanmir dynamic modifier
+###########################################################################
+
+PLM_install_palanmir_effect = {
+	custom_effect_tooltip = PLM_install_palanmir_tt
+	hidden_effect = {
+		set_country_flag = PLM_palanmir_installed
+		set_variable = { PLM_data = 0 }
+		set_variable = { PLM_data_rate = 5 }
+		set_variable = { PLM_palanmir_level = 1 }
+		PLM_update_palanmir = yes
+		add_dynamic_modifier = { modifier = PLM_palanmir }
+		country_event = { id = plm.100 days = 30 }
+	}
+}
+
+# Recalculate the level and the modifier values. Announces a new level.
+PLM_update_palanmir = {
+	set_temp_variable = { PLM_old_level = PLM_palanmir_level }
+	if = {
+		limit = { check_variable = { PLM_data > 999 } }
+		set_variable = { PLM_palanmir_level = 5 }
+	}
+	else_if = {
+		limit = { check_variable = { PLM_data > 499 } }
+		set_variable = { PLM_palanmir_level = 4 }
+	}
+	else_if = {
+		limit = { check_variable = { PLM_data > 249 } }
+		set_variable = { PLM_palanmir_level = 3 }
+	}
+	else_if = {
+		limit = { check_variable = { PLM_data > 99 } }
+		set_variable = { PLM_palanmir_level = 2 }
+	}
+	else = {
+		set_variable = { PLM_palanmir_level = 1 }
+	}
+	set_variable = { PLM_palanmir_research = PLM_palanmir_level }
+	multiply_variable = { PLM_palanmir_research = 0.04 }
+	set_variable = { PLM_palanmir_construction = PLM_palanmir_level }
+	multiply_variable = { PLM_palanmir_construction = 0.05 }
+	set_variable = { PLM_palanmir_efficiency = PLM_palanmir_level }
+	multiply_variable = { PLM_palanmir_efficiency = 0.03 }
+	set_variable = { PLM_palanmir_decryption = PLM_palanmir_level }
+	multiply_variable = { PLM_palanmir_decryption = 0.05 }
+	set_variable = { PLM_palanmir_compliance = PLM_palanmir_level }
+	multiply_variable = { PLM_palanmir_compliance = 0.02 }
+	# Under Teter Phiel, Palanmir stops caring how the people feel.
+	set_variable = { PLM_palanmir_stability = PLM_palanmir_level }
+	if = {
+		limit = { has_country_flag = PLM_phiel_in_power }
+		multiply_variable = { PLM_palanmir_stability = -0.03 }
+	}
+	else = {
+		multiply_variable = { PLM_palanmir_stability = -0.01 }
+	}
+	force_update_dynamic_modifier = yes
+	if = {
+		limit = { check_variable = { PLM_palanmir_level > PLM_old_level } }
+		country_event = { id = plm.101 }
+	}
+}
+
+# The monthly collection, run by event plm.100.
+PLM_monthly_data_tick = {
+	add_to_variable = { PLM_data = PLM_data_rate }
+	set_temp_variable = { PLM_tick = PLM_integrated_states }
+	multiply_temp_variable = { PLM_tick = 2 }
+	add_to_variable = { PLM_data = PLM_tick }
+	set_temp_variable = { PLM_tick = PLM_clients }
+	multiply_temp_variable = { PLM_tick = 3 }
+	add_to_variable = { PLM_data = PLM_tick }
+	PLM_update_palanmir = yes
+}
+
+PLM_data_up_25 = {
+	custom_effect_tooltip = PLM_data_up_25_tt
+	hidden_effect = {
+		add_to_variable = { PLM_data = 25 }
+		PLM_update_palanmir = yes
+	}
+}
+
+PLM_data_up_50 = {
+	custom_effect_tooltip = PLM_data_up_50_tt
+	hidden_effect = {
+		add_to_variable = { PLM_data = 50 }
+		PLM_update_palanmir = yes
+	}
+}
+
+PLM_data_up_100 = {
+	custom_effect_tooltip = PLM_data_up_100_tt
+	hidden_effect = {
+		add_to_variable = { PLM_data = 100 }
+		PLM_update_palanmir = yes
+	}
+}
+
+PLM_data_rate_up_5 = {
+	custom_effect_tooltip = PLM_data_rate_up_5_tt
+	hidden_effect = {
+		add_to_variable = { PLM_data_rate = 5 }
+	}
+}
+
+PLM_data_rate_up_10 = {
+	custom_effect_tooltip = PLM_data_rate_up_10_tt
+	hidden_effect = {
+		add_to_variable = { PLM_data_rate = 10 }
+	}
+}
+
+###########################################################################
+# Teter Phiel takes power
+###########################################################################
+
+PLM_phiel_takes_power = {
+	if = {
+		limit = { NOT = { has_character = PLM_teter_phiel } }
+		recruit_character = PLM_teter_phiel
+	}
+	set_politics = {
+		ruling_party = neutrality
+		elections_allowed = no
+	}
+	promote_character = PLM_teter_phiel
+	set_country_flag = PLM_phiel_in_power
+	set_cosmetic_tag = PLM_TECHNATE
+	hidden_effect = {
+		PLM_update_palanmir = yes
+		news_event = { id = brs_news.30 hours = 6 }
+	}
+}
+
+###########################################################################
+# Integration into Palanmir (decision PLM_integrate_state)
+# Scope: the country; FROM is the state.
+###########################################################################
+
+PLM_complete_integration = {
+	if = {
+		limit = { FROM = { is_controlled_by = ROOT } }
+		FROM = {
+			add_core_of = ROOT
+			set_state_flag = PLM_integrated
+		}
+		hidden_effect = {
+			add_to_variable = { PLM_integrated_states = 1 }
+		}
+		PLM_data_up_25 = yes
+	}
+	else = {
+		custom_effect_tooltip = PLM_integration_failed_tt
+	}
+}
+
+###########################################################################
+# Diplomacy
+###########################################################################
+
+PLM_befriend_the_baltic = {
+	custom_effect_tooltip = PLM_befriend_the_baltic_tt
+	hidden_effect = {
+		every_country = {
+			limit = {
+				OR = {
+					tag = LAT
+					tag = EST
+					tag = FIN
+					tag = SWE
+				}
+				exists = yes
+				NOT = { has_war_with = ROOT }
+			}
+			add_opinion_modifier = { target = ROOT modifier = PLM_data_client }
+			ROOT = { add_opinion_modifier = { target = PREV modifier = PLM_data_client } }
+		}
+	}
+}

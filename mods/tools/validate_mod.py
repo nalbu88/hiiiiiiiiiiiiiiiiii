@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """
-Anatolian Ascendancy - static validator.
+Static validator for the mods in this repository (Anatolian Ascendancy,
+Borderlands Rising).
 
-Checks the mod without launching the game:
+Checks a mod without launching the game:
   * Clausewitz script syntax (tokens, balanced braces) for every .txt/.gfx
   * cross references: focuses, spirits, events, characters, traits, units,
     scripted effects/triggers, opinion modifiers, decisions, sprites, flags
@@ -14,6 +15,10 @@ Checks the mod without launching the game:
 Usage:
     git clone --depth 1 https://github.com/cwtools/cwtools-hoi4-config.git
     python3 validate_mod.py --mod ../anatolian_ascendancy --cwtools cwtools-hoi4-config
+    python3 validate_mod.py --mod ../borderlands_rising --cwtools cwtools-hoi4-config
+
+Each mod has a profile (see PROFILES below) listing the vanilla names it is
+allowed to reference and its own rules, such as the longest focus allowed.
 
 Exit code is non-zero when errors are found. Warnings never fail the run.
 """
@@ -102,6 +107,55 @@ FOCUS_FILTERS = {
     "FOCUS_FILTER_POLITICAL_CHARACTER", "FOCUS_FILTER_MILITARY_CHARACTER",
     # vanilla Turkish filters (Battle for the Bosporus)
     "FOCUS_FILTER_TUR_KURDISTAN", "FOCUS_FILTER_TUR_KEMALISM", "FOCUS_FILTER_TUR_TRADITIONALISM",
+}
+# Prefixes of the mod's own flags: a flag with one of these prefixes that is
+# checked but never set is an error.
+MOD_PREFIXES = ("TRX_",)
+# Vanilla focuses the mod checks with has_completed_focus.
+VANILLA_FOCUSES = set()
+
+# --------------------------------------------------------------------------
+# Per-mod profiles. The constants above are the Anatolian Ascendancy
+# profile; other mods replace them here. Selected by the mod folder name.
+# --------------------------------------------------------------------------
+_BR_TAGS = {
+    "DNZ", "CRI", "AZR", "LIT", "LAT", "EST", "FIN", "SWE", "NOR", "DEN", "HOL", "BEL", "ENG",
+    "FRA", "ITA", "SOV", "USA", "GER", "POL", "HUN", "ROM", "YUG", "BUL", "GRE", "JAP", "TUR",
+    "IRQ", "PER", "KUR", "KSH", "PRE", "GEO", "ARM", "UKR", "SPR", "CZE", "AUS", "SWI",
+}
+PROFILES = {
+    "borderlands_rising": {
+        # Vanilla 1.19 sprites. The additions are used, never defined, by
+        # Chaos Redux, which ships against the current game version.
+        "VANILLA_SPRITES": VANILLA_SPRITES | {
+            "GFX_decision_generic_political_rally", "GFX_decision_generic_prepare_civil_war",
+            "GFX_report_event_soviet_purge_trial", "GFX_report_event_spr_spanish_civil_war",
+        },
+        "VANILLA_TEXTURES": VANILLA_TEXTURES,
+        "VANILLA_SUBUNITS": {"infantry", "cavalry", "mountaineers", "motorized", "artillery_brigade",
+                             "artillery", "recon"},
+        # Unit leader traits (common/unit_leader) and vanilla advisor traits
+        # (common/country_leader), as used by vanilla 1.19 character files.
+        "VANILLA_UNIT_LEADER_TRAITS": {
+            "career_officer", "trait_engineer", "trait_reckless", "old_guard", "thorough_planner",
+            "brilliant_strategist", "war_hero", "defensive_doctrine", "harsh_leader", "cavalry_leader",
+            "cavalry_officer", "trait_mountaineer", "trait_cautious", "naval_lineage",
+            "superior_tactician", "armor_officer",
+            "army_chief_drill_2", "army_chief_organizational_2", "army_infantry_2",
+            "grand_battle_plan_expert", "navy_chief_decisive_battle_2", "air_chief_reform_2",
+        },
+        "VANILLA_TAGS": _BR_TAGS,
+        # Vanilla laws set in the new countries' history files.
+        "VANILLA_IDEAS": {
+            "volunteer_only", "limited_conscription", "civilian_economy", "partial_economic_mobilisation",
+            "free_trade", "export_focus",
+        },
+        "VANILLA_DYNAMIC_MODIFIERS": {"kurdish_agitation", "kurdish_separatism"},
+        "VANILLA_CHARACTERS": set(),
+        "VANILLA_FOCUSES": {"GER_reassert_eastern_claims"},
+        "MAX_FOCUS_COST": 6.4,   # 6.4 x 7 = 44.8 days: no focus may take longer than 45 days
+        "MOD_PREFIXES": ("DZG_", "AZV_", "ODL_", "PLM_", "KRD_", "BRS_"),
+    },
 }
 
 errors = []
@@ -342,6 +396,9 @@ def main():
     ap.add_argument("--cwtools", required=True, help="path to a cwtools-hoi4-config checkout")
     args = ap.parse_args()
     mod = args.mod
+    profile = PROFILES.get(os.path.basename(os.path.normpath(mod)))
+    if profile:
+        globals().update(profile)
 
     # ---- game documentation ----
     cfg = os.path.join(args.cwtools, "Config")
@@ -394,6 +451,14 @@ def main():
             err("texture %s does not exist" % t)
     all_sprites = set(sprites) | VANILLA_SPRITES
 
+    # every sprite named anywhere in script (set_portraits, pictures, icons)
+    for p, nodes in files.items():
+        if p.replace(os.sep, "/").startswith("interface/"):
+            continue
+        for n in walk(nodes):
+            if not n.is_block and n.value.startswith("GFX_") and n.value not in all_sprites:
+                err("%s:%d: sprite %s undefined" % (p, n.line, n.value))
+
     s_effects, s_triggers = {}, {}
     for p, nodes in tree("common/scripted_effects/"):
         for n in nodes:
@@ -411,6 +476,11 @@ def main():
                 for role in child(ch.value, "country_leader"):
                     for d in child(role.value, "desc"):
                         need_loc.add(d.value)
+                for pr in child(ch.value, "portraits"):
+                    for kind in pr.value:
+                        for size in kind.value if kind.is_block else []:
+                            if size.value not in all_sprites:
+                                err("%s:%d: portrait sprite %s undefined" % (p, size.line, size.value))
 
     traits = set()
     for p, nodes in tree("common/country_leader/"):
@@ -447,6 +517,38 @@ def main():
             check_modifiers([c for c in dm.value if c.key not in ("icon", "enable", "remove_trigger", "attacker_modifier")],
                             modifiers, p, "dynamic modifier " + dm.key)
 
+    static_modifiers = set()
+    for p, nodes in tree("common/modifiers/"):
+        for sm in nodes:
+            static_modifiers.add(sm.key)
+            need_loc.add(sm.key)
+            check_modifiers(sm.value, modifiers, p, "static modifier " + sm.key)
+
+    balances = set()
+    for p, nodes in tree("common/bop/"):
+        for bop in nodes:
+            balances.add(bop.key)
+            need_loc.add(bop.key)
+            ranges = list(child(bop.value, "range"))
+            for side in child(bop.value, "side"):
+                for i in child(side.value, "id"):
+                    need_loc.add(i.value)
+                for ic in child(side.value, "icon"):
+                    if ic.value not in all_sprites:
+                        err("%s: balance of power side icon %s undefined" % (p, ic.value))
+                ranges += child(side.value, "range")
+            for r in ranges:
+                for i in child(r.value, "id"):
+                    need_loc.add(i.value)
+                for m in child(r.value, "modifier"):
+                    check_modifiers(m.value, modifiers, p, "balance of power " + bop.key)
+
+    game_rules = {}
+    for p, nodes in tree("common/game_rules/"):
+        for rule in nodes:
+            game_rules[rule.key] = {n.value for o in child(rule.value, "option") + child(rule.value, "default")
+                                    for n in child(o.value, "name")}
+
     units = set(VANILLA_SUBUNITS)
     for p, nodes in tree("common/units/"):
         for su in child(nodes, "sub_units"):
@@ -479,6 +581,8 @@ def main():
     for p, nodes in tree("common/game_rules/"):
         for rule in nodes:
             need_loc.update(n.value for n in child(rule.value, "name"))
+            # mod-defined rule groups need a name; vanilla groups start with RULE_GROUP_
+            need_loc.update(n.value for n in child(rule.value, "group") if not n.value.startswith("RULE_GROUP_"))
             for opt in child(rule.value, "option") + child(rule.value, "default"):
                 need_loc.update(n.value for n in child(opt.value, "text") + child(opt.value, "desc"))
 
@@ -506,9 +610,11 @@ def main():
 
     # focuses
     focuses = {}
+    tree_of = {}   # focus id -> focus tree id; layouts are checked per tree
     for p, nodes in tree("common/national_focus/"):
         for ft in child(nodes, "focus_tree"):
-            need_loc.add(child(ft.value, "id")[0].value)
+            tree_id = child(ft.value, "id")[0].value
+            need_loc.add(tree_id)
             for sc in child(ft.value, "shortcut"):
                 need_loc.add(child(sc.value, "name")[0].value)
             for f in child(ft.value, "focus"):
@@ -516,6 +622,7 @@ def main():
                 if fid in focuses:
                     err("%s: duplicate focus %s" % (p, fid))
                 focuses[fid] = (p, f)
+                tree_of[fid] = tree_id
                 need_loc.update([fid, fid + "_desc"])
                 for c in child(f.value, "cost"):
                     if float(c.value) > MAX_FOCUS_COST:
@@ -557,7 +664,8 @@ def main():
 
     # ---- context checks (effects and triggers) ----
     effect_keys = ("completion_reward", "complete_effect", "remove_effect", "timeout_effect",
-                   "cancel_effect", "select_effect", "bypass_effect", "immediate", "after")
+                   "cancel_effect", "select_effect", "bypass_effect", "immediate", "after",
+                   "on_activate", "on_deactivate", "instant_effect")
     trigger_keys = ("available", "visible", "allowed", "bypass", "trigger", "activation",
                     "target_trigger", "target_root_trigger", "cancel_trigger", "remove_trigger",
                     "allow_branch", "cancel", "historical_ai")
@@ -574,6 +682,23 @@ def main():
         if rel.startswith("common/scripted_triggers/"):
             for n in nodes:
                 ck.trigger_block(n.value)
+            continue
+        if rel.startswith("history/countries/"):
+            def history_block(nodes):
+                for n in nodes:
+                    if re.fullmatch(r"\d+\.\d+\.\d+", n.key):
+                        history_block(n.value)
+                    elif n.key in ("capital", "oob"):
+                        continue
+                    else:
+                        ck.effect_block([n])
+            history_block(nodes)
+            for n in walk(nodes):
+                if n.key in ("set_oob", "set_naval_oob", "set_air_oob", "oob") and not n.is_block:
+                    if not os.path.isfile(os.path.join(mod, "history", "units", n.value + ".txt")):
+                        err("%s:%d: order of battle %s not found in history/units" % (p, n.line, n.value))
+            continue
+        if rel.startswith(("history/states/", "history/units/")):
             continue
         if rel.startswith("common/on_actions/"):
             for oa in child(nodes, "on_actions"):
@@ -657,6 +782,32 @@ def main():
                             for tr in scalars(t.value):
                                 if tr not in traits:
                                     err("%s:%d: unknown trait %s" % (p, t.line, tr))
+                elif k in ("add_ideas", "remove_ideas"):
+                    for v2 in scalars(n.value):
+                        if v2 not in ideas and v2 not in VANILLA_IDEAS:
+                            err("%s:%d: unknown spirit %s" % (p, n.line, v2))
+                elif k in ("add_power_balance_modifier", "remove_power_balance_modifier",
+                           "add_power_balance_value", "set_power_balance", "power_balance_value",
+                           "is_power_balance_in_range", "has_power_balance"):
+                    for i in child(n.value, "id"):
+                        if i.value not in balances:
+                            err("%s:%d: unknown balance of power %s" % (p, i.line, i.value))
+                    for m in child(n.value, "modifier"):
+                        if m.value not in static_modifiers:
+                            err("%s:%d: unknown static modifier %s" % (p, m.line, m.value))
+                elif k == "has_game_rule":
+                    rule = (child(n.value, "rule") or [None])[0]
+                    opt = (child(n.value, "option") or [None])[0]
+                    if rule is None or rule.value not in game_rules:
+                        err("%s:%d: unknown game rule" % (p, n.line))
+                    elif opt is not None and opt.value not in game_rules[rule.value]:
+                        err("%s:%d: game rule %s has no option %s" % (p, n.line, rule.value, opt.value))
+                elif k == "set_party_name":
+                    for nm in child(n.value, "name") + child(n.value, "long_name"):
+                        need_loc.add(nm.value)
+                elif k == "add_named_threat":
+                    for nm in child(n.value, "name"):
+                        need_loc.add(nm.value)
                 elif k == "add_unit_bonus":
                     for u in n.value:
                         if u.key not in units and not u.key.startswith("category_"):
@@ -676,7 +827,7 @@ def main():
                 err("%s:%d: unknown sub-unit %s" % (p, n.line, v))
             elif k == "add_country_leader_trait" and v not in traits:
                 err("%s:%d: unknown trait %s" % (p, n.line, v))
-            elif k in ("has_completed_focus",) and v not in focuses:
+            elif k in ("has_completed_focus",) and v not in focuses and v not in VANILLA_FOCUSES:
                 err("%s:%d: unknown focus %s" % (p, n.line, v))
             elif k in ("custom_effect_tooltip",):
                 need_loc.add(v)
@@ -703,13 +854,16 @@ def main():
             if k in s_triggers and v != "yes":
                 warn("%s:%d: scripted trigger %s compared to %s" % (p, n.line, k, v))
         for n in walk(nodes):
+            # block form: set_country_flag = { flag = X days = N }
+            if n.key == "set_country_flag" and n.is_block:
+                used_flags_set.update(c.value for c in child(n.value, "flag"))
             if n.key == "targets" and n.is_block and "decisions" in p:
                 for t in scalars(n.value):
                     if not t.isdigit() and t not in VANILLA_TAGS:
                         warn("%s: decision target %s not a known tag" % (p, t))
 
     for f in used_flags_checked - used_flags_set:
-        if f.startswith("TRX_"):
+        if f.startswith(MOD_PREFIXES):
             err("country flag %s is checked but never set" % f)
 
     # focus graph
@@ -752,14 +906,14 @@ def main():
         resolve(fid)
     by_cell = {}
     for fid, xy in pos.items():
-        by_cell.setdefault(xy, []).append(fid)
-    for xy, ids in by_cell.items():
+        by_cell.setdefault((tree_of[fid], xy), []).append(fid)
+    for (_, xy), ids in by_cell.items():
         if len(ids) > 1:
             err("focuses %s overlap at x=%d y=%d" % (", ".join(sorted(ids)), xy[0], xy[1]))
     rows = {}
     for fid, (x, y) in pos.items():
-        rows.setdefault(y, []).append((x, fid))
-    for y, row in rows.items():
+        rows.setdefault((tree_of[fid], y), []).append((x, fid))
+    for (_, y), row in rows.items():
         row.sort()
         for (x1, a), (x2, b) in zip(row, row[1:]):
             if 0 < x2 - x1 < 2:

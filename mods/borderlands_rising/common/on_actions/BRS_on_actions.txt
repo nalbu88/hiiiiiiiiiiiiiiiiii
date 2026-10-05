@@ -1,0 +1,51 @@
+###########################################################################
+# Borderlands Rising - on actions
+#
+# A single startup hook, guarded by a global flag so that it runs once.
+# The only recurring work in the mod is done by self-scheduling monthly
+# events (Palanmir's data collection and the Kurdish unrest roll), never
+# by daily or weekly pulses.
+###########################################################################
+
+on_actions = {
+	on_startup = {
+		effect = {
+			if = {
+				limit = { NOT = { has_global_flag = BRS_startup_done } }
+				set_global_flag = BRS_startup_done
+
+				# Garrisons of the old owners leave the new countries.
+				85 = {
+					teleport_armies = {
+						limit = { tag = POL }
+						to_state = 807
+					}
+					teleport_armies = {
+						limit = { tag = GER }
+						to_state = 5
+					}
+				}
+				137 = {
+					teleport_armies = {
+						limit = { tag = SOV }
+						to_state = 196
+					}
+				}
+				229 = {
+					teleport_armies = {
+						limit = { tag = SOV }
+						to_state = 232
+					}
+				}
+
+				# The Kurds of Turkey and Iraq (game rule "Kurdish resistance").
+				if = {
+					limit = {
+						NOT = { has_game_rule = { rule = BRS_kurdish_resistance option = VANILLA } }
+					}
+					KRD_setup_kurdish_resistance = yes
+				}
+			}
+		}
+	}
+}

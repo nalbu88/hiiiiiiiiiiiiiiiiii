@@ -1,0 +1,389 @@
+###########################################################################
+# Borderlands Rising - Free City of Danzig national spirits
+#
+# Two starting spirits (the League protectorate and the Polish customs
+# union) each have a visible way out in the tree. Every other spirit is
+# granted by a focus and named in its tooltip.
+###########################################################################
+
+ideas = {
+	country = {
+
+		######## Starting spirits ########
+
+		# Removed by tearing up the demilitarisation clause; the democratic
+		# path turns it into the League's Shield instead.
+		DZG_league_protectorate = {
+			removal_cost = -1
+			modifier = {
+				enemy_justify_war_goal_time = 0.50
+				stability_factor = 0.05
+				conscription_factor = -0.25
+				war_support_factor = -0.10
+			}
+		}
+
+		# Replaced by the Polish Partnership (Warsaw) or Reich Subsidies
+		# (Berlin), or removed when the Free City takes its port back.
+		DZG_polish_customs_union = {
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = -0.10
+				political_power_factor = -0.10
+			}
+		}
+
+		DZG_polish_partnership = {
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.10
+				trade_opinion_factor = 0.20
+				consumer_goods_factor = -0.02
+			}
+		}
+
+		DZG_reich_subsidies = {
+			removal_cost = -1
+			modifier = {
+				industrial_capacity_factory = 0.05
+				war_support_factor = 0.05
+				political_power_factor = -0.05
+			}
+		}
+
+		DZG_sovereign_port = {
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.05
+				political_power_factor = 0.05
+				trade_opinion_factor = 0.10
+			}
+		}
+
+		# Timed (180 days), from the Court Warsaw decision.
+		DZG_polish_credit = {
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.10
+			}
+		}
+
+		######## The Open Air Concert ########
+
+		# The Forest Opera of Zoppot plays to the whole Free City.
+		DZG_open_air_concert = {
+			removal_cost = -1
+			modifier = {
+				stability_weekly = 0.005
+				political_power_factor = 0.20
+				monthly_population = 0.20
+			}
+		}
+
+		DZG_baltic_pearl = {
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				political_power_factor = 0.10
+				research_speed_factor = 0.05
+			}
+		}
+
+		######## Fascist path: Greiser's Senate ########
+
+		DZG_emergency_decree = {
+			removal_cost = -1
+			modifier = {
+				political_power_factor = 0.15
+				stability_factor = -0.05
+				drift_defence_factor = 0.20
+			}
+		}
+
+		DZG_corporate_senate = {
+			removal_cost = -1
+			modifier = {
+				production_factory_max_efficiency_factor = 0.05
+				industrial_capacity_factory = 0.05
+				consumer_goods_factor = -0.02
+			}
+		}
+
+		DZG_free_state_youth_idea = {
+			removal_cost = -1
+			modifier = {
+				conscription_factor = 0.10
+				war_support_factor = 0.05
+				experience_gain_army_factor = 0.10
+			}
+		}
+
+		DZG_danziger_reich_spirit = {
+			removal_cost = -1
+			modifier = {
+				army_attack_factor = 0.05
+				war_support_factor = 0.10
+				conscription_factor = 0.10
+				justify_war_goal_time = -0.25
+			}
+		}
+
+		######## Democratic path: the Hanseatic Republic ########
+
+		DZG_restored_constitution = {
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.10
+				political_power_factor = -0.05
+			}
+		}
+
+		DZG_dockworkers_charter = {
+			removal_cost = -1
+			modifier = {
+				production_speed_industrial_complex_factor = 0.10
+				monthly_population = 0.10
+				stability_factor = 0.05
+			}
+		}
+
+		DZG_catholic_social_compact = {
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.10
+				war_support_factor = 0.05
+				conscription_factor = 0.05
+			}
+		}
+
+		DZG_social_insurance = {
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				monthly_population = 0.10
+				consumer_goods_factor = 0.02
+			}
+		}
+
+		DZG_league_shield = {
+			removal_cost = -1
+			modifier = {
+				enemy_justify_war_goal_time = 0.75
+				stability_factor = 0.10
+			}
+		}
+
+		DZG_hanseatic_spirit = {
+			removal_cost = -1
+			modifier = {
+				trade_opinion_factor = 0.25
+				production_factory_max_efficiency_factor = 0.05
+				research_speed_factor = 0.05
+				industrial_capacity_dockyard = 0.10
+			}
+		}
+
+		######## Non-aligned path: Rauschning's Directorate ########
+
+		DZG_armed_neutrality_idea = {
+			removal_cost = -1
+			modifier = {
+				army_core_defence_factor = 0.10
+				enemy_justify_war_goal_time = 0.25
+				stability_factor = 0.05
+			}
+		}
+
+		DZG_directorate = {
+			removal_cost = -1
+			modifier = {
+				political_power_factor = 0.15
+				stability_factor = 0.10
+				drift_defence_factor = 0.30
+			}
+		}
+
+		DZG_gulden_reserves = {
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.20
+				production_speed_buildings_factor = 0.05
+			}
+		}
+
+		######## Monarchist path: the Prussian Crown ########
+
+		DZG_black_eagle_order = {
+			removal_cost = -1
+			modifier = {
+				army_org_factor = 0.05
+				experience_gain_army_factor = 0.15
+				army_morale_factor = 0.05
+			}
+		}
+
+		DZG_royal_prussian_army_idea = {
+			removal_cost = -1
+			modifier = {
+				army_attack_factor = 0.05
+				army_defence_factor = 0.05
+				training_time_factor = -0.10
+			}
+		}
+
+		DZG_kingdom_of_prussia_spirit = {
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.10
+				war_support_factor = 0.10
+				army_org_factor = 0.05
+				political_power_factor = 0.10
+			}
+		}
+
+		######## Communist path: Red Danzig ########
+
+		DZG_free_soviet_city = {
+			removal_cost = -1
+			modifier = {
+				political_power_factor = 0.10
+				conscription_factor = 0.10
+				stability_factor = -0.05
+			}
+		}
+
+		DZG_collective_werder = {
+			removal_cost = -1
+			modifier = {
+				monthly_population = 0.10
+				consumer_goods_factor = -0.03
+				stability_factor = -0.03
+			}
+		}
+
+		DZG_peoples_tribunals = {
+			removal_cost = -1
+			modifier = {
+				drift_defence_factor = 0.30
+				stability_factor = 0.05
+				political_power_factor = 0.05
+			}
+		}
+
+		DZG_baltic_commune_spirit = {
+			removal_cost = -1
+			modifier = {
+				production_factory_efficiency_gain_factor = 0.10
+				conscription_factor = 0.10
+				army_morale_factor = 0.05
+			}
+		}
+
+		######## Military ########
+
+		DZG_citizens_in_arms_idea = {
+			removal_cost = -1
+			modifier = {
+				conscription = 0.01
+				conscription_factor = 0.15
+			}
+		}
+
+		DZG_street_fighters = {
+			removal_cost = -1
+			modifier = {
+				army_infantry_attack_factor = 0.05
+				army_infantry_defence_factor = 0.10
+			}
+		}
+
+		DZG_unbreakable_city = {
+			removal_cost = -1
+			modifier = {
+				army_core_defence_factor = 0.15
+				max_dig_in = 2
+				dig_in_speed_factor = 0.25
+			}
+		}
+
+		DZG_army_of_the_free_city_idea = {
+			removal_cost = -1
+			modifier = {
+				army_org_factor = 0.05
+				army_attack_factor = 0.05
+				training_time_factor = -0.15
+				max_command_power = 20
+			}
+		}
+
+		DZG_baltic_raiders_idea = {
+			removal_cost = -1
+			modifier = {
+				navy_submarine_attack_factor = 0.10
+				convoy_raiding_efficiency_factor = 0.15
+				naval_doctrine_cost_factor = -0.10
+			}
+		}
+
+		DZG_free_city_navy_idea = {
+			removal_cost = -1
+			modifier = {
+				naval_damage_factor = 0.05
+				industrial_capacity_dockyard = 0.10
+				experience_gain_navy_factor = 0.10
+			}
+		}
+
+		DZG_baltic_air_shield_idea = {
+			removal_cost = -1
+			modifier = {
+				air_superiority_efficiency = 0.10
+				air_defence_factor = 0.05
+			}
+		}
+
+		######## Economy ########
+
+		DZG_danzig_gulden = {
+			removal_cost = -1
+			modifier = {
+				political_power_factor = 0.05
+				production_speed_buildings_factor = 0.05
+				trade_opinion_factor = 0.15
+			}
+		}
+
+		DZG_zoppot_casino_idea = {
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.25
+			}
+		}
+
+		DZG_industrial_plan = {
+			removal_cost = -1
+			modifier = {
+				industrial_capacity_factory = 0.10
+				production_speed_buildings_factor = 0.10
+			}
+		}
+
+		DZG_technische_hochschule_idea = {
+			removal_cost = -1
+			modifier = {
+				research_speed_factor = 0.08
+			}
+		}
+
+		######## Expansion ########
+
+		DZG_queen_of_the_vistula_idea = {
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.10
+				war_support_factor = 0.10
+				industrial_capacity_factory = 0.05
+			}
+		}
+	}
+}

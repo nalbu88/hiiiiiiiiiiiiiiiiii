@@ -1,0 +1,20 @@
+###########################################################################
+# Borderlands Rising - static modifiers that push the Danzig Question
+# (common/bop/DZG_danzig_question.txt). Negative = towards Berlin.
+###########################################################################
+
+# Gauleiter Forster's agitation. Present from the start; removed when
+# Forster is purged or the NSDAP loses power.
+DZG_bop_forster_agitation = {
+	power_balance_weekly = -0.005
+}
+
+# The pull of Polish trade once the Free City leans on Warsaw.
+DZG_bop_polish_trade = {
+	power_balance_weekly = 0.004
+}
+
+# Berlin's money once the Free City leans on Berlin.
+DZG_bop_reich_money = {
+	power_balance_weekly = -0.004
+}
