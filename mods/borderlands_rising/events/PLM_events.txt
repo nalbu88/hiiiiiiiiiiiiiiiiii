@@ -1,0 +1,164 @@
+###########################################################################
+# Borderlands Rising - Lithuania (Palanmir) events
+#
+# Every event is "is_triggered_only": nothing here is polled. Palanmir's
+# monthly data collection is a hidden event (plm.100) that schedules
+# itself again every 30 days once Palanmir is installed.
+###########################################################################
+
+add_namespace = plm
+
+### A proposal from Mr Phiel ###
+country_event = {
+	id = plm.1
+	title = plm.1.t
+	desc = plm.1.d
+	picture = GFX_report_event_generic_research_lab
+	is_triggered_only = yes
+
+	option = {
+		name = plm.1.a
+		ai_chance = { base = 10 }
+		add_political_power = 25
+	}
+	option = {
+		name = plm.1.b
+		ai_chance = { base = 5 }
+		add_political_power = 50
+		add_stability = -0.01
+	}
+}
+
+### Smetona's dilemma ###
+country_event = {
+	id = plm.2
+	title = plm.2.t
+	desc = plm.2.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+
+	option = {
+		name = plm.2.a
+		ai_chance = { base = 10 }
+		add_stability = -0.03
+		add_political_power = 50
+	}
+	option = {
+		name = plm.2.b
+		ai_chance = { base = 5 }
+		add_stability = 0.02
+		add_political_power = -50
+	}
+}
+
+### A Palanmir data leak ###
+country_event = {
+	id = plm.20
+	title = plm.20.t
+	desc = plm.20.d
+	picture = GFX_news_event_gathering_protest
+	is_triggered_only = yes
+
+	option = {
+		name = plm.20.a
+		ai_chance = { base = 10 }
+		add_political_power = -25
+	}
+	option = {
+		name = plm.20.b
+		ai_chance = { base = 5 }
+		PLM_data_up_25 = yes
+		add_stability = -0.02
+	}
+}
+
+### The Vilnius ultimatum (Poland) ###
+country_event = {
+	id = plm.30
+	title = plm.30.t
+	desc = plm.30.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+
+	option = {
+		name = plm.30.a
+		ai_chance = {
+			base = 1
+			modifier = { factor = 10 PLM_poland_is_weak = yes }
+		}
+		FROM = {
+			transfer_state = 784
+			country_event = { id = plm.31 hours = 6 }
+		}
+		add_stability = -0.05
+	}
+	option = {
+		name = plm.30.b
+		ai_chance = { base = 10 }
+		FROM = { country_event = { id = plm.32 hours = 6 } }
+	}
+}
+
+### Poland gives up Vilnius (Lithuania) ###
+country_event = {
+	id = plm.31
+	title = plm.31.t
+	desc = plm.31.d
+	picture = GFX_report_event_lithuania_army
+	is_triggered_only = yes
+
+	option = {
+		name = plm.31.a
+		add_stability = 0.10
+		add_war_support = 0.05
+	}
+}
+
+### Poland refuses (Lithuania) ###
+country_event = {
+	id = plm.32
+	title = plm.32.t
+	desc = plm.32.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+
+	option = {
+		name = plm.32.a
+		ai_chance = { base = 10 }
+		create_wargoal = {
+			type = take_claimed_state
+			target = FROM
+			generator = { 784 }
+		}
+	}
+	option = {
+		name = plm.32.b
+		ai_chance = { base = 5 }
+		add_political_power = 50
+	}
+}
+
+### Palanmir collects its monthly data (hidden) ###
+country_event = {
+	id = plm.100
+	hidden = yes
+	is_triggered_only = yes
+
+	immediate = {
+		PLM_monthly_data_tick = yes
+		country_event = { id = plm.100 days = 30 }
+	}
+}
+
+### Palanmir reaches a new level ###
+country_event = {
+	id = plm.101
+	title = plm.101.t
+	desc = plm.101.d
+	picture = GFX_report_event_generic_research_lab
+	is_triggered_only = yes
+
+	option = {
+		name = plm.101.a
+	}
+}

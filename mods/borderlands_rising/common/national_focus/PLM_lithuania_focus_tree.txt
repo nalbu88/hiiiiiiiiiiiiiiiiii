@@ -1,0 +1,943 @@
+###########################################################################
+# Borderlands Rising - Lithuania: the Palanmir Technate focus tree
+#
+# 50 focuses. Used when the game rule "Lithuania's focus tree" is set to
+# the Palanmir Technate (the default); otherwise Lithuania keeps its
+# vanilla tree.
+#
+# Layout (absolute x columns):
+#    2-8   The Phiel Administration (politics)
+#   10     Mr Phiel's proposal and Palanmir's installation
+#   12-18  The Palanmir system and state integration
+#   22-28  Research
+#   32-36  Construction and industry
+#   41-45  The army
+#   50-54  Foreign policy: licences, the Baltic and Vilnius
+###########################################################################
+
+focus_tree = {
+	id = PLM_lithuania_focus_tree
+
+	country = {
+		factor = 0
+		modifier = {
+			add = 200
+			original_tag = LIT
+			has_game_rule = { rule = BRS_lithuania_tree option = PALANMIR }
+		}
+	}
+
+	default = no
+	reset_on_civilwar = no
+
+	initial_show_position = {
+		focus = PLM_a_proposal_from_mr_phiel
+	}
+
+	continuous_focus_position = { x = 50 y = 1000 }
+
+	shortcut = {
+		name = PLM_shortcut_technate
+		target = PLM_a_proposal_from_mr_phiel
+		scroll_wheel_factor = 0.6
+	}
+	shortcut = {
+		name = PLM_shortcut_research
+		target = PLM_the_kaunas_laboratories
+		scroll_wheel_factor = 0.6
+	}
+	shortcut = {
+		name = PLM_shortcut_industry
+		target = PLM_algorithmic_construction
+		scroll_wheel_factor = 0.6
+	}
+	shortcut = {
+		name = PLM_shortcut_army
+		target = PLM_the_data_driven_army
+		scroll_wheel_factor = 0.6
+	}
+	shortcut = {
+		name = PLM_shortcut_foreign
+		target = PLM_the_client_list
+		scroll_wheel_factor = 0.6
+	}
+
+	focus = {
+		id = PLM_a_proposal_from_mr_phiel
+		icon = GFX_focus_PLM_a_proposal_from_mr_phiel
+		x = 10
+		y = 0
+		cost = 4
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER }
+		ai_will_do = { base = 20 }
+		completion_reward = {
+			recruit_character = PLM_teter_phiel
+			add_political_power = 50
+			country_event = { id = plm.1 }
+		}
+	}
+
+	focus = {
+		id = PLM_install_palanmir
+		icon = GFX_focus_PLM_install_palanmir
+		x = 10
+		y = 1
+		cost = 5
+		prerequisite = { focus = PLM_a_proposal_from_mr_phiel }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 20 }
+		completion_reward = {
+			PLM_install_palanmir_effect = yes
+			unlock_decision_category_tooltip = PLM_palanmir_category
+		}
+	}
+
+	focus = {
+		id = PLM_the_census_of_everything
+		icon = GFX_focus_PLM_the_census_of_everything
+		x = 4
+		y = 2
+		cost = 4
+		prerequisite = { focus = PLM_install_palanmir }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_MANPOWER }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			PLM_data_up_50 = yes
+			add_manpower = 2000
+		}
+	}
+
+	focus = {
+		id = PLM_the_data_ministry
+		icon = GFX_focus_PLM_the_data_ministry
+		x = 6
+		y = 2
+		cost = 4
+		prerequisite = { focus = PLM_install_palanmir }
+		search_filters = { FOCUS_FILTER_POLITICAL_CHARACTER }
+		ai_will_do = { base = 12 }
+		completion_reward = {
+			recruit_character = PLM_adele_karpaite
+			PLM_data_rate_up_5 = yes
+		}
+	}
+
+	focus = {
+		id = PLM_pack_the_fourth_seimas
+		icon = GFX_focus_PLM_pack_the_fourth_seimas
+		x = 8
+		y = 2
+		cost = 4
+		prerequisite = { focus = PLM_install_palanmir }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_political_power = 100
+			add_stability = -0.03
+		}
+	}
+
+	focus = {
+		id = PLM_smetonas_dilemma
+		icon = GFX_focus_PLM_smetonas_dilemma
+		x = 6
+		y = 3
+		cost = 5
+		prerequisite = { focus = PLM_the_data_ministry }
+		prerequisite = { focus = PLM_the_census_of_everything focus = PLM_pack_the_fourth_seimas }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 15 }
+		completion_reward = {
+			country_event = { id = plm.2 }
+		}
+	}
+
+	focus = {
+		id = PLM_the_phiel_administration
+		icon = GFX_focus_PLM_the_phiel_administration
+		x = 6
+		y = 4
+		cost = 5
+		prerequisite = { focus = PLM_smetonas_dilemma }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER }
+		ai_will_do = { base = 20 }
+		completion_reward = {
+			PLM_phiel_takes_power = yes
+		}
+	}
+
+	focus = {
+		id = PLM_wellbeing_is_a_lagging_indicator
+		icon = GFX_focus_PLM_wellbeing_is_a_lagging_indicator
+		x = 4
+		y = 5
+		cost = 5
+		prerequisite = { focus = PLM_the_phiel_administration }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 12 }
+		completion_reward = {
+			add_ideas = PLM_lagging_indicator
+		}
+	}
+
+	focus = {
+		id = PLM_the_efficiency_decrees
+		icon = GFX_focus_PLM_the_efficiency_decrees
+		x = 8
+		y = 5
+		cost = 5
+		prerequisite = { focus = PLM_the_phiel_administration }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			add_ideas = PLM_efficiency_decrees
+		}
+	}
+
+	focus = {
+		id = PLM_predictive_policing
+		icon = GFX_focus_PLM_predictive_policing
+		x = 2
+		y = 6
+		cost = 5
+		prerequisite = { focus = PLM_wellbeing_is_a_lagging_indicator }
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_ideas = PLM_predictive_policing_idea
+			PLM_data_rate_up_5 = yes
+		}
+	}
+
+	focus = {
+		id = PLM_the_algorithmic_budget
+		icon = GFX_focus_PLM_the_algorithmic_budget
+		x = 5
+		y = 6
+		cost = 5
+		prerequisite = { focus = PLM_wellbeing_is_a_lagging_indicator focus = PLM_the_efficiency_decrees }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_ideas = PLM_algorithmic_budget
+		}
+	}
+
+	focus = {
+		id = PLM_the_shareholder_state
+		icon = GFX_focus_PLM_the_shareholder_state
+		x = 8
+		y = 6
+		cost = 5
+		prerequisite = { focus = PLM_the_efficiency_decrees }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INTERNATIONAL_TRADE }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_ideas = PLM_shareholder_state
+		}
+	}
+
+	focus = {
+		id = PLM_the_technate
+		icon = GFX_focus_PLM_the_technate
+		x = 5
+		y = 7
+		cost = 6
+		prerequisite = { focus = PLM_the_algorithmic_budget }
+		prerequisite = { focus = PLM_predictive_policing focus = PLM_the_shareholder_state }
+		available = {
+			has_country_flag = PLM_phiel_in_power
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 15 }
+		completion_reward = {
+			add_ideas = PLM_the_technate_idea
+			PLM_data_up_100 = yes
+		}
+	}
+
+	focus = {
+		id = PLM_palanmir_2_0
+		icon = GFX_focus_PLM_palanmir_2_0
+		x = 12
+		y = 2
+		cost = 5
+		prerequisite = { focus = PLM_install_palanmir }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 12 }
+		completion_reward = {
+			PLM_data_rate_up_5 = yes
+			PLM_data_up_50 = yes
+			set_country_flag = PLM_data_harvest_unlocked
+			unlock_decision_tooltip = PLM_data_harvest
+		}
+	}
+
+	focus = {
+		id = PLM_the_sensor_network
+		icon = GFX_focus_PLM_the_sensor_network
+		x = 15
+		y = 2
+		cost = 5
+		prerequisite = { focus = PLM_install_palanmir }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			PLM_data_rate_up_5 = yes
+			capital_scope = {
+				add_building_construction = {
+					type = radar_station
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = PLM_predictive_logistics
+		icon = GFX_focus_PLM_predictive_logistics
+		x = 18
+		y = 2
+		cost = 4
+		prerequisite = { focus = PLM_install_palanmir }
+		search_filters = { FOCUS_FILTER_POLITICAL_CHARACTER }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			recruit_character = PLM_mindaugas_saltis
+			PLM_data_up_25 = yes
+		}
+	}
+
+	focus = {
+		id = PLM_the_integration_protocol
+		icon = GFX_focus_PLM_the_integration_protocol
+		x = 13
+		y = 3
+		cost = 5
+		prerequisite = { focus = PLM_palanmir_2_0 focus = PLM_the_sensor_network }
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_POLITICAL_CHARACTER }
+		ai_will_do = { base = 15 }
+		completion_reward = {
+			set_country_flag = PLM_integration_unlocked
+			unlock_decision_tooltip = PLM_integrate_state
+			recruit_character = PLM_ieva_stonkute
+		}
+	}
+
+	focus = {
+		id = PLM_the_punch_card_bureau
+		icon = GFX_focus_PLM_the_punch_card_bureau
+		x = 17
+		y = 3
+		cost = 5
+		prerequisite = { focus = PLM_the_sensor_network focus = PLM_predictive_logistics }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			PLM_data_rate_up_5 = yes
+			add_tech_bonus = {
+				name = PLM_the_punch_card_bureau
+				bonus = 0.5
+				uses = 1
+				category = electronics
+			}
+		}
+	}
+
+	focus = {
+		id = PLM_palanmir_3_0
+		icon = GFX_focus_PLM_palanmir_3_0
+		x = 13
+		y = 4
+		cost = 6
+		prerequisite = { focus = PLM_the_integration_protocol }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 12 }
+		completion_reward = {
+			PLM_data_rate_up_10 = yes
+			PLM_data_up_100 = yes
+		}
+	}
+
+	focus = {
+		id = PLM_total_awareness
+		icon = GFX_focus_PLM_total_awareness
+		x = 17
+		y = 4
+		cost = 5
+		prerequisite = { focus = PLM_the_punch_card_bureau }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			PLM_data_rate_up_5 = yes
+			PLM_data_up_50 = yes
+		}
+	}
+
+	focus = {
+		id = PLM_the_all_seeing_stone
+		icon = GFX_focus_PLM_the_all_seeing_stone
+		x = 15
+		y = 5
+		cost = 6
+		prerequisite = { focus = PLM_palanmir_3_0 }
+		prerequisite = { focus = PLM_total_awareness }
+		available = {
+			PLM_palanmir_level_3 = yes
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 15 }
+		completion_reward = {
+			PLM_data_rate_up_10 = yes
+			PLM_data_up_100 = yes
+			add_research_slot = 1
+			hidden_effect = { news_event = { id = brs_news.31 hours = 6 } }
+		}
+	}
+
+	focus = {
+		id = PLM_the_kaunas_laboratories
+		icon = GFX_focus_PLM_the_kaunas_laboratories
+		x = 25
+		y = 0
+		cost = 4
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 12 }
+		completion_reward = {
+			add_political_power = 50
+			add_tech_bonus = {
+				name = PLM_the_kaunas_laboratories
+				bonus = 0.5
+				uses = 1
+				category = industry
+			}
+		}
+	}
+
+	focus = {
+		id = PLM_vytautas_magnus_university
+		icon = GFX_focus_PLM_vytautas_magnus_university
+		x = 23
+		y = 1
+		cost = 6
+		prerequisite = { focus = PLM_the_kaunas_laboratories }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 15 }
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+
+	focus = {
+		id = PLM_poach_foreign_scientists
+		icon = GFX_focus_PLM_poach_foreign_scientists
+		x = 27
+		y = 1
+		cost = 5
+		prerequisite = { focus = PLM_the_kaunas_laboratories }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = PLM_poach_foreign_scientists
+				bonus = 1.0
+				uses = 1
+				category = electronics
+			}
+			add_tech_bonus = {
+				name = PLM_poach_foreign_scientists
+				bonus = 1.0
+				uses = 1
+				category = industry
+			}
+		}
+	}
+
+	focus = {
+		id = PLM_the_engineering_faculty
+		icon = GFX_focus_PLM_the_engineering_faculty
+		x = 22
+		y = 2
+		cost = 4
+		prerequisite = { focus = PLM_vytautas_magnus_university }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = PLM_the_engineering_faculty
+				bonus = 0.5
+				uses = 2
+				category = industry
+			}
+		}
+	}
+
+	focus = {
+		id = PLM_calculating_machines
+		icon = GFX_focus_PLM_calculating_machines
+		x = 24
+		y = 2
+		cost = 4
+		prerequisite = { focus = PLM_vytautas_magnus_university }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = PLM_calculating_machines
+				bonus = 0.5
+				uses = 2
+				category = electronics
+			}
+			PLM_data_up_25 = yes
+		}
+	}
+
+	focus = {
+		id = PLM_the_radio_laboratory
+		icon = GFX_focus_PLM_the_radio_laboratory
+		x = 26
+		y = 2
+		cost = 4
+		prerequisite = { focus = PLM_poach_foreign_scientists }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = PLM_the_radio_laboratory
+				bonus = 0.5
+				uses = 2
+				category = radar_tech
+			}
+		}
+	}
+
+	focus = {
+		id = PLM_the_rocket_society
+		icon = GFX_focus_PLM_the_rocket_society
+		x = 28
+		y = 2
+		cost = 5
+		prerequisite = { focus = PLM_poach_foreign_scientists }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = PLM_the_rocket_society
+				bonus = 0.5
+				uses = 2
+				category = rocketry
+			}
+		}
+	}
+
+	focus = {
+		id = PLM_the_research_campus
+		icon = GFX_focus_PLM_the_research_campus
+		x = 25
+		y = 3
+		cost = 6
+		prerequisite = { focus = PLM_the_engineering_faculty focus = PLM_calculating_machines }
+		prerequisite = { focus = PLM_the_radio_laboratory focus = PLM_the_rocket_society }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 12 }
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+
+	focus = {
+		id = PLM_science_over_sentiment
+		icon = GFX_focus_PLM_science_over_sentiment
+		x = 25
+		y = 4
+		cost = 5
+		prerequisite = { focus = PLM_the_research_campus }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			add_ideas = PLM_science_over_sentiment_idea
+		}
+	}
+
+	focus = {
+		id = PLM_algorithmic_construction
+		icon = GFX_focus_PLM_algorithmic_construction
+		x = 34
+		y = 0
+		cost = 4
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 12 }
+		completion_reward = {
+			add_ideas = PLM_algorithmic_construction_idea
+		}
+	}
+
+	focus = {
+		id = PLM_the_klaipeda_works
+		icon = GFX_focus_PLM_the_klaipeda_works
+		x = 32
+		y = 1
+		cost = 5
+		prerequisite = { focus = PLM_algorithmic_construction }
+		available = {
+			owns_state = 188
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_NAVY_XP }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			188 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = PLM_the_kaunas_factories
+		icon = GFX_focus_PLM_the_kaunas_factories
+		x = 36
+		y = 1
+		cost = 5
+		prerequisite = { focus = PLM_algorithmic_construction }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 12 }
+		completion_reward = {
+			capital_scope = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = PLM_automated_planning
+		icon = GFX_focus_PLM_automated_planning
+		x = 32
+		y = 2
+		cost = 4
+		prerequisite = { focus = PLM_the_klaipeda_works }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = PLM_automated_planning
+				bonus = 0.5
+				uses = 2
+				category = construction_tech
+			}
+			capital_scope = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = PLM_the_seven_day_week
+		icon = GFX_focus_PLM_the_seven_day_week
+		x = 36
+		y = 2
+		cost = 5
+		prerequisite = { focus = PLM_the_kaunas_factories }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_ideas = PLM_seven_day_week
+		}
+	}
+
+	focus = {
+		id = PLM_the_concrete_algorithm
+		icon = GFX_focus_PLM_the_concrete_algorithm
+		x = 34
+		y = 3
+		cost = 5
+		prerequisite = { focus = PLM_automated_planning }
+		prerequisite = { focus = PLM_the_seven_day_week }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			if = {
+				limit = { has_idea = PLM_algorithmic_construction_idea }
+				swap_ideas = {
+					remove_idea = PLM_algorithmic_construction_idea
+					add_idea = PLM_concrete_algorithm
+				}
+			}
+			else = {
+				add_ideas = PLM_concrete_algorithm
+			}
+		}
+	}
+
+	focus = {
+		id = PLM_the_industrial_stack
+		icon = GFX_focus_PLM_the_industrial_stack
+		x = 34
+		y = 4
+		cost = 6
+		prerequisite = { focus = PLM_the_concrete_algorithm }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			capital_scope = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = PLM_the_data_driven_army
+		icon = GFX_focus_PLM_the_data_driven_army
+		x = 43
+		y = 0
+		cost = 4
+		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_MILITARY_CHARACTER }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			recruit_character = PLM_algirdas_tinklas
+			add_ideas = PLM_data_driven_army_idea
+		}
+	}
+
+	focus = {
+		id = PLM_predictive_maintenance
+		icon = GFX_focus_PLM_predictive_maintenance
+		x = 41
+		y = 1
+		cost = 4
+		prerequisite = { focus = PLM_the_data_driven_army }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = PLM_predictive_maintenance
+				bonus = 0.5
+				uses = 1
+				category = infantry_weapons
+			}
+			add_tech_bonus = {
+				name = PLM_predictive_maintenance
+				bonus = 0.5
+				uses = 1
+				category = support_tech
+			}
+		}
+	}
+
+	focus = {
+		id = PLM_signals_intelligence
+		icon = GFX_focus_PLM_signals_intelligence
+		x = 45
+		y = 1
+		cost = 4
+		prerequisite = { focus = PLM_the_data_driven_army }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = PLM_signals_intelligence
+				bonus = 0.5
+				uses = 1
+				category = radar_tech
+			}
+			PLM_data_up_25 = yes
+		}
+	}
+
+	focus = {
+		id = PLM_the_air_wing
+		icon = GFX_focus_PLM_the_air_wing
+		x = 41
+		y = 2
+		cost = 4
+		prerequisite = { focus = PLM_predictive_maintenance }
+		search_filters = { FOCUS_FILTER_AIR_XP FOCUS_FILTER_MILITARY_CHARACTER }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			recruit_character = PLM_rasa_debesyte
+			air_experience = 15
+			add_tech_bonus = {
+				name = PLM_the_air_wing
+				bonus = 0.5
+				uses = 1
+				category = light_fighter
+			}
+		}
+	}
+
+	focus = {
+		id = PLM_algorithmic_doctrine
+		icon = GFX_focus_PLM_algorithmic_doctrine
+		x = 45
+		y = 2
+		cost = 5
+		prerequisite = { focus = PLM_signals_intelligence }
+		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = PLM_algorithmic_doctrine
+				cost_reduction = 0.5
+				uses = 2
+				category = land_doctrine
+			}
+		}
+	}
+
+	focus = {
+		id = PLM_the_riflemens_union
+		icon = GFX_focus_PLM_the_riflemens_union
+		x = 43
+		y = 3
+		cost = 5
+		prerequisite = { focus = PLM_the_air_wing focus = PLM_algorithmic_doctrine }
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_ideas = PLM_riflemens_union
+			add_manpower = 5000
+		}
+	}
+
+	focus = {
+		id = PLM_the_client_list
+		icon = GFX_focus_PLM_the_client_list
+		x = 52
+		y = 0
+		cost = 4
+		search_filters = { FOCUS_FILTER_INTERNATIONAL_TRADE }
+		ai_will_do = { base = 12 }
+		completion_reward = {
+			set_country_flag = PLM_clients_unlocked
+			unlock_decision_tooltip = PLM_sell_palanmir_licence
+		}
+	}
+
+	focus = {
+		id = PLM_the_vilnius_question
+		icon = GFX_focus_PLM_the_vilnius_question
+		x = 50
+		y = 1
+		cost = 4
+		prerequisite = { focus = PLM_the_client_list }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_state_claim = 784
+			add_war_support = 0.05
+		}
+	}
+
+	focus = {
+		id = PLM_memel_data_hub
+		icon = GFX_focus_PLM_memel_data_hub
+		x = 54
+		y = 1
+		cost = 4
+		prerequisite = { focus = PLM_the_client_list }
+		available = {
+			owns_state = 188
+		}
+		search_filters = { FOCUS_FILTER_INTERNATIONAL_TRADE }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			PLM_data_rate_up_5 = yes
+			188 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = PLM_the_baltic_data_union
+		icon = GFX_focus_PLM_the_baltic_data_union
+		x = 50
+		y = 2
+		cost = 5
+		prerequisite = { focus = PLM_the_vilnius_question }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			PLM_befriend_the_baltic = yes
+		}
+	}
+
+	focus = {
+		id = PLM_export_palanmir
+		icon = GFX_focus_PLM_export_palanmir
+		x = 54
+		y = 2
+		cost = 5
+		prerequisite = { focus = PLM_memel_data_hub }
+		search_filters = { FOCUS_FILTER_INTERNATIONAL_TRADE }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			set_country_flag = PLM_more_clients
+			custom_effect_tooltip = PLM_export_palanmir_tt
+		}
+	}
+
+	focus = {
+		id = PLM_reclaim_vilnius
+		icon = GFX_focus_PLM_reclaim_vilnius
+		x = 50
+		y = 3
+		cost = 5
+		prerequisite = { focus = PLM_the_baltic_data_union }
+		available = {
+			country_exists = POL
+			POL = { owns_state = 784 }
+			NOT = { has_war_with = POL }
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			POL = { country_event = { id = plm.30 hours = 12 } }
+		}
+	}
+
+	focus = {
+		id = PLM_the_global_platform
+		icon = GFX_focus_PLM_the_global_platform
+		x = 54
+		y = 3
+		cost = 6
+		prerequisite = { focus = PLM_export_palanmir }
+		search_filters = { FOCUS_FILTER_INTERNATIONAL_TRADE }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			PLM_data_rate_up_10 = yes
+			add_offsite_building = {
+				type = industrial_complex
+				level = 1
+			}
+		}
+	}
+}

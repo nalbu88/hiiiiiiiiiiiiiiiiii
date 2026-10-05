@@ -1,0 +1,19 @@
+###########################################################################
+# Borderlands Rising - Palanmir
+#
+# The Palanmir national spirit. Its values are variables of the country,
+# recalculated by PLM_update_palanmir from the Palanmir level (1-5),
+# which grows with the data Palanmir has collected (PLM_data).
+###########################################################################
+
+PLM_palanmir = {
+	icon = GFX_idea_PLM_palanmir
+	enable = { always = yes }
+
+	research_speed_factor = PLM_palanmir_research
+	production_speed_buildings_factor = PLM_palanmir_construction
+	production_factory_efficiency_gain_factor = PLM_palanmir_efficiency
+	decryption_factor = PLM_palanmir_decryption
+	compliance_growth = PLM_palanmir_compliance
+	stability_factor = PLM_palanmir_stability
+}

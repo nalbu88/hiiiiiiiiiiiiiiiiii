@@ -1,0 +1,36 @@
+###########################################################################
+# Borderlands Rising - Lithuania (Palanmir) scripted triggers
+###########################################################################
+
+PLM_palanmir_level_2 = {
+	custom_trigger_tooltip = {
+		tooltip = PLM_palanmir_level_2_tt
+		check_variable = { PLM_palanmir_level > 1 }
+	}
+}
+
+PLM_palanmir_level_3 = {
+	custom_trigger_tooltip = {
+		tooltip = PLM_palanmir_level_3_tt
+		check_variable = { PLM_palanmir_level > 2 }
+	}
+}
+
+PLM_palanmir_level_4 = {
+	custom_trigger_tooltip = {
+		tooltip = PLM_palanmir_level_4_tt
+		check_variable = { PLM_palanmir_level > 3 }
+	}
+}
+
+# Country scope (Poland): in no position to hold on to Vilnius.
+PLM_poland_is_weak = {
+	custom_trigger_tooltip = {
+		tooltip = PLM_poland_is_weak_tt
+		OR = {
+			has_war = yes
+			has_stability < 0.4
+			is_subject = yes
+		}
+	}
+}

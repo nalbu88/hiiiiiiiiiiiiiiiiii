@@ -237,3 +237,41 @@ news_event = {
 		trigger = { NOT = { original_tag = AZR } }
 	}
 }
+
+### Teter Phiel takes power in Kaunas ###
+news_event = {
+	id = brs_news.30
+	title = brs_news.30.t
+	desc = brs_news.30.d
+	picture = GFX_report_event_generic_research_lab
+	major = yes
+	is_triggered_only = yes
+
+	option = {
+		name = brs_news.30.a
+		trigger = { original_tag = LIT }
+	}
+	option = {
+		name = brs_news.30.b
+		trigger = { NOT = { original_tag = LIT } }
+	}
+}
+
+### Palanmir sees everything ###
+news_event = {
+	id = brs_news.31
+	title = brs_news.31.t
+	desc = brs_news.31.d
+	picture = GFX_report_event_generic_research_lab
+	major = yes
+	is_triggered_only = yes
+
+	option = {
+		name = brs_news.31.a
+		trigger = { original_tag = LIT }
+	}
+	option = {
+		name = brs_news.31.b
+		trigger = { NOT = { original_tag = LIT } }
+	}
+}
