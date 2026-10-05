@@ -63,8 +63,7 @@ political power. Each focus tooltip shows exactly what it adds.
 | Defence industry | MKE, the aviation industry, the *Devrim* car, military electronics, rockets | surplus arms sales |
 | Agriculture | Tractors, Çukurova cotton, land reform | Breadbasket of the Middle East |
 
-The branch ends in **Among the Great Powers**, which needs the industry, finance and either the
-atomic or the defence-industry line.
+The branch ends in **Among the Great Powers**, which needs both the industry and the finance lines.
 
 ### Decisions
 

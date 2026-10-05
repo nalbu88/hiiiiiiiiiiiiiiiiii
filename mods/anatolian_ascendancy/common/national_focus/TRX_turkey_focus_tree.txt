@@ -4399,7 +4399,6 @@ focus_tree = {
 		cost = 4.5
 		prerequisite = { focus = TRX_industrial_heartland }
 		prerequisite = { focus = TRX_istanbul_finance_centre }
-		prerequisite = { focus = TRX_atomic_energy_commission focus = TRX_defense_self_sufficiency }
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
 		ai_will_do = { base = 10 }
 		completion_reward = {
