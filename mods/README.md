@@ -1,5 +1,7 @@
 # Anatolian Ascendancy – Turkey Expanded
 
+> This folder holds two mods. This page documents **Anatolian Ascendancy**. **Borderlands Rising** (Danzig, Azov United, Odlar Yurdu, Palanmir and the Kurdish resistance) is documented in [BORDERLANDS_RISING.md](BORDERLANDS_RISING.md), and the research behind both is in [MOD_RESEARCH.md](MOD_RESEARCH.md).
+
 A Hearts of Iron IV mod that gives Turkey a new 209-focus national focus tree, an economy branch
 modelled on Turkey's real economic ambitions, five linked political paths, a political-power stock
 exchange, four new unit types, six formable nations, and new decisions, events, characters and

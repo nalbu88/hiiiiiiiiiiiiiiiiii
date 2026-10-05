@@ -22,3 +22,5 @@ MIT license (LICENSE) applies to every file in this repository.
 ## Mods
 
 - `mods/anatolian_ascendancy` - **Anatolian Ascendancy: Turkey Expanded**, a Turkey overhaul with a 209-focus tree (no focus over 35 days), a large economy branch, five linked political paths, a political-power stock exchange, four new unit types, six formable nations, decisions and events. See [mods/README.md](mods/README.md) for installation and details. `mods/tools` holds its asset builder and static validator.
+- `mods/borderlands_rising` - **Borderlands Rising**: the Free City of Danzig (150 focuses, five political paths including monarchism, the Oppressed Soldiers unit, the Open Air Concert), South Russia / Azov United (a fascist garrison state that buys equipment with political power), Azerbaijan with its infant President and the Odlar Yurdu (Land of Fire) formable, Lithuania's Palanmir Technate (coring by data integration), and much stronger Kurdish resistance in Turkey and Iraq. See [mods/BORDERLANDS_RISING.md](mods/BORDERLANDS_RISING.md).
+- [mods/MOD_RESEARCH.md](mods/MOD_RESEARCH.md) - how HOI4 mods are built and what makes Workshop mods enjoyable.
