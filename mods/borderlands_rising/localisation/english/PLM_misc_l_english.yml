@@ -97,3 +97,6 @@
  # Diplomacy
  PLM_data_client: "Palanmir client"
  PLM_surveillance_scandal: "Palanmir surveillance scandal"
+
+ # Characters unlocked by focuses
+ PLM_tinklas_available_tt: "§YAlgirdas Tinklas§! becomes available as a §Ygeneral§!.\n"

@@ -1,0 +1,34 @@
+# Borderlands Rising - override of the base game file history/units/POL_1939_naval_legacy.txt
+# Copied unchanged except for one thing: the Polish fleet is based in Gdynia (province 9263)
+# instead of Danzig (362).
+# Danzig is the Free City of Danzig (DNZ) at the start.
+# The base game never starts a country's units inside another independent
+# country, and this mod makes Danzig independent.
+
+units = {
+
+	######## NAVAL OOB ########
+	fleet = {
+		name = "Polskie Sily Morskie"			
+		naval_base = 9263 # Gdynia
+		task_force = {
+			name = "Polska Flota Niszczycieli"		# CO: Unrug
+			location = 9263 # Gdynia
+			ship = { name = "ORP Grom" definition = destroyer equipment = { destroyer_2 = { amount = 1 owner = POL } } }	
+			ship = { name = "ORP Blyskawica" definition = destroyer equipment = { destroyer_2 = { amount = 1 owner = POL } } }	
+			ship = { name = "ORP Burza" definition = destroyer equipment = { destroyer_1 = { amount = 1 owner = POL } } }	
+			ship = { name = "ORP Wicher" definition = destroyer equipment = { destroyer_1 = { amount = 1 owner = POL } } }		
+		}	
+		task_force = {
+			name = "Dywizjon Okretów Podwodnych"	# CO: Mohuczy
+			location = 9263 # Gdynia
+			ship = { name = "ORP Orzel" definition = submarine equipment = { submarine_2 = { amount = 1 owner = POL } } }					
+			ship = { name = "ORP Sep" definition = submarine equipment = { submarine_2 = { amount = 1 owner = POL } } }					
+			ship = { name = "ORP Ryś" definition = submarine equipment = { submarine_1 = { amount = 1 owner = POL } } }					
+			ship = { name = "ORP Wilk" definition = submarine equipment = { submarine_1 = { amount = 1 owner = POL } } }					
+			ship = { name = "ORP Żbik" definition = submarine equipment = { submarine_1 = { amount = 1 owner = POL } } }			
+		}
+	}
+}
+
+

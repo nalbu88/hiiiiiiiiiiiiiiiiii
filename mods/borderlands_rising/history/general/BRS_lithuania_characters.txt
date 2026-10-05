@@ -1,0 +1,18 @@
+###########################################################################
+# Borderlands Rising - the characters of the Palanmir tree (Lithuania)
+#
+# The mod does not replace Lithuania's history file, so its characters are
+# recruited here, at game start, like the base game's shared characters in
+# this folder. Each one stays hidden until the focus that introduces them;
+# Teter Phiel gains his leader role in PLM_phiel_takes_power.
+###########################################################################
+
+every_possible_country = {
+	limit = { tag = LIT }
+	recruit_character = PLM_teter_phiel
+	recruit_character = PLM_adele_karpaite
+	recruit_character = PLM_mindaugas_saltis
+	recruit_character = PLM_ieva_stonkute
+	recruit_character = PLM_rasa_debesyte
+	recruit_character = PLM_algirdas_tinklas
+}

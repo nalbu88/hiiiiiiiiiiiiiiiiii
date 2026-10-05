@@ -77,6 +77,13 @@ recruit_character = ODL_aliagha_shikhlinski
 recruit_character = ODL_jamshid_nakhchivanski
 recruit_character = ODL_hazi_aslanov
 
+# Advisors who join later. Recruited here, as the base game does, and hidden
+# by a visible trigger until the focus that introduces them.
+recruit_character = ODL_jeyhun_hajibeyli
+recruit_character = ODL_baku_oil_council
+recruit_character = ODL_yusif_mammadaliyev
+recruit_character = ODL_khalil_bey_khasmammadov
+
 add_ideas = {
 	ODL_regency_council
 	ODL_black_gold
@@ -89,8 +96,5 @@ add_ideas = {
 set_variable = { ODL_ilham_stage = 0 }
 
 # The Treaty of Moscow (1920) recognised the Republic.
-diplomatic_relation = {
-	country = SOV
-	relation = non_aggression_pact
-	active = yes
-}
+# The non-aggression pact with the Soviet Union is signed at game start in
+# common/on_actions/BRS_on_actions.txt.

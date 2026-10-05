@@ -14,6 +14,55 @@ on_actions = {
 				limit = { NOT = { has_global_flag = BRS_startup_done } }
 				set_global_flag = BRS_startup_done
 
+				# Diplomacy and balance of power that the base game only ever
+				# sets up at game start, not in its 1936 history files.
+				if = {
+					limit = { country_exists = DNZ }
+					# Poland's history file marks Danzig as an "international
+					# city" (-100% recruitable population and local factories),
+					# which would cripple a Free City that owns only Danzig.
+					85 = {
+						remove_dynamic_modifier = { modifier = international_city }
+					}
+					DNZ = {
+						if = {
+							limit = { has_power_balance = { id = DZG_danzig_question } }
+							add_power_balance_modifier = {
+								id = DZG_danzig_question
+								modifier = DZG_bop_forster_agitation
+							}
+						}
+					}
+				}
+				# The armistice of 1920 between South Russia and the Soviets.
+				if = {
+					limit = {
+						country_exists = CRI
+						country_exists = SOV
+					}
+					CRI = {
+						diplomatic_relation = {
+							country = SOV
+							relation = non_aggression_pact
+							active = yes
+						}
+					}
+				}
+				# The Treaty of Moscow (1920) between Azerbaijan and the Soviets.
+				if = {
+					limit = {
+						country_exists = AZR
+						country_exists = SOV
+					}
+					AZR = {
+						diplomatic_relation = {
+							country = SOV
+							relation = non_aggression_pact
+							active = yes
+						}
+					}
+				}
+
 				# Garrisons of the old owners leave the new countries.
 				85 = {
 					teleport_armies = {

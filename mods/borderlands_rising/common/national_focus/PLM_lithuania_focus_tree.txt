@@ -71,7 +71,8 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER }
 		ai_will_do = { base = 20 }
 		completion_reward = {
-			recruit_character = PLM_teter_phiel
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = PLM_teter_phiel_advisor
 			add_political_power = 50
 			country_event = { id = plm.1 }
 		}
@@ -117,7 +118,8 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL_CHARACTER }
 		ai_will_do = { base = 12 }
 		completion_reward = {
-			recruit_character = PLM_adele_karpaite
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = PLM_adele_karpaite_advisor
 			PLM_data_rate_up_5 = yes
 		}
 	}
@@ -304,7 +306,8 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL_CHARACTER }
 		ai_will_do = { base = 8 }
 		completion_reward = {
-			recruit_character = PLM_mindaugas_saltis
+			custom_effect_tooltip = available_theorist
+			show_ideas_tooltip = PLM_mindaugas_saltis_theorist
 			PLM_data_up_25 = yes
 		}
 	}
@@ -321,7 +324,8 @@ focus_tree = {
 		completion_reward = {
 			set_country_flag = PLM_integration_unlocked
 			unlock_decision_tooltip = PLM_integrate_state
-			recruit_character = PLM_ieva_stonkute
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = PLM_ieva_stonkute_advisor
 		}
 	}
 
@@ -717,7 +721,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_MILITARY_CHARACTER }
 		ai_will_do = { base = 10 }
 		completion_reward = {
-			recruit_character = PLM_algirdas_tinklas
+			custom_effect_tooltip = PLM_tinklas_available_tt
 			add_ideas = PLM_data_driven_army_idea
 		}
 	}
@@ -777,7 +781,8 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_AIR_XP FOCUS_FILTER_MILITARY_CHARACTER }
 		ai_will_do = { base = 8 }
 		completion_reward = {
-			recruit_character = PLM_rasa_debesyte
+			custom_effect_tooltip = available_chief_of_airforce
+			show_ideas_tooltip = PLM_rasa_debesyte_air_chief
 			air_experience = 15
 			add_tech_bonus = {
 				name = PLM_the_air_wing

@@ -461,7 +461,16 @@ country_event = {
 
 	option = {
 		name = dzg.40.a
-		recruit_character = DZG_louis_ferdinand
+		set_country_flag = DZG_louis_ferdinand_accepted
+		add_country_leader_role = {
+			character = DZG_louis_ferdinand
+			country_leader = {
+				desc = DZG_louis_ferdinand_desc
+				ideology = despotism
+				traits = { DZG_trait_aviator_prince }
+				expire = "1965.1.1.1"
+			}
+		}
 		add_stability = 0.03
 	}
 }

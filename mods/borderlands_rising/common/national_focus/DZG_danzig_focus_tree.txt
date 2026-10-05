@@ -1507,7 +1507,15 @@ focus_tree = {
 			modifier = { add = 60 DZG_ai_rule_random = yes }
 		}
 		completion_reward = {
-			recruit_character = DZG_sean_lester
+			add_country_leader_role = {
+				character = DZG_sean_lester
+				country_leader = {
+					desc = DZG_sean_lester_desc
+					ideology = liberalism
+					traits = { DZG_trait_league_high_commissioner }
+					expire = "1965.1.1.1"
+				}
+			}
 			add_popularity = { ideology = democratic popularity = 0.10 }
 			add_popularity = { ideology = fascism popularity = -0.05 }
 			add_power_balance_value = {
@@ -1587,7 +1595,15 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER }
 		ai_will_do = { base = 5 }
 		completion_reward = {
-			recruit_character = DZG_richard_stachnik
+			add_country_leader_role = {
+				character = DZG_richard_stachnik
+				country_leader = {
+					desc = DZG_richard_stachnik_desc
+					ideology = conservatism
+					traits = { DZG_trait_catholic_centrist }
+					expire = "1965.1.1.1"
+				}
+			}
 			promote_character = DZG_richard_stachnik
 			add_ideas = DZG_catholic_social_compact
 		}
@@ -1657,7 +1673,8 @@ focus_tree = {
 		ai_will_do = { base = 5 }
 		completion_reward = {
 			set_country_flag = DZG_league_arbitration
-			recruit_character = DZG_carl_jacob_burckhardt
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = DZG_carl_jacob_burckhardt_advisor
 			custom_effect_tooltip = DZG_league_arbitration_tt
 		}
 	}
@@ -1807,7 +1824,8 @@ focus_tree = {
 		completion_reward = {
 			add_popularity = { ideology = neutrality popularity = 0.15 }
 			add_popularity = { ideology = fascism popularity = -0.10 }
-			recruit_character = DZG_heinrich_sahm
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = DZG_heinrich_sahm_advisor
 			add_political_power = 50
 		}
 	}
@@ -1827,7 +1845,15 @@ focus_tree = {
 			modifier = { add = 20 DZG_ai_rule_random = yes }
 		}
 		completion_reward = {
-			recruit_character = DZG_hermann_rauschning
+			add_country_leader_role = {
+				character = DZG_hermann_rauschning
+				country_leader = {
+					desc = DZG_hermann_rauschning_desc
+					ideology = oligarchism
+					traits = { DZG_trait_conservative_apostate }
+					expire = "1965.1.1.1"
+				}
+			}
 			set_politics = {
 				ruling_party = neutrality
 				elections_allowed = no
@@ -2024,7 +2050,10 @@ focus_tree = {
 		cost = 5
 		prerequisite = { focus = DZG_the_prussian_question }
 		available = {
-			has_character = DZG_louis_ferdinand
+			custom_trigger_tooltip = {
+				tooltip = DZG_louis_ferdinand_accepted_tt
+				has_country_flag = DZG_louis_ferdinand_accepted
+			}
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		ai_will_do = { base = 10 }
@@ -2067,8 +2096,7 @@ focus_tree = {
 		ai_will_do = { base = 8 }
 		completion_reward = {
 			add_ideas = DZG_black_eagle_order
-			recruit_character = DZG_prince_oskar_of_prussia
-			recruit_character = DZG_prince_wilhelm_of_prussia
+			custom_effect_tooltip = DZG_black_eagle_generals_tt
 		}
 	}
 

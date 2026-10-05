@@ -111,7 +111,8 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER }
 		ai_will_do = { base = 8 }
 		completion_reward = {
-			recruit_character = AZV_konstantin_rodzaevsky
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = AZV_konstantin_rodzaevsky_advisor
 			add_popularity = { ideology = fascism popularity = 0.05 }
 			add_war_support = 0.05
 		}
@@ -127,7 +128,8 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER }
 		ai_will_do = { base = 8 }
 		completion_reward = {
-			recruit_character = AZV_anastasy_vonsiatsky
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = AZV_anastasy_vonsiatsky_advisor
 			add_political_power = 100
 			AZV_arms_multiplier_up_25 = yes
 		}
@@ -143,7 +145,8 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER }
 		ai_will_do = { base = 8 }
 		completion_reward = {
-			recruit_character = AZV_alexander_kazem_bek
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = AZV_alexander_kazem_bek_advisor
 			add_stability = 0.05
 			add_popularity = { ideology = fascism popularity = 0.05 }
 		}
@@ -159,7 +162,8 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER }
 		ai_will_do = { base = 6 }
 		completion_reward = {
-			recruit_character = AZV_ivan_ilyin
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = AZV_ivan_ilyin_advisor
 			add_war_support = 0.05
 		}
 	}
@@ -242,7 +246,8 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_POLITICAL_CHARACTER }
 		ai_will_do = { base = 8 }
 		completion_reward = {
-			recruit_character = AZV_cafer_seydamet
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = AZV_cafer_seydamet_advisor
 			add_ideas = AZV_tatar_accord_idea
 			add_manpower = 10000
 		}

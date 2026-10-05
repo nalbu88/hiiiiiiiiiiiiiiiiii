@@ -33,9 +33,21 @@ resources and victory points keep their vanilla values.
 | 137 Crimea | Soviet Union | South Russia | — |
 | 229 Baku | Soviet Union | Azerbaijan | one more civilian factory and one military factory |
 
-At game start, Polish, German and Soviet divisions standing in those states are moved to the nearest state
-of their own. South Russia and Azerbaijan start with a non-aggression pact with the Soviet Union
-(the armistice of 1920 and the Treaty of Moscow).
+The base game never starts a country's units inside another independent country, so the mod keeps it
+that way:
+- Poland's fleet starts in Gdynia instead of Danzig; the Soviet Black Sea Fleet starts in Odessa instead
+  of Sevastopol, and its air brigade in Odessa instead of the Crimea (overrides of the base game's naval
+  and air orders of battle for 1936 and 1939, changed only in those lines).
+- At game start, Polish, German and Soviet divisions standing in the three states are moved to the
+  nearest state of their own.
+
+Also at game start (`common/on_actions/BRS_on_actions.txt`), because the base game only sets these up
+at game start and never in its 1936 history files:
+- South Russia and Azerbaijan sign a non-aggression pact with the Soviet Union (the armistice of 1920
+  and the Treaty of Moscow);
+- Danzig loses the "international city" modifier that Poland's history file puts on the city (-100%
+  recruitable population and local factories, which would cripple a Free City that owns only Danzig);
+- Gauleiter Forster's agitation starts pushing the Danzig Question towards Berlin.
 
 ## Danzig (150 focuses)
 
@@ -143,14 +155,21 @@ states that Turkey or Iraq conquer later join in.
 
 ## Compatibility notes
 
-- Overridden vanilla files: `history/states/85-Danzig.txt`, `137-Crimea.txt`, `229-baku.txt` and
-  `history/countries/DNZ - Danzig.txt`, `CRI - Crimea.txt`, `AZR - Azerbaijan.txt`. Everything else uses
-  the `DZG_`, `AZV_`, `ODL_`, `PLM_`, `KRD_` and `BRS_` prefixes.
+- Overridden vanilla files: `history/states/85-Danzig.txt`, `137-Crimea.txt`, `229-baku.txt`;
+  `history/countries/DNZ - Danzig.txt`, `CRI - Crimea.txt`, `AZR - Azerbaijan.txt`; and the naval and
+  air orders of battle `history/units/POL_1936_naval_*.txt`, `POL_1939_naval_*.txt`,
+  `SOV_1936_naval_*.txt`, `SOV_1939_naval_*.txt`, `SOV_1936_air_*.txt`, `SOV_1939_air_*.txt`. The unit
+  files are copies of the base game files of version 1.14.1 (the newest copy that was available) with
+  only the Danzig and Sevastopol bases changed; if a later game version changed those fleets or air
+  wings, the base game's newer version is replaced by this one. Everything else uses the `DZG_`, `AZV_`,
+  `ODL_`, `PLM_`, `KRD_` and `BRS_` prefixes.
+- Characters are recruited in history files, as HOI4 1.19 expects: the three new countries' history
+  files, and `history/general/BRS_lithuania_characters.txt` for the Palanmir characters (Lithuania's own
+  history file is not replaced). Advisors and generals stay hidden (`visible`) until the focus that
+  introduces them; future leaders get their leader role with `add_country_leader_role`.
 - Lithuania's history, leaders and vanilla tree are untouched (the vanilla tree stays available through
   the game rule).
 - Mods that also edit these states, or Turkey's and Iraq's Kurdish provinces, may conflict.
-- Soviet fleets that the vanilla naval order of battle bases at Sevastopol are not moved by the mod.
-  The game normally rebases ships whose port is no longer accessible, but this could not be tested.
 
 ## Testing status
 
@@ -161,6 +180,17 @@ focus layouts per tree, the 45-day focus limit, sprites, textures, flags and loc
 It reports **0 errors and 0 warnings**. Balance, AI behaviour and how the art looks in game still need
 an in-game test; check `Documents/Paradox Interactive/Hearts of Iron IV/logs/error.log` if something
 misbehaves.
+
+**First crash report (October 2026).** The game crashed while loading, before the main menu: the
+error log stopped after the events were read, and system.log had none of the "Audio cached" lines a
+launch writes once the main menu is up. The log itself did not name the cause, so the mod was changed
+to do nothing at that stage that the base game does not do itself: the non-aggression pacts and the
+balance-of-power modifier moved from the history files to the game-start effect, the foreign fleets
+and air wings were moved out of the new countries, every `recruit_character` moved into history files
+(the 24 warnings in that log), and the faction templates got the manifest the game expects. If the
+game still crashes, the most useful files are in `Documents/Paradox Interactive/Hearts of Iron IV/crashes/`
+(the newest folder: `exception.txt` and `meta.yml`). Starting the game once with the Steam launch option
+`-crash_data_log` makes `meta.yml` name the last file the game read (`LastRead: ...`).
 
 ## Art
 

@@ -193,6 +193,14 @@ recruit_character = AZV_boris_shteifon
 recruit_character = AZV_mikhail_kedrov
 recruit_character = AZV_pyotr_struve
 
+# Advisors who join later. Recruited here, as the base game does, and hidden
+# by a visible trigger until the focus that introduces them.
+recruit_character = AZV_konstantin_rodzaevsky
+recruit_character = AZV_anastasy_vonsiatsky
+recruit_character = AZV_alexander_kazem_bek
+recruit_character = AZV_ivan_ilyin
+recruit_character = AZV_cafer_seydamet
+
 add_ideas = {
 	AZV_island_of_crimea
 	AZV_white_army_remnants
@@ -205,9 +213,6 @@ add_ideas = {
 # the Arsenal of the White Cause (1.0 at the start).
 set_variable = { AZV_arms_multiplier = 1 }
 
-# The armistice of 1920: neither side has the strength to finish the war.
-diplomatic_relation = {
-	country = SOV
-	relation = non_aggression_pact
-	active = yes
-}
+# The armistice of 1920 (a non-aggression pact with the Soviet Union) is
+# signed at game start in common/on_actions/BRS_on_actions.txt: the base
+# game never creates diplomatic relations in its 1936 history.

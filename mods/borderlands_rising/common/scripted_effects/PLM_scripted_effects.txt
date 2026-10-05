@@ -126,15 +126,25 @@ PLM_data_rate_up_10 = {
 ###########################################################################
 
 PLM_phiel_takes_power = {
-	if = {
-		limit = { NOT = { has_character = PLM_teter_phiel } }
-		recruit_character = PLM_teter_phiel
-	}
 	set_politics = {
 		ruling_party = neutrality
 		elections_allowed = no
 	}
-	promote_character = PLM_teter_phiel
+	# Teter Phiel is recruited at game start (history/general) as an advisor;
+	# here he gains his country leader role and takes over.
+	if = {
+		limit = { has_character = PLM_teter_phiel }
+		add_country_leader_role = {
+			character = PLM_teter_phiel
+			country_leader = {
+				desc = PLM_teter_phiel_desc
+				ideology = oligarchism
+				traits = { PLM_trait_chief_executive_of_the_nation }
+				expire = "2065.1.1.1"
+			}
+			promote_leader = yes
+		}
+	}
 	set_country_flag = PLM_phiel_in_power
 	set_cosmetic_tag = PLM_TECHNATE
 	hidden_effect = {

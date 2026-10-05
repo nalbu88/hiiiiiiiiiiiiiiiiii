@@ -65,6 +65,7 @@ characters = {
 			idea_token = AZV_konstantin_rodzaevsky_advisor
 			cost = 100
 			allowed = { original_tag = CRI }
+			visible = { has_completed_focus = AZV_the_harbin_delegation }
 			traits = { AZV_trait_harbin_propagandist }
 			ai_will_do = { factor = 1.5 }
 		}
@@ -78,6 +79,7 @@ characters = {
 			idea_token = AZV_anastasy_vonsiatsky_advisor
 			cost = 100
 			allowed = { original_tag = CRI }
+			visible = { has_completed_focus = AZV_the_putnam_millions }
 			traits = { AZV_trait_putnam_millionaire }
 			ai_will_do = { factor = 2 }
 		}
@@ -91,6 +93,7 @@ characters = {
 			idea_token = AZV_alexander_kazem_bek_advisor
 			cost = 100
 			allowed = { original_tag = CRI }
+			visible = { has_completed_focus = AZV_young_russia }
 			traits = { AZV_trait_young_russia_ideologue }
 			ai_will_do = { factor = 1 }
 		}
@@ -105,6 +108,7 @@ characters = {
 			idea_token = AZV_cafer_seydamet_advisor
 			cost = 100
 			allowed = { original_tag = CRI }
+			visible = { has_completed_focus = AZV_tatar_accord }
 			traits = { AZV_trait_tatar_national_leader }
 			ai_will_do = { factor = 1 }
 		}
@@ -132,6 +136,7 @@ characters = {
 			idea_token = AZV_ivan_ilyin_advisor
 			cost = 100
 			allowed = { original_tag = CRI }
+			visible = { has_completed_focus = AZV_the_white_idea }
 			traits = { AZV_trait_philosopher_of_the_white_idea }
 			ai_will_do = { factor = 1 }
 		}

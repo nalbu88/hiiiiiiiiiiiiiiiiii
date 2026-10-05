@@ -367,3 +367,7 @@
  DZG_submit_to_forster_tt: "§RGermany annexes the Free City.§!"
  DZG_join_the_reich_tt: "§RThe Free City of Danzig is annexed by Germany.§!"
  DZG_polish_union_tt: "§RThe Free City becomes a Polish subject.§!"
+
+ # Characters unlocked by focuses
+ DZG_black_eagle_generals_tt: "§YPrince Oskar of Prussia§! becomes available as a §Yfield marshal§! and §YPrince Wilhelm of Prussia§! as a §Ygeneral§!.\n"
+ DZG_louis_ferdinand_accepted_tt: "Prince §YLouis Ferdinand§! has accepted the call to Danzig"

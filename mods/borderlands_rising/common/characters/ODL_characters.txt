@@ -71,6 +71,7 @@ characters = {
 			idea_token = ODL_jeyhun_hajibeyli_advisor
 			cost = 100
 			allowed = { original_tag = AZR }
+			visible = { has_completed_focus = ODL_the_paris_emigres }
 			traits = { ODL_trait_paris_publicist }
 			ai_will_do = { factor = 1 }
 		}
@@ -84,6 +85,7 @@ characters = {
 			idea_token = ODL_khalil_bey_khasmammadov_advisor
 			cost = 100
 			allowed = { original_tag = AZR }
+			visible = { has_completed_focus = ODL_khasmammadovs_embassy }
 			traits = { ODL_trait_caspian_diplomat }
 			ai_will_do = { factor = 1 }
 		}
@@ -96,6 +98,7 @@ characters = {
 			idea_token = ODL_baku_oil_council_advisor
 			cost = 100
 			allowed = { original_tag = AZR }
+			visible = { has_completed_focus = ODL_the_oil_council }
 			traits = { ODL_trait_oil_baron }
 			ai_will_do = { factor = 1 }
 		}
@@ -110,6 +113,7 @@ characters = {
 			ledger = army
 			cost = 100
 			allowed = { original_tag = AZR }
+			visible = { has_completed_focus = ODL_petrochemistry_institute }
 			traits = { ODL_trait_petrochemist }
 			ai_will_do = { factor = 1 }
 		}

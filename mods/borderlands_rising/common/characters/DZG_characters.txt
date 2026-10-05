@@ -29,12 +29,8 @@ characters = {
 	# Irish diplomat, League of Nations High Commissioner in Danzig 1934-1937.
 	DZG_sean_lester = {
 		name = DZG_sean_lester
-		country_leader = {
-			desc = DZG_sean_lester_desc
-			ideology = liberalism
-			traits = { DZG_trait_league_high_commissioner }
-			expire = "1965.1.1.1"
-		}
+		# Recruited in history without a leader role; the role is added by
+		# focus DZG_the_geneva_appeal (add_country_leader_role).
 	}
 
 	# Chairman of the Danzig SPD 1921-1936.
@@ -51,12 +47,8 @@ characters = {
 	# Catholic priest, leader of the Danzig Centre Party in the 1935 Volkstag.
 	DZG_richard_stachnik = {
 		name = DZG_richard_stachnik
-		country_leader = {
-			desc = DZG_richard_stachnik_desc
-			ideology = conservatism
-			traits = { DZG_trait_catholic_centrist }
-			expire = "1965.1.1.1"
-		}
+		# Recruited in history without a leader role; the role is added by
+		# focus DZG_the_stachnik_coalition (add_country_leader_role).
 	}
 
 	# Led the banned Danzig KPD into the 1935 election as "List Plenikowski".
@@ -84,24 +76,16 @@ characters = {
 	# Senate President 1933-1934, broke with Hitler and left the party.
 	DZG_hermann_rauschning = {
 		name = DZG_hermann_rauschning
-		country_leader = {
-			desc = DZG_hermann_rauschning_desc
-			ideology = oligarchism
-			traits = { DZG_trait_conservative_apostate }
-			expire = "1965.1.1.1"
-		}
+		# Recruited in history without a leader role; the role is added by
+		# focus DZG_rauschning_returns (add_country_leader_role).
 	}
 
 	# Grandson of Wilhelm II, heir of the House of Hohenzollern after his
 	# elder brother renounced his rights in 1933. Lufthansa pilot.
 	DZG_louis_ferdinand = {
 		name = DZG_louis_ferdinand
-		country_leader = {
-			desc = DZG_louis_ferdinand_desc
-			ideology = despotism
-			traits = { DZG_trait_aviator_prince }
-			expire = "1965.1.1.1"
-		}
+		# Recruited in history without a leader role; the role is added by
+		# event dzg.40 (add_country_leader_role).
 	}
 
 	### Advisors ###
@@ -131,6 +115,7 @@ characters = {
 			idea_token = DZG_heinrich_sahm_advisor
 			cost = 100
 			allowed = { original_tag = DNZ }
+			visible = { has_completed_focus = DZG_the_senate_of_notables }
 			traits = { DZG_trait_founding_administrator }
 			ai_will_do = { factor = 1 }
 		}
@@ -144,6 +129,7 @@ characters = {
 			idea_token = DZG_carl_jacob_burckhardt_advisor
 			cost = 100
 			allowed = { original_tag = DNZ }
+			visible = { has_completed_focus = DZG_league_arbitration }
 			traits = { DZG_trait_league_mediator }
 			ai_will_do = { factor = 1 }
 		}
@@ -176,6 +162,7 @@ characters = {
 	DZG_prince_wilhelm_of_prussia = {
 		name = DZG_prince_wilhelm_of_prussia
 		corps_commander = {
+			visible = { has_completed_focus = DZG_order_of_the_black_eagle }
 			traits = { career_officer trait_reckless }
 			skill = 2
 			attack_skill = 3
@@ -189,6 +176,7 @@ characters = {
 	DZG_prince_oskar_of_prussia = {
 		name = DZG_prince_oskar_of_prussia
 		field_marshal = {
+			visible = { has_completed_focus = DZG_order_of_the_black_eagle }
 			traits = { old_guard thorough_planner }
 			skill = 3
 			attack_skill = 2

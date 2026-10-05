@@ -96,6 +96,19 @@ recruit_character = DZG_ernst_ziehm
 recruit_character = DZG_albert_forster
 recruit_character = DZG_friedrich_georg_eberhardt
 
+# Characters who enter politics or the army later. Recruited here, as the
+# base game does, and hidden until their focus or event: advisors and
+# generals by a visible trigger, future leaders by having no leader role
+# until add_country_leader_role.
+recruit_character = DZG_carl_jacob_burckhardt
+recruit_character = DZG_heinrich_sahm
+recruit_character = DZG_prince_oskar_of_prussia
+recruit_character = DZG_prince_wilhelm_of_prussia
+recruit_character = DZG_sean_lester
+recruit_character = DZG_richard_stachnik
+recruit_character = DZG_hermann_rauschning
+recruit_character = DZG_louis_ferdinand
+
 add_ideas = {
 	DZG_league_protectorate
 	DZG_polish_customs_union
@@ -107,11 +120,12 @@ add_ideas = {
 # The Danzig Question: Berlin on one side, Warsaw on the other.
 set_power_balance = {
 	id = DZG_danzig_question
+	left_side = DZG_bop_berlin_side
+	right_side = DZG_bop_warsaw_side
+	set_value = -0.35
 }
-add_power_balance_modifier = {
-	id = DZG_danzig_question
-	modifier = DZG_bop_forster_agitation
-}
+# Gauleiter Forster's agitation (DZG_bop_forster_agitation) is added at game
+# start in common/on_actions/BRS_on_actions.txt.
 
 # Gauleiter Forster's hold on the party, the police and the street (0-100).
 set_variable = { DZG_forster_network = 60 }

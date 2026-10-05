@@ -113,6 +113,8 @@ FOCUS_FILTERS = {
 MOD_PREFIXES = ("TRX_",)
 # Vanilla focuses the mod checks with has_completed_focus.
 VANILLA_FOCUSES = set()
+# Vanilla localisation keys the mod uses (e.g. in custom_effect_tooltip).
+VANILLA_LOC = set()
 
 # --------------------------------------------------------------------------
 # Per-mod profiles. The constants above are the Anatolian Ascendancy
@@ -150,8 +152,11 @@ PROFILES = {
             "volunteer_only", "limited_conscription", "civilian_economy", "partial_economic_mobilisation",
             "free_trade", "export_focus",
         },
-        "VANILLA_DYNAMIC_MODIFIERS": {"kurdish_agitation", "kurdish_separatism"},
+        # international_city: added to Danzig by Poland's history file.
+        "VANILLA_DYNAMIC_MODIFIERS": {"kurdish_agitation", "kurdish_separatism", "international_city"},
         "VANILLA_CHARACTERS": set(),
+        # Tooltips of focuses that unlock advisors, as the base game writes them.
+        "VANILLA_LOC": {"available_political_advisor", "available_theorist", "available_chief_of_airforce"},
         "VANILLA_FOCUSES": {"GER_reassert_eastern_claims"},
         "MAX_FOCUS_COST": 6.4,   # 6.4 x 7 = 44.8 days: no focus may take longer than 45 days
         "MOD_PREFIXES": ("DZG_", "AZV_", "ODL_", "PLM_", "KRD_", "BRS_"),
@@ -468,11 +473,14 @@ def main():
             s_triggers[n.key] = (p, n)
 
     characters = {}
+    advisor_tokens = set()
     for p, nodes in tree("common/characters/"):
         for c in child(nodes, "characters"):
             for ch in c.value:
                 characters[ch.key] = ch
                 need_loc.add(ch.key)
+                for adv in child(ch.value, "advisor"):
+                    advisor_tokens.update(tk.value for tk in child(adv.value, "idea_token"))
                 for role in child(ch.value, "country_leader"):
                     for d in child(role.value, "desc"):
                         need_loc.add(d.value)
@@ -778,6 +786,8 @@ def main():
                         if c.value not in characters and c.value not in VANILLA_CHARACTERS:
                             err("%s:%d: unknown character %s" % (p, c.line, c.value))
                     for cl in child(n.value, "country_leader"):
+                        for d in child(cl.value, "desc"):
+                            need_loc.add(d.value)
                         for t in child(cl.value, "traits"):
                             for tr in scalars(t.value):
                                 if tr not in traits:
@@ -831,6 +841,8 @@ def main():
                 err("%s:%d: unknown focus %s" % (p, n.line, v))
             elif k in ("custom_effect_tooltip",):
                 need_loc.add(v)
+            elif k == "show_ideas_tooltip" and v not in ideas and v not in advisor_tokens:
+                err("%s:%d: show_ideas_tooltip: unknown spirit or advisor %s" % (p, n.line, v))
             elif k in ("unlock_decision_tooltip", "activate_decision") and v not in decisions:
                 err("%s:%d: unknown decision %s" % (p, n.line, v))
             elif k == "unlock_decision_category_tooltip" and v not in categories:
@@ -930,7 +942,7 @@ def main():
             need_loc.update(n.value for n in child(opt.value, "name"))
 
     for k in sorted(need_loc):
-        if k not in loc:
+        if k not in loc and k not in VANILLA_LOC:
             err("missing localisation key %s" % k)
     unused = set(loc) - need_loc
     for k in sorted(unused):

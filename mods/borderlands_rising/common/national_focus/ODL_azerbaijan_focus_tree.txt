@@ -210,7 +210,8 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL_CHARACTER }
 		ai_will_do = { base = 6 }
 		completion_reward = {
-			recruit_character = ODL_jeyhun_hajibeyli
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = ODL_jeyhun_hajibeyli_advisor
 			add_political_power = 50
 		}
 	}
@@ -799,7 +800,8 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL_CHARACTER FOCUS_FILTER_INDUSTRY }
 		ai_will_do = { base = 6 }
 		completion_reward = {
-			recruit_character = ODL_baku_oil_council
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = ODL_baku_oil_council_advisor
 			add_political_power = 50
 		}
 	}
@@ -864,7 +866,8 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_POLITICAL_CHARACTER }
 		ai_will_do = { base = 6 }
 		completion_reward = {
-			recruit_character = ODL_yusif_mammadaliyev
+			custom_effect_tooltip = available_theorist
+			show_ideas_tooltip = ODL_yusif_mammadaliyev_theorist
 			add_tech_bonus = {
 				name = ODL_petrochemistry_institute
 				bonus = 0.5
@@ -1146,7 +1149,8 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL_CHARACTER }
 		ai_will_do = { base = 5 }
 		completion_reward = {
-			recruit_character = ODL_khalil_bey_khasmammadov
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = ODL_khalil_bey_khasmammadov_advisor
 			add_political_power = 50
 		}
 	}
