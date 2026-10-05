@@ -854,6 +854,9 @@ def main():
             if k in s_triggers and v != "yes":
                 warn("%s:%d: scripted trigger %s compared to %s" % (p, n.line, k, v))
         for n in walk(nodes):
+            # block form: set_country_flag = { flag = X days = N }
+            if n.key == "set_country_flag" and n.is_block:
+                used_flags_set.update(c.value for c in child(n.value, "flag"))
             if n.key == "targets" and n.is_block and "decisions" in p:
                 for t in scalars(n.value):
                     if not t.isdigit() and t not in VANILLA_TAGS:

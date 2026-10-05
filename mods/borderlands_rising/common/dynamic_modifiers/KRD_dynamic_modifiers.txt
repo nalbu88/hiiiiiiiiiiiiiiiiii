@@ -1,0 +1,70 @@
+###########################################################################
+# Borderlands Rising - Kurdish resistance (state modifiers)
+#
+# Added at game start to the Kurdish states of Turkey and Iraq, unless the
+# game rule "Kurdish resistance" is set to Base game. They only apply
+# while Turkey or Iraq owns the state.
+###########################################################################
+
+KRD_kurdish_resistance = {
+	icon = GFX_idea_KRD_kurdish_resistance
+	enable = {
+		OR = {
+			is_owned_by = TUR
+			is_owned_by = IRQ
+		}
+	}
+
+	resistance_target = 0.30
+	resistance_growth = 0.50
+	resistance_activity = 0.50
+	resistance_damage_to_garrison = 0.25
+	compliance_growth = -0.50
+	required_garrison_factor = 0.25
+	recruitable_population_factor = -0.50
+	local_resources_factor = -0.15
+	state_production_speed_buildings_factor = -0.15
+}
+
+KRD_kurdish_resistance_extreme = {
+	icon = GFX_idea_KRD_kurdish_resistance
+	enable = {
+		OR = {
+			is_owned_by = TUR
+			is_owned_by = IRQ
+		}
+	}
+
+	resistance_target = 0.50
+	resistance_growth = 1.00
+	resistance_activity = 1.00
+	resistance_damage_to_garrison = 0.50
+	compliance_growth = -0.75
+	required_garrison_factor = 0.50
+	recruitable_population_factor = -0.75
+	local_resources_factor = -0.25
+	state_production_speed_buildings_factor = -0.25
+}
+
+# After cultural concessions: the Kurds still distrust the state, but
+# most of them stop fighting it.
+KRD_kurdish_autonomy = {
+	icon = GFX_idea_KRD_kurdish_autonomy
+	enable = {
+		OR = {
+			is_owned_by = TUR
+			is_owned_by = IRQ
+		}
+	}
+
+	resistance_target = -0.20
+	compliance_growth = 0.25
+	recruitable_population_factor = -0.25
+}
+
+# Timed: after a mountain sweep the survivors remember.
+KRD_reprisals = {
+	icon = GFX_idea_KRD_kurdish_resistance
+	resistance_growth = 0.25
+	compliance_growth = -0.25
+}

@@ -275,3 +275,29 @@ news_event = {
 		trigger = { NOT = { original_tag = LIT } }
 	}
 }
+
+### The Kurdish revolt ###
+news_event = {
+	id = brs_news.40
+	title = brs_news.40.t
+	desc = brs_news.40.d
+	picture = GFX_news_event_generic_riot
+	major = yes
+	is_triggered_only = yes
+
+	option = {
+		name = brs_news.40.a
+		trigger = { tag = KUR }
+	}
+	option = {
+		name = brs_news.40.b
+		trigger = { tag = FROM }
+	}
+	option = {
+		name = brs_news.40.c
+		trigger = {
+			NOT = { tag = KUR }
+			NOT = { tag = FROM }
+		}
+	}
+}

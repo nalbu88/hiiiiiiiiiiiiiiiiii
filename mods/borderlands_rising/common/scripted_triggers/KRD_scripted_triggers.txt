@@ -1,0 +1,46 @@
+###########################################################################
+# Borderlands Rising - Kurdish resistance scripted triggers
+###########################################################################
+
+# State scope: a state with a Kurdish majority. Turkey: Diyarbakir (350),
+# Hakkari (352), Tunceli (353) and Van (800). Iraq: Mosul (676). If Turkey
+# or Iraq takes them: Iranian Kurdistan (1001), West Azerbaijan (419) and
+# Deir ez-Zor (680).
+KRD_is_kurdish_state = {
+	OR = {
+		state = 350
+		state = 352
+		state = 353
+		state = 800
+		state = 676
+		state = 1001
+		state = 419
+		state = 680
+	}
+}
+
+# State scope, ROOT = the owner: a Kurdish state in open revolt.
+KRD_state_in_revolt = {
+	has_state_flag = KRD_kurdish_state
+	NOT = { has_state_flag = KRD_autonomy }
+	is_owned_by = ROOT
+	OR = {
+		resistance > 70
+		AND = {
+			resistance > 55
+			has_game_rule = { rule = BRS_kurdish_resistance option = EXTREME }
+		}
+	}
+}
+
+# Country scope (Turkey or Iraq): busy enough for the Kurds to rise.
+KRD_owner_is_distracted = {
+	custom_trigger_tooltip = {
+		tooltip = KRD_owner_is_distracted_tt
+		OR = {
+			has_civil_war = yes
+			has_stability < 0.3
+			any_enemy_country = { is_major = yes }
+		}
+	}
+}

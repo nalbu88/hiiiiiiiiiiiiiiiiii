@@ -1,0 +1,38 @@
+l_english:
+ # State modifiers
+ KRD_kurdish_resistance: "Kurdish Resistance"
+ KRD_kurdish_resistance_desc: "The Kurds of this province never accepted the border drawn in 1923, or the government that came with it. Villages hide fighters, roads are mined, and the garrison is never safe."
+ KRD_kurdish_resistance_extreme: "Kurdish Insurgency"
+ KRD_kurdish_resistance_extreme_desc: "The whole province is in arms. The state controls the towns by day and nothing at all by night."
+ KRD_kurdish_autonomy: "Kurdish Cultural Rights"
+ KRD_kurdish_autonomy_desc: "Kurdish schools, newspapers and local officials have calmed the province. Most of the fighters have gone home - for now."
+ KRD_reprisals: "Reprisals Remembered"
+ KRD_reprisals_desc: "The last mountain sweep burned villages. The survivors have joined the fighters."
+
+ # Decisions
+ KRD_kurdish_category: "The Kurdish Question"
+ KRD_kurdish_category_desc: "The Kurdish provinces resist our rule far more fiercely than any other part of the country. Force will lower resistance for a while; concessions will lower it for good, at a political price.\n\nWhile we are at war with a great power, in a civil war or unstable, Kurdish provinces in open revolt (resistance above 70%) can rise together and proclaim §YKurdistan§!."
+ KRD_mountain_sweep: "Mountain Sweep"
+ KRD_mountain_sweep_desc: "Send the gendarmerie and the army into the mountains to hunt the fighters down. It works - for a while."
+ KRD_arm_loyal_tribes: "Arm Loyal Tribes"
+ KRD_arm_loyal_tribes_desc: "Some tribal chiefs prefer the government's rifles to the rebels' promises."
+ KRD_cultural_concessions: "Cultural Concessions"
+ KRD_cultural_concessions_desc: "Allow Kurdish schools, newspapers and local officials in this province. The nationalists in the capital will not like it."
+
+ # Tooltips
+ KRD_owner_is_distracted_tt: "At war with a great power, in a civil war or below §Y30%§! stability"
+
+ # Events
+ krd.1.t: "Uprising in [KRD_uprising_state.GetName]"
+ krd.1.d: "Kurdish fighters have attacked a gendarmerie post in [KRD_uprising_state.GetName], blown up a bridge and vanished into the mountains before the army arrived. Recruiting officers report that the young men of the province have gone with them."
+ krd.1.a: "Send more troops."
+ krd.10.t: "The Kurdish Revolt"
+ krd.10.d: "While our armies are needed elsewhere, the Kurdish provinces have risen together. The tribal chiefs, the nationalist committees and the fighters in the mountains have proclaimed an independent Kurdistan and driven our garrisons out of the towns.\n\nThe General Staff asks for orders."
+ krd.10.a: "Crush the rebellion."
+
+ # News
+ brs_news.40.t: "Kurdistan Proclaimed"
+ brs_news.40.d: "Kurdish leaders have proclaimed an independent Kurdistan in the mountains of the Middle East after a revolt against [From.GetNameDef]. Rebel brigades hold the towns, and the government has sworn to retake every province.\n\nThe Kurdish rising of the 1920s and 1930s, it seems, never really ended."
+ brs_news.40.a: "Freedom at last!"
+ brs_news.40.b: "We will take back every village."
+ brs_news.40.c: "The mountains are burning again."

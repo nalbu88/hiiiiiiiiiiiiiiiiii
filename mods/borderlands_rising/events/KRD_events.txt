@@ -1,0 +1,51 @@
+###########################################################################
+# Borderlands Rising - Kurdish resistance events
+#
+# krd.100 is a hidden monthly event for Turkey and Iraq that schedules
+# itself again; everything else is triggered from it.
+###########################################################################
+
+add_namespace = krd
+
+### A Kurdish uprising (Turkey or Iraq, players only) ###
+country_event = {
+	id = krd.1
+	title = krd.1.t
+	desc = krd.1.d
+	picture = GFX_news_event_generic_riot
+	is_triggered_only = yes
+
+	option = {
+		name = krd.1.a
+	}
+}
+
+### The Kurdish revolt (Turkey or Iraq) ###
+country_event = {
+	id = krd.10
+	title = krd.10.t
+	desc = krd.10.d
+	picture = GFX_news_event_generic_army
+	is_triggered_only = yes
+
+	immediate = {
+		KRD_start_revolt = yes
+	}
+
+	option = {
+		name = krd.10.a
+		add_war_support = 0.05
+	}
+}
+
+### Monthly unrest roll (hidden) ###
+country_event = {
+	id = krd.100
+	hidden = yes
+	is_triggered_only = yes
+
+	immediate = {
+		KRD_monthly_tick = yes
+		country_event = { id = krd.100 days = 30 }
+	}
+}
