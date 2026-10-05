@@ -451,6 +451,14 @@ def main():
             err("texture %s does not exist" % t)
     all_sprites = set(sprites) | VANILLA_SPRITES
 
+    # every sprite named anywhere in script (set_portraits, pictures, icons)
+    for p, nodes in files.items():
+        if p.replace(os.sep, "/").startswith("interface/"):
+            continue
+        for n in walk(nodes):
+            if not n.is_block and n.value.startswith("GFX_") and n.value not in all_sprites:
+                err("%s:%d: sprite %s undefined" % (p, n.line, n.value))
+
     s_effects, s_triggers = {}, {}
     for p, nodes in tree("common/scripted_effects/"):
         for n in nodes:

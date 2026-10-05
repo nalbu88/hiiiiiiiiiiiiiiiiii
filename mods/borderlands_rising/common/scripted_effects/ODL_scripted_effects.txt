@@ -1,0 +1,214 @@
+###########################################################################
+# Borderlands Rising - Azerbaijan / Odlar Yurdu scripted effects
+###########################################################################
+
+###########################################################################
+# The Infant President grows up
+# ODL_ilham_stage: 0 baby, 1 toddler, 2 boy wonder. Each stage swaps the
+# leader trait and the portrait.
+###########################################################################
+
+ODL_grow_up_to_toddler = {
+	if = {
+		limit = { has_country_leader = { character = ODL_ilham_aliyev ruling_only = yes } }
+		if = {
+			limit = { has_country_leader_with_trait = ODL_trait_infant_president }
+			remove_country_leader_trait = ODL_trait_infant_president
+		}
+		add_country_leader_trait = ODL_trait_toddler_statesman
+	}
+	custom_effect_tooltip = ODL_grow_up_to_toddler_tt
+	hidden_effect = {
+		if = {
+			limit = { has_character = ODL_ilham_aliyev }
+			set_portraits = {
+				character = ODL_ilham_aliyev
+				civilian = {
+					large = GFX_portrait_ODL_toddler_ilham
+					small = GFX_portrait_ODL_toddler_ilham_small
+				}
+			}
+		}
+		set_variable = { ODL_ilham_stage = 1 }
+	}
+}
+
+ODL_grow_up_to_boy = {
+	if = {
+		limit = { has_country_leader = { character = ODL_ilham_aliyev ruling_only = yes } }
+		if = {
+			limit = { has_country_leader_with_trait = ODL_trait_infant_president }
+			remove_country_leader_trait = ODL_trait_infant_president
+		}
+		if = {
+			limit = { has_country_leader_with_trait = ODL_trait_toddler_statesman }
+			remove_country_leader_trait = ODL_trait_toddler_statesman
+		}
+		add_country_leader_trait = ODL_trait_boy_wonder_president
+	}
+	custom_effect_tooltip = ODL_grow_up_to_boy_tt
+	hidden_effect = {
+		if = {
+			limit = { has_character = ODL_ilham_aliyev }
+			set_portraits = {
+				character = ODL_ilham_aliyev
+				civilian = {
+					large = GFX_portrait_ODL_boy_ilham
+					small = GFX_portrait_ODL_boy_ilham_small
+				}
+			}
+		}
+		set_variable = { ODL_ilham_stage = 2 }
+	}
+}
+
+###########################################################################
+# The Regency
+###########################################################################
+
+ODL_clear_regency = {
+	if = {
+		limit = { has_idea = ODL_regency_council }
+		remove_ideas = ODL_regency_council
+	}
+	if = {
+		limit = { has_idea = ODL_regency_musavat }
+		remove_ideas = ODL_regency_musavat
+	}
+	if = {
+		limit = { has_idea = ODL_regency_oil_barons }
+		remove_ideas = ODL_regency_oil_barons
+	}
+	if = {
+		limit = { has_idea = ODL_regency_generals }
+		remove_ideas = ODL_regency_generals
+	}
+}
+
+ODL_set_regency_musavat = {
+	if = {
+		limit = { has_idea = ODL_regency_council }
+		swap_ideas = {
+			remove_idea = ODL_regency_council
+			add_idea = ODL_regency_musavat
+		}
+	}
+	else = {
+		ODL_clear_regency = yes
+		add_ideas = ODL_regency_musavat
+	}
+}
+
+ODL_set_regency_oil_barons = {
+	if = {
+		limit = { has_idea = ODL_regency_council }
+		swap_ideas = {
+			remove_idea = ODL_regency_council
+			add_idea = ODL_regency_oil_barons
+		}
+	}
+	else = {
+		ODL_clear_regency = yes
+		add_ideas = ODL_regency_oil_barons
+	}
+}
+
+ODL_set_regency_generals = {
+	if = {
+		limit = { has_idea = ODL_regency_council }
+		swap_ideas = {
+			remove_idea = ODL_regency_council
+			add_idea = ODL_regency_generals
+		}
+	}
+	else = {
+		ODL_clear_regency = yes
+		add_ideas = ODL_regency_generals
+	}
+}
+
+ODL_end_regency = {
+	custom_effect_tooltip = ODL_end_regency_tt
+	hidden_effect = {
+		ODL_clear_regency = yes
+	}
+	add_ideas = ODL_presidential_rule
+}
+
+###########################################################################
+# The Southern Question
+# ODL_tabriz_support runs from 0 to 100.
+###########################################################################
+
+ODL_tabriz_support_up_20 = {
+	custom_effect_tooltip = ODL_tabriz_support_up_20_tt
+	hidden_effect = {
+		add_to_variable = { ODL_tabriz_support = 20 }
+		clamp_variable = { var = ODL_tabriz_support min = 0 max = 100 }
+	}
+}
+
+# Odlar Yurdu: the Land of Fire.
+ODL_proclaim_odlar_yurdu = {
+	set_cosmetic_tag = ODL_ODLAR_YURDU
+	set_country_flag = ODL_odlar_yurdu_proclaimed
+	every_owned_state = {
+		limit = {
+			OR = {
+				state = 229
+				state = 1000
+				state = 419
+			}
+			NOT = { is_core_of = ROOT }
+		}
+		add_core_of = ROOT
+	}
+	add_political_power = 100
+	add_stability = 0.05
+	hidden_effect = {
+		news_event = { id = brs_news.20 hours = 6 }
+	}
+}
+
+###########################################################################
+# Factions. Templates live in common/factions/templates; faction
+# creation is briefly allowed even under the "no factions" rule.
+###########################################################################
+
+ODL_create_caucasian_faction = {
+	if = {
+		limit = { NOT = { has_rule = can_create_factions } }
+		set_country_flag = ODL_temp_faction_rule
+		set_rule = { can_create_factions = yes }
+	}
+	create_faction_from_template = {
+		template = ODL_faction_caucasian_union
+		name = ODL_faction_caucasian_union_name
+	}
+	if = {
+		limit = { has_country_flag = ODL_temp_faction_rule }
+		clear_rule = { can_create_factions = yes }
+		clr_country_flag = ODL_temp_faction_rule
+	}
+}
+
+ODL_invite_caucasian_members = {
+	custom_effect_tooltip = ODL_invite_caucasian_members_tt
+	hidden_effect = {
+		every_country = {
+			limit = {
+				OR = {
+					tag = GEO
+					tag = ARM
+					tag = TUR
+					tag = PER
+				}
+				exists = yes
+				is_in_faction = no
+				is_subject = no
+				NOT = { has_war_with = ROOT }
+			}
+			country_event = { id = odl.10 hours = 12 }
+		}
+	}
+}

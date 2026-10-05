@@ -1,0 +1,326 @@
+###########################################################################
+# Borderlands Rising - Azerbaijan / Odlar Yurdu events
+#
+# Every event is "is_triggered_only": nothing here is polled.
+# In events sent by Azerbaijan to another country, ROOT is the receiver
+# and FROM is Azerbaijan.
+###########################################################################
+
+add_namespace = odl
+
+### The President's first word ###
+country_event = {
+	id = odl.2
+	title = odl.2.t
+	desc = odl.2.d
+	picture = GFX_report_event_eng_royal_family
+	is_triggered_only = yes
+
+	option = {
+		name = odl.2.a
+		ai_chance = { base = 10 }
+		add_political_power = 25
+		if = {
+			limit = { owns_state = 229 }
+			add_resource = {
+				type = oil
+				amount = 4
+				state = 229
+			}
+		}
+	}
+	option = {
+		name = odl.2.b
+		ai_chance = { base = 5 }
+		add_stability = 0.05
+	}
+	option = {
+		name = odl.2.c
+		ai_chance = { base = 5 }
+		add_war_support = 0.05
+		army_experience = 10
+	}
+}
+
+### The President's first steps ###
+country_event = {
+	id = odl.3
+	title = odl.3.t
+	desc = odl.3.d
+	picture = GFX_report_event_generic_rally
+	is_triggered_only = yes
+
+	option = {
+		name = odl.3.a
+		ai_chance = { base = 10 }
+		add_political_power = 50
+	}
+	option = {
+		name = odl.3.b
+		ai_chance = { base = 5 }
+		army_experience = 15
+	}
+}
+
+### The Kindergarten Cabinet ###
+country_event = {
+	id = odl.4
+	title = odl.4.t
+	desc = odl.4.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+
+	option = {
+		name = odl.4.a
+		ai_chance = { base = 10 }
+		add_stability = 0.03
+		add_war_support = 0.03
+	}
+	option = {
+		name = odl.4.b
+		ai_chance = { base = 5 }
+		add_political_power = 50
+	}
+}
+
+### The President takes charge ###
+country_event = {
+	id = odl.5
+	title = odl.5.t
+	desc = odl.5.d
+	picture = GFX_report_event_generic_rally2
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			news_event = { id = brs_news.21 hours = 6 }
+		}
+	}
+
+	option = {
+		name = odl.5.a
+		ai_chance = { base = 10 }
+		add_stability = 0.05
+	}
+	option = {
+		name = odl.5.b
+		ai_chance = { base = 5 }
+		add_war_support = 0.05
+	}
+}
+
+### Invitation to the Caucasian House (other countries) ###
+country_event = {
+	id = odl.10
+	title = odl.10.t
+	desc = odl.10.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+
+	option = {
+		name = odl.10.a
+		trigger = {
+			FROM = { is_faction_leader = yes }
+			is_in_faction = no
+		}
+		ai_chance = {
+			base = 5
+			modifier = { factor = 0 is_major = yes }
+			modifier = { factor = 2 has_opinion = { target = FROM value > 30 } }
+		}
+		FROM = { add_to_faction = ROOT }
+	}
+	option = {
+		name = odl.10.b
+		ai_chance = { base = 10 }
+		FROM = { country_event = { id = odl.11 hours = 6 } }
+	}
+}
+
+### Our invitation was declined (Azerbaijan) ###
+country_event = {
+	id = odl.11
+	title = odl.11.t
+	desc = odl.11.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+
+	option = {
+		name = odl.11.a
+		add_political_power = 10
+	}
+}
+
+### Azerbaijan proposes a deal over Tabriz (Iran) ###
+country_event = {
+	id = odl.20
+	title = odl.20.t
+	desc = odl.20.d
+	picture = GFX_report_event_gre_diplomacy
+	is_triggered_only = yes
+
+	option = {
+		name = odl.20.a
+		ai_chance = {
+			base = 3
+			modifier = { factor = 4 ODL_iran_is_weak = yes }
+		}
+		FROM = {
+			if = {
+				limit = { ROOT = { owns_state = 1000 } }
+				transfer_state = 1000
+			}
+			if = {
+				limit = { ROOT = { owns_state = 419 } }
+				transfer_state = 419
+			}
+			if = {
+				limit = { owns_state = 229 }
+				add_resource = {
+					type = oil
+					amount = -8
+					state = 229
+				}
+			}
+			country_event = { id = odl.22 hours = 6 }
+		}
+		add_political_power = 150
+		add_offsite_building = {
+			type = industrial_complex
+			level = 2
+		}
+	}
+	option = {
+		name = odl.20.b
+		ai_chance = { base = 10 }
+		FROM = { country_event = { id = odl.23 hours = 6 } }
+	}
+}
+
+### Azerbaijan demands South Azerbaijan (Iran) ###
+country_event = {
+	id = odl.21
+	title = odl.21.t
+	desc = odl.21.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+
+	option = {
+		name = odl.21.a
+		ai_chance = {
+			base = 2
+			modifier = { factor = 5 ODL_iran_is_weak = yes }
+			modifier = { factor = 3 has_war = yes }
+		}
+		FROM = {
+			if = {
+				limit = { ROOT = { owns_state = 1000 } }
+				transfer_state = 1000
+			}
+			if = {
+				limit = { ROOT = { owns_state = 419 } }
+				transfer_state = 419
+			}
+			country_event = { id = odl.22 hours = 6 }
+		}
+		add_stability = -0.05
+	}
+	option = {
+		name = odl.21.b
+		ai_chance = { base = 10 }
+		FROM = { country_event = { id = odl.23 hours = 6 } }
+	}
+}
+
+### Tehran agrees (Azerbaijan) ###
+country_event = {
+	id = odl.22
+	title = odl.22.t
+	desc = odl.22.d
+	picture = GFX_report_event_generic_handshake
+	is_triggered_only = yes
+
+	option = {
+		name = odl.22.a
+		add_stability = 0.05
+		custom_effect_tooltip = ODL_now_proclaim_tt
+	}
+}
+
+### Tehran refuses (Azerbaijan) ###
+country_event = {
+	id = odl.23
+	title = odl.23.t
+	desc = odl.23.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+
+	option = {
+		name = odl.23.a
+		ai_chance = { base = 10 }
+		create_wargoal = {
+			type = take_claimed_state
+			target = FROM
+			generator = { 1000 419 }
+		}
+		add_war_support = 0.05
+	}
+	option = {
+		name = odl.23.b
+		ai_chance = { base = 3 }
+		add_political_power = 50
+	}
+}
+
+### One Nation, Two States (Turkey) ###
+country_event = {
+	id = odl.30
+	title = odl.30.t
+	desc = odl.30.d
+	picture = GFX_report_event_generic_handshake
+	is_triggered_only = yes
+
+	option = {
+		name = odl.30.a
+		ai_chance = { base = 10 }
+		add_opinion_modifier = { target = FROM modifier = ODL_brother_nation }
+		FROM = {
+			add_opinion_modifier = { target = ROOT modifier = ODL_brother_nation }
+			country_event = { id = odl.31 hours = 6 }
+		}
+	}
+	option = {
+		name = odl.30.b
+		ai_chance = { base = 1 }
+		FROM = { country_event = { id = odl.32 hours = 6 } }
+	}
+}
+
+### Ankara embraces us (Azerbaijan) ###
+country_event = {
+	id = odl.31
+	title = odl.31.t
+	desc = odl.31.d
+	picture = GFX_report_event_generic_rally
+	is_triggered_only = yes
+
+	option = {
+		name = odl.31.a
+		add_stability = 0.05
+		add_political_power = 50
+	}
+}
+
+### Ankara keeps its distance (Azerbaijan) ###
+country_event = {
+	id = odl.32
+	title = odl.32.t
+	desc = odl.32.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+
+	option = {
+		name = odl.32.a
+		add_political_power = 25
+	}
+}

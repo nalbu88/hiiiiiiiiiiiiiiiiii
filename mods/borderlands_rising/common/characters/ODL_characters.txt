@@ -139,7 +139,7 @@ characters = {
 		}
 	}
 
-	# Cavalry commander who took Shusha in 1918.
+	# Cavalry officer of the Republic's army in 1918-1920.
 	ODL_jamshid_nakhchivanski = {
 		name = ODL_jamshid_nakhchivanski
 		corps_commander = {

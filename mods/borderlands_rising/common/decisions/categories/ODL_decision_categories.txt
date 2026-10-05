@@ -1,0 +1,32 @@
+###########################################################################
+# Borderlands Rising - Azerbaijan / Odlar Yurdu decision categories
+# "allowed" is only checked once at game start, so every category is
+# switched off for every country except its owner before the game begins.
+###########################################################################
+
+ODL_president_category = {
+	icon = GFX_decision_category_ODL_president
+	allowed = { original_tag = AZR }
+	priority = 100
+}
+
+ODL_oil_category = {
+	icon = GFX_decision_category_ODL_oil
+	allowed = { original_tag = AZR }
+	priority = 95
+}
+
+ODL_southern_category = {
+	icon = GFX_decision_category_ODL_southern
+	allowed = { original_tag = AZR }
+	visible = { has_country_flag = ODL_southern_question_open }
+	priority = 90
+}
+
+# The formable nation. Shown from the start so that the goal is visible.
+ODL_formable_category = {
+	icon = GFX_decision_category_ODL_odlar_yurdu
+	allowed = { original_tag = AZR }
+	visible = { NOT = { has_country_flag = ODL_odlar_yurdu_proclaimed } }
+	priority = 110
+}

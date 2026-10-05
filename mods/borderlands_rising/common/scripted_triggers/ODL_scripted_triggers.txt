@@ -1,0 +1,30 @@
+###########################################################################
+# Borderlands Rising - Azerbaijan / Odlar Yurdu scripted triggers
+###########################################################################
+
+# The Tabriz committees are strong enough to rise.
+ODL_tabriz_is_ready = {
+	custom_trigger_tooltip = {
+		tooltip = ODL_tabriz_is_ready_tt
+		check_variable = { ODL_tabriz_support > 59 }
+	}
+}
+
+# Country scope (Iran): in no position to refuse.
+ODL_iran_is_weak = {
+	custom_trigger_tooltip = {
+		tooltip = ODL_iran_is_weak_tt
+		OR = {
+			has_war = yes
+			has_stability < 0.4
+			is_subject = yes
+		}
+	}
+}
+
+# Odlar Yurdu can be proclaimed: Baku, Tabriz and West Azerbaijan held.
+ODL_can_proclaim_odlar_yurdu = {
+	owns_state = 229
+	owns_state = 1000
+	owns_state = 419
+}

@@ -1,0 +1,1279 @@
+###########################################################################
+# Borderlands Rising - Azerbaijan / Odlar Yurdu focus tree
+#
+# 65 focuses. The Republic of 1918 survived, and its President is a baby.
+#
+# Layout (absolute x columns):
+#    1-10  The Regency and the Infant President
+#   14-23  Army and air force
+#   27-37  Oil and industry
+#   41-52  Foreign policy, the Southern Question and Odlar Yurdu
+###########################################################################
+
+focus_tree = {
+	id = ODL_azerbaijan_focus_tree
+
+	country = {
+		factor = 0
+		modifier = {
+			add = 200
+			original_tag = AZR
+		}
+	}
+
+	default = no
+	reset_on_civilwar = no
+
+	initial_show_position = {
+		focus = ODL_the_baby_president
+	}
+
+	continuous_focus_position = { x = 50 y = 1100 }
+
+	shortcut = {
+		name = ODL_shortcut_president
+		target = ODL_the_baby_president
+		scroll_wheel_factor = 0.6
+	}
+	shortcut = {
+		name = ODL_shortcut_army
+		target = ODL_the_national_army
+		scroll_wheel_factor = 0.6
+	}
+	shortcut = {
+		name = ODL_shortcut_oil
+		target = ODL_the_oil_republic
+		scroll_wheel_factor = 0.6
+	}
+	shortcut = {
+		name = ODL_shortcut_foreign
+		target = ODL_the_republic_abroad
+		scroll_wheel_factor = 0.6
+	}
+
+	#######################################################################
+	# THE REGENCY AND THE INFANT PRESIDENT
+	#######################################################################
+
+	focus = {
+		id = ODL_the_baby_president
+		icon = GFX_focus_ODL_the_baby_president
+		x = 6
+		y = 0
+		cost = 4
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 20 }
+		completion_reward = {
+			custom_effect_tooltip = ODL_the_baby_president_tt
+			add_political_power = 50
+			add_stability = 0.05
+		}
+	}
+
+	focus = {
+		id = ODL_the_regency_council
+		icon = GFX_focus_ODL_the_regency_council
+		x = 3
+		y = 1
+		cost = 4
+		prerequisite = { focus = ODL_the_baby_president }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 15 }
+		completion_reward = {
+			add_political_power = 75
+			custom_effect_tooltip = ODL_the_regency_council_tt
+		}
+	}
+
+	focus = {
+		id = ODL_the_presidential_nursery
+		icon = GFX_focus_ODL_the_presidential_nursery
+		x = 9
+		y = 1
+		cost = 4
+		prerequisite = { focus = ODL_the_baby_president }
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_MANPOWER }
+		ai_will_do = { base = 12 }
+		completion_reward = {
+			add_ideas = ODL_presidential_nursery
+		}
+	}
+
+	focus = {
+		id = ODL_regency_of_the_musavat
+		icon = GFX_focus_ODL_regency_of_the_musavat
+		x = 1
+		y = 2
+		cost = 5
+		prerequisite = { focus = ODL_the_regency_council }
+		mutually_exclusive = { focus = ODL_regency_of_the_oil_barons focus = ODL_regency_of_the_generals }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			ODL_set_regency_musavat = yes
+			add_stability = 0.05
+		}
+	}
+
+	focus = {
+		id = ODL_regency_of_the_oil_barons
+		icon = GFX_focus_ODL_regency_of_the_oil_barons
+		x = 3
+		y = 2
+		cost = 5
+		prerequisite = { focus = ODL_the_regency_council }
+		mutually_exclusive = { focus = ODL_regency_of_the_musavat focus = ODL_regency_of_the_generals }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			ODL_set_regency_oil_barons = yes
+			229 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = ODL_regency_of_the_generals
+		icon = GFX_focus_ODL_regency_of_the_generals
+		x = 5
+		y = 2
+		cost = 5
+		prerequisite = { focus = ODL_the_regency_council }
+		mutually_exclusive = { focus = ODL_regency_of_the_musavat focus = ODL_regency_of_the_oil_barons }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			ODL_set_regency_generals = yes
+			army_experience = 20
+		}
+	}
+
+	focus = {
+		id = ODL_first_words
+		icon = GFX_focus_ODL_first_words
+		x = 8
+		y = 2
+		cost = 4
+		prerequisite = { focus = ODL_the_presidential_nursery }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER }
+		ai_will_do = { base = 12 }
+		completion_reward = {
+			ODL_grow_up_to_toddler = yes
+			country_event = { id = odl.2 }
+		}
+	}
+
+	focus = {
+		id = ODL_the_national_anthem
+		icon = GFX_focus_ODL_the_national_anthem
+		x = 10
+		y = 2
+		cost = 4
+		prerequisite = { focus = ODL_the_presidential_nursery }
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_stability = 0.05
+			add_war_support = 0.05
+		}
+	}
+
+	focus = {
+		id = ODL_womens_suffrage
+		icon = GFX_focus_ODL_womens_suffrage
+		x = 1
+		y = 3
+		cost = 4
+		prerequisite = { focus = ODL_regency_of_the_musavat }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 50
+			add_popularity = { ideology = democratic popularity = 0.05 }
+		}
+	}
+
+	focus = {
+		id = ODL_the_paris_emigres
+		icon = GFX_focus_ODL_the_paris_emigres
+		x = 3
+		y = 3
+		cost = 4
+		prerequisite = { focus = ODL_regency_of_the_musavat focus = ODL_regency_of_the_oil_barons }
+		search_filters = { FOCUS_FILTER_POLITICAL_CHARACTER }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			recruit_character = ODL_jeyhun_hajibeyli
+			add_political_power = 50
+		}
+	}
+
+	focus = {
+		id = ODL_the_war_council
+		icon = GFX_focus_ODL_the_war_council
+		x = 5
+		y = 3
+		cost = 4
+		prerequisite = { focus = ODL_regency_of_the_generals }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			army_experience = 25
+			add_command_power = 25
+		}
+	}
+
+	focus = {
+		id = ODL_first_steps
+		icon = GFX_focus_ODL_first_steps
+		x = 8
+		y = 3
+		cost = 4
+		prerequisite = { focus = ODL_first_words }
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			add_stability = 0.05
+			country_event = { id = odl.3 }
+		}
+	}
+
+	focus = {
+		id = ODL_the_opera_of_uzeyir
+		icon = GFX_focus_ODL_the_opera_of_uzeyir
+		x = 10
+		y = 3
+		cost = 4
+		prerequisite = { focus = ODL_the_national_anthem }
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 75
+		}
+	}
+
+	focus = {
+		id = ODL_the_latin_alphabet
+		icon = GFX_focus_ODL_the_latin_alphabet
+		x = 2
+		y = 4
+		cost = 5
+		prerequisite = { focus = ODL_womens_suffrage focus = ODL_the_paris_emigres }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_ideas = ODL_latin_alphabet
+		}
+	}
+
+	focus = {
+		id = ODL_the_kindergarten_cabinet
+		icon = GFX_focus_ODL_the_kindergarten_cabinet
+		x = 8
+		y = 4
+		cost = 4
+		prerequisite = { focus = ODL_first_steps }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			country_event = { id = odl.4 }
+		}
+	}
+
+	focus = {
+		id = ODL_baku_state_university
+		icon = GFX_focus_ODL_baku_state_university
+		x = 2
+		y = 5
+		cost = 6
+		prerequisite = { focus = ODL_the_latin_alphabet }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+
+	focus = {
+		id = ODL_school_days
+		icon = GFX_focus_ODL_school_days
+		x = 8
+		y = 5
+		cost = 5
+		prerequisite = { focus = ODL_the_kindergarten_cabinet }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			ODL_grow_up_to_boy = yes
+		}
+	}
+
+	focus = {
+		id = ODL_the_president_takes_charge
+		icon = GFX_focus_ODL_the_president_takes_charge
+		x = 6
+		y = 6
+		cost = 5
+		prerequisite = { focus = ODL_school_days }
+		prerequisite = { focus = ODL_regency_of_the_musavat focus = ODL_regency_of_the_oil_barons focus = ODL_regency_of_the_generals }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 15 }
+		completion_reward = {
+			ODL_end_regency = yes
+			add_political_power = 100
+			country_event = { id = odl.5 }
+		}
+	}
+
+	focus = {
+		id = ODL_the_eternal_flame
+		icon = GFX_focus_ODL_the_eternal_flame
+		x = 6
+		y = 7
+		cost = 6
+		prerequisite = { focus = ODL_the_president_takes_charge }
+		prerequisite = { focus = ODL_the_opera_of_uzeyir }
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			add_ideas = ODL_the_eternal_flame_idea
+		}
+	}
+
+	#######################################################################
+	# ARMY AND AIR FORCE
+	#######################################################################
+
+	focus = {
+		id = ODL_the_national_army
+		icon = GFX_focus_ODL_the_national_army
+		x = 17
+		y = 0
+		cost = 4
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			army_experience = 15
+			add_command_power = 15
+		}
+	}
+
+	focus = {
+		id = ODL_shikhlinskis_artillery
+		icon = GFX_focus_ODL_shikhlinskis_artillery
+		x = 14
+		y = 1
+		cost = 4
+		prerequisite = { focus = ODL_the_national_army }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = ODL_shikhlinskis_artillery
+				bonus = 0.5
+				uses = 2
+				category = artillery
+			}
+			add_unit_bonus = {
+				artillery_brigade = {
+					soft_attack = 0.05
+				}
+				artillery = {
+					soft_attack = 0.05
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = ODL_karabakh_mountain_brigades
+		icon = GFX_focus_ODL_karabakh_mountain_brigades
+		x = 17
+		y = 1
+		cost = 4
+		prerequisite = { focus = ODL_the_national_army }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = ODL_karabakh_mountain_brigades
+				bonus = 0.5
+				uses = 1
+				category = mountaineers_tech
+			}
+			add_unit_bonus = {
+				mountaineers = {
+					soft_attack = 0.05
+					defense = 0.10
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = ODL_the_shusha_cavalry
+		icon = GFX_focus_ODL_the_shusha_cavalry
+		x = 20
+		y = 1
+		cost = 4
+		prerequisite = { focus = ODL_the_national_army }
+		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_MANPOWER }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_manpower = 5000
+			add_unit_bonus = {
+				cavalry = {
+					soft_attack = 0.05
+					breakthrough = 0.10
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = ODL_wings_of_the_republic
+		icon = GFX_focus_ODL_wings_of_the_republic
+		x = 23
+		y = 1
+		cost = 4
+		prerequisite = { focus = ODL_the_national_army }
+		search_filters = { FOCUS_FILTER_AIR_XP }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			air_experience = 20
+			if = {
+				limit = { owns_state = 229 }
+				229 = {
+					add_building_construction = {
+						type = air_base
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = ODL_the_military_academy
+		icon = GFX_focus_ODL_the_military_academy
+		x = 14
+		y = 2
+		cost = 5
+		prerequisite = { focus = ODL_shikhlinskis_artillery }
+		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			army_experience = 20
+			add_doctrine_cost_reduction = {
+				name = ODL_the_military_academy
+				cost_reduction = 0.5
+				uses = 1
+				category = land_doctrine
+			}
+		}
+	}
+
+	focus = {
+		id = ODL_conscription_reform
+		icon = GFX_focus_ODL_conscription_reform
+		x = 17
+		y = 2
+		cost = 5
+		prerequisite = { focus = ODL_karabakh_mountain_brigades }
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_manpower = 10000
+			add_ideas = ODL_national_army
+		}
+	}
+
+	focus = {
+		id = ODL_aslanovs_tanks
+		icon = GFX_focus_ODL_aslanovs_tanks
+		x = 20
+		y = 2
+		cost = 5
+		prerequisite = { focus = ODL_the_shusha_cavalry }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = ODL_aslanovs_tanks
+				bonus = 0.5
+				uses = 2
+				category = armor
+			}
+		}
+	}
+
+	focus = {
+		id = ODL_fighter_squadrons
+		icon = GFX_focus_ODL_fighter_squadrons
+		x = 23
+		y = 2
+		cost = 4
+		prerequisite = { focus = ODL_wings_of_the_republic }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_AIR_XP }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = ODL_fighter_squadrons
+				bonus = 0.5
+				uses = 2
+				category = light_fighter
+			}
+		}
+	}
+
+	focus = {
+		id = ODL_defend_the_absheron
+		icon = GFX_focus_ODL_defend_the_absheron
+		x = 14
+		y = 3
+		cost = 5
+		prerequisite = { focus = ODL_the_military_academy }
+		available = { owns_state = 229 }
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			229 = {
+				add_building_construction = {
+					type = bunker
+					level = 3
+					province = { all_provinces = yes limit_to_border = yes }
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = ODL_mountain_warfare_doctrine
+		icon = GFX_focus_ODL_mountain_warfare_doctrine
+		x = 17
+		y = 3
+		cost = 5
+		prerequisite = { focus = ODL_conscription_reform }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = ODL_mountain_warfare_doctrine
+				bonus = 0.75
+				uses = 1
+				category = mountaineers_tech
+			}
+			add_doctrine_cost_reduction = {
+				name = ODL_mountain_warfare_doctrine
+				cost_reduction = 0.5
+				uses = 1
+				category = land_doctrine
+			}
+		}
+	}
+
+	focus = {
+		id = ODL_motorised_cavalry
+		icon = GFX_focus_ODL_motorised_cavalry
+		x = 20
+		y = 3
+		cost = 5
+		prerequisite = { focus = ODL_aslanovs_tanks }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = ODL_motorised_cavalry
+				bonus = 0.5
+				uses = 1
+				category = motorized_equipment
+			}
+			add_equipment_to_stockpile = {
+				type = motorized_equipment
+				amount = 150
+			}
+		}
+	}
+
+	focus = {
+		id = ODL_close_air_support
+		icon = GFX_focus_ODL_close_air_support
+		x = 23
+		y = 3
+		cost = 4
+		prerequisite = { focus = ODL_fighter_squadrons }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_AIR_XP }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = ODL_close_air_support
+				bonus = 0.5
+				uses = 2
+				category = cas_bomber
+			}
+		}
+	}
+
+	focus = {
+		id = ODL_the_fire_guard
+		icon = GFX_focus_ODL_the_fire_guard
+		x = 17
+		y = 4
+		cost = 6
+		prerequisite = { focus = ODL_defend_the_absheron }
+		prerequisite = { focus = ODL_mountain_warfare_doctrine }
+		prerequisite = { focus = ODL_motorised_cavalry }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_ideas = ODL_fire_guard
+		}
+	}
+
+	#######################################################################
+	# OIL AND INDUSTRY
+	#######################################################################
+
+	focus = {
+		id = ODL_the_oil_republic
+		icon = GFX_focus_ODL_the_oil_republic
+		x = 32
+		y = 0
+		cost = 4
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 15 }
+		completion_reward = {
+			add_political_power = 50
+			if = {
+				limit = { owns_state = 229 }
+				add_resource = {
+					type = oil
+					amount = 6
+					state = 229
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = ODL_the_black_city
+		icon = GFX_focus_ODL_the_black_city
+		x = 27
+		y = 1
+		cost = 5
+		prerequisite = { focus = ODL_the_oil_republic }
+		available = { owns_state = 229 }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			229 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = synthetic_refinery
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = ODL_the_nobel_legacy
+		icon = GFX_focus_ODL_the_nobel_legacy
+		x = 30
+		y = 1
+		cost = 4
+		prerequisite = { focus = ODL_the_oil_republic }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = ODL_the_nobel_legacy
+				bonus = 0.5
+				uses = 1
+				category = industry
+			}
+			add_political_power = 50
+		}
+	}
+
+	focus = {
+		id = ODL_ganja_industry
+		icon = GFX_focus_ODL_ganja_industry
+		x = 34
+		y = 1
+		cost = 5
+		prerequisite = { focus = ODL_the_oil_republic }
+		available = { owns_state = 229 }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			229 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = ODL_railways_of_the_republic
+		icon = GFX_focus_ODL_railways_of_the_republic
+		x = 37
+		y = 1
+		cost = 4
+		prerequisite = { focus = ODL_the_oil_republic }
+		available = { owns_state = 229 }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			229 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = ODL_bibi_heybat_bay
+		icon = GFX_focus_ODL_bibi_heybat_bay
+		x = 27
+		y = 2
+		cost = 5
+		prerequisite = { focus = ODL_the_black_city }
+		available = { owns_state = 229 }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_resource = {
+				type = oil
+				amount = 10
+				state = 229
+			}
+		}
+	}
+
+	focus = {
+		id = ODL_oil_concessions
+		icon = GFX_focus_ODL_oil_concessions
+		x = 30
+		y = 2
+		cost = 4
+		prerequisite = { focus = ODL_the_nobel_legacy }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_INTERNATIONAL_TRADE }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			set_country_flag = ODL_concessions_unlocked
+			unlock_decision_tooltip = ODL_offer_oil_concession
+		}
+	}
+
+	focus = {
+		id = ODL_the_oil_council
+		icon = GFX_focus_ODL_the_oil_council
+		x = 33
+		y = 2
+		cost = 4
+		prerequisite = { focus = ODL_the_nobel_legacy focus = ODL_ganja_industry }
+		search_filters = { FOCUS_FILTER_POLITICAL_CHARACTER FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			recruit_character = ODL_baku_oil_council
+			add_political_power = 50
+		}
+	}
+
+	focus = {
+		id = ODL_the_sumgait_works
+		icon = GFX_focus_ODL_the_sumgait_works
+		x = 36
+		y = 2
+		cost = 5
+		prerequisite = { focus = ODL_ganja_industry }
+		available = { owns_state = 229 }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_resource = {
+				type = steel
+				amount = 4
+				state = 229
+			}
+			229 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = ODL_baku_batumi_pipeline
+		icon = GFX_focus_ODL_baku_batumi_pipeline
+		x = 27
+		y = 3
+		cost = 5
+		prerequisite = { focus = ODL_bibi_heybat_bay }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_INTERNATIONAL_TRADE }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			if = {
+				limit = { has_idea = ODL_black_gold }
+				swap_ideas = {
+					remove_idea = ODL_black_gold
+					add_idea = ODL_oil_wealth
+				}
+			}
+			else = {
+				add_ideas = ODL_oil_wealth
+			}
+		}
+	}
+
+	focus = {
+		id = ODL_petrochemistry_institute
+		icon = GFX_focus_ODL_petrochemistry_institute
+		x = 30
+		y = 3
+		cost = 5
+		prerequisite = { focus = ODL_oil_concessions }
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_POLITICAL_CHARACTER }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			recruit_character = ODL_yusif_mammadaliyev
+			add_tech_bonus = {
+				name = ODL_petrochemistry_institute
+				bonus = 0.5
+				uses = 1
+				category = synth_resources
+			}
+		}
+	}
+
+	focus = {
+		id = ODL_mingachevir_dam
+		icon = GFX_focus_ODL_mingachevir_dam
+		x = 34
+		y = 3
+		cost = 6
+		prerequisite = { focus = ODL_the_sumgait_works }
+		available = { owns_state = 229 }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			229 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = ODL_caspian_trade
+		icon = GFX_focus_ODL_caspian_trade
+		x = 37
+		y = 3
+		cost = 4
+		prerequisite = { focus = ODL_railways_of_the_republic }
+		search_filters = { FOCUS_FILTER_INTERNATIONAL_TRADE }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_offsite_building = {
+				type = industrial_complex
+				level = 1
+			}
+			if = {
+				limit = { country_exists = PER }
+				PER = { add_opinion_modifier = { target = ROOT modifier = ODL_oil_customer } }
+			}
+		}
+	}
+
+	focus = {
+		id = ODL_the_oil_fund
+		icon = GFX_focus_ODL_the_oil_fund
+		x = 29
+		y = 4
+		cost = 6
+		prerequisite = { focus = ODL_baku_batumi_pipeline }
+		prerequisite = { focus = ODL_petrochemistry_institute }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_ideas = ODL_oil_fund
+		}
+	}
+
+	focus = {
+		id = ODL_heavy_industry
+		icon = GFX_focus_ODL_heavy_industry
+		x = 35
+		y = 4
+		cost = 6
+		prerequisite = { focus = ODL_mingachevir_dam }
+		prerequisite = { focus = ODL_caspian_trade }
+		available = { owns_state = 229 }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			229 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = ODL_oil_capital_of_the_world
+		icon = GFX_focus_ODL_oil_capital_of_the_world
+		x = 32
+		y = 5
+		cost = 6
+		prerequisite = { focus = ODL_the_oil_fund }
+		prerequisite = { focus = ODL_heavy_industry }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = ODL_oil_capital_of_the_world
+				bonus = 0.5
+				uses = 2
+				category = industry
+			}
+			add_offsite_building = {
+				type = industrial_complex
+				level = 1
+			}
+		}
+	}
+
+	#######################################################################
+	# FOREIGN POLICY, THE SOUTHERN QUESTION AND ODLAR YURDU
+	#######################################################################
+
+	focus = {
+		id = ODL_the_republic_abroad
+		icon = GFX_focus_ODL_the_republic_abroad
+		x = 47
+		y = 0
+		cost = 4
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			add_political_power = 50
+		}
+	}
+
+	focus = {
+		id = ODL_the_treaty_of_moscow
+		icon = GFX_focus_ODL_the_treaty_of_moscow
+		x = 42
+		y = 1
+		cost = 4
+		prerequisite = { focus = ODL_the_republic_abroad }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_stability = 0.05
+			if = {
+				limit = { country_exists = SOV }
+				SOV = { add_opinion_modifier = { target = ROOT modifier = ODL_oil_customer } }
+			}
+		}
+	}
+
+	focus = {
+		id = ODL_one_nation_two_states
+		icon = GFX_focus_ODL_one_nation_two_states
+		x = 46
+		y = 1
+		cost = 4
+		prerequisite = { focus = ODL_the_republic_abroad }
+		available = {
+			country_exists = TUR
+			NOT = { has_war_with = TUR }
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			TUR = { country_event = { id = odl.30 hours = 6 } }
+		}
+	}
+
+	focus = {
+		id = ODL_british_oil_partners
+		icon = GFX_focus_ODL_british_oil_partners
+		x = 49
+		y = 1
+		cost = 4
+		prerequisite = { focus = ODL_the_republic_abroad }
+		available = {
+			country_exists = ENG
+			NOT = { has_war_with = ENG }
+		}
+		search_filters = { FOCUS_FILTER_INTERNATIONAL_TRADE }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			ENG = { add_opinion_modifier = { target = ROOT modifier = ODL_oil_customer } }
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 1000
+				producer = ENG
+			}
+		}
+	}
+
+	focus = {
+		id = ODL_german_engineers
+		icon = GFX_focus_ODL_german_engineers
+		x = 52
+		y = 1
+		cost = 4
+		prerequisite = { focus = ODL_the_republic_abroad }
+		available = {
+			country_exists = GER
+			NOT = { has_war_with = GER }
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INTERNATIONAL_TRADE }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			GER = { add_opinion_modifier = { target = ROOT modifier = ODL_oil_customer } }
+			add_tech_bonus = {
+				name = ODL_german_engineers
+				bonus = 0.5
+				uses = 1
+				category = electronics
+			}
+		}
+	}
+
+	focus = {
+		id = ODL_the_caucasian_house
+		icon = GFX_focus_ODL_the_caucasian_house
+		x = 41
+		y = 2
+		cost = 5
+		prerequisite = { focus = ODL_the_treaty_of_moscow }
+		available = { is_in_faction = no }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			ODL_create_caucasian_faction = yes
+			ODL_invite_caucasian_members = yes
+		}
+	}
+
+	focus = {
+		id = ODL_the_neutral_caspian
+		icon = GFX_focus_ODL_the_neutral_caspian
+		x = 43
+		y = 2
+		cost = 5
+		prerequisite = { focus = ODL_the_treaty_of_moscow }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			add_ideas = ODL_neutral_caspian
+		}
+	}
+
+	focus = {
+		id = ODL_turkish_military_mission
+		icon = GFX_focus_ODL_turkish_military_mission
+		x = 45
+		y = 2
+		cost = 4
+		prerequisite = { focus = ODL_one_nation_two_states }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			army_experience = 20
+			if = {
+				limit = { country_exists = TUR }
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = 1000
+					producer = TUR
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = ODL_khasmammadovs_embassy
+		icon = GFX_focus_ODL_khasmammadovs_embassy
+		x = 47
+		y = 2
+		cost = 4
+		prerequisite = { focus = ODL_one_nation_two_states }
+		search_filters = { FOCUS_FILTER_POLITICAL_CHARACTER }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			recruit_character = ODL_khalil_bey_khasmammadov
+			add_political_power = 50
+		}
+	}
+
+	focus = {
+		id = ODL_oil_diplomacy
+		icon = GFX_focus_ODL_oil_diplomacy
+		x = 50
+		y = 2
+		cost = 4
+		prerequisite = { focus = ODL_british_oil_partners focus = ODL_german_engineers }
+		search_filters = { FOCUS_FILTER_INTERNATIONAL_TRADE }
+		ai_will_do = { base = 6 }
+		completion_reward = {
+			set_country_flag = ODL_oil_for_arms_unlocked
+			unlock_decision_tooltip = ODL_oil_for_arms
+		}
+	}
+
+	focus = {
+		id = ODL_the_caucasian_legion
+		icon = GFX_focus_ODL_the_caucasian_legion
+		x = 41
+		y = 3
+		cost = 4
+		prerequisite = { focus = ODL_the_caucasian_house }
+		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { base = 4 }
+		completion_reward = {
+			add_manpower = 10000
+			army_experience = 10
+		}
+	}
+
+	focus = {
+		id = ODL_the_southern_question
+		icon = GFX_focus_ODL_the_southern_question
+		x = 47
+		y = 3
+		cost = 5
+		prerequisite = { focus = ODL_turkish_military_mission focus = ODL_khasmammadovs_embassy }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			add_state_claim = 1000
+			add_state_claim = 419
+			set_country_flag = ODL_southern_question_open
+			unlock_decision_category_tooltip = ODL_southern_category
+			if = {
+				limit = { country_exists = PER }
+				PER = { add_opinion_modifier = { target = ROOT modifier = ODL_land_of_fire_claims } }
+			}
+		}
+	}
+
+	focus = {
+		id = ODL_the_tabriz_uprising
+		icon = GFX_focus_ODL_the_tabriz_uprising
+		x = 46
+		y = 4
+		cost = 5
+		prerequisite = { focus = ODL_the_southern_question }
+		mutually_exclusive = { focus = ODL_a_deal_with_tehran }
+		available = {
+			country_exists = PER
+			NOT = { has_war_with = PER }
+			ODL_tabriz_is_ready = yes
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = { base = 5 }
+		completion_reward = {
+			create_wargoal = {
+				type = take_claimed_state
+				target = PER
+				generator = { 1000 419 }
+			}
+			add_war_support = 0.10
+			PER = { add_stability = -0.10 }
+		}
+	}
+
+	focus = {
+		id = ODL_a_deal_with_tehran
+		icon = GFX_focus_ODL_a_deal_with_tehran
+		x = 48
+		y = 4
+		cost = 5
+		prerequisite = { focus = ODL_the_southern_question }
+		mutually_exclusive = { focus = ODL_the_tabriz_uprising }
+		available = {
+			country_exists = PER
+			NOT = { has_war_with = PER }
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_INTERNATIONAL_TRADE }
+		ai_will_do = { base = 8 }
+		completion_reward = {
+			PER = { country_event = { id = odl.20 hours = 12 } }
+		}
+	}
+
+	focus = {
+		id = ODL_the_land_of_fire
+		icon = GFX_focus_ODL_the_land_of_fire
+		x = 47
+		y = 5
+		cost = 6
+		prerequisite = { focus = ODL_the_tabriz_uprising focus = ODL_a_deal_with_tehran }
+		available = { has_country_flag = ODL_odlar_yurdu_proclaimed }
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
+		ai_will_do = { base = 10 }
+		completion_reward = {
+			add_ideas = ODL_land_of_fire
+		}
+	}
+
+	focus = {
+		id = ODL_derbent_and_beyond
+		icon = GFX_focus_ODL_derbent_and_beyond
+		x = 47
+		y = 6
+		cost = 6
+		prerequisite = { focus = ODL_the_land_of_fire }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { base = 3 }
+		completion_reward = {
+			add_state_claim = 232
+			add_war_support = 0.05
+		}
+	}
+}
