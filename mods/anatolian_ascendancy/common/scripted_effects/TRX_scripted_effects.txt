@@ -2,6 +2,10 @@
 # Anatolian Ascendancy - scripted effects
 ###########################################################################
 
+###########################################################################
+# Units
+###########################################################################
+
 # Unlocks the Janissary Guard battalion and creates its template once.
 # Reachable from both the army branch and the Ottoman branch.
 TRX_unlock_janissary_guard = {
@@ -27,6 +31,10 @@ TRX_unlock_janissary_guard = {
 		}
 	}
 }
+
+###########################################################################
+# AI path selection
+###########################################################################
 
 # Picks the political path the AI will follow, based on the game rule.
 # Runs once at game start, only for an AI-controlled Turkey.
@@ -78,6 +86,291 @@ TRX_set_ai_path = {
 		}
 	}
 }
+
+###########################################################################
+# Kalkınma Hamlesi - the Development Drive
+# Each effect shows a readable tooltip and raises one variable read by the
+# TRX_kalkinma dynamic modifier (common/dynamic_modifiers).
+###########################################################################
+
+TRX_kalk_ensure = {
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = TRX_kalkinma } } }
+		add_dynamic_modifier = { modifier = TRX_kalkinma }
+	}
+}
+
+TRX_kalk_construction_2 = {
+	custom_effect_tooltip = TRX_kalk_construction_2_tt
+	hidden_effect = { TRX_kalk_ensure = yes add_to_variable = { TRX_kalk_construction = 0.02 } }
+}
+TRX_kalk_construction_3 = {
+	custom_effect_tooltip = TRX_kalk_construction_3_tt
+	hidden_effect = { TRX_kalk_ensure = yes add_to_variable = { TRX_kalk_construction = 0.03 } }
+}
+TRX_kalk_construction_5 = {
+	custom_effect_tooltip = TRX_kalk_construction_5_tt
+	hidden_effect = { TRX_kalk_ensure = yes add_to_variable = { TRX_kalk_construction = 0.05 } }
+}
+TRX_kalk_industry_2 = {
+	custom_effect_tooltip = TRX_kalk_industry_2_tt
+	hidden_effect = { TRX_kalk_ensure = yes add_to_variable = { TRX_kalk_industry = 0.02 } }
+}
+TRX_kalk_industry_3 = {
+	custom_effect_tooltip = TRX_kalk_industry_3_tt
+	hidden_effect = { TRX_kalk_ensure = yes add_to_variable = { TRX_kalk_industry = 0.03 } }
+}
+TRX_kalk_industry_5 = {
+	custom_effect_tooltip = TRX_kalk_industry_5_tt
+	hidden_effect = { TRX_kalk_ensure = yes add_to_variable = { TRX_kalk_industry = 0.05 } }
+}
+TRX_kalk_research_2 = {
+	custom_effect_tooltip = TRX_kalk_research_2_tt
+	hidden_effect = { TRX_kalk_ensure = yes add_to_variable = { TRX_kalk_research = 0.02 } }
+}
+TRX_kalk_research_3 = {
+	custom_effect_tooltip = TRX_kalk_research_3_tt
+	hidden_effect = { TRX_kalk_ensure = yes add_to_variable = { TRX_kalk_research = 0.03 } }
+}
+TRX_kalk_consumer_2 = {
+	custom_effect_tooltip = TRX_kalk_consumer_2_tt
+	hidden_effect = { TRX_kalk_ensure = yes add_to_variable = { TRX_kalk_consumer = -0.02 } }
+}
+TRX_kalk_consumer_3 = {
+	custom_effect_tooltip = TRX_kalk_consumer_3_tt
+	hidden_effect = { TRX_kalk_ensure = yes add_to_variable = { TRX_kalk_consumer = -0.03 } }
+}
+TRX_kalk_resources_5 = {
+	custom_effect_tooltip = TRX_kalk_resources_5_tt
+	hidden_effect = { TRX_kalk_ensure = yes add_to_variable = { TRX_kalk_resources = 0.05 } }
+}
+TRX_kalk_resources_10 = {
+	custom_effect_tooltip = TRX_kalk_resources_10_tt
+	hidden_effect = { TRX_kalk_ensure = yes add_to_variable = { TRX_kalk_resources = 0.10 } }
+}
+TRX_kalk_pp_5 = {
+	custom_effect_tooltip = TRX_kalk_pp_5_tt
+	hidden_effect = { TRX_kalk_ensure = yes add_to_variable = { TRX_kalk_pp = 0.05 } }
+}
+TRX_kalk_pp_10 = {
+	custom_effect_tooltip = TRX_kalk_pp_10_tt
+	hidden_effect = { TRX_kalk_ensure = yes add_to_variable = { TRX_kalk_pp = 0.10 } }
+}
+
+###########################################################################
+# Five-year plans (missions in common/decisions/TRX_decisions.txt).
+# The targets are relative to the factories Turkey owns when the plan
+# starts, so the plans stay meaningful at any point of the game.
+###########################################################################
+
+TRX_start_first_plan = {
+	custom_effect_tooltip = TRX_start_first_plan_tt
+	hidden_effect = {
+		set_variable = { TRX_plan_civ_goal = num_of_civilian_factories }
+		add_to_variable = { TRX_plan_civ_goal = 3 }
+		set_variable = { TRX_plan_mil_goal = num_of_military_factories }
+		add_to_variable = { TRX_plan_mil_goal = 1 }
+	}
+	activate_mission = TRX_first_plan_mission
+}
+
+TRX_start_second_plan = {
+	custom_effect_tooltip = TRX_start_second_plan_tt
+	hidden_effect = {
+		set_variable = { TRX_plan_civ_goal = num_of_civilian_factories }
+		add_to_variable = { TRX_plan_civ_goal = 5 }
+		set_variable = { TRX_plan_mil_goal = num_of_military_factories }
+		add_to_variable = { TRX_plan_mil_goal = 3 }
+	}
+	activate_mission = TRX_second_plan_mission
+}
+
+###########################################################################
+# Kemalism: the Six Arrows
+# Every second arrow upgrades the spirit; all six make it the Kemalist State.
+###########################################################################
+
+TRX_add_arrow = {
+	custom_effect_tooltip = TRX_add_arrow_tt
+	hidden_effect = {
+		add_to_variable = { TRX_arrows = 1 }
+		if = {
+			limit = {
+				has_idea = TRX_six_arrows_1
+				check_variable = { TRX_arrows > 1 }
+			}
+			swap_ideas = { remove_idea = TRX_six_arrows_1 add_idea = TRX_six_arrows_2 }
+		}
+		else_if = {
+			limit = {
+				has_idea = TRX_six_arrows_2
+				check_variable = { TRX_arrows > 3 }
+			}
+			swap_ideas = { remove_idea = TRX_six_arrows_2 add_idea = TRX_six_arrows_3 }
+		}
+		else_if = {
+			limit = {
+				has_idea = TRX_six_arrows_3
+				check_variable = { TRX_arrows > 5 }
+			}
+			swap_ideas = { remove_idea = TRX_six_arrows_3 add_idea = TRX_kemalist_state }
+		}
+	}
+}
+
+###########################################################################
+# Clearing vanilla Battle for the Bosporus mechanics
+# These spirits and state modifiers are only present with the DLC, and the
+# vanilla focuses that removed them are not part of this tree. Every
+# removal is guarded, so the effects do nothing without the DLC.
+###########################################################################
+
+# Non-Kemalist governments sideline the Kemalist officer corps.
+TRX_remove_kemalist_officers = {
+	if = {
+		limit = { has_idea = TUR_kemalist_army_officers_limited_power_loyal }
+		remove_ideas = TUR_kemalist_army_officers_limited_power_loyal
+	}
+	if = {
+		limit = { has_idea = TUR_kemalist_army_officers_extended_power_loyal }
+		remove_ideas = TUR_kemalist_army_officers_extended_power_loyal
+	}
+	if = {
+		limit = { has_idea = TUR_kemalist_army_officers_extended_power_neutral }
+		remove_ideas = TUR_kemalist_army_officers_extended_power_neutral
+	}
+}
+
+TRX_remove_sectarian_woes = {
+	if = {
+		limit = { has_idea = TUR_sectarian_woes }
+		remove_ideas = TUR_sectarian_woes
+	}
+}
+
+TRX_remove_disorganised_army = {
+	if = {
+		limit = { has_idea = TUR_disorganised_armed_forces }
+		remove_ideas = TUR_disorganised_armed_forces
+	}
+	if = {
+		limit = { has_idea = TUR_disorganised_armed_forces_3 }
+		remove_ideas = TUR_disorganised_armed_forces_3
+	}
+}
+
+TRX_remove_debt_council = {
+	if = {
+		limit = { has_idea = TUR_debt_council }
+		remove_ideas = TUR_debt_council
+	}
+}
+
+# Religious opposition in central and northern Anatolia.
+TRX_placate_islamists = {
+	custom_effect_tooltip = TRX_placate_islamists_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				OR = {
+					state = 798 state = 345 state = 344 state = 356
+					state = 349 state = 348 state = 355
+				}
+			}
+			remove_dynamic_modifier = { modifier = islamist_opposition }
+			remove_dynamic_modifier = { modifier = islamist_sedition }
+			remove_dynamic_modifier = { modifier = islamist_insurgency }
+		}
+	}
+}
+
+# Kurdish concessions: cores, no resistance and no unrest in the four
+# south-eastern states (Diyarbakır, Hakkâri, Tunceli/Erzurum and Van).
+TRX_kurdish_concessions = {
+	custom_effect_tooltip = TRX_kurdish_concessions_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				OR = { state = 350 state = 352 state = 353 state = 800 }
+			}
+			add_core_of = ROOT
+			remove_dynamic_modifier = { modifier = kurdish_agitation }
+			remove_dynamic_modifier = { modifier = kurdish_separatism }
+			cancel_resistance = yes
+		}
+	}
+}
+
+###########################################################################
+# Integration: easier cores along the political paths
+###########################################################################
+
+# Cores on every owned state Turkey claims.
+TRX_integrate_claimed_states = {
+	custom_effect_tooltip = TRX_integrate_claimed_states_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				is_claimed_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+			add_core_of = ROOT
+		}
+	}
+}
+
+# Cores on every owned state that is claimed or at least 30% compliant.
+TRX_integrate_compliant_states = {
+	custom_effect_tooltip = TRX_integrate_compliant_states_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				NOT = { is_core_of = ROOT }
+				OR = {
+					is_claimed_by = ROOT
+					compliance > 29
+				}
+			}
+			add_core_of = ROOT
+		}
+	}
+}
+
+# Cores on every owned state, whatever its people.
+TRX_integrate_all_owned_states = {
+	custom_effect_tooltip = TRX_integrate_all_owned_states_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = { NOT = { is_core_of = ROOT } }
+			add_core_of = ROOT
+		}
+	}
+}
+
+# Cores on owned Turkic lands and claimed states.
+TRX_integrate_turkic_states = {
+	custom_effect_tooltip = TRX_integrate_turkic_states_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				NOT = { is_core_of = ROOT }
+				OR = {
+					is_claimed_by = ROOT
+					state = 229 state = 1000 state = 419 state = 137 state = 249 state = 651
+					state = 404 state = 405 state = 406 state = 407 state = 583 state = 584
+					state = 585 state = 586 state = 587 state = 588 state = 589 state = 590
+					state = 823 state = 830 state = 831 state = 832 state = 617 state = 618
+					state = 619
+				}
+			}
+			add_core_of = ROOT
+		}
+	}
+}
+
+###########################################################################
+# Claims and cores for the formables
+###########################################################################
 
 # Claims on the Turkic lands of the Caucasus, Volga, Crimea, Central Asia
 # and East Turkestan (vanilla state ids).
@@ -149,5 +442,285 @@ TRX_core_ottoman_lands = {
 			NOT = { is_owned_by = ROOT }
 		}
 		add_claim_by = ROOT
+	}
+}
+
+###########################################################################
+# Governments
+# Turkey's vanilla party leaders (Celal Bayar, Şefik Hüsnü, Nihal Atsız,
+# Fevzi Çakmak) are recruited at game start, with or without DLC. When the
+# vanilla character exists the game makes them leader as soon as their
+# party takes power; the mod's own copy is only recruited as a fallback,
+# so no leader ever appears twice.
+###########################################################################
+
+TRX_install_democratic_government = {
+	set_politics = {
+		ruling_party = democratic
+		elections_allowed = yes
+	}
+	if = {
+		limit = { NOT = { has_character = TUR_celal_bayar } }
+		recruit_character = TRX_celal_bayar
+		promote_character = TRX_celal_bayar
+	}
+	add_country_leader_trait = TRX_trait_liberal_banker
+	TRX_remove_kemalist_officers = yes
+}
+
+TRX_install_fascist_government = {
+	set_politics = {
+		ruling_party = fascism
+		elections_allowed = no
+	}
+	if = {
+		limit = { NOT = { has_character = TUR_nihal_atsiz } }
+		recruit_character = TRX_nihal_atsiz
+		promote_character = TRX_nihal_atsiz
+	}
+	add_country_leader_trait = TRX_trait_red_apple_visionary
+	TRX_remove_kemalist_officers = yes
+}
+
+TRX_install_communist_government = {
+	set_politics = {
+		ruling_party = communism
+		elections_allowed = no
+	}
+	if = {
+		limit = { NOT = { has_character = TUR_sefik_husnu } }
+		recruit_character = TRX_sefik_husnu
+		promote_character = TRX_sefik_husnu
+	}
+	add_country_leader_trait = TRX_trait_people_s_tribune
+	TRX_remove_kemalist_officers = yes
+}
+
+TRX_install_military_junta = {
+	set_politics = {
+		ruling_party = neutrality
+		elections_allowed = no
+	}
+	if = {
+		limit = { has_character = TUR_fevzi_cakmak }
+		add_country_leader_role = {
+			character = TUR_fevzi_cakmak
+			promote_leader = yes
+			country_leader = {
+				ideology = despotism
+				traits = { TRX_trait_marshal_regent }
+				expire = "1965.1.1.1"
+			}
+		}
+	}
+	else = {
+		recruit_character = TRX_fevzi_cakmak
+		add_country_leader_role = {
+			character = TRX_fevzi_cakmak
+			promote_leader = yes
+			country_leader = {
+				ideology = despotism
+				traits = { TRX_trait_marshal_regent }
+				expire = "1965.1.1.1"
+			}
+		}
+	}
+}
+
+TRX_install_sultan = {
+	recruit_character = TRX_abdulmecid_ii
+	set_politics = {
+		ruling_party = neutrality
+		elections_allowed = no
+	}
+	promote_character = TRX_abdulmecid_ii
+	TRX_remove_kemalist_officers = yes
+}
+
+###########################################################################
+# Factions
+# Non-aligned governments may not be allowed to found factions. The rule
+# is lifted for the instant the faction is created, then restored.
+###########################################################################
+
+TRX_allow_faction_creation = {
+	if = {
+		limit = { NOT = { has_rule = can_create_factions } }
+		set_country_flag = TRX_temp_faction_rule
+		set_rule = { can_create_factions = yes }
+	}
+}
+
+TRX_restore_faction_rule = {
+	if = {
+		limit = { has_country_flag = TRX_temp_faction_rule }
+		clear_rule = { can_create_factions = yes }
+		clr_country_flag = TRX_temp_faction_rule
+	}
+}
+
+TRX_create_saadabad_faction = {
+	TRX_allow_faction_creation = yes
+	create_faction_from_template = {
+		template = TRX_faction_saadabad
+		name = TRX_faction_saadabad_name
+	}
+	TRX_restore_faction_rule = yes
+}
+
+TRX_create_balkan_faction = {
+	TRX_allow_faction_creation = yes
+	create_faction_from_template = {
+		template = TRX_faction_balkan_pact
+		name = TRX_faction_balkan_pact_name
+	}
+	TRX_restore_faction_rule = yes
+}
+
+TRX_create_red_crescent_faction = {
+	TRX_allow_faction_creation = yes
+	create_faction_from_template = {
+		template = TRX_faction_eastern_socialist
+		name = TRX_faction_eastern_socialist_name
+	}
+	TRX_restore_faction_rule = yes
+}
+
+# Ask the leading democratic faction (Britain first, then the USA and
+# France, then any democratic faction leader) to take Turkey in.
+TRX_request_allied_membership = {
+	custom_effect_tooltip = TRX_request_allied_membership_tt
+	hidden_effect = {
+		if = {
+			limit = { country_exists = ENG ENG = { is_faction_leader = yes has_government = democratic NOT = { has_war_with = ROOT } } }
+			ENG = { country_event = { id = trx.10 hours = 12 } }
+		}
+		else_if = {
+			limit = { country_exists = USA USA = { is_faction_leader = yes has_government = democratic NOT = { has_war_with = ROOT } } }
+			USA = { country_event = { id = trx.10 hours = 12 } }
+		}
+		else_if = {
+			limit = { country_exists = FRA FRA = { is_faction_leader = yes has_government = democratic NOT = { has_war_with = ROOT } } }
+			FRA = { country_event = { id = trx.10 hours = 12 } }
+		}
+		else = {
+			random_country = {
+				limit = { is_faction_leader = yes has_government = democratic NOT = { has_war_with = ROOT } }
+				country_event = { id = trx.10 hours = 12 }
+			}
+		}
+	}
+}
+
+# Ask the leading fascist faction (Germany first, then Italy and Japan).
+TRX_request_axis_membership = {
+	custom_effect_tooltip = TRX_request_axis_membership_tt
+	hidden_effect = {
+		if = {
+			limit = { country_exists = GER GER = { is_faction_leader = yes has_government = fascism NOT = { has_war_with = ROOT } } }
+			GER = { country_event = { id = trx.10 hours = 12 } }
+		}
+		else_if = {
+			limit = { country_exists = ITA ITA = { is_faction_leader = yes has_government = fascism NOT = { has_war_with = ROOT } } }
+			ITA = { country_event = { id = trx.10 hours = 12 } }
+		}
+		else_if = {
+			limit = { country_exists = JAP JAP = { is_faction_leader = yes has_government = fascism NOT = { has_war_with = ROOT } } }
+			JAP = { country_event = { id = trx.10 hours = 12 } }
+		}
+		else = {
+			random_country = {
+				limit = { is_faction_leader = yes has_government = fascism NOT = { has_war_with = ROOT } }
+				country_event = { id = trx.10 hours = 12 }
+			}
+		}
+	}
+}
+
+# Invite the neighbourhood into Turkey's faction (Ankara Pact).
+TRX_invite_pact_members = {
+	custom_effect_tooltip = TRX_invite_pact_members_tt
+	hidden_effect = {
+		every_country = {
+			limit = {
+				OR = {
+					tag = GRE tag = YUG tag = ROM tag = BUL tag = ALB
+					tag = PER tag = IRQ tag = AFG tag = SAU tag = YEM
+				}
+				exists = yes
+				is_in_faction = no
+				is_subject = no
+				NOT = { has_war_with = ROOT }
+			}
+			country_event = { id = trx.13 hours = 12 }
+		}
+	}
+}
+
+###########################################################################
+# The Istanbul Bourse
+# Each bet settles when its decision expires. The odds improve with the
+# Insider Network focus (flag TRX_bourse_insiders).
+###########################################################################
+
+TRX_bourse_settle_small = {
+	clr_country_flag = TRX_bourse_bet_open
+	random_list = {
+		45 = {
+			modifier = { factor = 1.5 has_country_flag = TRX_bourse_insiders }
+			country_event = { id = trx.101 }
+		}
+		35 = {
+			country_event = { id = trx.102 }
+		}
+		20 = {
+			modifier = { factor = 0.5 has_country_flag = TRX_bourse_insiders }
+			country_event = { id = trx.103 }
+		}
+	}
+}
+
+TRX_bourse_settle_bold = {
+	clr_country_flag = TRX_bourse_bet_open
+	random_list = {
+		40 = {
+			modifier = { factor = 1.5 has_country_flag = TRX_bourse_insiders }
+			country_event = { id = trx.104 }
+		}
+		35 = {
+			country_event = { id = trx.105 }
+		}
+		25 = {
+			modifier = { factor = 0.5 has_country_flag = TRX_bourse_insiders }
+			country_event = { id = trx.106 }
+		}
+	}
+}
+
+TRX_bourse_settle_all_in = {
+	clr_country_flag = TRX_bourse_bet_open
+	random_list = {
+		25 = {
+			modifier = { factor = 1.5 has_country_flag = TRX_bourse_insiders }
+			country_event = { id = trx.107 }
+		}
+		30 = {
+			country_event = { id = trx.108 }
+		}
+		20 = {
+			country_event = { id = trx.109 }
+		}
+		25 = {
+			modifier = { factor = 0.5 has_country_flag = TRX_bourse_insiders }
+			country_event = { id = trx.110 }
+		}
+	}
+}
+
+TRX_lottery_draw = {
+	random_list = {
+		10 = { country_event = { id = trx.111 } }
+		40 = { country_event = { id = trx.112 } }
+		50 = { country_event = { id = trx.113 } }
 	}
 }

@@ -220,3 +220,57 @@ news_event = {
 		trigger = { NOT = { tag = TUR } }
 	}
 }
+
+news_event = {
+	id = trx_news.7
+	title = trx_news.7.t
+	desc = trx_news.7.d
+	picture = GFX_news_event_generic_army
+	major = yes
+	is_triggered_only = yes
+
+	option = {
+		name = trx_news.7.a
+		trigger = { tag = TUR }
+	}
+	option = {
+		name = trx_news.7.b
+		trigger = { NOT = { tag = TUR } }
+	}
+}
+
+news_event = {
+	id = trx_news.8
+	title = trx_news.8.t
+	desc = trx_news.8.d
+	picture = GFX_news_event_tank_factory
+	major = yes
+	is_triggered_only = yes
+
+	option = {
+		name = trx_news.8.a
+		trigger = { tag = TUR }
+	}
+	option = {
+		name = trx_news.8.b
+		trigger = { NOT = { tag = TUR } }
+	}
+}
+
+news_event = {
+	id = trx_news.9
+	title = trx_news.9.t
+	desc = trx_news.9.d
+	picture = GFX_news_event_generic_rally_3
+	major = yes
+	is_triggered_only = yes
+
+	option = {
+		name = trx_news.9.a
+		trigger = { tag = TUR }
+	}
+	option = {
+		name = trx_news.9.b
+		trigger = { NOT = { tag = TUR } }
+	}
+}

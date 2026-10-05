@@ -45,6 +45,14 @@ VANILLA_SPRITES = {
     "GFX_decision_oppression", "GFX_decision_generic_military",
     "GFX_decision_generic_form_nation", "GFX_decision_border_war",
     "GFX_decision_generic_ignite_civil_war", "GFX_decision_cat_generic_ottoman_empire",
+    # decision icons added with the economy rework (vanilla resource and generic icons)
+    "GFX_decision_oil", "GFX_decision_aluminium", "GFX_decision_chromium",
+    "GFX_decision_tungsten", "GFX_decision_rubber", "GFX_decision_coal",
+    "GFX_decision_generic_research", "GFX_decision_generic_army_support",
+    "GFX_decision_generic_political_discourse", "GFX_decision_ger_mefo_bills",
+    "GFX_decision_generic_nationalism", "GFX_decision_generic_tank",
+    # event pictures added with the rework
+    "GFX_report_event_generic_ruins", "GFX_news_event_tank_factory",
     # faction logo
     "GFX_faction_logo_generic_democratic",
 }
@@ -55,10 +63,32 @@ VANILLA_TEXTURES = {
     "gfx/FX/buttonstate.lua",
 }
 VANILLA_SUBUNITS = {"infantry", "artillery_brigade"}
-VANILLA_UNIT_LEADER_TRAITS = {"cavalry_officer", "mountaineer", "organizer"}
+# Unit leader traits, checked against common/unit_leader/00_traits.txt
+VANILLA_UNIT_LEADER_TRAITS = {"cavalry_officer", "trait_mountaineer", "organizer", "old_guard",
+                              "trait_cautious", "career_officer", "war_hero", "trickster"}
 VANILLA_TAGS = {"TUR", "PER", "IRQ", "AFG", "GRE", "YUG", "ROM", "BUL", "ALB", "SOV",
                 "GER", "ENG", "USA", "ITA", "SAU", "YEM", "KUW", "JOR", "SYR", "LEB",
-                "PAL", "SIK"}
+                "PAL", "SIK", "FRA", "JAP"}
+# Vanilla Turkish spirits and state modifiers from Battle for the Bosporus
+# (history/countries/TUR - Turkey.txt). The mod only ever removes them.
+VANILLA_IDEAS = {
+    "TUR_kemalist_army_officers_limited_power_loyal", "TUR_kemalist_army_officers_extended_power_loyal",
+    "TUR_kemalist_army_officers_extended_power_neutral", "TUR_sectarian_woes",
+    "TUR_disorganised_armed_forces", "TUR_disorganised_armed_forces_3", "TUR_debt_council",
+}
+VANILLA_DYNAMIC_MODIFIERS = {
+    "kurdish_agitation", "kurdish_separatism", "islamist_opposition", "islamist_sedition",
+    "islamist_insurgency",
+}
+# Vanilla Turkish characters recruited at game start; the mod checks for
+# them with has_character so that its own copies never appear twice.
+VANILLA_CHARACTERS = {
+    "TUR_fevzi_cakmak", "TUR_celal_bayar", "TUR_sefik_husnu", "TUR_nihal_atsiz", "TUR_nazim_hikmet",
+    "TUR_kazim_karabekir", "TUR_mustafa_muglali", "TUR_fahrettin_altay", "TUR_sabiha_gokcen",
+    "TUR_rauf_orbay", "TUR_adnan_menderes", "TUR_nuri_demirag", "TUR_fethi_okyar",
+    "TUR_sevket_sureyya_aydemir",
+}
+MAX_FOCUS_COST = 4.5   # 4.5 x 7 = 31 days; every focus must take less than 35 days
 IDEOLOGIES = ["democratic", "fascism", "communism", "neutrality"]
 DYNAMIC_MODIFIER_PATTERNS = [
     r"^production_speed_[a-z_]+_factor$",
@@ -70,6 +100,8 @@ FOCUS_FILTERS = {
     "FOCUS_FILTER_ANNEXATION", "FOCUS_FILTER_HISTORICAL", "FOCUS_FILTER_INTERNATIONAL_TRADE",
     "FOCUS_FILTER_ARMY_XP", "FOCUS_FILTER_NAVY_XP", "FOCUS_FILTER_AIR_XP",
     "FOCUS_FILTER_POLITICAL_CHARACTER", "FOCUS_FILTER_MILITARY_CHARACTER",
+    # vanilla Turkish filters (Battle for the Bosporus)
+    "FOCUS_FILTER_TUR_KURDISTAN", "FOCUS_FILTER_TUR_KEMALISM", "FOCUS_FILTER_TUR_TRADITIONALISM",
 }
 
 errors = []
@@ -404,6 +436,17 @@ def main():
                     for m in child(idea.value, "modifier"):
                         check_modifiers(m.value, modifiers, p, "spirit " + idea.key)
 
+    dyn_modifiers = set(VANILLA_DYNAMIC_MODIFIERS)
+    for p, nodes in tree("common/dynamic_modifiers/"):
+        for dm in nodes:
+            dyn_modifiers.add(dm.key)
+            need_loc.update([dm.key, dm.key + "_desc"])
+            for ic in child(dm.value, "icon"):
+                if ic.value not in all_sprites:
+                    err("%s: dynamic modifier %s icon %s undefined" % (p, dm.key, ic.value))
+            check_modifiers([c for c in dm.value if c.key not in ("icon", "enable", "remove_trigger", "attacker_modifier")],
+                            modifiers, p, "dynamic modifier " + dm.key)
+
     units = set(VANILLA_SUBUNITS)
     for p, nodes in tree("common/units/"):
         for su in child(nodes, "sub_units"):
@@ -474,6 +517,10 @@ def main():
                     err("%s: duplicate focus %s" % (p, fid))
                 focuses[fid] = (p, f)
                 need_loc.update([fid, fid + "_desc"])
+                for c in child(f.value, "cost"):
+                    if float(c.value) > MAX_FOCUS_COST:
+                        err("%s:%d: focus %s costs %s (%d days); the limit is %s"
+                            % (p, c.line, fid, c.value, int(float(c.value) * 7), MAX_FOCUS_COST))
                 icon = child(f.value, "icon")[0].value
                 if icon not in all_sprites or icon + "_shine" not in all_sprites:
                     err("%s:%d: focus %s icon %s (or its _shine) undefined" % (p, f.line, fid, icon))
@@ -593,15 +640,36 @@ def main():
                     for t in scalars(n.value):
                         if t not in traits and t not in VANILLA_UNIT_LEADER_TRAITS:
                             err("%s:%d: unknown trait %s" % (p, n.line, t))
+                elif k in ("add_dynamic_modifier", "remove_dynamic_modifier", "has_dynamic_modifier"):
+                    for m in child(n.value, "modifier"):
+                        if m.value not in dyn_modifiers:
+                            err("%s:%d: unknown dynamic modifier %s" % (p, m.line, m.value))
+                elif k == "add_timed_idea":
+                    for m in child(n.value, "idea"):
+                        if m.value not in ideas:
+                            err("%s:%d: unknown spirit %s" % (p, m.line, m.value))
+                elif k == "add_country_leader_role":
+                    for c in child(n.value, "character"):
+                        if c.value not in characters and c.value not in VANILLA_CHARACTERS:
+                            err("%s:%d: unknown character %s" % (p, c.line, c.value))
+                    for cl in child(n.value, "country_leader"):
+                        for t in child(cl.value, "traits"):
+                            for tr in scalars(t.value):
+                                if tr not in traits:
+                                    err("%s:%d: unknown trait %s" % (p, t.line, tr))
                 elif k == "add_unit_bonus":
                     for u in n.value:
                         if u.key not in units and not u.key.startswith("category_"):
                             err("%s:%d: unknown sub-unit %s in add_unit_bonus" % (p, u.line, u.key))
                 continue
-            if k in ("add_ideas", "remove_ideas", "has_idea") and v not in ideas:
+            if k in ("add_ideas", "remove_ideas", "has_idea") and v not in ideas and v not in VANILLA_IDEAS:
                 err("%s:%d: unknown spirit %s" % (p, n.line, v))
             elif k in ("recruit_character", "promote_character") and v not in characters:
                 err("%s:%d: unknown character %s" % (p, n.line, v))
+            elif k == "has_character" and v not in characters and v not in VANILLA_CHARACTERS:
+                err("%s:%d: unknown character %s" % (p, n.line, v))
+            elif k == "activate_mission" and v not in decisions:
+                err("%s:%d: unknown mission %s" % (p, n.line, v))
             elif k in ("country_event", "news_event") and v not in events:
                 err("%s:%d: unknown event %s" % (p, n.line, v))
             elif k == "unlock_subunit" and v not in units:
@@ -659,6 +727,48 @@ def main():
                 other = focuses.get(c.value)
                 if other and fid not in [x.value for m2 in child(other[1].value, "mutually_exclusive") for x in child(m2.value, "focus")]:
                     warn("mutual exclusion %s -> %s is one-sided" % (fid, c.value))
+
+    # focus layout: resolve positions, then look for overlaps and upward links
+    pos = {}
+
+    def resolve(fid, seen=()):
+        if fid in pos:
+            return pos[fid]
+        if fid in seen or fid not in focuses:
+            return None
+        f = focuses[fid][1]
+        x = int((child(f.value, "x") or [None])[0].value) if child(f.value, "x") else 0
+        y = int((child(f.value, "y") or [None])[0].value) if child(f.value, "y") else 0
+        rel = child(f.value, "relative_position_id")
+        if rel:
+            base = resolve(rel[0].value, seen + (fid,))
+            if base is None:
+                return None
+            x, y = x + base[0], y + base[1]
+        pos[fid] = (x, y)
+        return pos[fid]
+
+    for fid in focuses:
+        resolve(fid)
+    by_cell = {}
+    for fid, xy in pos.items():
+        by_cell.setdefault(xy, []).append(fid)
+    for xy, ids in by_cell.items():
+        if len(ids) > 1:
+            err("focuses %s overlap at x=%d y=%d" % (", ".join(sorted(ids)), xy[0], xy[1]))
+    rows = {}
+    for fid, (x, y) in pos.items():
+        rows.setdefault(y, []).append((x, fid))
+    for y, row in rows.items():
+        row.sort()
+        for (x1, a), (x2, b) in zip(row, row[1:]):
+            if 0 < x2 - x1 < 2:
+                warn("focuses %s and %s are only %d column apart on row %d" % (a, b, x2 - x1, y))
+    for fid, (p, f) in focuses.items():
+        for pr in child(f.value, "prerequisite"):
+            for c in child(pr.value, "focus"):
+                if c.value in pos and fid in pos and pos[c.value][1] >= pos[fid][1]:
+                    warn("focus %s is not below its prerequisite %s" % (fid, c.value))
 
     # event options need localisation
     for eid, (p, ev) in events.items():

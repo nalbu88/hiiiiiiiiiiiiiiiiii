@@ -4,6 +4,59 @@
 # switched off for all countries except Turkey before the game begins.
 ###########################################################################
 
+TRX_development_category = {
+	icon = GFX_decision_category_TRX_development
+	allowed = { original_tag = TUR }
+	visible = { has_country_flag = TRX_kalkinma_started }
+	priority = 90
+}
+
+TRX_bourse_category = {
+	icon = GFX_decision_category_TRX_bourse
+	allowed = { original_tag = TUR }
+	visible = { has_country_flag = TRX_bourse_open }
+	priority = 85
+}
+
+TRX_prospecting_category = {
+	icon = GFX_decision_category_TRX_prospecting
+	allowed = { original_tag = TUR }
+	visible = { has_country_flag = TRX_prospecting_unlocked }
+	priority = 80
+}
+
+TRX_chromium_category = {
+	icon = GFX_decision_category_TRX_chromium
+	allowed = { original_tag = TUR }
+	visible = { has_country_flag = TRX_chromium_diplomacy }
+	priority = 75
+}
+
+TRX_exiles_category = {
+	icon = GFX_decision_category_TRX_exiles
+	allowed = { original_tag = TUR }
+	visible = {
+		OR = {
+			AND = {
+				country_exists = GER
+				GER = { has_civil_war = yes }
+			}
+			AND = {
+				country_exists = SOV
+				SOV = { has_civil_war = yes }
+			}
+		}
+	}
+	priority = 95
+}
+
+TRX_integration_category = {
+	icon = GFX_decision_category_TRX_integration
+	allowed = { original_tag = TUR }
+	visible = { has_country_flag = TRX_integration_unlocked }
+	priority = 70
+}
+
 TRX_straits_category = {
 	icon = GFX_decision_category_TRX_straits
 	allowed = { original_tag = TUR }
@@ -14,13 +67,8 @@ TRX_straits_category = {
 TRX_eastern_development_category = {
 	icon = GFX_decision_category_TRX_east
 	allowed = { original_tag = TUR }
-	visible = {
-		OR = {
-			has_idea = TRX_eastern_question
-			has_country_flag = TRX_eastern_development_unlocked
-		}
-	}
-	priority = 70
+	visible = { has_country_flag = TRX_eastern_development_unlocked }
+	priority = 65
 }
 
 TRX_procurement_category = {

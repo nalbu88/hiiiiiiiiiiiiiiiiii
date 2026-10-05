@@ -14,4 +14,13 @@ opinion_modifiers = {
 		value = -30
 		decay = 1
 	}
+	TRX_chromium_customer = {
+		value = 15
+		trade = yes
+		decay = 0.1
+	}
+	TRX_chromium_rival = {
+		value = -10
+		decay = 0.2
+	}
 }

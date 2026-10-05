@@ -246,6 +246,31 @@ country_event = {
 	}
 }
 
+### Invitation to Turkey's own bloc (Ankara Pact, Red Crescent International) ###
+country_event = {
+	id = trx.13
+	title = trx.13.t
+	desc = trx.13.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+
+	option = {
+		name = trx.13.a
+		ai_chance = {
+			base = 40
+			modifier = { factor = 0 is_in_faction = yes }
+			modifier = { factor = 2 has_opinion = { target = FROM value > 20 } }
+			modifier = { factor = 0.5 is_major = yes }
+		}
+		trigger = { is_in_faction = no }
+		FROM = { add_to_faction = ROOT }
+	}
+	option = {
+		name = trx.13.b
+		ai_chance = { base = 60 }
+	}
+}
+
 ### Ottoman path: the Caliph accepts the invitation ###
 country_event = {
 	id = trx.20
@@ -404,42 +429,6 @@ country_event = {
 	}
 }
 
-### Eastern Question: the Dersim crisis boils over (mission timeout) ###
-country_event = {
-	id = trx.70
-	title = trx.70.t
-	desc = trx.70.d
-	picture = GFX_report_event_dead_soldiers
-	is_triggered_only = yes
-
-	option = {
-		name = trx.70.a
-		ai_chance = { base = 50 }
-		if = {
-			limit = { has_idea = TRX_eastern_question }
-			swap_ideas = {
-				remove_idea = TRX_eastern_question
-				add_idea = TRX_eastern_pacification
-			}
-		}
-		set_country_flag = TRX_eastern_policy_chosen
-		add_stability = -0.05
-	}
-	option = {
-		name = trx.70.b
-		ai_chance = { base = 50 }
-		if = {
-			limit = { has_idea = TRX_eastern_question }
-			swap_ideas = {
-				remove_idea = TRX_eastern_question
-				add_idea = TRX_eastern_reconciliation
-			}
-		}
-		set_country_flag = TRX_eastern_policy_chosen
-		add_political_power = -100
-	}
-}
-
 ### Welcome message for a human Turkey ###
 country_event = {
 	id = trx.80
@@ -450,5 +439,322 @@ country_event = {
 
 	option = {
 		name = trx.80.a
+	}
+}
+
+### Communist path: Turkey asks to join the Comintern (sent to the Soviet Union) ###
+country_event = {
+	id = trx.90
+	title = trx.90.t
+	desc = trx.90.d
+	picture = GFX_report_event_generic_handshake
+	is_triggered_only = yes
+
+	option = {
+		name = trx.90.a
+		ai_chance = {
+			base = 90
+			modifier = { factor = 0 has_war_with = FROM }
+		}
+		trigger = {
+			OR = {
+				is_faction_leader = yes
+				is_in_faction = no
+			}
+		}
+		if = {
+			limit = { is_in_faction = no }
+			TRX_allow_faction_creation = yes
+			create_faction_from_template = {
+				template = TRX_faction_comintern
+				name = TRX_faction_comintern_name
+			}
+			TRX_restore_faction_rule = yes
+		}
+		add_to_faction = FROM
+		FROM = { country_event = { id = trx.91 hours = 6 } }
+	}
+	option = {
+		name = trx.90.b
+		ai_chance = { base = 10 }
+		FROM = { country_event = { id = trx.92 hours = 6 } }
+	}
+}
+
+### Communist path: the Comintern accepts Turkey ###
+country_event = {
+	id = trx.91
+	title = trx.91.t
+	desc = trx.91.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+
+	option = {
+		name = trx.91.a
+		add_war_support = 0.03
+		add_political_power = 25
+	}
+}
+
+### Communist path: Moscow keeps Turkey at arm's length ###
+country_event = {
+	id = trx.92
+	title = trx.92.t
+	desc = trx.92.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+
+	option = {
+		name = trx.92.a
+		add_political_power = 25
+	}
+}
+
+### Bourse, small stake: a windfall ###
+country_event = {
+	id = trx.101
+	title = trx.101.t
+	desc = trx.101.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+
+	option = {
+		name = trx.101.a
+		add_political_power = 60
+	}
+}
+
+### Bourse, small stake: steady gains ###
+country_event = {
+	id = trx.102
+	title = trx.102.t
+	desc = trx.102.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+
+	option = {
+		name = trx.102.a
+		add_political_power = 35
+	}
+}
+
+### Bourse, small stake: the shares collapse ###
+country_event = {
+	id = trx.103
+	title = trx.103.t
+	desc = trx.103.d
+	picture = GFX_news_event_gathering_protest
+	is_triggered_only = yes
+
+	option = {
+		name = trx.103.a
+	}
+}
+
+### Bourse, bold wager: jackpot ###
+country_event = {
+	id = trx.104
+	title = trx.104.t
+	desc = trx.104.d
+	picture = GFX_report_event_generic_rally
+	is_triggered_only = yes
+
+	option = {
+		name = trx.104.a
+		add_political_power = 200
+	}
+}
+
+### Bourse, bold wager: a solid profit ###
+country_event = {
+	id = trx.105
+	title = trx.105.t
+	desc = trx.105.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+
+	option = {
+		name = trx.105.a
+		add_political_power = 100
+	}
+}
+
+### Bourse, bold wager: a crash ###
+country_event = {
+	id = trx.106
+	title = trx.106.t
+	desc = trx.106.d
+	picture = GFX_news_event_gathering_protest
+	is_triggered_only = yes
+
+	option = {
+		name = trx.106.a
+	}
+}
+
+### Bourse, all in: the deal of the century ###
+country_event = {
+	id = trx.107
+	title = trx.107.t
+	desc = trx.107.d
+	picture = GFX_report_event_generic_rally2
+	is_triggered_only = yes
+
+	option = {
+		name = trx.107.a
+		add_political_power = 500
+	}
+}
+
+### Bourse, all in: a fortune ###
+country_event = {
+	id = trx.108
+	title = trx.108.t
+	desc = trx.108.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+
+	option = {
+		name = trx.108.a
+		add_political_power = 250
+	}
+}
+
+### Bourse, all in: a narrow win ###
+country_event = {
+	id = trx.109
+	title = trx.109.t
+	desc = trx.109.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+
+	option = {
+		name = trx.109.a
+		add_political_power = 120
+	}
+}
+
+### Bourse, all in: Black Friday in Istanbul ###
+country_event = {
+	id = trx.110
+	title = trx.110.t
+	desc = trx.110.d
+	picture = GFX_report_event_generic_ruins
+	is_triggered_only = yes
+
+	option = {
+		name = trx.110.a
+		add_stability = -0.05
+	}
+}
+
+### Milli Piyango: the grand prize stays with the state ###
+country_event = {
+	id = trx.111
+	title = trx.111.t
+	desc = trx.111.d
+	picture = GFX_report_event_generic_rally
+	is_triggered_only = yes
+
+	option = {
+		name = trx.111.a
+		add_political_power = 400
+	}
+}
+
+### Milli Piyango: a good year ###
+country_event = {
+	id = trx.112
+	title = trx.112.t
+	desc = trx.112.d
+	picture = GFX_report_event_generic_rally2
+	is_triggered_only = yes
+
+	option = {
+		name = trx.112.a
+		add_political_power = 80
+	}
+}
+
+### Milli Piyango: a quiet draw ###
+country_event = {
+	id = trx.113
+	title = trx.113.t
+	desc = trx.113.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+
+	option = {
+		name = trx.113.a
+		add_political_power = 20
+	}
+}
+
+### Wildcat drilling: a gusher ###
+country_event = {
+	id = trx.114
+	title = trx.114.t
+	desc = trx.114.d
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+
+	option = {
+		name = trx.114.a
+		add_fuel = 10000
+	}
+}
+
+### Wildcat drilling: a modest well ###
+country_event = {
+	id = trx.115
+	title = trx.115.t
+	desc = trx.115.d
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+
+	option = {
+		name = trx.115.a
+	}
+}
+
+### Wildcat drilling: a dry hole ###
+country_event = {
+	id = trx.116
+	title = trx.116.t
+	desc = trx.116.d
+	picture = GFX_report_event_generic_ruins
+	is_triggered_only = yes
+
+	option = {
+		name = trx.116.a
+	}
+}
+
+### Megaproject: the Bosphorus Bridge opens ###
+country_event = {
+	id = trx.120
+	title = trx.120.t
+	desc = trx.120.d
+	picture = GFX_report_event_generic_rally2
+	is_triggered_only = yes
+
+	option = {
+		name = trx.120.a
+		add_stability = 0.03
+		add_political_power = 25
+	}
+}
+
+### Megaproject: the Atatürk Dam is inaugurated ###
+country_event = {
+	id = trx.121
+	title = trx.121.t
+	desc = trx.121.d
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+
+	option = {
+		name = trx.121.a
+		add_stability = 0.03
 	}
 }
