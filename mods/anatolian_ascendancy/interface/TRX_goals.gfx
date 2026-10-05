@@ -5,12 +5,24 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/trx/TRX_a_new_janissary_corps.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_TRX_active_neutrality"
+		texturefile = "gfx/interface/goals/trx/TRX_active_neutrality.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_TRX_aegean_ambitions"
 		texturefile = "gfx/interface/goals/trx/TRX_aegean_ambitions.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_TRX_aegean_naval_bases"
+		texturefile = "gfx/interface/goals/trx/TRX_aegean_naval_bases.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_TRX_aeronautical_association"
 		texturefile = "gfx/interface/goals/trx/TRX_aeronautical_association.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_air_defense_network"
+		texturefile = "gfx/interface/goals/trx/TRX_air_defense_network.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_TRX_akinci_doctrine"
@@ -21,12 +33,28 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/trx/TRX_akinci_raiders.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_TRX_align_with_the_west"
-		texturefile = "gfx/interface/goals/trx/TRX_align_with_the_west.dds"
+		name = "GFX_focus_TRX_allied_arms_shipments"
+		texturefile = "gfx/interface/goals/trx/TRX_allied_arms_shipments.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_among_the_great_powers"
+		texturefile = "gfx/interface/goals/trx/TRX_among_the_great_powers.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_anatolian_tigers"
+		texturefile = "gfx/interface/goals/trx/TRX_anatolian_tigers.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_TRX_armed_neutrality"
 		texturefile = "gfx/interface/goals/trx/TRX_armed_neutrality.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_armored_corps"
+		texturefile = "gfx/interface/goals/trx/TRX_armored_corps.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_arms_exports"
+		texturefile = "gfx/interface/goals/trx/TRX_arms_exports.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_TRX_army_of_the_republic"
@@ -57,8 +85,20 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/trx/TRX_arrow_statism.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_TRX_atomic_energy_commission"
+		texturefile = "gfx/interface/goals/trx/TRX_atomic_energy_commission.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_TRX_atsiz_takes_power"
 		texturefile = "gfx/interface/goals/trx/TRX_atsiz_takes_power.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_aviation_industry"
+		texturefile = "gfx/interface/goals/trx/TRX_aviation_industry.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_baghdad_railway"
+		texturefile = "gfx/interface/goals/trx/TRX_baghdad_railway.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_TRX_balkan_alliance"
@@ -81,6 +121,14 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/trx/TRX_batum_question.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_TRX_black_sea_fleet"
+		texturefile = "gfx/interface/goals/trx/TRX_black_sea_fleet.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_black_sea_ports"
+		texturefile = "gfx/interface/goals/trx/TRX_black_sea_ports.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_TRX_black_sea_submarines"
 		texturefile = "gfx/interface/goals/trx/TRX_black_sea_submarines.dds"
 	}
@@ -89,12 +137,76 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/trx/TRX_bomber_command.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_TRX_bosphorus_bridge"
+		texturefile = "gfx/interface/goals/trx/TRX_bosphorus_bridge.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_breadbasket"
+		texturefile = "gfx/interface/goals/trx/TRX_breadbasket.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_brotherhood_of_peoples"
+		texturefile = "gfx/interface/goals/trx/TRX_brotherhood_of_peoples.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_call_of_the_caliph"
+		texturefile = "gfx/interface/goals/trx/TRX_call_of_the_caliph.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_cells_in_the_army"
+		texturefile = "gfx/interface/goals/trx/TRX_cells_in_the_army.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_central_bank"
+		texturefile = "gfx/interface/goals/trx/TRX_central_bank.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_chromium_diplomacy"
+		texturefile = "gfx/interface/goals/trx/TRX_chromium_diplomacy.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_citizenship_law"
+		texturefile = "gfx/interface/goals/trx/TRX_citizenship_law.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_city_of_spies"
+		texturefile = "gfx/interface/goals/trx/TRX_city_of_spies.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_TRX_claims_on_the_caucasus"
 		texturefile = "gfx/interface/goals/trx/TRX_claims_on_the_caucasus.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_TRX_clearing_agreements"
+		texturefile = "gfx/interface/goals/trx/TRX_clearing_agreements.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_clodius_agreement"
+		texturefile = "gfx/interface/goals/trx/TRX_clodius_agreement.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_TRX_coastal_fortifications"
 		texturefile = "gfx/interface/goals/trx/TRX_coastal_fortifications.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_collectivize_agriculture"
+		texturefile = "gfx/interface/goals/trx/TRX_collectivize_agriculture.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_common_homeland"
+		texturefile = "gfx/interface/goals/trx/TRX_common_homeland.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_constitutional_sultanate"
+		texturefile = "gfx/interface/goals/trx/TRX_constitutional_sultanate.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_cukurova_cotton"
+		texturefile = "gfx/interface/goals/trx/TRX_cukurova_cotton.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_cultural_rights"
+		texturefile = "gfx/interface/goals/trx/TRX_cultural_rights.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_TRX_cyprus_question"
@@ -109,24 +221,72 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/trx/TRX_defense_of_anatolia.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_TRX_defense_self_sufficiency"
+		texturefile = "gfx/interface/goals/trx/TRX_defense_self_sufficiency.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_TRX_democrat_party"
 		texturefile = "gfx/interface/goals/trx/TRX_democrat_party.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_destroyer_program"
+		texturefile = "gfx/interface/goals/trx/TRX_destroyer_program.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_devrim_automobile"
+		texturefile = "gfx/interface/goals/trx/TRX_devrim_automobile.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_divrigi_iron"
+		texturefile = "gfx/interface/goals/trx/TRX_divrigi_iron.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_TRX_eastern_alliance"
 		texturefile = "gfx/interface/goals/trx/TRX_eastern_alliance.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_TRX_eastern_concessions"
+		texturefile = "gfx/interface/goals/trx/TRX_eastern_concessions.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_TRX_eastern_development_plan"
 		texturefile = "gfx/interface/goals/trx/TRX_eastern_development_plan.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_eastern_frontier_forts"
+		texturefile = "gfx/interface/goals/trx/TRX_eastern_frontier_forts.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_TRX_eastern_railways"
 		texturefile = "gfx/interface/goals/trx/TRX_eastern_railways.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_TRX_eastern_university"
+		texturefile = "gfx/interface/goals/trx/TRX_eastern_university.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_energy_hub"
+		texturefile = "gfx/interface/goals/trx/TRX_energy_hub.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_TRX_etibank"
 		texturefile = "gfx/interface/goals/trx/TRX_etibank.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_eximbank"
+		texturefile = "gfx/interface/goals/trx/TRX_eximbank.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_expand_the_pact"
+		texturefile = "gfx/interface/goals/trx/TRX_expand_the_pact.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_export_led_growth"
+		texturefile = "gfx/interface/goals/trx/TRX_export_led_growth.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_federal_constitution"
+		texturefile = "gfx/interface/goals/trx/TRX_federal_constitution.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_TRX_fighter_command"
@@ -141,52 +301,128 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/trx/TRX_first_five_year_plan.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_TRX_foreign_investment_law"
+		texturefile = "gfx/interface/goals/trx/TRX_foreign_investment_law.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_TRX_free_elections"
 		texturefile = "gfx/interface/goals/trx/TRX_free_elections.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_free_trade_zones"
+		texturefile = "gfx/interface/goals/trx/TRX_free_trade_zones.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_TRX_freedom_of_the_press"
 		texturefile = "gfx/interface/goals/trx/TRX_freedom_of_the_press.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_TRX_friendship_with_moscow"
-		texturefile = "gfx/interface/goals/trx/TRX_friendship_with_moscow.dds"
+		name = "GFX_focus_TRX_gendarmerie_reform"
+		texturefile = "gfx/interface/goals/trx/TRX_gendarmerie_reform.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_TRX_general_mobilization"
 		texturefile = "gfx/interface/goals/trx/TRX_general_mobilization.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_TRX_german_turkish_friendship"
+		texturefile = "gfx/interface/goals/trx/TRX_german_turkish_friendship.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_TRX_golcuk_shipyards"
 		texturefile = "gfx/interface/goals/trx/TRX_golcuk_shipyards.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_great_economic_debate"
+		texturefile = "gfx/interface/goals/trx/TRX_great_economic_debate.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_guarantor_of_the_region"
+		texturefile = "gfx/interface/goals/trx/TRX_guarantor_of_the_region.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_guleman_chromium"
+		texturefile = "gfx/interface/goals/trx/TRX_guleman_chromium.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_TRX_harbiye_academy"
 		texturefile = "gfx/interface/goals/trx/TRX_harbiye_academy.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_TRX_harness_the_euphrates"
-		texturefile = "gfx/interface/goals/trx/TRX_harness_the_euphrates.dds"
-	}
-	spriteType = {
 		name = "GFX_focus_TRX_hatay_question"
 		texturefile = "gfx/interface/goals/trx/TRX_hatay_question.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_TRX_independent_socialism"
-		texturefile = "gfx/interface/goals/trx/TRX_independent_socialism.dds"
+		name = "GFX_focus_TRX_highway_program"
+		texturefile = "gfx/interface/goals/trx/TRX_highway_program.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_holding_companies"
+		texturefile = "gfx/interface/goals/trx/TRX_holding_companies.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_hurkus_designs"
+		texturefile = "gfx/interface/goals/trx/TRX_hurkus_designs.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_TRX_industrial_heartland"
 		texturefile = "gfx/interface/goals/trx/TRX_industrial_heartland.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_TRX_insider_network"
+		texturefile = "gfx/interface/goals/trx/TRX_insider_network.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_TRX_invite_the_house_of_osman"
 		texturefile = "gfx/interface/goals/trx/TRX_invite_the_house_of_osman.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_TRX_iron_nets"
+		texturefile = "gfx/interface/goals/trx/TRX_iron_nets.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_is_bankasi"
+		texturefile = "gfx/interface/goals/trx/TRX_is_bankasi.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_istanbul_bourse"
+		texturefile = "gfx/interface/goals/trx/TRX_istanbul_bourse.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_istanbul_finance_centre"
+		texturefile = "gfx/interface/goals/trx/TRX_istanbul_finance_centre.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_izmir_economic_congress"
+		texturefile = "gfx/interface/goals/trx/TRX_izmir_economic_congress.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_TRX_janissary_guard"
 		texturefile = "gfx/interface/goals/trx/TRX_janissary_guard.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_join_the_allies"
+		texturefile = "gfx/interface/goals/trx/TRX_join_the_allies.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_join_the_axis"
+		texturefile = "gfx/interface/goals/trx/TRX_join_the_axis.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_join_the_comintern"
+		texturefile = "gfx/interface/goals/trx/TRX_join_the_comintern.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_joint_defense_council"
+		texturefile = "gfx/interface/goals/trx/TRX_joint_defense_council.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_kadro_movement"
+		texturefile = "gfx/interface/goals/trx/TRX_kadro_movement.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_kanal_istanbul"
+		texturefile = "gfx/interface/goals/trx/TRX_kanal_istanbul.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_TRX_karabuk_steel_works"
@@ -201,6 +437,10 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/trx/TRX_kayseri_aircraft_factory.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_TRX_keban_dam"
+		texturefile = "gfx/interface/goals/trx/TRX_keban_dam.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_TRX_kemalist_consolidation"
 		texturefile = "gfx/interface/goals/trx/TRX_kemalist_consolidation.dds"
 	}
@@ -211,6 +451,14 @@ spriteTypes = {
 	spriteType = {
 		name = "GFX_focus_TRX_kizil_elma"
 		texturefile = "gfx/interface/goals/trx/TRX_kizil_elma.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_land_committees"
+		texturefile = "gfx/interface/goals/trx/TRX_land_committees.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_land_reform"
+		texturefile = "gfx/interface/goals/trx/TRX_land_reform.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_TRX_language_revolution"
@@ -225,8 +473,24 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/trx/TRX_legalize_the_tkp.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_TRX_liberal_kemalism"
+		texturefile = "gfx/interface/goals/trx/TRX_liberal_kemalism.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_TRX_liberal_market"
 		texturefile = "gfx/interface/goals/trx/TRX_liberal_market.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_lira_reform"
+		texturefile = "gfx/interface/goals/trx/TRX_lira_reform.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_marshall_aid"
+		texturefile = "gfx/interface/goals/trx/TRX_marshall_aid.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_marshals_junta"
+		texturefile = "gfx/interface/goals/trx/TRX_marshals_junta.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_TRX_masters_of_the_straits"
@@ -235,6 +499,42 @@ spriteTypes = {
 	spriteType = {
 		name = "GFX_focus_TRX_mehmetcik_spirit"
 		texturefile = "gfx/interface/goals/trx/TRX_mehmetcik_spirit.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_memorandum_of_the_four"
+		texturefile = "gfx/interface/goals/trx/TRX_memorandum_of_the_four.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_middle_corridor"
+		texturefile = "gfx/interface/goals/trx/TRX_middle_corridor.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_military_electronics"
+		texturefile = "gfx/interface/goals/trx/TRX_military_electronics.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_military_guardianship"
+		texturefile = "gfx/interface/goals/trx/TRX_military_guardianship.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_millet_system"
+		texturefile = "gfx/interface/goals/trx/TRX_millet_system.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_milli_piyango"
+		texturefile = "gfx/interface/goals/trx/TRX_milli_piyango.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_milli_sef"
+		texturefile = "gfx/interface/goals/trx/TRX_milli_sef.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_mixed_economy"
+		texturefile = "gfx/interface/goals/trx/TRX_mixed_economy.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_mke_corporation"
+		texturefile = "gfx/interface/goals/trx/TRX_mke_corporation.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_TRX_modern_air_force"
@@ -249,16 +549,32 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/trx/TRX_mosul_question.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_TRX_motorize_the_army"
+		texturefile = "gfx/interface/goals/trx/TRX_motorize_the_army.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_TRX_mountain_commandos"
 		texturefile = "gfx/interface/goals/trx/TRX_mountain_commandos.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_mta_institute"
+		texturefile = "gfx/interface/goals/trx/TRX_mta_institute.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_TRX_multi_party_experiment"
 		texturefile = "gfx/interface/goals/trx/TRX_multi_party_experiment.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_TRX_national_defense_industry"
+		texturefile = "gfx/interface/goals/trx/TRX_national_defense_industry.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_TRX_national_pact"
 		texturefile = "gfx/interface/goals/trx/TRX_national_pact.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_national_power_grid"
+		texturefile = "gfx/interface/goals/trx/TRX_national_power_grid.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_TRX_national_unity"
@@ -277,8 +593,16 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/trx/TRX_nuri_demirag_works.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_TRX_officers_council"
+		texturefile = "gfx/interface/goals/trx/TRX_officers_council.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_TRX_padishah_of_three_continents"
 		texturefile = "gfx/interface/goals/trx/TRX_padishah_of_three_continents.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_pan_turkic_congress"
+		texturefile = "gfx/interface/goals/trx/TRX_pan_turkic_congress.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_TRX_peace_at_home"
@@ -287,6 +611,10 @@ spriteTypes = {
 	spriteType = {
 		name = "GFX_focus_TRX_peoples_houses"
 		texturefile = "gfx/interface/goals/trx/TRX_peoples_houses.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_popular_front"
+		texturefile = "gfx/interface/goals/trx/TRX_popular_front.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_TRX_raman_oil_fields"
@@ -301,6 +629,10 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/trx/TRX_reclaim_rumelia.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_TRX_red_crescent_international"
+		texturefile = "gfx/interface/goals/trx/TRX_red_crescent_international.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_TRX_red_crescent_revolution"
 		texturefile = "gfx/interface/goals/trx/TRX_red_crescent_revolution.dds"
 	}
@@ -313,16 +645,32 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/trx/TRX_reform_the_army.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_TRX_religious_affairs"
+		texturefile = "gfx/interface/goals/trx/TRX_religious_affairs.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_TRX_reopen_the_sublime_porte"
 		texturefile = "gfx/interface/goals/trx/TRX_reopen_the_sublime_porte.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_repeal_the_maintenance_law"
+		texturefile = "gfx/interface/goals/trx/TRX_repeal_the_maintenance_law.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_TRX_republic_at_the_crossroads"
 		texturefile = "gfx/interface/goals/trx/TRX_republic_at_the_crossroads.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_TRX_reserve_officer_corps"
+		texturefile = "gfx/interface/goals/trx/TRX_reserve_officer_corps.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_TRX_restore_the_sultanate"
 		texturefile = "gfx/interface/goals/trx/TRX_restore_the_sultanate.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_restored_caliphate"
+		texturefile = "gfx/interface/goals/trx/TRX_restored_caliphate.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_TRX_revive_the_free_party"
@@ -331,6 +679,10 @@ spriteTypes = {
 	spriteType = {
 		name = "GFX_focus_TRX_road_to_turan"
 		texturefile = "gfx/interface/goals/trx/TRX_road_to_turan.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_rocket_program"
+		texturefile = "gfx/interface/goals/trx/TRX_rocket_program.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_TRX_saadabad_pact"
@@ -345,16 +697,48 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/trx/TRX_scientific_republic.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_TRX_seat_among_the_powers"
+		texturefile = "gfx/interface/goals/trx/TRX_seat_among_the_powers.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_TRX_second_five_year_plan"
 		texturefile = "gfx/interface/goals/trx/TRX_second_five_year_plan.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_TRX_seek_axis_partnership"
-		texturefile = "gfx/interface/goals/trx/TRX_seek_axis_partnership.dds"
+		name = "GFX_focus_TRX_secret_ballot"
+		texturefile = "gfx/interface/goals/trx/TRX_secret_ballot.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_settle_the_ottoman_debt"
+		texturefile = "gfx/interface/goals/trx/TRX_settle_the_ottoman_debt.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_seyhan_dam"
+		texturefile = "gfx/interface/goals/trx/TRX_seyhan_dam.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_social_democracy"
+		texturefile = "gfx/interface/goals/trx/TRX_social_democracy.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_social_security_act"
+		texturefile = "gfx/interface/goals/trx/TRX_social_security_act.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_southeastern_anatolia_project"
+		texturefile = "gfx/interface/goals/trx/TRX_southeastern_anatolia_project.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_soviet_military_aid"
+		texturefile = "gfx/interface/goals/trx/TRX_soviet_military_aid.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_TRX_spread_the_revolution"
 		texturefile = "gfx/interface/goals/trx/TRX_spread_the_revolution.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_state_heavy_industry"
+		texturefile = "gfx/interface/goals/trx/TRX_state_heavy_industry.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_TRX_statism"
@@ -365,12 +749,20 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/trx/TRX_straits_fortress_artillery.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_TRX_sugar_and_cement"
+		texturefile = "gfx/interface/goals/trx/TRX_sugar_and_cement.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_TRX_sumerbank"
 		texturefile = "gfx/interface/goals/trx/TRX_sumerbank.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_TRX_synthetic_fuel_program"
 		texturefile = "gfx/interface/goals/trx/TRX_synthetic_fuel_program.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_tekel_monopoly"
+		texturefile = "gfx/interface/goals/trx/TRX_tekel_monopoly.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_TRX_the_eternal_chief"
@@ -381,12 +773,44 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/trx/TRX_the_grey_wolves.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_TRX_tobacco_workers_strike"
+		texturefile = "gfx/interface/goals/trx/TRX_tobacco_workers_strike.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_tpao"
+		texturefile = "gfx/interface/goals/trx/TRX_tpao.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_tractors_for_the_villages"
+		texturefile = "gfx/interface/goals/trx/TRX_tractors_for_the_villages.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_tripartite_treaty"
+		texturefile = "gfx/interface/goals/trx/TRX_tripartite_treaty.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_TRX_turanist_awakening"
 		texturefile = "gfx/interface/goals/trx/TRX_turanist_awakening.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_TRX_turkic_brothers_of_the_east"
 		texturefile = "gfx/interface/goals/trx/TRX_turkic_brothers_of_the_east.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_turkic_integration"
+		texturefile = "gfx/interface/goals/trx/TRX_turkic_integration.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_turkic_youth_movement"
+		texturefile = "gfx/interface/goals/trx/TRX_turkic_youth_movement.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_turkish_islamic_synthesis"
+		texturefile = "gfx/interface/goals/trx/TRX_turkish_islamic_synthesis.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_turkish_path_to_socialism"
+		texturefile = "gfx/interface/goals/trx/TRX_turkish_path_to_socialism.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_TRX_university_reform"
@@ -403,5 +827,13 @@ spriteTypes = {
 	spriteType = {
 		name = "GFX_focus_TRX_western_thrace"
 		texturefile = "gfx/interface/goals/trx/TRX_western_thrace.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_womens_rights"
+		texturefile = "gfx/interface/goals/trx/TRX_womens_rights.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_TRX_zonguldak_coalfields"
+		texturefile = "gfx/interface/goals/trx/TRX_zonguldak_coalfields.dds"
 	}
 }

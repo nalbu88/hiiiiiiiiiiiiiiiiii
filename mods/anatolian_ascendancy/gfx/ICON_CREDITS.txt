@@ -2,12 +2,17 @@
 Icons from game-icons.net (https://game-icons.net), licensed CC BY 3.0
 (https://creativecommons.org/licenses/by/3.0/). Recoloured and framed.
 
+- andymeneely: police-badge
 - carl-olsen: flame
-- caro-asercion: cloaked-figure-on-horseback, mountain-climbing
-- cathelineau: battleship, great-war-tank
-- delapouite: atom-core, bank, barrel, camel, cavalry, coins-pile, crossroad, dam, european-flag, factory, factory-arm, graduate-cap, greek-temple, hammer-sickle, harbor-dock, horizon-road, horse-head, house, huts-village, imperial-crown, island, jet-fighter, lighthouse, medieval-gate, megaphone, military-fort, miner, mountain-road, newspaper, oil-pump, oil-rig, peace-dove, pencil-ruler, plane-pilot, plane-wing, podium, public-speaker, railway, ribbon-shield, round-star, scroll-quill, shield-opposition, ship-bow, star-flag, star-medal, steam-locomotive, stone-bridge, submarine, sunrise, suspension-bridge, teacher, throne-king, torch, tower-flag, village, vote, watchtower
-- lorc: anchor, anvil, arrow-cluster, battle-gear, book-cover, broken-shield, cannon, castle, compass, crescent-blade, crossed-sabres, dervish-swords, dove, eagle-emblem, fist, freedom-dove, gear-hammer, gears, globe, laurel-crown, laurels, mountains, quill-ink, scales, scroll-unfurled, shiny-apple, swords-emblem, tied-scroll, wheat, wolf-head, wolf-howl, world
+- caro-asercion: cloaked-figure-on-horseback, mountain-climbing, sewing-machine, warlord-helmet, water-mill
+- cathelineau: battleship, great-war-tank, iron-hulled-warship
+- darkzaitzev: big-gear, hooded-figure
+- delapouite: acoustic-megaphone, airplane-departure, atom-core, bank, banknote, barn, barrel, boat-horizon, book-pile, brick-pile, byzantin-temple, cable-stayed-bridge, camel, caravan, cargo-crate, cargo-ship, cavalry, chart, cigar, cigarette, city-car, coins-pile, commercial-airplane, contract, cotton-flower, crane, crescent-staff, crossroad, dam, discussion, drill, earth-asia-oceania, european-flag, factory, factory-arm, family-house, family-tree, farm-tractor, farmer, female, fruit-tree, graduate-cap, greek-temple, hammer-sickle, harbor-dock, hill-fort, horizon-road, horse-head, house, huts-village, imperial-crown, island, jet-fighter, knight-banner, lighthouse, medallist, medieval-gate, meeple-group, megaphone, military-fort, mine-truck, mine-wagon, miner, mining-helmet, modern-city, money-stack, mountain-road, newspaper, notebook, offshore-platform, oil-pump, oil-rig, olive, passport, path-distance, pay-money, peace-dove, pencil-ruler, piggy-bank, plane-pilot, plane-wing, plant-watering, podium, public-speaker, rail-road, railway, receive-money, ribbon-shield, road, round-star, rule-book, samara-mosque, school-bag, scroll-quill, shaking-hands, shield-opposition, ship-bow, ship-wheel, sickle, spy, stairs-goal, star-flag, star-medal, steam-locomotive, stone-bridge, submarine, sunrise, suspension-bridge, teacher, team-idea, throne-king, ticket, tiger, torch, tower-flag, truck, two-coins, unbalanced, vertical-banner, village, vote, watchtower
+- faithtoken: minerals
+- heavenly-dog: defensive-wall
+- lorc: anchor, anvil, arrow-cluster, battle-gear, battle-tank, book-aura, book-cover, broken-shield, bullets, cannon, cargo-crane, castle, chained-heart, cog, concentric-crescents, conversation, crescent-blade, crossed-pistols, crossed-sabres, crown, crystal-cluster, dervish-swords, direwolf, dove, eagle-emblem, envelope, fist, freedom-dove, gear-hammer, gears, globe, guarded-tower, laurel-crown, laurels, linked-rings, locked-fortress, mailed-fist, microchip, mountains, power-lightning, quill, quill-ink, radar-dish, radial-balance, rocket, rose, scales, scroll-unfurled, shiny-apple, spyglass, swords-emblem, tied-scroll, trade, unlocking, waves, wax-seal, wheat, wolf-head, wolf-howl, world
 - lord-berandas: bomber, microscope
 - quoting: biplane
-- sbed: rifle
-- skoll: airplane, bayonet, breaking-chain, fist
+- sbed: ammo-box, rifle
+- skoll: airplane, atom, bayonet, breaking-chain, chess-king, rank-3, talk, winchester-rifle
+- willdabeast: gold-bar

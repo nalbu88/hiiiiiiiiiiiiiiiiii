@@ -1,7 +1,7 @@
 ###########################################################################
 # Anatolian Ascendancy - national spirits
 # Every spirit uses the sprite GFX_idea_<spirit id>, defined in
-# interface/TRX_ideas.gfx. Spirits are only ever added through focuses,
+# interface/TRX_sprites.gfx. Spirits are only ever added through focuses,
 # decisions or events, so none of them cost anything at game start.
 ###########################################################################
 
@@ -28,12 +28,13 @@ ideas = {
 			}
 		}
 
-		TRX_eastern_pacification = {
+		TRX_common_homeland_idea = {
 			removal_cost = -1
 			modifier = {
+				stability_factor = 0.06
+				recruitable_population_factor = 0.05
+				monthly_population = 0.10
 				war_support_factor = 0.03
-				army_core_defence_factor = 0.05
-				stability_factor = -0.02
 			}
 		}
 
@@ -58,7 +59,39 @@ ideas = {
 			}
 		}
 
-		######## Kemalist path: the Six Arrows ########
+		######## Foreign policy ########
+
+		TRX_active_neutrality_idea = {
+			removal_cost = -1
+			modifier = {
+				political_power_factor = 0.10
+				stability_factor = 0.05
+				consumer_goods_factor = -0.02
+				enemy_justify_war_goal_time = 0.25
+			}
+		}
+
+		TRX_city_of_spies_idea = {
+			removal_cost = -1
+			modifier = {
+				intel_network_gain_factor = 0.25
+				civilian_intel_factor = 0.15
+				decryption_factor = 0.10
+				encryption_factor = 0.10
+			}
+		}
+
+		TRX_ankara_pact_leader = {
+			removal_cost = -1
+			modifier = {
+				opinion_gain_monthly_factor = 0.25
+				faction_trade_opinion_factor = 0.25
+				war_support_factor = 0.05
+				research_speed_factor = 0.03
+			}
+		}
+
+		######## Kemalist path ########
 
 		TRX_six_arrows_1 = {
 			name = TRX_six_arrows
@@ -105,6 +138,15 @@ ideas = {
 			}
 		}
 
+		TRX_national_chief_idea = {
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.25
+				war_support_factor = 0.05
+				drift_defence_factor = 0.15
+			}
+		}
+
 		######## Democratic path ########
 
 		TRX_multi_party_democracy = {
@@ -113,6 +155,25 @@ ideas = {
 				democratic_drift = 0.03
 				stability_factor = 0.05
 				political_power_factor = -0.05
+			}
+		}
+
+		TRX_little_america = {
+			removal_cost = -1
+			modifier = {
+				trade_opinion_factor = 0.20
+				production_speed_buildings_factor = 0.05
+				stability_factor = 0.05
+				license_purchase_cost = -0.25
+			}
+		}
+
+		TRX_left_of_centre = {
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.08
+				monthly_population = 0.10
+				production_factory_efficiency_gain_factor = 0.05
 			}
 		}
 
@@ -126,6 +187,24 @@ ideas = {
 		}
 
 		######## Ottoman path ########
+
+		TRX_constitutional_monarchy = {
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.10
+				political_power_factor = 0.05
+				neutrality_drift = 0.02
+			}
+		}
+
+		TRX_caliphate_restored = {
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.20
+				war_support_factor = 0.08
+				recruitable_population_factor = 0.05
+			}
+		}
 
 		TRX_sublime_porte = {
 			removal_cost = -1
@@ -157,6 +236,26 @@ ideas = {
 			}
 		}
 
+		TRX_military_junta = {
+			removal_cost = -1
+			modifier = {
+				army_org_factor = 0.05
+				war_support_factor = 0.05
+				stability_factor = 0.05
+				experience_gain_army_factor = 0.10
+			}
+		}
+
+		TRX_turkish_islamic_synthesis_idea = {
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.07
+				war_support_factor = 0.05
+				recruitable_population_factor = 0.03
+				drift_defence_factor = 0.20
+			}
+		}
+
 		TRX_kizil_elma_idea = {
 			removal_cost = -1
 			modifier = {
@@ -175,6 +274,15 @@ ideas = {
 				production_factory_efficiency_gain_factor = 0.05
 				communism_drift = 0.05
 				stability_factor = -0.03
+			}
+		}
+
+		TRX_collective_farms = {
+			removal_cost = -1
+			modifier = {
+				industrial_capacity_factory = 0.03
+				consumer_goods_factor = -0.03
+				stability_factor = -0.02
 			}
 		}
 
@@ -202,6 +310,23 @@ ideas = {
 			modifier = {
 				army_infantry_defence_factor = 0.10
 				army_morale_factor = 0.10
+			}
+		}
+
+		TRX_reserve_officers = {
+			removal_cost = -1
+			modifier = {
+				training_time_army_factor = -0.10
+				conscription_factor = 0.05
+			}
+		}
+
+		TRX_gendarmerie_idea = {
+			removal_cost = -1
+			modifier = {
+				required_garrison_factor = -0.20
+				resistance_growth = -0.15
+				compliance_growth = 0.10
 			}
 		}
 
@@ -289,12 +414,67 @@ ideas = {
 			}
 		}
 
+		TRX_tekel_monopoly_idea = {
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.25
+				consumer_goods_factor = -0.02
+				stability_factor = -0.02
+			}
+		}
+
+		TRX_foreign_capital = {
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.10
+				trade_opinion_factor = 0.25
+				political_power_factor = -0.05
+			}
+		}
+
+		TRX_chromium_exports = {
+			removal_cost = -1
+			modifier = {
+				local_resources_factor = -0.10
+				trade_opinion_factor = 0.15
+			}
+		}
+
 		TRX_industrial_heartland_idea = {
 			removal_cost = -1
 			modifier = {
 				production_factory_max_efficiency_factor = 0.05
 				global_building_slots_factor = 0.10
 				local_resources_factor = 0.10
+			}
+		}
+
+		TRX_breadbasket_idea = {
+			removal_cost = -1
+			modifier = {
+				monthly_population = 0.10
+				stability_factor = 0.03
+				consumer_goods_factor = -0.02
+			}
+		}
+
+		TRX_defense_self_sufficiency_idea = {
+			removal_cost = -1
+			modifier = {
+				industrial_capacity_factory = 0.05
+				production_factory_efficiency_gain_factor = 0.10
+				production_factory_max_efficiency_factor = 0.05
+			}
+		}
+
+		TRX_great_power_economy = {
+			removal_cost = -1
+			modifier = {
+				industrial_capacity_factory = 0.05
+				production_factory_max_efficiency_factor = 0.05
+				research_speed_factor = 0.05
+				political_power_factor = 0.10
+				stability_factor = 0.05
 			}
 		}
 
@@ -306,6 +486,22 @@ ideas = {
 				research_speed_factor = 0.03
 				stability_factor = 0.03
 				monthly_population = 0.05
+			}
+		}
+
+		TRX_diyanet = {
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.04
+				drift_defence_factor = 0.10
+			}
+		}
+
+		TRX_womens_rights_idea = {
+			removal_cost = -1
+			modifier = {
+				recruitable_population_factor = 0.05
+				research_speed_factor = 0.02
 			}
 		}
 

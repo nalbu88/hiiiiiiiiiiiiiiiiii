@@ -21,4 +21,4 @@ MIT license (LICENSE) applies to every file in this repository.
 
 ## Mods
 
-- `mods/anatolian_ascendancy` - **Anatolian Ascendancy: Turkey Expanded**, a Turkey overhaul with a 101-focus tree, four new unit types, six formable nations, decisions and events. See [mods/README.md](mods/README.md) for installation and details. `mods/tools` holds its asset builder and static validator.
+- `mods/anatolian_ascendancy` - **Anatolian Ascendancy: Turkey Expanded**, a Turkey overhaul with a 209-focus tree (no focus over 35 days), a large economy branch, five linked political paths, a political-power stock exchange, four new unit types, six formable nations, decisions and events. See [mods/README.md](mods/README.md) for installation and details. `mods/tools` holds its asset builder and static validator.

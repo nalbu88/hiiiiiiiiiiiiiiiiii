@@ -1,0 +1,23 @@
+###########################################################################
+# Anatolian Ascendancy - dynamic modifiers
+#
+# Kalkınma Hamlesi ("the Development Drive") is a single country-wide
+# modifier whose values are read from country variables. Economy focuses
+# and megaprojects raise those variables through the TRX_kalk_* scripted
+# effects, so the spirit grows as the economy tree is completed.
+# Variables are only touched when a focus or decision completes: nothing
+# here is recalculated on a timer.
+###########################################################################
+
+TRX_kalkinma = {
+	icon = GFX_idea_TRX_kalkinma
+
+	enable = { always = yes }
+
+	production_speed_buildings_factor = TRX_kalk_construction
+	industrial_capacity_factory = TRX_kalk_industry
+	research_speed_factor = TRX_kalk_research
+	consumer_goods_factor = TRX_kalk_consumer
+	local_resources_factor = TRX_kalk_resources
+	political_power_factor = TRX_kalk_pp
+}

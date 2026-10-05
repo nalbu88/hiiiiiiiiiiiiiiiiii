@@ -30,3 +30,14 @@ TRX_faction_eastern_socialist = {
 		always = no
 	}
 }
+
+# Created by the Soviet Union when Turkey asks to join the Comintern and
+# Moscow does not lead a faction yet.
+TRX_faction_comintern = {
+	name = TRX_faction_comintern_name
+	icon = GFX_faction_logo_generic_democratic
+	color = { 200 20 20 }
+	visible = {
+		always = no
+	}
+}

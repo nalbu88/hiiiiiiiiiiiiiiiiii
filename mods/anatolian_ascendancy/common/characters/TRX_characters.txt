@@ -1,14 +1,20 @@
 ###########################################################################
 # Anatolian Ascendancy - characters
 # None of these are recruited at game start. Each one is recruited by the
-# focus or event that introduces them, so they never clutter the vanilla
-# roster unless the player actually walks the matching path.
+# focus, decision or event that introduces them, so they never clutter the
+# vanilla roster unless the player walks the matching path.
+#
+# Several people here also exist as vanilla characters (TUR_*). Vanilla
+# Turkey recruits most of them at game start, so every recruitment in this
+# mod is guarded with has_character: the mod's copy only appears when the
+# vanilla character is missing, and nobody shows up twice.
+#
 # No portraits are assigned: the game picks a fitting generic portrait.
 ###########################################################################
 
 characters = {
 
-	### Country leaders (one per alternative political path) ###
+	### Country leaders ###
 
 	TRX_abdulmecid_ii = {
 		name = TRX_abdulmecid_ii
@@ -109,6 +115,17 @@ characters = {
 		}
 	}
 
+	TRX_haci_omer_sabanci = {
+		name = TRX_haci_omer_sabanci
+		advisor = {
+			slot = political_advisor
+			idea_token = TRX_haci_omer_sabanci_advisor
+			cost = 100
+			traits = { TRX_trait_cotton_baron }
+			ai_will_do = { factor = 1.5 }
+		}
+	}
+
 	TRX_hasan_ali_yucel = {
 		name = TRX_hasan_ali_yucel
 		advisor = {
@@ -138,6 +155,50 @@ characters = {
 			idea_token = TRX_adnan_menderes_advisor
 			cost = 100
 			traits = { TRX_trait_agrarian_populist }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	TRX_fethi_okyar = {
+		name = TRX_fethi_okyar
+		advisor = {
+			slot = political_advisor
+			idea_token = TRX_fethi_okyar_advisor
+			cost = 100
+			traits = { TRX_trait_liberal_reformer }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	TRX_fuad_koprulu = {
+		name = TRX_fuad_koprulu
+		advisor = {
+			slot = political_advisor
+			idea_token = TRX_fuad_koprulu_advisor
+			cost = 100
+			traits = { TRX_trait_scholar_statesman }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	TRX_bulent_ecevit = {
+		name = TRX_bulent_ecevit
+		advisor = {
+			slot = political_advisor
+			idea_token = TRX_bulent_ecevit_advisor
+			cost = 100
+			traits = { TRX_trait_left_of_centre }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	TRX_sevket_sureyya_aydemir = {
+		name = TRX_sevket_sureyya_aydemir
+		advisor = {
+			slot = political_advisor
+			idea_token = TRX_sevket_sureyya_aydemir_advisor
+			cost = 100
+			traits = { TRX_trait_kadro_theorist }
 			ai_will_do = { factor = 1 }
 		}
 	}
@@ -175,6 +236,135 @@ characters = {
 		}
 	}
 
+	### Exiles from a German civil war ###
+
+	TRX_fritz_neumark = {
+		name = TRX_fritz_neumark
+		advisor = {
+			slot = political_advisor
+			idea_token = TRX_fritz_neumark_advisor
+			cost = 100
+			traits = { TRX_trait_fiscal_architect }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	TRX_wilhelm_ropke = {
+		name = TRX_wilhelm_ropke
+		advisor = {
+			slot = political_advisor
+			idea_token = TRX_wilhelm_ropke_advisor
+			cost = 100
+			traits = { TRX_trait_free_market_economist }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	TRX_ernst_reuter = {
+		name = TRX_ernst_reuter
+		advisor = {
+			slot = political_advisor
+			idea_token = TRX_ernst_reuter_advisor
+			cost = 100
+			traits = { TRX_trait_urban_planner }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	TRX_richard_von_mises = {
+		name = TRX_richard_von_mises
+		advisor = {
+			slot = political_advisor
+			idea_token = TRX_richard_von_mises_advisor
+			cost = 100
+			traits = { TRX_trait_academic_exile }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	TRX_kurt_von_hammerstein = {
+		name = TRX_kurt_von_hammerstein
+		corps_commander = {
+			traits = { old_guard trait_cautious }
+			skill = 4
+			attack_skill = 2
+			defense_skill = 4
+			planning_skill = 4
+			logistics_skill = 3
+		}
+	}
+
+	TRX_friedrich_von_rabenau = {
+		name = TRX_friedrich_von_rabenau
+		corps_commander = {
+			traits = { career_officer organizer }
+			skill = 3
+			attack_skill = 3
+			defense_skill = 3
+			planning_skill = 3
+			logistics_skill = 4
+		}
+	}
+
+	### Exiles from a Soviet civil war ###
+
+	TRX_mammad_amin_rasulzade = {
+		name = TRX_mammad_amin_rasulzade
+		advisor = {
+			slot = political_advisor
+			idea_token = TRX_mammad_amin_rasulzade_advisor
+			cost = 100
+			traits = { TRX_trait_caucasian_emigre }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	TRX_ayaz_ishaki = {
+		name = TRX_ayaz_ishaki
+		advisor = {
+			slot = political_advisor
+			idea_token = TRX_ayaz_ishaki_advisor
+			cost = 100
+			traits = { TRX_trait_idel_ural_activist }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	TRX_boris_bazhanov = {
+		name = TRX_boris_bazhanov
+		advisor = {
+			slot = political_advisor
+			idea_token = TRX_boris_bazhanov_advisor
+			cost = 100
+			traits = { TRX_trait_kremlin_defector }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	TRX_anton_denikin = {
+		name = TRX_anton_denikin
+		field_marshal = {
+			traits = { old_guard war_hero }
+			skill = 4
+			attack_skill = 3
+			defense_skill = 4
+			planning_skill = 4
+			logistics_skill = 3
+		}
+	}
+
+	TRX_sultan_klych_girey = {
+		name = TRX_sultan_klych_girey
+		corps_commander = {
+			traits = { cavalry_officer trickster }
+			skill = 3
+			attack_skill = 4
+			defense_skill = 2
+			planning_skill = 3
+			logistics_skill = 2
+		}
+	}
+
 	### Army commanders ###
 
 	TRX_fahrettin_altay = {
@@ -192,7 +382,7 @@ characters = {
 	TRX_mustafa_muglali = {
 		name = TRX_mustafa_muglali
 		corps_commander = {
-			traits = { mountaineer }
+			traits = { trait_mountaineer }
 			skill = 3
 			attack_skill = 3
 			defense_skill = 3

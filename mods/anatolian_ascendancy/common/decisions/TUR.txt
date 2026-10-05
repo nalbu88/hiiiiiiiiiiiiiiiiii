@@ -1,0 +1,12 @@
+###########################################################################
+# Anatolian Ascendancy - override of the vanilla file
+# common/decisions/TUR.txt
+#
+# This file is intentionally empty. It replaces Turkey's vanilla
+# decisions, including the repeatable pacification decisions against the
+# Kurdish states, which depend on the vanilla focus tree this mod
+# replaces. The Kurdish question is settled instead by the focus
+# "Concessions to the East" (TRX_eastern_concessions), which grants cores
+# on the four south-eastern states, ends their resistance and removes the
+# vanilla unrest modifiers.
+###########################################################################
