@@ -110,6 +110,33 @@ characters = {
 		}
 	}
 
+	# Wrangel's foreign minister in 1920, a liberal conservative.
+	AZV_pyotr_struve = {
+		name = AZV_pyotr_struve
+		advisor = {
+			slot = political_advisor
+			idea_token = AZV_pyotr_struve_advisor
+			cost = 100
+			allowed = { original_tag = CRI }
+			visible = { NOT = { has_government = fascism } }
+			traits = { AZV_trait_white_statesman }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	# Philosopher of the White idea, in Berlin until 1938.
+	AZV_ivan_ilyin = {
+		name = AZV_ivan_ilyin
+		advisor = {
+			slot = political_advisor
+			idea_token = AZV_ivan_ilyin_advisor
+			cost = 100
+			allowed = { original_tag = CRI }
+			traits = { AZV_trait_philosopher_of_the_white_idea }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
 	### Military ###
 
 	# "Slashchov-Krymsky", who held the Perekop isthmus in 1920.

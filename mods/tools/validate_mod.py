@@ -125,7 +125,12 @@ _BR_TAGS = {
 }
 PROFILES = {
     "borderlands_rising": {
-        "VANILLA_SPRITES": VANILLA_SPRITES,
+        # Vanilla 1.19 sprites. The additions are used, never defined, by
+        # Chaos Redux, which ships against the current game version.
+        "VANILLA_SPRITES": VANILLA_SPRITES | {
+            "GFX_decision_generic_political_rally", "GFX_decision_generic_prepare_civil_war",
+            "GFX_report_event_soviet_purge_trial", "GFX_report_event_spr_spanish_civil_war",
+        },
         "VANILLA_TEXTURES": VANILLA_TEXTURES,
         "VANILLA_SUBUNITS": {"infantry", "cavalry", "mountaineers", "motorized", "artillery_brigade",
                              "artillery", "recon"},
@@ -568,6 +573,8 @@ def main():
     for p, nodes in tree("common/game_rules/"):
         for rule in nodes:
             need_loc.update(n.value for n in child(rule.value, "name"))
+            # mod-defined rule groups need a name; vanilla groups start with RULE_GROUP_
+            need_loc.update(n.value for n in child(rule.value, "group") if not n.value.startswith("RULE_GROUP_"))
             for opt in child(rule.value, "option") + child(rule.value, "default"):
                 need_loc.update(n.value for n in child(opt.value, "text") + child(opt.value, "desc"))
 
@@ -595,9 +602,11 @@ def main():
 
     # focuses
     focuses = {}
+    tree_of = {}   # focus id -> focus tree id; layouts are checked per tree
     for p, nodes in tree("common/national_focus/"):
         for ft in child(nodes, "focus_tree"):
-            need_loc.add(child(ft.value, "id")[0].value)
+            tree_id = child(ft.value, "id")[0].value
+            need_loc.add(tree_id)
             for sc in child(ft.value, "shortcut"):
                 need_loc.add(child(sc.value, "name")[0].value)
             for f in child(ft.value, "focus"):
@@ -605,6 +614,7 @@ def main():
                 if fid in focuses:
                     err("%s: duplicate focus %s" % (p, fid))
                 focuses[fid] = (p, f)
+                tree_of[fid] = tree_id
                 need_loc.update([fid, fid + "_desc"])
                 for c in child(f.value, "cost"):
                     if float(c.value) > MAX_FOCUS_COST:
@@ -885,14 +895,14 @@ def main():
         resolve(fid)
     by_cell = {}
     for fid, xy in pos.items():
-        by_cell.setdefault(xy, []).append(fid)
-    for xy, ids in by_cell.items():
+        by_cell.setdefault((tree_of[fid], xy), []).append(fid)
+    for (_, xy), ids in by_cell.items():
         if len(ids) > 1:
             err("focuses %s overlap at x=%d y=%d" % (", ".join(sorted(ids)), xy[0], xy[1]))
     rows = {}
     for fid, (x, y) in pos.items():
-        rows.setdefault(y, []).append((x, fid))
-    for y, row in rows.items():
+        rows.setdefault((tree_of[fid], y), []).append((x, fid))
+    for (_, y), row in rows.items():
         row.sort()
         for (x1, a), (x2, b) in zip(row, row[1:]):
             if 0 < x2 - x1 < 2:

@@ -191,6 +191,7 @@ recruit_character = AZV_andrei_shkuro
 recruit_character = AZV_sultan_klych_girey
 recruit_character = AZV_boris_shteifon
 recruit_character = AZV_mikhail_kedrov
+recruit_character = AZV_pyotr_struve
 
 add_ideas = {
 	AZV_island_of_crimea
@@ -199,6 +200,10 @@ add_ideas = {
 	partial_economic_mobilisation
 	export_focus
 }
+
+# Volunteer Army deliveries: AZV_arms_multiplier scales every purchase of
+# the Arsenal of the White Cause (1.0 at the start).
+set_variable = { AZV_arms_multiplier = 1 }
 
 # The armistice of 1920: neither side has the strength to finish the war.
 diplomatic_relation = {

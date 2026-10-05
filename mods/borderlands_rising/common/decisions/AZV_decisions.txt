@@ -1,0 +1,464 @@
+###########################################################################
+# Borderlands Rising - South Russia / Azov United decisions
+#
+# The Arsenal of the White Cause buys equipment for political power. Every
+# purchase is scaled by AZV_arms_multiplier (1.0 at the start, up to 2.0
+# through the Putnam Millions, Foreign Arms Dealers and Arsenal State
+# focuses). Every decision is gated by "allowed = { original_tag = CRI }".
+###########################################################################
+
+#######################################################################
+# THE ARSENAL OF THE WHITE CAUSE
+#######################################################################
+
+AZV_arsenal_category = {
+
+	### Tier 1: open from the start ###
+
+	AZV_buy_istanbul_rifles = {
+		icon = generic_military
+		allowed = { original_tag = CRI }
+		cost = 40
+		days_re_enable = 30
+		complete_effect = {
+			set_temp_variable = { AZV_purchase = 600 }
+			AZV_scale_purchase = yes
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = AZV_purchase
+			}
+		}
+		ai_will_do = {
+			base = 4
+			modifier = { factor = 3 has_war = yes }
+			modifier = { factor = 0 has_equipment = { infantry_equipment > 4000 } }
+			modifier = { factor = 0 has_political_power < 120 }
+		}
+	}
+
+	AZV_buy_skoda_guns = {
+		icon = generic_army_support
+		allowed = { original_tag = CRI }
+		cost = 60
+		days_re_enable = 45
+		complete_effect = {
+			set_temp_variable = { AZV_purchase = 120 }
+			AZV_scale_purchase = yes
+			if = {
+				limit = { country_exists = CZE }
+				add_equipment_to_stockpile = {
+					type = artillery_equipment
+					amount = AZV_purchase
+					producer = CZE
+				}
+				CZE = { add_opinion_modifier = { target = ROOT modifier = AZV_arms_customer } }
+			}
+			else = {
+				add_equipment_to_stockpile = {
+					type = artillery_equipment
+					amount = AZV_purchase
+				}
+			}
+		}
+		ai_will_do = {
+			base = 3
+			modifier = { factor = 2 has_war = yes }
+			modifier = { factor = 0 has_equipment = { artillery_equipment > 600 } }
+			modifier = { factor = 0 has_political_power < 140 }
+		}
+	}
+
+	AZV_buy_signals_and_engineering_gear = {
+		icon = generic_construction
+		allowed = { original_tag = CRI }
+		cost = 35
+		days_re_enable = 45
+		complete_effect = {
+			set_temp_variable = { AZV_purchase = 150 }
+			AZV_scale_purchase = yes
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = AZV_purchase
+			}
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 0 has_equipment = { support_equipment > 500 } }
+			modifier = { factor = 0 has_political_power < 120 }
+		}
+	}
+
+	### Tier 2: The Arsenal of the White Cause focus ###
+
+	AZV_buy_fiat_lorries = {
+		icon = generic_industry
+		allowed = { original_tag = CRI }
+		available = { AZV_arsenal_tier_2_open = yes }
+		cost = 60
+		days_re_enable = 60
+		complete_effect = {
+			set_temp_variable = { AZV_purchase = 150 }
+			AZV_scale_purchase = yes
+			if = {
+				limit = { country_exists = ITA }
+				add_equipment_to_stockpile = {
+					type = motorized_equipment
+					amount = AZV_purchase
+					producer = ITA
+				}
+				ITA = { add_opinion_modifier = { target = ROOT modifier = AZV_arms_customer } }
+			}
+			else = {
+				add_equipment_to_stockpile = {
+					type = motorized_equipment
+					amount = AZV_purchase
+				}
+			}
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 0 has_equipment = { motorized_equipment > 600 } }
+			modifier = { factor = 0 has_political_power < 140 }
+		}
+	}
+
+	AZV_buy_bofors_anti_tank_guns = {
+		icon = generic_tank
+		allowed = { original_tag = CRI }
+		available = { AZV_arsenal_tier_2_open = yes }
+		cost = 50
+		days_re_enable = 60
+		complete_effect = {
+			set_temp_variable = { AZV_purchase = 100 }
+			AZV_scale_purchase = yes
+			if = {
+				limit = { country_exists = SWE }
+				add_equipment_to_stockpile = {
+					type = anti_tank_equipment
+					amount = AZV_purchase
+					producer = SWE
+				}
+				SWE = { add_opinion_modifier = { target = ROOT modifier = AZV_arms_customer } }
+			}
+			else = {
+				add_equipment_to_stockpile = {
+					type = anti_tank_equipment
+					amount = AZV_purchase
+				}
+			}
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 2 has_war = yes }
+			modifier = { factor = 0 has_equipment = { anti_tank_equipment > 400 } }
+			modifier = { factor = 0 has_political_power < 140 }
+		}
+	}
+
+	AZV_buy_bofors_anti_air_guns = {
+		icon = generic_protection
+		allowed = { original_tag = CRI }
+		available = { AZV_arsenal_tier_2_open = yes }
+		cost = 50
+		days_re_enable = 60
+		complete_effect = {
+			set_temp_variable = { AZV_purchase = 100 }
+			AZV_scale_purchase = yes
+			if = {
+				limit = { country_exists = SWE }
+				add_equipment_to_stockpile = {
+					type = anti_air_equipment
+					amount = AZV_purchase
+					producer = SWE
+				}
+				SWE = { add_opinion_modifier = { target = ROOT modifier = AZV_arms_customer } }
+			}
+			else = {
+				add_equipment_to_stockpile = {
+					type = anti_air_equipment
+					amount = AZV_purchase
+				}
+			}
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 0 has_equipment = { anti_air_equipment > 400 } }
+			modifier = { factor = 0 has_political_power < 140 }
+		}
+	}
+
+	### Tier 3: the Foreign Arms Dealers focus ###
+
+	AZV_the_great_rifle_contract = {
+		icon = ger_mefo_bills
+		allowed = { original_tag = CRI }
+		available = { AZV_arsenal_tier_3_open = yes }
+		cost = 100
+		days_re_enable = 120
+		complete_effect = {
+			set_temp_variable = { AZV_purchase = 2500 }
+			AZV_scale_purchase = yes
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = AZV_purchase
+			}
+		}
+		ai_will_do = {
+			base = 3
+			modifier = { factor = 3 has_war = yes }
+			modifier = { factor = 0 has_equipment = { infantry_equipment > 6000 } }
+			modifier = { factor = 0 has_political_power < 180 }
+		}
+	}
+
+	AZV_charter_greek_steamers = {
+		icon = generic_construction
+		allowed = { original_tag = CRI }
+		available = { AZV_arsenal_tier_3_open = yes }
+		cost = 50
+		days_re_enable = 90
+		complete_effect = {
+			set_temp_variable = { AZV_purchase = 15 }
+			AZV_scale_purchase = yes
+			if = {
+				limit = { country_exists = GRE }
+				add_equipment_to_stockpile = {
+					type = convoy_1
+					amount = AZV_purchase
+					producer = GRE
+				}
+				GRE = { add_opinion_modifier = { target = ROOT modifier = AZV_arms_customer } }
+			}
+			else = {
+				add_equipment_to_stockpile = {
+					type = convoy_1
+					amount = AZV_purchase
+				}
+			}
+		}
+		ai_will_do = {
+			base = 1
+			modifier = { factor = 0 has_political_power < 160 }
+		}
+	}
+
+	AZV_arm_a_cossack_host = {
+		icon = generic_army_support
+		allowed = { original_tag = CRI }
+		available = { AZV_arsenal_tier_3_open = yes }
+		cost = 120
+		days_re_enable = 180
+		complete_effect = {
+			set_temp_variable = { AZV_purchase = 1500 }
+			AZV_scale_purchase = yes
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = AZV_purchase
+			}
+			set_temp_variable = { AZV_purchase = 300 }
+			AZV_scale_purchase = yes
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = AZV_purchase
+			}
+			set_temp_variable = { AZV_purchase = 150 }
+			AZV_scale_purchase = yes
+			add_equipment_to_stockpile = {
+				type = artillery_equipment
+				amount = AZV_purchase
+			}
+			add_manpower = 5000
+		}
+		ai_will_do = {
+			base = 3
+			modifier = { factor = 3 has_war = yes }
+			modifier = { factor = 0 has_political_power < 200 }
+		}
+	}
+}
+
+#######################################################################
+# THE AZOV UNION
+# Opened by The Veterans' Union. Builds the movement before the March on
+# Simferopol and keeps it marching afterwards.
+#######################################################################
+
+AZV_azov_union_category = {
+
+	AZV_rally_the_veterans = {
+		icon = generic_political_rally
+		allowed = { original_tag = CRI }
+		visible = { NOT = { has_government = fascism } }
+		cost = 50
+		days_re_enable = 60
+		complete_effect = {
+			add_popularity = { ideology = fascism popularity = 0.05 }
+			army_experience = 5
+		}
+		ai_will_do = {
+			base = 10
+			modifier = { factor = 0 fascism > 0.6 }
+		}
+	}
+
+	AZV_march_of_the_drozdovtsy = {
+		icon = generic_nationalism
+		allowed = { original_tag = CRI }
+		visible = { NOT = { has_government = fascism } }
+		available = { fascism > 0.25 }
+		cost = 35
+		days_re_enable = 60
+		complete_effect = {
+			add_popularity = { ideology = fascism popularity = 0.04 }
+			add_war_support = 0.02
+			add_stability = -0.02
+		}
+		ai_will_do = {
+			base = 6
+			modifier = { factor = 0 has_stability < 0.45 }
+			modifier = { factor = 0 fascism > 0.6 }
+		}
+	}
+
+	AZV_win_over_the_old_generals = {
+		icon = generic_political_discourse
+		allowed = { original_tag = CRI }
+		visible = { NOT = { has_government = fascism } }
+		fire_only_once = yes
+		cost = 75
+		complete_effect = {
+			set_country_flag = AZV_generals_won_over
+			custom_effect_tooltip = AZV_win_over_the_old_generals_tt
+			add_popularity = { ideology = fascism popularity = 0.08 }
+		}
+		ai_will_do = { base = 8 }
+	}
+
+	AZV_raise_the_azov_legions = {
+		icon = generic_military
+		allowed = { original_tag = CRI }
+		visible = { has_government = fascism }
+		cost = 50
+		days_re_enable = 120
+		complete_effect = {
+			add_manpower = 8000
+			army_experience = 10
+		}
+		ai_will_do = {
+			base = 5
+			modifier = { factor = 3 has_war = yes }
+		}
+	}
+
+	AZV_purge_the_kadets = {
+		icon = oppression
+		allowed = { original_tag = CRI }
+		visible = { has_government = fascism }
+		fire_only_once = yes
+		cost = 75
+		complete_effect = {
+			add_popularity = { ideology = democratic popularity = -0.10 }
+			add_stability = 0.03
+			if = {
+				limit = { has_character = AZV_pyotr_struve }
+				retire_character = AZV_pyotr_struve
+			}
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	AZV_recruit_the_emigration = {
+		icon = generic_civil_support
+		allowed = { original_tag = CRI }
+		cost = 50
+		days_re_enable = 90
+		complete_effect = {
+			add_manpower = 4000
+			add_command_power = 15
+		}
+		ai_will_do = {
+			base = 4
+			modifier = { factor = 3 has_war = yes }
+		}
+	}
+}
+
+#######################################################################
+# THE WHITE CRUSADE
+#######################################################################
+
+AZV_crusade_category = {
+
+	AZV_strike_at_the_soviets = {
+		icon = generic_prepare_civil_war
+		allowed = { original_tag = CRI }
+		visible = { has_country_flag = AZV_strike_unlocked }
+		available = {
+			country_exists = SOV
+			NOT = { has_war_with = SOV }
+			SOV = { AZV_soviets_are_busy = yes }
+		}
+		fire_only_once = yes
+		cost = 50
+		complete_effect = {
+			AZV_tear_up_the_armistice = yes
+			declare_war_on = {
+				target = SOV
+				type = take_state_focus
+				generator = { 196 200 227 218 234 }
+			}
+			add_war_support = 0.10
+			hidden_effect = {
+				news_event = { id = brs_news.11 hours = 6 }
+			}
+		}
+		ai_will_do = { base = 20 }
+	}
+
+	AZV_raise_the_cossack_hosts = {
+		icon = generic_nationalism
+		allowed = { original_tag = CRI }
+		state_target = yes
+		targets = { 218 234 235 238 }
+		target_root_trigger = { has_war_with = SOV }
+		target_trigger = {
+			FROM = {
+				is_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		on_map_mode = map_and_decisions_view
+		cost = 50
+		complete_effect = {
+			FROM = { add_core_of = ROOT }
+			add_manpower = 10000
+		}
+		ai_will_do = { base = 20 }
+	}
+
+	AZV_captured_soviet_stocks = {
+		icon = generic_army_support
+		allowed = { original_tag = CRI }
+		visible = { has_war_with = SOV }
+		available = {
+			any_controlled_state = {
+				is_owned_by = SOV
+			}
+		}
+		cost = 25
+		days_re_enable = 60
+		complete_effect = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 800
+				producer = SOV
+			}
+			add_equipment_to_stockpile = {
+				type = artillery_equipment
+				amount = 60
+				producer = SOV
+			}
+		}
+		ai_will_do = { base = 10 }
+	}
+}

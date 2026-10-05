@@ -1,0 +1,194 @@
+###########################################################################
+# Borderlands Rising - news events
+#
+# Fired with news_event from the country that causes them; "major = yes"
+# shows them to every country. ROOT is the reader, FROM the country the
+# news is about.
+#
+#  1-9   Danzig            10-19 South Russia / Azov United
+# 20-29  Azerbaijan        30-39 Lithuania (Palanmir)
+# 40-49  Kurdistan
+###########################################################################
+
+add_namespace = brs_news
+
+### Danzig breaks with Berlin ###
+news_event = {
+	id = brs_news.1
+	title = brs_news.1.t
+	desc = brs_news.1.d
+	picture = GFX_news_event_gathering_protest
+	major = yes
+	is_triggered_only = yes
+
+	option = {
+		name = brs_news.1.a
+		trigger = { original_tag = DNZ }
+	}
+	option = {
+		name = brs_news.1.b
+		trigger = { tag = GER }
+	}
+	option = {
+		name = brs_news.1.c
+		trigger = {
+			NOT = { original_tag = DNZ }
+			NOT = { tag = GER }
+		}
+	}
+}
+
+### The New Hanseatic League ###
+news_event = {
+	id = brs_news.2
+	title = brs_news.2.t
+	desc = brs_news.2.d
+	picture = GFX_report_event_generic_sign_treaty2
+	major = yes
+	is_triggered_only = yes
+
+	option = {
+		name = brs_news.2.a
+		trigger = { original_tag = DNZ }
+	}
+	option = {
+		name = brs_news.2.b
+		trigger = { NOT = { original_tag = DNZ } }
+	}
+}
+
+### The Kingdom of Prussia is restored in Danzig ###
+news_event = {
+	id = brs_news.3
+	title = brs_news.3.t
+	desc = brs_news.3.d
+	picture = GFX_report_event_eng_royal_family
+	major = yes
+	is_triggered_only = yes
+
+	option = {
+		name = brs_news.3.a
+		trigger = { original_tag = DNZ }
+	}
+	option = {
+		name = brs_news.3.b
+		trigger = { tag = GER }
+	}
+	option = {
+		name = brs_news.3.c
+		trigger = {
+			NOT = { original_tag = DNZ }
+			NOT = { tag = GER }
+		}
+	}
+}
+
+### The Baltic Socialist Federation ###
+news_event = {
+	id = brs_news.4
+	title = brs_news.4.t
+	desc = brs_news.4.d
+	picture = GFX_news_event_generic_rally_3
+	major = yes
+	is_triggered_only = yes
+
+	option = {
+		name = brs_news.4.a
+		trigger = { original_tag = DNZ }
+	}
+	option = {
+		name = brs_news.4.b
+		trigger = { tag = SOV }
+	}
+	option = {
+		name = brs_news.4.c
+		trigger = {
+			NOT = { original_tag = DNZ }
+			NOT = { tag = SOV }
+		}
+	}
+}
+
+### The Danziger Reich ###
+news_event = {
+	id = brs_news.5
+	title = brs_news.5.t
+	desc = brs_news.5.d
+	picture = GFX_news_event_generic_army
+	major = yes
+	is_triggered_only = yes
+
+	option = {
+		name = brs_news.5.a
+		trigger = { original_tag = DNZ }
+	}
+	option = {
+		name = brs_news.5.b
+		trigger = {
+			OR = {
+				tag = GER
+				tag = POL
+			}
+		}
+	}
+	option = {
+		name = brs_news.5.c
+		trigger = {
+			NOT = { original_tag = DNZ }
+			NOT = { tag = GER }
+			NOT = { tag = POL }
+		}
+	}
+}
+
+### Azov United is proclaimed ###
+news_event = {
+	id = brs_news.10
+	title = brs_news.10.t
+	desc = brs_news.10.d
+	picture = GFX_news_event_generic_rally_3
+	major = yes
+	is_triggered_only = yes
+
+	option = {
+		name = brs_news.10.a
+		trigger = { original_tag = CRI }
+	}
+	option = {
+		name = brs_news.10.b
+		trigger = { tag = SOV }
+	}
+	option = {
+		name = brs_news.10.c
+		trigger = {
+			NOT = { original_tag = CRI }
+			NOT = { tag = SOV }
+		}
+	}
+}
+
+### The Whites strike at the Soviet Union ###
+news_event = {
+	id = brs_news.11
+	title = brs_news.11.t
+	desc = brs_news.11.d
+	picture = GFX_news_event_generic_army
+	major = yes
+	is_triggered_only = yes
+
+	option = {
+		name = brs_news.11.a
+		trigger = { original_tag = CRI }
+	}
+	option = {
+		name = brs_news.11.b
+		trigger = { tag = SOV }
+	}
+	option = {
+		name = brs_news.11.c
+		trigger = {
+			NOT = { original_tag = CRI }
+			NOT = { tag = SOV }
+		}
+	}
+}

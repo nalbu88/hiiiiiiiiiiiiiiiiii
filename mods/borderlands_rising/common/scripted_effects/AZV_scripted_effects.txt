@@ -1,0 +1,207 @@
+###########################################################################
+# Borderlands Rising - South Russia / Azov United scripted effects
+###########################################################################
+
+###########################################################################
+# The Arsenal of the White Cause
+# AZV_arms_multiplier (1.0 at the start, 2.0 at most) scales every
+# purchase. A decision sets the temp variable AZV_purchase to the base
+# amount, calls AZV_scale_purchase and buys AZV_purchase.
+###########################################################################
+
+AZV_scale_purchase = {
+	if = {
+		limit = { NOT = { has_variable = AZV_arms_multiplier } }
+		set_variable = { AZV_arms_multiplier = 1 }
+	}
+	multiply_temp_variable = { AZV_purchase = AZV_arms_multiplier }
+	round_temp_variable = AZV_purchase
+}
+
+AZV_arms_multiplier_up_25 = {
+	custom_effect_tooltip = AZV_arms_multiplier_up_25_tt
+	hidden_effect = {
+		if = {
+			limit = { NOT = { has_variable = AZV_arms_multiplier } }
+			set_variable = { AZV_arms_multiplier = 1 }
+		}
+		add_to_variable = { AZV_arms_multiplier = 0.25 }
+		clamp_variable = { var = AZV_arms_multiplier min = 1 max = 2 }
+	}
+}
+
+AZV_arms_multiplier_up_50 = {
+	custom_effect_tooltip = AZV_arms_multiplier_up_50_tt
+	hidden_effect = {
+		if = {
+			limit = { NOT = { has_variable = AZV_arms_multiplier } }
+			set_variable = { AZV_arms_multiplier = 1 }
+		}
+		add_to_variable = { AZV_arms_multiplier = 0.5 }
+		clamp_variable = { var = AZV_arms_multiplier min = 1 max = 2 }
+	}
+}
+
+###########################################################################
+# The coup: Turkul takes Simferopol (event azv.2)
+###########################################################################
+
+AZV_turkul_takes_power = {
+	set_politics = {
+		ruling_party = fascism
+		elections_allowed = no
+	}
+	if = {
+		limit = { has_character = AZV_anton_turkul }
+		promote_character = AZV_anton_turkul
+	}
+	add_popularity = { ideology = fascism popularity = 0.15 }
+	set_country_flag = AZV_turkul_in_power
+}
+
+###########################################################################
+# Claims and integration
+###########################################################################
+
+AZV_integrate_claimed_states = {
+	custom_effect_tooltip = AZV_integrate_claimed_states_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				is_claimed_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+			add_core_of = ROOT
+		}
+	}
+}
+
+# The armistice of 1920 ends: no more non-aggression pact with Moscow.
+AZV_tear_up_the_armistice = {
+	if = {
+		limit = {
+			country_exists = SOV
+			has_non_aggression_pact_with = SOV
+		}
+		diplomatic_relation = {
+			country = SOV
+			relation = non_aggression_pact
+			active = no
+		}
+	}
+	if = {
+		limit = { country_exists = SOV }
+		SOV = { add_opinion_modifier = { target = ROOT modifier = AZV_azov_threat } }
+	}
+}
+
+###########################################################################
+# Diplomacy
+###########################################################################
+
+# Prometheism: the Polish-backed movement of the peoples of the Soviet
+# borderlands. Friends in Warsaw, Ankara, Tbilisi, Kyiv and Baku.
+AZV_befriend_the_promethean_powers = {
+	custom_effect_tooltip = AZV_befriend_the_promethean_powers_tt
+	hidden_effect = {
+		every_country = {
+			limit = {
+				OR = {
+					tag = POL
+					tag = TUR
+					tag = ROM
+					tag = FIN
+					tag = GEO
+					tag = UKR
+					tag = AZR
+					tag = ARM
+				}
+				exists = yes
+				NOT = { has_war_with = ROOT }
+				NOT = { has_government = communism }
+			}
+			add_opinion_modifier = { target = ROOT modifier = AZV_white_crusade }
+			ROOT = { add_opinion_modifier = { target = PREV modifier = AZV_white_crusade } }
+		}
+	}
+}
+
+###########################################################################
+# Factions. Templates live in common/factions/templates; faction
+# creation is briefly allowed even under the "no factions" rule.
+###########################################################################
+
+AZV_create_white_crusade_faction = {
+	if = {
+		limit = { NOT = { has_rule = can_create_factions } }
+		set_country_flag = AZV_temp_faction_rule
+		set_rule = { can_create_factions = yes }
+	}
+	create_faction_from_template = {
+		template = AZV_faction_white_crusade
+		name = AZV_faction_white_crusade_name
+	}
+	if = {
+		limit = { has_country_flag = AZV_temp_faction_rule }
+		clear_rule = { can_create_factions = yes }
+		clr_country_flag = AZV_temp_faction_rule
+	}
+	set_country_flag = AZV_white_crusade_founded
+}
+
+AZV_invite_white_crusade_members = {
+	custom_effect_tooltip = AZV_invite_white_crusade_members_tt
+	hidden_effect = {
+		every_country = {
+			limit = {
+				OR = {
+					tag = POL
+					tag = ROM
+					tag = FIN
+					tag = TUR
+					tag = GEO
+					tag = UKR
+					tag = AZR
+					tag = ARM
+					tag = HUN
+					tag = DNZ
+				}
+				exists = yes
+				is_in_faction = no
+				is_subject = no
+				is_major = no
+				NOT = { has_government = communism }
+				NOT = { has_war_with = ROOT }
+			}
+			country_event = { id = azv.10 hours = 12 }
+		}
+	}
+}
+
+# Ask the leading fascist faction to take South Russia in.
+AZV_request_axis_membership = {
+	custom_effect_tooltip = AZV_request_axis_membership_tt
+	hidden_effect = {
+		if = {
+			limit = {
+				country_exists = GER
+				GER = {
+					is_faction_leader = yes
+					has_government = fascism
+					NOT = { has_war_with = ROOT }
+				}
+			}
+			GER = { country_event = { id = azv.12 hours = 12 } }
+		}
+		else = {
+			random_country = {
+				limit = {
+					is_faction_leader = yes
+					has_government = fascism
+					NOT = { has_war_with = ROOT }
+				}
+				country_event = { id = azv.12 hours = 12 }
+			}
+		}
+	}
+}

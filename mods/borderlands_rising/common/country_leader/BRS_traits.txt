@@ -178,6 +178,20 @@ leader_traits = {
 		ai_will_do = { factor = 1 }
 	}
 
+	AZV_trait_white_statesman = {
+		random = no
+		stability_factor = 0.05
+		opinion_gain_monthly_factor = 0.20
+		ai_will_do = { factor = 1 }
+	}
+
+	AZV_trait_philosopher_of_the_white_idea = {
+		random = no
+		war_support_factor = 0.05
+		drift_defence_factor = 0.25
+		ai_will_do = { factor = 1 }
+	}
+
 	AZV_trait_tatar_national_leader = {
 		random = no
 		stability_factor = 0.05

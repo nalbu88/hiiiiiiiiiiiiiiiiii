@@ -1,0 +1,182 @@
+###########################################################################
+# Borderlands Rising - South Russia / Azov United national spirits
+#
+# Two starting spirits: the besieged peninsula, removed when the Azov
+# Littoral is claimed, and the White Army's veterans, upgraded by the
+# Officer Battalions focus.
+###########################################################################
+
+ideas = {
+	country = {
+
+		######## Starting spirits ########
+
+		AZV_island_of_crimea = {
+			removal_cost = -1
+			modifier = {
+				army_core_defence_factor = 0.15
+				war_support_factor = 0.10
+				trade_opinion_factor = -0.20
+				production_speed_buildings_factor = -0.10
+			}
+		}
+
+		AZV_white_army_remnants = {
+			removal_cost = -1
+			modifier = {
+				army_org_factor = 0.10
+				experience_gain_army_factor = 0.15
+				conscription_factor = -0.10
+			}
+		}
+
+		AZV_white_army_reborn = {
+			removal_cost = -1
+			modifier = {
+				army_org_factor = 0.10
+				experience_gain_army_factor = 0.20
+				army_morale_factor = 0.05
+			}
+		}
+
+		######## Azov United ########
+
+		AZV_azov_united_spirit = {
+			removal_cost = -1
+			modifier = {
+				war_support_factor = 0.15
+				army_attack_factor = 0.10
+				conscription_factor = 0.10
+				political_power_factor = 0.10
+			}
+		}
+
+		AZV_vozhd_principle = {
+			removal_cost = -1
+			modifier = {
+				political_power_factor = 0.15
+				stability_factor = 0.05
+				drift_defence_factor = 0.30
+			}
+		}
+
+		AZV_tatar_accord_idea = {
+			removal_cost = -1
+			modifier = {
+				conscription_factor = 0.10
+				stability_factor = 0.05
+			}
+		}
+
+		AZV_militant_state = {
+			removal_cost = -1
+			modifier = {
+				conscription_factor = 0.15
+				war_support_factor = 0.10
+				training_time_factor = -0.10
+			}
+		}
+
+		AZV_azov_imperium = {
+			removal_cost = -1
+			modifier = {
+				army_attack_factor = 0.10
+				army_defence_factor = 0.10
+				war_support_factor = 0.10
+				justify_war_goal_time = -0.30
+			}
+		}
+
+		######## Army ########
+
+		AZV_drozdovsky_discipline_idea = {
+			removal_cost = -1
+			modifier = {
+				army_org_factor = 0.05
+				army_morale_factor = 0.10
+			}
+		}
+
+		AZV_isthmus_doctrine = {
+			removal_cost = -1
+			modifier = {
+				army_core_defence_factor = 0.15
+				max_dig_in = 3
+				dig_in_speed_factor = 0.30
+			}
+		}
+
+		AZV_cossack_charge = {
+			removal_cost = -1
+			modifier = {
+				cavalry_attack_factor = 0.15
+				cavalry_defence_factor = 0.10
+			}
+		}
+
+		AZV_total_mobilisation_idea = {
+			removal_cost = -1
+			modifier = {
+				conscription_factor = 0.20
+				war_support_factor = 0.05
+				mobilization_speed = 0.25
+			}
+		}
+
+		AZV_white_guard = {
+			removal_cost = -1
+			modifier = {
+				army_attack_factor = 0.10
+				army_defence_factor = 0.10
+				army_org_factor = 0.05
+			}
+		}
+
+		######## Navy and air force ########
+
+		AZV_black_sea_masters = {
+			removal_cost = -1
+			modifier = {
+				naval_damage_factor = 0.10
+				navy_org_factor = 0.10
+				navy_submarine_attack_factor = 0.10
+			}
+		}
+
+		AZV_white_eagles = {
+			removal_cost = -1
+			modifier = {
+				air_superiority_efficiency = 0.10
+				air_attack_factor = 0.05
+			}
+		}
+
+		######## Economy ########
+
+		AZV_garrison_state_economy = {
+			removal_cost = -1
+			modifier = {
+				industrial_capacity_factory = 0.10
+				production_speed_arms_factory_factor = 0.20
+			}
+		}
+
+		AZV_arsenal_state = {
+			removal_cost = -1
+			modifier = {
+				production_factory_max_efficiency_factor = 0.10
+				industrial_capacity_factory = 0.05
+			}
+		}
+
+		######## Foreign ########
+
+		AZV_crusaders = {
+			removal_cost = -1
+			modifier = {
+				send_volunteer_size = 2
+				experience_gain_army_factor = 0.10
+			}
+		}
+	}
+}
