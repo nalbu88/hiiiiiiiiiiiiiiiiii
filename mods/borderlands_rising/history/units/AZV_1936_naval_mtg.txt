@@ -1,0 +1,27 @@
+###########################################################################
+# Borderlands Rising - the Black Sea Squadron of South Russia (Man the Guns)
+# Variants are created in history/countries/CRI - Crimea.txt.
+###########################################################################
+
+units = {
+	fleet = {
+		name = "Black Sea Squadron"
+		naval_base = 3686 # Sevastopol
+		task_force = {
+			name = "Black Sea Squadron"
+			location = 3686 # Sevastopol
+			ship = { name = "General Alekseyev" definition = battleship equipment = { ship_hull_heavy_1 = { amount = 1 owner = CRI version_name = "Imperatritsa Mariya Class" } } }
+			ship = { name = "General Kornilov" definition = heavy_cruiser equipment = { ship_hull_cruiser_1 = { amount = 1 owner = CRI version_name = "Admiral Nakhimov Class" } } }
+			ship = { name = "Derzky" definition = destroyer equipment = { ship_hull_light_1 = { amount = 1 owner = CRI version_name = "Novik Class" } } }
+			ship = { name = "Gnevny" definition = destroyer equipment = { ship_hull_light_1 = { amount = 1 owner = CRI version_name = "Novik Class" } } }
+			ship = { name = "Pospeshny" definition = destroyer equipment = { ship_hull_light_1 = { amount = 1 owner = CRI version_name = "Novik Class" } } }
+			ship = { name = "Tserigo" definition = destroyer equipment = { ship_hull_light_1 = { amount = 1 owner = CRI version_name = "Novik Class" } } }
+		}
+		task_force = {
+			name = "Submarine Division"
+			location = 3686 # Sevastopol
+			ship = { name = "Utka" definition = submarine equipment = { ship_hull_submarine_1 = { amount = 1 owner = CRI version_name = "AG Class" } } }
+			ship = { name = "Burevestnik" definition = submarine equipment = { ship_hull_submarine_1 = { amount = 1 owner = CRI version_name = "AG Class" } } }
+		}
+	}
+}

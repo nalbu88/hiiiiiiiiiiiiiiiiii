@@ -1,0 +1,68 @@
+###########################################################################
+# Borderlands Rising - Danzig scripted triggers
+###########################################################################
+
+### AI path selection (game rule "Danzig AI", BRS_danzig_ai) ###
+
+DZG_ai_rule_fascist = {
+	OR = {
+		has_game_rule = { rule = BRS_danzig_ai option = DEFAULT }
+		has_game_rule = { rule = BRS_danzig_ai option = FASCIST }
+	}
+}
+
+DZG_ai_rule_democratic = {
+	has_game_rule = { rule = BRS_danzig_ai option = DEMOCRATIC }
+}
+
+DZG_ai_rule_nonaligned = {
+	has_game_rule = { rule = BRS_danzig_ai option = NONALIGNED }
+}
+
+DZG_ai_rule_monarchist = {
+	has_game_rule = { rule = BRS_danzig_ai option = MONARCHIST }
+}
+
+DZG_ai_rule_communist = {
+	has_game_rule = { rule = BRS_danzig_ai option = COMMUNIST }
+}
+
+DZG_ai_rule_random = {
+	has_game_rule = { rule = BRS_danzig_ai option = RANDOM }
+}
+
+### The Danzig Question ###
+
+# Berlin will back a claim against Poland.
+DZG_berlin_backs_us = {
+	custom_trigger_tooltip = {
+		tooltip = DZG_berlin_backs_us_tt
+		power_balance_value = {
+			id = DZG_danzig_question
+			value < -0.15
+		}
+	}
+}
+
+# Warsaw will back a claim against Germany.
+DZG_warsaw_backs_us = {
+	custom_trigger_tooltip = {
+		tooltip = DZG_warsaw_backs_us_tt
+		power_balance_value = {
+			id = DZG_danzig_question
+			value > 0.15
+		}
+	}
+}
+
+# Country scope: too busy or too weak to hold on to a border province.
+DZG_country_is_distracted = {
+	custom_trigger_tooltip = {
+		tooltip = DZG_country_is_distracted_tt
+		OR = {
+			has_civil_war = yes
+			surrender_progress > 0.1
+			any_enemy_country = { is_major = yes }
+		}
+	}
+}

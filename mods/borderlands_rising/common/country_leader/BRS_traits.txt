@@ -1,0 +1,297 @@
+###########################################################################
+# Borderlands Rising - country leader and advisor traits
+#
+# Prefixes: DZG_ Danzig, AZV_ Crimea / Azov United, ODL_ Azerbaijan,
+# PLM_ Lithuania (Palanmir). Military advisors use vanilla advisor traits.
+###########################################################################
+
+leader_traits = {
+
+	#######################################################################
+	# DANZIG
+	#######################################################################
+
+	### Country leaders ###
+
+	DZG_trait_senate_president = {
+		random = no
+		political_power_factor = 0.10
+		stability_factor = -0.05
+		ai_will_do = { factor = 1 }
+	}
+
+	DZG_trait_danziger_first = {
+		random = no
+		political_power_factor = 0.15
+		war_support_factor = 0.10
+		production_speed_buildings_factor = 0.05
+		ai_will_do = { factor = 1 }
+	}
+
+	DZG_trait_league_high_commissioner = {
+		random = no
+		stability_factor = 0.10
+		enemy_justify_war_goal_time = 0.25
+		ai_will_do = { factor = 1 }
+	}
+
+	DZG_trait_dockside_social_democrat = {
+		random = no
+		stability_factor = 0.05
+		monthly_population = 0.05
+		production_speed_industrial_complex_factor = 0.10
+		ai_will_do = { factor = 1 }
+	}
+
+	DZG_trait_catholic_centrist = {
+		random = no
+		stability_factor = 0.10
+		war_support_factor = 0.05
+		political_power_factor = 0.05
+		ai_will_do = { factor = 1 }
+	}
+
+	DZG_trait_first_citizen_of_the_hansa = {
+		random = no
+		political_power_factor = 0.10
+		trade_opinion_factor = 0.25
+		production_factory_max_efficiency_factor = 0.05
+		ai_will_do = { factor = 1 }
+	}
+
+	DZG_trait_underground_organiser = {
+		random = no
+		political_power_factor = 0.10
+		conscription_factor = 0.05
+		ai_will_do = { factor = 1 }
+	}
+
+	DZG_trait_chairman_of_the_baltic_commune = {
+		random = no
+		political_power_factor = 0.10
+		conscription_factor = 0.10
+		production_factory_efficiency_gain_factor = 0.10
+		ai_will_do = { factor = 1 }
+	}
+
+	DZG_trait_old_senate_hand = {
+		random = no
+		stability_factor = 0.05
+		political_power_factor = 0.05
+		ai_will_do = { factor = 1 }
+	}
+
+	DZG_trait_conservative_apostate = {
+		random = no
+		political_power_factor = 0.10
+		drift_defence_factor = 0.30
+		stability_factor = 0.05
+		ai_will_do = { factor = 1 }
+	}
+
+	DZG_trait_director_of_the_free_city = {
+		random = no
+		political_power_factor = 0.15
+		stability_factor = 0.10
+		enemy_justify_war_goal_time = 0.20
+		ai_will_do = { factor = 1 }
+	}
+
+	DZG_trait_aviator_prince = {
+		random = no
+		stability_factor = 0.05
+		experience_gain_air_factor = 0.15
+		ai_will_do = { factor = 1 }
+	}
+
+	DZG_trait_king_in_prussia = {
+		random = no
+		stability_factor = 0.10
+		political_power_factor = 0.10
+		army_morale_factor = 0.05
+		ai_will_do = { factor = 1 }
+	}
+
+	### Advisors ###
+
+	DZG_trait_berlins_gauleiter = {
+		random = no
+		political_power_factor = 0.10
+		stability_factor = -0.05
+		ai_will_do = { factor = 1 }
+	}
+
+	DZG_trait_founding_administrator = {
+		random = no
+		stability_factor = 0.05
+		production_speed_buildings_factor = 0.05
+		ai_will_do = { factor = 1 }
+	}
+
+	DZG_trait_league_mediator = {
+		random = no
+		enemy_justify_war_goal_time = 0.20
+		opinion_gain_monthly_factor = 0.25
+		ai_will_do = { factor = 1 }
+	}
+
+	#######################################################################
+	# CRIMEA / AZOV UNITED
+	#######################################################################
+
+	AZV_trait_the_black_baron = {
+		random = no
+		army_org_factor = 0.05
+		war_support_factor = 0.10
+		stability_factor = 0.05
+		ai_will_do = { factor = 1 }
+	}
+
+	AZV_trait_vozhd_of_azov = {
+		random = no
+		political_power_factor = 0.10
+		war_support_factor = 0.15
+		conscription_factor = 0.10
+		army_attack_factor = 0.05
+		army_defence_factor = 0.05
+		ai_will_do = { factor = 1 }
+	}
+
+	AZV_trait_harbin_propagandist = {
+		random = no
+		war_support_factor = 0.10
+		political_power_factor = 0.05
+		ai_will_do = { factor = 1 }
+	}
+
+	AZV_trait_putnam_millionaire = {
+		random = no
+		political_power_gain = 0.15
+		ai_will_do = { factor = 1 }
+	}
+
+	AZV_trait_young_russia_ideologue = {
+		random = no
+		stability_factor = 0.05
+		political_power_factor = 0.05
+		drift_defence_factor = 0.20
+		ai_will_do = { factor = 1 }
+	}
+
+	AZV_trait_tatar_national_leader = {
+		random = no
+		stability_factor = 0.05
+		conscription_factor = 0.05
+		monthly_population = 0.05
+		ai_will_do = { factor = 1 }
+	}
+
+	#######################################################################
+	# AZERBAIJAN
+	#######################################################################
+
+	ODL_trait_infant_president = {
+		random = no
+		stability_factor = 0.10
+		political_power_factor = -0.15
+		war_support_factor = -0.05
+		ai_will_do = { factor = 1 }
+	}
+
+	ODL_trait_toddler_statesman = {
+		random = no
+		stability_factor = 0.10
+		production_speed_buildings_factor = 0.05
+		ai_will_do = { factor = 1 }
+	}
+
+	ODL_trait_boy_wonder_president = {
+		random = no
+		stability_factor = 0.15
+		political_power_factor = 0.15
+		war_support_factor = 0.05
+		ai_will_do = { factor = 1 }
+	}
+
+	ODL_trait_father_of_the_republic = {
+		random = no
+		stability_factor = 0.05
+		political_power_gain = 0.10
+		ai_will_do = { factor = 1 }
+	}
+
+	ODL_trait_paris_publicist = {
+		random = no
+		war_support_factor = 0.05
+		opinion_gain_monthly_factor = 0.20
+		ai_will_do = { factor = 1 }
+	}
+
+	ODL_trait_god_of_artillery = {
+		random = no
+		army_artillery_attack_factor = 0.15
+		ai_will_do = { factor = 1 }
+	}
+
+	ODL_trait_petrochemist = {
+		random = no
+		fuel_gain_factor = 0.15
+		production_speed_synthetic_refinery_factor = 0.25
+		ai_will_do = { factor = 1 }
+	}
+
+	ODL_trait_caspian_diplomat = {
+		random = no
+		trade_opinion_factor = 0.20
+		opinion_gain_monthly_factor = 0.25
+		ai_will_do = { factor = 1 }
+	}
+
+	ODL_trait_oil_baron = {
+		random = no
+		production_speed_industrial_complex_factor = 0.10
+		consumer_goods_factor = -0.02
+		ai_will_do = { factor = 1 }
+	}
+
+	#######################################################################
+	# LITHUANIA (PALANMIR)
+	#######################################################################
+
+	PLM_trait_contrarian_financier = {
+		random = no
+		research_speed_factor = 0.05
+		political_power_factor = 0.05
+		ai_will_do = { factor = 1 }
+	}
+
+	PLM_trait_chief_executive_of_the_nation = {
+		random = no
+		research_speed_factor = 0.10
+		production_speed_buildings_factor = 0.10
+		political_power_factor = 0.15
+		stability_factor = -0.10
+		ai_will_do = { factor = 1 }
+	}
+
+	PLM_trait_chief_data_officer = {
+		random = no
+		decryption_factor = 0.25
+		research_speed_factor = 0.03
+		ai_will_do = { factor = 1 }
+	}
+
+	PLM_trait_predictive_logistician = {
+		random = no
+		supply_consumption_factor = -0.10
+		attrition = -0.10
+		ai_will_do = { factor = 1 }
+	}
+
+	PLM_trait_integration_architect = {
+		random = no
+		compliance_growth = 0.15
+		required_garrison_factor = -0.20
+		ai_will_do = { factor = 1 }
+	}
+}

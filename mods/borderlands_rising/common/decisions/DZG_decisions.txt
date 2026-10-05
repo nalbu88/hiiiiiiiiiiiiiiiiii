@@ -1,0 +1,807 @@
+###########################################################################
+# Borderlands Rising - Danzig decisions
+#
+# Performance notes:
+#  - Every decision is gated by "allowed = { original_tag = ... }", which
+#    the game evaluates once at start-up.
+#  - State-targeted decisions use explicit "targets" lists (the five border
+#    states Danzig can claim) or "state_target = any_owned_state".
+###########################################################################
+
+#######################################################################
+# THE DANZIG QUESTION (shown inside the balance of power)
+#######################################################################
+
+DZG_danzig_question_category = {
+
+	DZG_court_berlin = {
+		icon = generic_political_discourse
+		allowed = { original_tag = DNZ }
+		available = {
+			country_exists = GER
+			NOT = { has_war_with = GER }
+			NOT = { has_country_flag = DZG_broke_with_berlin }
+		}
+		cost = 50
+		days_re_enable = 90
+		complete_effect = {
+			add_power_balance_value = {
+				id = DZG_danzig_question
+				value = -0.10
+				tooltip_side = DZG_bop_berlin_side
+			}
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 500
+				producer = GER
+			}
+			DZG_forster_network_up_10 = yes
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 3 has_government = fascism }
+			modifier = {
+				factor = 0
+				power_balance_value = { id = DZG_danzig_question value < -0.45 }
+			}
+		}
+	}
+
+	DZG_court_warsaw = {
+		icon = generic_civil_support
+		allowed = { original_tag = DNZ }
+		available = {
+			country_exists = POL
+			NOT = { has_war_with = POL }
+		}
+		cost = 50
+		days_re_enable = 90
+		complete_effect = {
+			add_power_balance_value = {
+				id = DZG_danzig_question
+				value = 0.10
+				tooltip_side = DZG_bop_warsaw_side
+			}
+			add_timed_idea = { idea = DZG_polish_credit days = 180 }
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 3 has_government = democratic }
+			modifier = {
+				factor = 0
+				power_balance_value = { id = DZG_danzig_question value > 0.45 }
+			}
+		}
+	}
+
+	DZG_assert_the_free_city = {
+		icon = generic_protection
+		allowed = { original_tag = DNZ }
+		available = {
+			OR = {
+				power_balance_value = { id = DZG_danzig_question value < -0.15 }
+				power_balance_value = { id = DZG_danzig_question value > 0.15 }
+			}
+		}
+		cost = 75
+		days_re_enable = 120
+		complete_effect = {
+			if = {
+				limit = { power_balance_value = { id = DZG_danzig_question value < 0 } }
+				add_power_balance_value = {
+					id = DZG_danzig_question
+					value = 0.15
+					tooltip_side = DZG_bop_warsaw_side
+				}
+			}
+			else = {
+				add_power_balance_value = {
+					id = DZG_danzig_question
+					value = -0.15
+					tooltip_side = DZG_bop_berlin_side
+				}
+			}
+			add_stability = 0.02
+		}
+		ai_will_do = {
+			base = 3
+			modifier = { factor = 3 has_government = neutrality }
+		}
+	}
+}
+
+#######################################################################
+# THE FREE CITY'S CLAIMS
+# Demand a claimed state, buy it, or take it. Leaning towards one
+# neighbour makes the other one more likely to give way.
+#######################################################################
+
+DZG_claims_category = {
+
+	DZG_demand_state = {
+		icon = border_war
+		allowed = { original_tag = DNZ }
+		state_target = yes
+		targets = { 807 5 763 63 188 }
+		target_root_trigger = {
+			has_country_flag = DZG_claims_unlocked
+		}
+		target_trigger = {
+			FROM = {
+				is_claimed_by = ROOT
+				NOT = { is_owned_by = ROOT }
+				NOT = { has_state_flag = DZG_demand_pending }
+				owner = { NOT = { has_war_with = ROOT } }
+			}
+		}
+		on_map_mode = map_and_decisions_view
+		cost = 50
+		days_re_enable = 180
+		complete_effect = {
+			custom_effect_tooltip = DZG_demand_state_tt
+			FROM = {
+				set_state_flag = DZG_demand_pending
+				save_event_target_as = dzg_demanded_state
+				owner = { country_event = { id = dzg.10 hours = 12 } }
+			}
+		}
+		ai_will_do = { base = 2 }
+	}
+
+	DZG_purchase_state = {
+		icon = ger_mefo_bills
+		allowed = { original_tag = DNZ }
+		state_target = yes
+		targets = { 807 5 763 63 188 }
+		target_root_trigger = {
+			has_country_flag = DZG_claims_unlocked
+			has_country_flag = DZG_bank_unlocked
+		}
+		target_trigger = {
+			FROM = {
+				is_claimed_by = ROOT
+				NOT = { is_owned_by = ROOT }
+				NOT = { has_state_flag = DZG_demand_pending }
+				owner = { NOT = { has_war_with = ROOT } }
+			}
+		}
+		on_map_mode = map_and_decisions_view
+		cost = 150
+		days_re_enable = 180
+		complete_effect = {
+			custom_effect_tooltip = DZG_purchase_state_tt
+			FROM = {
+				set_state_flag = DZG_demand_pending
+				save_event_target_as = dzg_demanded_state
+				owner = { country_event = { id = dzg.13 hours = 12 } }
+			}
+		}
+		ai_will_do = { base = 2 }
+	}
+
+	DZG_war_for_the_corridor = {
+		icon = generic_military
+		allowed = { original_tag = DNZ }
+		visible = { has_country_flag = DZG_rival_of_warsaw }
+		available = {
+			country_exists = POL
+			NOT = { has_war_with = POL }
+			NOT = { is_in_faction_with = POL }
+			POL = { owns_state = 807 }
+			807 = { is_claimed_by = ROOT }
+			OR = {
+				has_country_flag = DZG_refused_by_POL
+				POL = { DZG_country_is_distracted = yes }
+			}
+		}
+		cost = 50
+		days_re_enable = 365
+		war_with_on_complete = POL
+		complete_effect = {
+			create_wargoal = {
+				type = take_claimed_state
+				target = POL
+				generator = { 807 }
+			}
+		}
+		ai_will_do = {
+			base = 3
+			modifier = { factor = 0 POL = { NOT = { DZG_country_is_distracted = yes } } }
+		}
+	}
+
+	DZG_war_for_prussia = {
+		icon = generic_military
+		allowed = { original_tag = DNZ }
+		visible = { has_country_flag = DZG_rival_of_berlin }
+		available = {
+			country_exists = GER
+			NOT = { has_war_with = GER }
+			NOT = { is_in_faction_with = GER }
+			OR = {
+				AND = {
+					GER = { owns_state = 5 }
+					5 = { is_claimed_by = ROOT }
+				}
+				AND = {
+					GER = { owns_state = 763 }
+					763 = { is_claimed_by = ROOT }
+				}
+				AND = {
+					GER = { owns_state = 63 }
+					63 = { is_claimed_by = ROOT }
+				}
+			}
+			OR = {
+				has_country_flag = DZG_refused_by_GER
+				GER = { DZG_country_is_distracted = yes }
+			}
+		}
+		cost = 50
+		days_re_enable = 365
+		war_with_on_complete = GER
+		complete_effect = {
+			create_wargoal = {
+				type = take_claimed_state
+				target = GER
+				generator = { 5 763 63 }
+			}
+		}
+		ai_will_do = {
+			base = 3
+			modifier = { factor = 0 GER = { NOT = { DZG_country_is_distracted = yes } } }
+		}
+	}
+
+	DZG_war_for_memel = {
+		icon = generic_military
+		allowed = { original_tag = DNZ }
+		visible = {
+			OR = {
+				has_country_flag = DZG_rival_of_berlin
+				has_country_flag = DZG_rival_of_warsaw
+			}
+		}
+		available = {
+			188 = {
+				is_claimed_by = ROOT
+				NOT = { is_owned_by = ROOT }
+			}
+			188 = {
+				owner = {
+					NOT = { has_war_with = ROOT }
+					NOT = { is_in_faction_with = ROOT }
+				}
+			}
+			OR = {
+				has_country_flag = DZG_refused_by_LIT
+				188 = { owner = { DZG_country_is_distracted = yes } }
+			}
+		}
+		cost = 50
+		days_re_enable = 365
+		complete_effect = {
+			188 = {
+				owner = {
+					ROOT = {
+						create_wargoal = {
+							type = take_claimed_state
+							target = PREV
+							generator = { 188 }
+						}
+					}
+				}
+			}
+		}
+		ai_will_do = { base = 2 }
+	}
+
+	DZG_integrate_state = {
+		icon = generic_nationalism
+		allowed = { original_tag = DNZ }
+		state_target = any_owned_state
+		target_root_trigger = {
+			has_country_flag = DZG_integration_unlocked
+		}
+		target_trigger = {
+			FROM = {
+				is_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+				OR = {
+					is_claimed_by = ROOT
+					compliance > 40
+				}
+			}
+		}
+		on_map_mode = map_and_decisions_view
+		cost = 50
+		days_remove = 60
+		remove_effect = {
+			FROM = { add_core_of = ROOT }
+		}
+		ai_will_do = { base = 5 }
+	}
+}
+
+#######################################################################
+# FORSTER'S NETWORK (fascist path)
+#######################################################################
+
+DZG_forster_category = {
+
+	DZG_arrest_forsters_lieutenants = {
+		icon = oppression
+		allowed = { original_tag = DNZ }
+		available = {
+			check_variable = { DZG_forster_network > 0 }
+		}
+		cost = 50
+		days_re_enable = 60
+		complete_effect = {
+			custom_effect_tooltip = DZG_forster_network_down_15_tt
+			add_to_variable = { DZG_forster_network = -15 }
+			clamp_variable = { var = DZG_forster_network min = 0 max = 100 }
+			add_stability = -0.02
+		}
+		ai_will_do = { base = 8 }
+	}
+
+	DZG_seize_the_party_treasury = {
+		icon = ger_mefo_bills
+		allowed = { original_tag = DNZ }
+		available = {
+			check_variable = { DZG_forster_network > 0 }
+		}
+		cost = 25
+		fire_only_once = yes
+		complete_effect = {
+			custom_effect_tooltip = DZG_forster_network_down_10_tt
+			add_to_variable = { DZG_forster_network = -10 }
+			clamp_variable = { var = DZG_forster_network min = 0 max = 100 }
+			add_political_power = 50
+		}
+		ai_will_do = { base = 8 }
+	}
+
+	DZG_win_over_the_storm_troopers = {
+		icon = generic_political_discourse
+		allowed = { original_tag = DNZ }
+		available = {
+			check_variable = { DZG_forster_network > 0 }
+		}
+		cost = 40
+		fire_only_once = yes
+		complete_effect = {
+			custom_effect_tooltip = DZG_forster_network_down_10_tt
+			add_to_variable = { DZG_forster_network = -10 }
+			clamp_variable = { var = DZG_forster_network min = 0 max = 100 }
+			add_war_support = 0.03
+		}
+		ai_will_do = { base = 8 }
+	}
+
+	DZG_turn_the_senate_police = {
+		icon = generic_protection
+		allowed = { original_tag = DNZ }
+		visible = { has_country_flag = DZG_senate_police_raised }
+		available = {
+			check_variable = { DZG_forster_network > 0 }
+		}
+		cost = 30
+		fire_only_once = yes
+		complete_effect = {
+			custom_effect_tooltip = DZG_forster_network_down_15_tt
+			add_to_variable = { DZG_forster_network = -15 }
+			clamp_variable = { var = DZG_forster_network min = 0 max = 100 }
+		}
+		ai_will_do = { base = 8 }
+	}
+}
+
+#######################################################################
+# THE HANSEATIC KONTORS (democratic path)
+#######################################################################
+
+DZG_hansa_category = {
+
+	DZG_open_kontor = {
+		icon = generic_industry
+		allowed = { original_tag = DNZ }
+		targets = { LIT LAT EST FIN SWE NOR DEN HOL BEL ENG FRA POL SOV GER }
+		target_trigger = {
+			FROM = {
+				exists = yes
+				NOT = { has_war_with = ROOT }
+				NOT = { has_country_flag = DZG_kontor_partner }
+			}
+		}
+		cost = 40
+		days_remove = 30
+		remove_effect = {
+			FROM = {
+				set_country_flag = DZG_kontor_partner
+				add_opinion_modifier = { target = ROOT modifier = DZG_hanseatic_partner }
+			}
+			add_to_variable = { DZG_kontor_count = 1 }
+			add_political_power = 25
+			custom_effect_tooltip = DZG_kontor_reward_tt
+			if = {
+				limit = {
+					OR = {
+						check_variable = { DZG_kontor_count = 3 }
+						check_variable = { DZG_kontor_count = 6 }
+						check_variable = { DZG_kontor_count = 9 }
+					}
+				}
+				add_offsite_building = {
+					type = industrial_complex
+					level = 1
+				}
+			}
+		}
+		ai_will_do = { base = 6 }
+	}
+}
+
+#######################################################################
+# THE NEUTRAL HARBOUR (non-aligned path)
+#######################################################################
+
+DZG_harbour_category = {
+
+	DZG_lease_harbour = {
+		icon = generic_construction
+		allowed = { original_tag = DNZ }
+		visible = { has_country_flag = DZG_harbour_unlocked }
+		targets = { GER POL SOV ENG FRA ITA SWE USA }
+		target_trigger = {
+			FROM = {
+				exists = yes
+				NOT = { has_war_with = ROOT }
+				NOT = { has_country_flag = DZG_harbour_lessee }
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = DZG_lease_limit_tt
+				NOT = { check_variable = { DZG_leases > 2 } }
+			}
+		}
+		cost = 25
+		complete_effect = {
+			FROM = {
+				set_country_flag = DZG_harbour_lessee
+				add_opinion_modifier = { target = ROOT modifier = DZG_trade_partner }
+			}
+			add_to_variable = { DZG_leases = 1 }
+			add_offsite_building = {
+				type = industrial_complex
+				level = 1
+			}
+			if = {
+				limit = { FROM = { tag = GER } }
+				add_power_balance_value = {
+					id = DZG_danzig_question
+					value = -0.05
+					tooltip_side = DZG_bop_berlin_side
+				}
+			}
+			if = {
+				limit = { FROM = { tag = POL } }
+				add_power_balance_value = {
+					id = DZG_danzig_question
+					value = 0.05
+					tooltip_side = DZG_bop_warsaw_side
+				}
+			}
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	DZG_bank_bond_issue = {
+		icon = ger_mefo_bills
+		allowed = { original_tag = DNZ }
+		visible = { has_country_flag = DZG_bank_unlocked }
+		cost = 0
+		days_re_enable = 120
+		complete_effect = {
+			add_political_power = 100
+			add_stability = -0.03
+		}
+		ai_will_do = {
+			base = 2
+			modifier = { factor = 0 has_stability < 0.5 }
+		}
+	}
+}
+
+#######################################################################
+# THE PRUSSIAN CROWN (monarchist path)
+#######################################################################
+
+DZG_crown_category = {
+
+	DZG_win_over_the_junkers = {
+		icon = generic_nationalism
+		allowed = { original_tag = DNZ }
+		state_target = yes
+		targets = { 5 763 63 62 64 }
+		target_trigger = {
+			FROM = {
+				NOT = { is_owned_by = ROOT }
+				NOT = { has_state_flag = DZG_junkers_won }
+			}
+		}
+		on_map_mode = map_and_decisions_view
+		cost = 60
+		days_remove = 60
+		remove_effect = {
+			FROM = {
+				set_state_flag = DZG_junkers_won
+				add_claim_by = ROOT
+			}
+			add_to_variable = { DZG_junker_states = 1 }
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	DZG_raise_the_royal_standard = {
+		icon = generic_ignite_civil_war
+		allowed = { original_tag = DNZ }
+		state_target = yes
+		targets = { 5 763 63 62 64 }
+		target_trigger = {
+			FROM = {
+				has_state_flag = DZG_junkers_won
+				NOT = { is_owned_by = ROOT }
+				owner = { NOT = { has_war_with = ROOT } }
+			}
+		}
+		available = {
+			FROM = {
+				owner = {
+					OR = {
+						DZG_country_is_distracted = yes
+						has_stability < 0.35
+					}
+				}
+			}
+		}
+		on_map_mode = map_and_decisions_view
+		cost = 100
+		days_re_enable = 180
+		complete_effect = {
+			custom_effect_tooltip = DZG_raise_the_royal_standard_tt
+			FROM = {
+				save_event_target_as = dzg_royalist_state
+				owner = { country_event = { id = dzg.43 hours = 12 } }
+			}
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	DZG_royal_pamphlets = {
+		icon = generic_political_discourse
+		allowed = { original_tag = DNZ }
+		visible = { has_country_flag = DZG_royal_pamphlets_unlocked }
+		available = {
+			country_exists = GER
+			NOT = { has_war_with = GER }
+		}
+		cost = 50
+		days_re_enable = 90
+		complete_effect = {
+			GER = {
+				add_stability = -0.03
+				add_war_support = -0.02
+				add_opinion_modifier = { target = ROOT modifier = DZG_demand_refused }
+			}
+		}
+		ai_will_do = { base = 3 }
+	}
+
+	DZG_crown_war_on_berlin = {
+		icon = generic_military
+		allowed = { original_tag = DNZ }
+		visible = { has_country_flag = DZG_german_crown }
+		available = {
+			country_exists = GER
+			NOT = { has_war_with = GER }
+			NOT = { is_in_faction_with = GER }
+			GER = { DZG_country_is_distracted = yes }
+		}
+		cost = 100
+		fire_only_once = yes
+		war_with_on_complete = GER
+		complete_effect = {
+			create_wargoal = {
+				type = annex_everything
+				target = GER
+			}
+		}
+		ai_will_do = { base = 5 }
+	}
+}
+
+#######################################################################
+# RED DANZIG (communist path)
+#######################################################################
+
+DZG_red_category = {
+
+	DZG_dockers_strike = {
+		icon = generic_ignite_civil_war
+		allowed = { original_tag = DNZ }
+		available = {
+			NOT = { has_government = communism }
+		}
+		cost = 30
+		days_re_enable = 45
+		complete_effect = {
+			add_popularity = { ideology = communism popularity = 0.05 }
+			add_stability = -0.02
+		}
+		ai_will_do = { base = 10 }
+	}
+
+	DZG_plant_red_cells = {
+		icon = generic_political_discourse
+		allowed = { original_tag = DNZ }
+		state_target = yes
+		targets = { 807 763 188 62 5 }
+		target_root_trigger = {
+			has_country_flag = DZG_red_sailors_unlocked
+		}
+		target_trigger = {
+			FROM = {
+				NOT = { is_owned_by = ROOT }
+				NOT = { has_state_flag = DZG_red_cells }
+			}
+		}
+		on_map_mode = map_and_decisions_view
+		cost = 40
+		days_remove = 45
+		remove_effect = {
+			FROM = {
+				set_state_flag = DZG_red_cells
+				add_claim_by = ROOT
+			}
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	DZG_sailors_mutiny = {
+		icon = generic_ignite_civil_war
+		allowed = { original_tag = DNZ }
+		state_target = yes
+		targets = { 807 763 188 62 5 }
+		target_root_trigger = {
+			has_country_flag = DZG_red_sailors_unlocked
+		}
+		target_trigger = {
+			FROM = {
+				has_state_flag = DZG_red_cells
+				NOT = { is_owned_by = ROOT }
+				owner = { NOT = { has_war_with = ROOT } }
+			}
+		}
+		available = {
+			FROM = {
+				owner = {
+					OR = {
+						DZG_country_is_distracted = yes
+						communism > 0.25
+					}
+				}
+			}
+		}
+		on_map_mode = map_and_decisions_view
+		cost = 100
+		days_re_enable = 120
+		complete_effect = {
+			custom_effect_tooltip = DZG_sailors_mutiny_tt
+			FROM = {
+				save_event_target_as = dzg_mutiny_state
+				owner = { country_event = { id = dzg.53 hours = 12 } }
+			}
+		}
+		ai_will_do = { base = 5 }
+	}
+}
+
+#######################################################################
+# THE FREE PORT
+#######################################################################
+
+DZG_free_port_category = {
+
+	DZG_casino_night = {
+		icon = ger_mefo_bills
+		allowed = { original_tag = DNZ }
+		cost = 25
+		days_re_enable = 30
+		complete_effect = {
+			custom_effect_tooltip = DZG_casino_night_tt
+			hidden_effect = {
+				random_list = {
+					40 = { add_political_power = 60 }
+					35 = { add_political_power = 25 }
+					25 = { add_stability = -0.01 }
+				}
+			}
+		}
+		ai_will_do = { base = 2 }
+	}
+}
+
+#######################################################################
+# GERMANY AND THE FREE CITY
+# Danzig no longer belongs to Poland at the start, so Germany's vanilla
+# "Danzig or War" focus is bypassed. These two decisions put Berlin's
+# side of the crisis back: demand the city, then the Corridor.
+#######################################################################
+
+DZG_ger_danzig_category = {
+
+	DZG_ger_demand_danzig = {
+		icon = generic_nationalism
+		allowed = { original_tag = GER }
+		visible = {
+			country_exists = DNZ
+			DNZ = { owns_state = 85 }
+		}
+		available = {
+			has_government = fascism
+			has_completed_focus = GER_reassert_eastern_claims
+			NOT = { has_war_with = DNZ }
+			NOT = { has_country_flag = DZG_ger_demanded_danzig }
+		}
+		cost = 50
+		fire_only_once = yes
+		complete_effect = {
+			set_country_flag = DZG_ger_demanded_danzig
+			DNZ = { country_event = { id = dzg.80 hours = 12 } }
+		}
+		ai_will_do = {
+			base = 10
+			modifier = { factor = 0 date < 1938.6.1 }
+		}
+	}
+
+	DZG_ger_corridor_ultimatum = {
+		icon = border_war
+		allowed = { original_tag = GER }
+		visible = {
+			NOT = { 85 = { is_owned_by = POL } }
+		}
+		available = {
+			has_government = fascism
+			has_completed_focus = GER_reassert_eastern_claims
+			country_exists = POL
+			NOT = { has_war_with = POL }
+			NOT = { is_in_faction_with = POL }
+			POL = { is_subject = no }
+		}
+		cost = 25
+		fire_only_once = yes
+		war_with_on_complete = POL
+		complete_effect = {
+			add_named_threat = { threat = 5 name = DZG_corridor_ultimatum }
+			create_wargoal = {
+				type = annex_everything
+				target = POL
+			}
+		}
+		ai_will_do = {
+			base = 10
+			modifier = { factor = 0 date < 1939.1.1 }
+			modifier = {
+				factor = 0
+				any_neighbor_country = {
+					has_war_with = GER
+					NOT = { has_capitulated = yes }
+				}
+			}
+		}
+	}
+}

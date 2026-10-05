@@ -1,0 +1,49 @@
+###########################################################################
+# Borderlands Rising - override of the vanilla state file
+# history/states/85-Danzig.txt
+#
+# The Free City of Danzig starts the game as its own country (DNZ).
+# Provinces, manpower, buildings, victory points and the League of
+# Nations demilitarisation are the vanilla 1.19 values. Changes:
+#   - owner is DNZ instead of POL
+#   - Germany's claim is present from 1936 (vanilla adds it in 1938)
+###########################################################################
+
+state = {
+	id = 85
+	name = "STATE_85"
+	manpower = 366730
+
+	state_category = city
+
+	history = {
+		owner = DNZ
+		add_core_of = DNZ
+		add_core_of = POL
+		add_core_of = KSH
+		add_claim_by = PRE
+		add_claim_by = GER
+
+		victory_points = {
+			362 10 # Danzig
+		}
+
+		set_demilitarized_zone = yes
+
+		buildings = {
+			infrastructure = 3
+			arms_factory = 2
+			industrial_complex = 1
+			dockyard = 3
+			362 = {
+				naval_base = 5
+			}
+		}
+	}
+
+	provinces = {
+		362
+	}
+
+	local_supplies = 0.0
+}

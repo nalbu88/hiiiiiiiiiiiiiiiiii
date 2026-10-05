@@ -1,0 +1,238 @@
+###########################################################################
+# Borderlands Rising - Crimea / Azov United characters
+#
+# The timeline: in November 1920 the White Army held the Perekop isthmus
+# and the Crimea survived as the last White Russian state. Every person
+# here is a real figure of the White movement or the Russian emigration
+# of the 1930s; their politics in-game follow their real politics.
+#
+# Wrangel, the generals and the admiral are recruited in
+# history/countries/CRI - Crimea.txt. The political advisors are brought
+# in by the focuses of the Azov branch.
+###########################################################################
+
+characters = {
+
+	### Country leaders ###
+
+	# Commander of the Armed Forces of South Russia in 1920. Here he never
+	# had to evacuate, and has ruled the peninsula ever since.
+	AZV_pyotr_wrangel = {
+		name = AZV_pyotr_wrangel
+		country_leader = {
+			desc = AZV_pyotr_wrangel_desc
+			ideology = despotism
+			traits = { AZV_trait_the_black_baron }
+			expire = "1965.1.1.1"
+		}
+		field_marshal = {
+			traits = { old_guard brilliant_strategist }
+			skill = 4
+			attack_skill = 3
+			defense_skill = 4
+			planning_skill = 3
+			logistics_skill = 3
+		}
+	}
+
+	# Commander of the Drozdovsky Division; in 1936 he founded the
+	# Russian National Union of War Veterans, openly fascist in outlook.
+	AZV_anton_turkul = {
+		name = AZV_anton_turkul
+		country_leader = {
+			desc = AZV_anton_turkul_desc
+			ideology = fascism_ideology
+			traits = { AZV_trait_vozhd_of_azov }
+			expire = "1965.1.1.1"
+		}
+		corps_commander = {
+			traits = { war_hero trait_reckless }
+			skill = 3
+			attack_skill = 4
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 2
+		}
+	}
+
+	### Political advisors ###
+
+	# Leader of the Russian Fascist Party, Harbin.
+	AZV_konstantin_rodzaevsky = {
+		name = AZV_konstantin_rodzaevsky
+		advisor = {
+			slot = political_advisor
+			idea_token = AZV_konstantin_rodzaevsky_advisor
+			cost = 100
+			allowed = { original_tag = CRI }
+			traits = { AZV_trait_harbin_propagandist }
+			ai_will_do = { factor = 1.5 }
+		}
+	}
+
+	# Leader of the All-Russian Fascist Organization, Putnam, Connecticut.
+	AZV_anastasy_vonsiatsky = {
+		name = AZV_anastasy_vonsiatsky
+		advisor = {
+			slot = political_advisor
+			idea_token = AZV_anastasy_vonsiatsky_advisor
+			cost = 100
+			allowed = { original_tag = CRI }
+			traits = { AZV_trait_putnam_millionaire }
+			ai_will_do = { factor = 2 }
+		}
+	}
+
+	# Founder of the Mladorossi (Young Russians).
+	AZV_alexander_kazem_bek = {
+		name = AZV_alexander_kazem_bek
+		advisor = {
+			slot = political_advisor
+			idea_token = AZV_alexander_kazem_bek_advisor
+			cost = 100
+			allowed = { original_tag = CRI }
+			traits = { AZV_trait_young_russia_ideologue }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	# Crimean Tatar national leader, War Minister of the 1917 Crimean
+	# People's Republic.
+	AZV_cafer_seydamet = {
+		name = AZV_cafer_seydamet
+		advisor = {
+			slot = political_advisor
+			idea_token = AZV_cafer_seydamet_advisor
+			cost = 100
+			allowed = { original_tag = CRI }
+			traits = { AZV_trait_tatar_national_leader }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	### Military ###
+
+	# "Slashchov-Krymsky", who held the Perekop isthmus in 1920.
+	AZV_yakov_slashchov = {
+		name = AZV_yakov_slashchov
+		field_marshal = {
+			traits = { defensive_doctrine thorough_planner }
+			skill = 4
+			attack_skill = 3
+			defense_skill = 5
+			planning_skill = 4
+			logistics_skill = 2
+		}
+		advisor = {
+			slot = army_chief
+			idea_token = AZV_yakov_slashchov_army_chief
+			cost = 100
+			allowed = { original_tag = CRI }
+			traits = { army_chief_organizational_2 }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	# Head of the Russian All-Military Union (ROVS), "the Iron General".
+	AZV_alexander_kutepov = {
+		name = AZV_alexander_kutepov
+		corps_commander = {
+			traits = { harsh_leader career_officer }
+			skill = 3
+			attack_skill = 3
+			defense_skill = 3
+			planning_skill = 3
+			logistics_skill = 2
+		}
+		advisor = {
+			slot = high_command
+			idea_token = AZV_alexander_kutepov_high_command
+			cost = 100
+			allowed = { original_tag = CRI }
+			traits = { army_infantry_2 }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	# Ataman of the Don Cossacks in 1918-1919.
+	AZV_pyotr_krasnov = {
+		name = AZV_pyotr_krasnov
+		corps_commander = {
+			traits = { cavalry_leader old_guard }
+			skill = 3
+			attack_skill = 3
+			defense_skill = 2
+			planning_skill = 3
+			logistics_skill = 2
+		}
+	}
+
+	# Kuban Cossack cavalry commander.
+	AZV_andrei_shkuro = {
+		name = AZV_andrei_shkuro
+		corps_commander = {
+			traits = { cavalry_officer trait_reckless }
+			skill = 3
+			attack_skill = 4
+			defense_skill = 1
+			planning_skill = 2
+			logistics_skill = 2
+		}
+	}
+
+	# Circassian commander of the Wild Division.
+	AZV_sultan_klych_girey = {
+		name = AZV_sultan_klych_girey
+		corps_commander = {
+			traits = { cavalry_leader trait_mountaineer }
+			skill = 2
+			attack_skill = 3
+			defense_skill = 2
+			planning_skill = 1
+			logistics_skill = 2
+		}
+	}
+
+	# Chief of staff of the Volunteer Army's corps in the Civil War.
+	AZV_boris_shteifon = {
+		name = AZV_boris_shteifon
+		corps_commander = {
+			traits = { career_officer trait_cautious }
+			skill = 2
+			attack_skill = 2
+			defense_skill = 3
+			planning_skill = 3
+			logistics_skill = 3
+		}
+		advisor = {
+			slot = theorist
+			idea_token = AZV_boris_shteifon_theorist
+			ledger = army
+			cost = 100
+			allowed = { original_tag = CRI }
+			traits = { grand_battle_plan_expert }
+			ai_will_do = { factor = 1 }
+		}
+	}
+
+	# Commander of the Russian Squadron that Wrangel's fleet became.
+	AZV_mikhail_kedrov = {
+		name = AZV_mikhail_kedrov
+		navy_leader = {
+			traits = { naval_lineage superior_tactician }
+			skill = 3
+			attack_skill = 3
+			defense_skill = 3
+			maneuvering_skill = 2
+			coordination_skill = 3
+		}
+		advisor = {
+			slot = navy_chief
+			idea_token = AZV_mikhail_kedrov_navy_chief
+			cost = 100
+			allowed = { original_tag = CRI }
+			traits = { navy_chief_decisive_battle_2 }
+			ai_will_do = { factor = 1 }
+		}
+	}
+}

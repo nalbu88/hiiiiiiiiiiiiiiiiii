@@ -1,0 +1,117 @@
+###########################################################################
+# Borderlands Rising - the Free City of Danzig, 1936
+#
+# The NSDAP holds the Volkstag and the Senate (Arthur Greiser), Gauleiter
+# Albert Forster takes his orders from Berlin, the League of Nations High
+# Commissioner guards a constitution nobody respects, and Poland runs the
+# customs, the railways and the city's foreign policy.
+###########################################################################
+
+capital = 85
+
+set_oob = "DZG_1936"
+
+set_research_slots = 3
+set_stability = 0.55
+set_war_support = 0.30
+
+set_technology = {
+	infantry_weapons = 1
+	infantry_weapons1 = 1
+	tech_support = 1
+	tech_recon = 1
+	tech_trucks = 1
+	gw_artillery = 1
+	interwar_antiair = 1
+	basic_train = 1
+}
+
+if = {
+	limit = { has_dlc = "Man the Guns" }
+	set_technology = {
+		early_ship_hull_light = 1
+		early_ship_hull_submarine = 1
+		basic_battery = 1
+		basic_torpedo = 1
+		basic_naval_mines = 1
+		mtg_transport = 1
+	}
+	else = {
+		set_technology = {
+			early_destroyer = 1
+			early_submarine = 1
+			transport = 1
+		}
+	}
+}
+
+if = {
+	limit = { has_dlc = "By Blood Alone" }
+	set_technology = {
+		iw_small_airframe = 1
+		engines_1 = 1
+		aa_lmg = 1
+	}
+	else = {
+		set_technology = {
+			early_fighter = 1
+		}
+	}
+}
+
+if = {
+	limit = { has_dlc = "No Step Back" }
+	set_technology = {
+		gwtank_chassis = 1
+	}
+	else = {
+		set_technology = {
+			gwtank = 1
+		}
+	}
+}
+
+set_politics = {
+	ruling_party = fascism
+	last_election = "1935.4.7"
+	election_frequency = 48
+	elections_allowed = no
+}
+set_popularities = {
+	fascism = 55
+	democratic = 25
+	communism = 7
+	neutrality = 13
+}
+
+set_party_name = { ideology = fascism long_name = DZG_fascism_party_long name = DZG_fascism_party }
+set_party_name = { ideology = democratic long_name = DZG_democratic_party_long name = DZG_democratic_party }
+set_party_name = { ideology = communism long_name = DZG_communism_party_long name = DZG_communism_party }
+set_party_name = { ideology = neutrality long_name = DZG_neutrality_party_long name = DZG_neutrality_party }
+
+recruit_character = DZG_arthur_greiser
+recruit_character = DZG_arthur_brill
+recruit_character = DZG_anton_plenikowski
+recruit_character = DZG_ernst_ziehm
+recruit_character = DZG_albert_forster
+recruit_character = DZG_friedrich_georg_eberhardt
+
+add_ideas = {
+	DZG_league_protectorate
+	DZG_polish_customs_union
+	volunteer_only
+	civilian_economy
+	free_trade
+}
+
+# The Danzig Question: Berlin on one side, Warsaw on the other.
+set_power_balance = {
+	id = DZG_danzig_question
+}
+add_power_balance_modifier = {
+	id = DZG_danzig_question
+	modifier = DZG_bop_forster_agitation
+}
+
+# Gauleiter Forster's hold on the party, the police and the street (0-100).
+set_variable = { DZG_forster_network = 60 }

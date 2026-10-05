@@ -1,0 +1,83 @@
+###########################################################################
+# Borderlands Rising - Danzig decision categories
+# "allowed" is only checked once at game start, so every category is
+# switched off for every country except its owner before the game begins.
+###########################################################################
+
+# Shown inside the Danzig Question balance of power.
+DZG_danzig_question_category = {
+	icon = GFX_decision_category_DZG_danzig_question
+	allowed = { original_tag = DNZ }
+	priority = 100
+}
+
+DZG_claims_category = {
+	icon = GFX_decision_category_DZG_claims
+	allowed = { original_tag = DNZ }
+	visible = { has_country_flag = DZG_claims_unlocked }
+	priority = 95
+}
+
+DZG_forster_category = {
+	icon = GFX_decision_category_DZG_forster
+	allowed = { original_tag = DNZ }
+	visible = {
+		has_country_flag = DZG_forster_network_unlocked
+		NOT = { has_country_flag = DZG_forster_purged }
+	}
+	priority = 90
+}
+
+DZG_hansa_category = {
+	icon = GFX_decision_category_DZG_hansa
+	allowed = { original_tag = DNZ }
+	visible = { has_country_flag = DZG_kontors_unlocked }
+	priority = 85
+}
+
+DZG_harbour_category = {
+	icon = GFX_decision_category_DZG_harbour
+	allowed = { original_tag = DNZ }
+	visible = {
+		OR = {
+			has_country_flag = DZG_harbour_unlocked
+			has_country_flag = DZG_bank_unlocked
+		}
+	}
+	priority = 85
+}
+
+DZG_crown_category = {
+	icon = GFX_decision_category_DZG_crown
+	allowed = { original_tag = DNZ }
+	visible = { has_country_flag = DZG_junkers_unlocked }
+	priority = 85
+}
+
+DZG_red_category = {
+	icon = GFX_decision_category_DZG_red
+	allowed = { original_tag = DNZ }
+	visible = { has_country_flag = DZG_strikes_unlocked }
+	priority = 85
+}
+
+DZG_free_port_category = {
+	icon = GFX_decision_category_DZG_free_port
+	allowed = { original_tag = DNZ }
+	visible = { has_country_flag = DZG_casino_unlocked }
+	priority = 70
+}
+
+# Germany's side of the Danzig Question, needed because Danzig no longer
+# belongs to Poland at the start: see DZG_ger_corridor_ultimatum.
+DZG_ger_danzig_category = {
+	icon = GFX_decision_category_DZG_danzig_question
+	allowed = { original_tag = GER }
+	visible = {
+		OR = {
+			country_exists = DNZ
+			NOT = { 85 = { is_owned_by = POL } }
+		}
+	}
+	priority = 80
+}

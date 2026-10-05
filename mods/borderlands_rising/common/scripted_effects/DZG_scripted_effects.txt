@@ -1,0 +1,409 @@
+###########################################################################
+# Borderlands Rising - Danzig scripted effects
+###########################################################################
+
+###########################################################################
+# Gauleiter Forster's network (fascist path)
+# DZG_forster_network runs from 0 to 100. At 100 Forster moves against
+# the Senate (event dzg.20).
+###########################################################################
+
+DZG_forster_network_up_10 = {
+	if = {
+		limit = {
+			has_government = fascism
+			NOT = { has_country_flag = DZG_forster_purged }
+		}
+		custom_effect_tooltip = DZG_forster_network_up_10_tt
+		add_to_variable = { DZG_forster_network = 10 }
+		clamp_variable = { var = DZG_forster_network min = 0 max = 100 }
+		DZG_check_forster_putsch = yes
+	}
+}
+
+DZG_forster_network_up_20 = {
+	if = {
+		limit = {
+			has_government = fascism
+			NOT = { has_country_flag = DZG_forster_purged }
+		}
+		custom_effect_tooltip = DZG_forster_network_up_20_tt
+		add_to_variable = { DZG_forster_network = 20 }
+		clamp_variable = { var = DZG_forster_network min = 0 max = 100 }
+		DZG_check_forster_putsch = yes
+	}
+}
+
+DZG_check_forster_putsch = {
+	if = {
+		limit = {
+			check_variable = { DZG_forster_network > 99 }
+			NOT = { has_country_flag = DZG_forster_putsch_fired }
+		}
+		set_country_flag = DZG_forster_putsch_fired
+		country_event = { id = dzg.20 days = 3 }
+	}
+}
+
+DZG_purge_forster = {
+	custom_effect_tooltip = DZG_purge_forster_tt
+	hidden_effect = {
+		set_country_flag = DZG_forster_purged
+		set_variable = { DZG_forster_network = 0 }
+		remove_power_balance_modifier = {
+			id = DZG_danzig_question
+			modifier = DZG_bop_forster_agitation
+		}
+		if = {
+			limit = { has_character = DZG_albert_forster }
+			retire_character = DZG_albert_forster
+		}
+	}
+}
+
+DZG_break_with_berlin_effect = {
+	set_country_flag = DZG_broke_with_berlin
+	set_power_balance = {
+		id = DZG_danzig_question
+		set_value = 0
+	}
+	hidden_effect = {
+		remove_power_balance_modifier = {
+			id = DZG_danzig_question
+			modifier = DZG_bop_forster_agitation
+		}
+		remove_power_balance_modifier = {
+			id = DZG_danzig_question
+			modifier = DZG_bop_reich_money
+		}
+	}
+	DZG_set_port_status_sovereign = yes
+	if = {
+		limit = { country_exists = GER }
+		GER = { add_opinion_modifier = { target = ROOT modifier = DZG_betrayal } }
+	}
+	hidden_effect = {
+		news_event = { id = brs_news.1 hours = 6 }
+	}
+}
+
+###########################################################################
+# The port: who controls Danzig's customs
+###########################################################################
+
+DZG_clear_port_status = {
+	if = {
+		limit = { has_idea = DZG_polish_customs_union }
+		remove_ideas = DZG_polish_customs_union
+	}
+	if = {
+		limit = { has_idea = DZG_polish_partnership }
+		remove_ideas = DZG_polish_partnership
+	}
+	if = {
+		limit = { has_idea = DZG_reich_subsidies }
+		remove_ideas = DZG_reich_subsidies
+	}
+	if = {
+		limit = { has_idea = DZG_sovereign_port }
+		remove_ideas = DZG_sovereign_port
+	}
+}
+
+DZG_set_port_status_sovereign = {
+	if = {
+		limit = { NOT = { has_idea = DZG_sovereign_port } }
+		DZG_clear_port_status = yes
+		add_ideas = DZG_sovereign_port
+	}
+}
+
+DZG_set_port_status_warsaw = {
+	if = {
+		limit = { NOT = { has_idea = DZG_polish_partnership } }
+		DZG_clear_port_status = yes
+		add_ideas = DZG_polish_partnership
+	}
+}
+
+DZG_set_port_status_berlin = {
+	if = {
+		limit = { NOT = { has_idea = DZG_reich_subsidies } }
+		DZG_clear_port_status = yes
+		add_ideas = DZG_reich_subsidies
+	}
+}
+
+###########################################################################
+# Claims and integration
+###########################################################################
+
+DZG_unlock_claims = {
+	if = {
+		limit = { NOT = { has_country_flag = DZG_claims_unlocked } }
+		set_country_flag = DZG_claims_unlocked
+		unlock_decision_category_tooltip = DZG_claims_category
+	}
+}
+
+DZG_integrate_claimed_states = {
+	custom_effect_tooltip = DZG_integrate_claimed_states_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				is_claimed_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+			add_core_of = ROOT
+		}
+	}
+}
+
+# Event scope: ROOT refused a demand made by FROM (Danzig).
+DZG_record_refusal = {
+	if = {
+		limit = { tag = GER }
+		FROM = { set_country_flag = DZG_refused_by_GER }
+	}
+	else_if = {
+		limit = { tag = POL }
+		FROM = { set_country_flag = DZG_refused_by_POL }
+	}
+	else_if = {
+		limit = { tag = LIT }
+		FROM = { set_country_flag = DZG_refused_by_LIT }
+	}
+	FROM = { add_opinion_modifier = { target = ROOT modifier = DZG_demand_refused } }
+}
+
+###########################################################################
+# Diplomacy
+###########################################################################
+
+DZG_befriend_the_baltic = {
+	custom_effect_tooltip = DZG_befriend_the_baltic_tt
+	hidden_effect = {
+		every_country = {
+			limit = {
+				OR = {
+					tag = LIT
+					tag = LAT
+					tag = EST
+					tag = FIN
+					tag = SWE
+				}
+				exists = yes
+				NOT = { has_war_with = ROOT }
+			}
+			add_opinion_modifier = { target = ROOT modifier = DZG_trade_partner }
+			ROOT = { add_opinion_modifier = { target = PREV modifier = DZG_trade_partner } }
+		}
+	}
+}
+
+DZG_befriend_the_monarchies = {
+	custom_effect_tooltip = DZG_befriend_the_monarchies_tt
+	hidden_effect = {
+		every_country = {
+			limit = {
+				OR = {
+					tag = ENG
+					tag = ITA
+					tag = HUN
+					tag = ROM
+					tag = YUG
+					tag = BUL
+					tag = SWE
+					tag = NOR
+					tag = DEN
+					tag = HOL
+					tag = BEL
+					tag = GRE
+					tag = JAP
+					tag = CRI
+				}
+				exists = yes
+				NOT = { has_war_with = ROOT }
+			}
+			add_opinion_modifier = { target = ROOT modifier = DZG_royal_cousin }
+			ROOT = { add_opinion_modifier = { target = PREV modifier = DZG_royal_cousin } }
+		}
+	}
+}
+
+DZG_boost_ruling_party = {
+	if = {
+		limit = { has_government = fascism }
+		add_popularity = { ideology = fascism popularity = 0.05 }
+	}
+	else_if = {
+		limit = { has_government = democratic }
+		add_popularity = { ideology = democratic popularity = 0.05 }
+	}
+	else_if = {
+		limit = { has_government = communism }
+		add_popularity = { ideology = communism popularity = 0.05 }
+	}
+	else = {
+		add_popularity = { ideology = neutrality popularity = 0.05 }
+	}
+}
+
+###########################################################################
+# Factions. Templates live in common/factions/templates; faction
+# creation is briefly allowed even under the "no factions" rule.
+###########################################################################
+
+DZG_allow_faction_creation = {
+	if = {
+		limit = { NOT = { has_rule = can_create_factions } }
+		set_country_flag = DZG_temp_faction_rule
+		set_rule = { can_create_factions = yes }
+	}
+}
+
+DZG_restore_faction_rule = {
+	if = {
+		limit = { has_country_flag = DZG_temp_faction_rule }
+		clear_rule = { can_create_factions = yes }
+		clr_country_flag = DZG_temp_faction_rule
+	}
+}
+
+DZG_create_baltic_shield_faction = {
+	DZG_allow_faction_creation = yes
+	create_faction_from_template = {
+		template = DZG_faction_baltic_shield
+		name = DZG_faction_baltic_shield_name
+	}
+	DZG_restore_faction_rule = yes
+}
+
+DZG_create_baltic_axis_faction = {
+	DZG_allow_faction_creation = yes
+	create_faction_from_template = {
+		template = DZG_faction_baltic_axis
+		name = DZG_faction_baltic_axis_name
+	}
+	DZG_restore_faction_rule = yes
+}
+
+DZG_create_hansa_faction = {
+	DZG_allow_faction_creation = yes
+	create_faction_from_template = {
+		template = DZG_faction_new_hanseatic_league
+		name = DZG_faction_new_hanseatic_league_name
+	}
+	DZG_restore_faction_rule = yes
+}
+
+DZG_create_commune_faction = {
+	DZG_allow_faction_creation = yes
+	create_faction_from_template = {
+		template = DZG_faction_baltic_commune
+		name = DZG_faction_baltic_commune_name
+	}
+	DZG_restore_faction_rule = yes
+}
+
+DZG_invite_baltic_shield_members = {
+	custom_effect_tooltip = DZG_invite_baltic_shield_members_tt
+	hidden_effect = {
+		every_country = {
+			limit = {
+				OR = {
+					tag = LIT
+					tag = LAT
+					tag = EST
+					tag = FIN
+				}
+				exists = yes
+				is_in_faction = no
+				is_subject = no
+				NOT = { has_war_with = ROOT }
+			}
+			country_event = { id = dzg.5 hours = 12 }
+		}
+	}
+}
+
+DZG_invite_baltic_axis_members = {
+	custom_effect_tooltip = DZG_invite_baltic_axis_members_tt
+	hidden_effect = {
+		every_country = {
+			limit = {
+				OR = {
+					tag = LIT
+					tag = LAT
+					tag = EST
+					tag = FIN
+					tag = HUN
+				}
+				exists = yes
+				is_in_faction = no
+				is_subject = no
+				NOT = { has_government = democratic }
+				NOT = { has_government = communism }
+				NOT = { has_war_with = ROOT }
+			}
+			country_event = { id = dzg.5 hours = 12 }
+		}
+	}
+}
+
+DZG_invite_hansa_members = {
+	custom_effect_tooltip = DZG_invite_hansa_members_tt
+	hidden_effect = {
+		every_country = {
+			limit = {
+				has_country_flag = DZG_kontor_partner
+				exists = yes
+				is_in_faction = no
+				is_subject = no
+				is_major = no
+				NOT = { has_government = communism }
+				NOT = { has_war_with = ROOT }
+			}
+			country_event = { id = dzg.5 hours = 12 }
+		}
+	}
+}
+
+# Ask the leading democratic faction to take the Free City in.
+DZG_request_allied_membership = {
+	custom_effect_tooltip = DZG_request_allied_membership_tt
+	hidden_effect = {
+		if = {
+			limit = {
+				country_exists = ENG
+				ENG = {
+					is_faction_leader = yes
+					has_government = democratic
+					NOT = { has_war_with = ROOT }
+				}
+			}
+			ENG = { country_event = { id = dzg.33 hours = 12 } }
+		}
+		else_if = {
+			limit = {
+				country_exists = FRA
+				FRA = {
+					is_faction_leader = yes
+					has_government = democratic
+					NOT = { has_war_with = ROOT }
+				}
+			}
+			FRA = { country_event = { id = dzg.33 hours = 12 } }
+		}
+		else = {
+			random_country = {
+				limit = {
+					is_faction_leader = yes
+					has_government = democratic
+					NOT = { has_war_with = ROOT }
+				}
+				country_event = { id = dzg.33 hours = 12 }
+			}
+		}
+	}
+}

@@ -1,0 +1,743 @@
+###########################################################################
+# Borderlands Rising - Free City of Danzig events
+#
+# Every event is "is_triggered_only": nothing here is polled.
+# In events sent by Danzig to another country, ROOT is the receiver and
+# FROM is Danzig.
+###########################################################################
+
+add_namespace = dzg
+
+### The Westerplatte Question ###
+country_event = {
+	id = dzg.1
+	title = dzg.1.t
+	desc = dzg.1.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+
+	option = {
+		name = dzg.1.a
+		ai_chance = {
+			base = 10
+			modifier = { factor = 3 has_government = fascism }
+		}
+		add_war_support = 0.05
+		army_experience = 10
+		add_power_balance_value = {
+			id = DZG_danzig_question
+			value = -0.10
+			tooltip_side = DZG_bop_berlin_side
+		}
+		if = {
+			limit = { country_exists = POL }
+			POL = { add_opinion_modifier = { target = ROOT modifier = DZG_treaty_breaker } }
+		}
+	}
+	option = {
+		name = dzg.1.b
+		ai_chance = {
+			base = 10
+			modifier = { factor = 3 has_government = democratic }
+		}
+		add_political_power = 75
+		add_power_balance_value = {
+			id = DZG_danzig_question
+			value = 0.10
+			tooltip_side = DZG_bop_warsaw_side
+		}
+	}
+	option = {
+		name = dzg.1.c
+		trigger = {
+			OR = {
+				has_idea = DZG_league_protectorate
+				has_idea = DZG_league_shield
+			}
+		}
+		ai_chance = { base = 5 }
+		add_stability = 0.05
+	}
+}
+
+### Seek a great power patron ###
+country_event = {
+	id = dzg.2
+	title = dzg.2.t
+	desc = dzg.2.d
+	picture = GFX_report_event_gre_diplomacy
+	is_triggered_only = yes
+
+	option = {
+		name = dzg.2.a
+		trigger = {
+			country_exists = ENG
+			NOT = { has_war_with = ENG }
+		}
+		ai_chance = {
+			base = 10
+			modifier = { factor = 3 has_government = democratic }
+		}
+		ENG = { country_event = { id = dzg.3 hours = 12 } }
+	}
+	option = {
+		name = dzg.2.b
+		trigger = {
+			country_exists = FRA
+			NOT = { has_war_with = FRA }
+		}
+		ai_chance = {
+			base = 8
+			modifier = { factor = 3 has_government = democratic }
+		}
+		FRA = { country_event = { id = dzg.3 hours = 12 } }
+	}
+	option = {
+		name = dzg.2.c
+		trigger = {
+			country_exists = ITA
+			NOT = { has_war_with = ITA }
+		}
+		ai_chance = {
+			base = 8
+			modifier = { factor = 3 has_government = fascism }
+			modifier = { factor = 2 has_government = neutrality }
+		}
+		ITA = { country_event = { id = dzg.3 hours = 12 } }
+	}
+	option = {
+		name = dzg.2.e
+		trigger = {
+			country_exists = SOV
+			NOT = { has_war_with = SOV }
+		}
+		ai_chance = {
+			base = 2
+			modifier = { factor = 10 has_government = communism }
+		}
+		SOV = { country_event = { id = dzg.3 hours = 12 } }
+	}
+}
+
+### A great power is asked to protect the Free City ###
+country_event = {
+	id = dzg.3
+	title = dzg.3.t
+	desc = dzg.3.d
+	picture = GFX_report_event_generic_handshake
+	is_triggered_only = yes
+
+	option = {
+		name = dzg.3.a
+		ai_chance = {
+			base = 50
+			modifier = { factor = 2 has_government = FROM }
+			modifier = { factor = 0.3 has_war = yes }
+			modifier = { factor = 0 has_war_with = FROM }
+		}
+		give_guarantee = FROM
+		FROM = { add_opinion_modifier = { target = ROOT modifier = DZG_patron } }
+	}
+	option = {
+		name = dzg.3.b
+		ai_chance = { base = 40 }
+		FROM = { add_opinion_modifier = { target = ROOT modifier = DZG_demand_refused } }
+	}
+}
+
+### Invitation to a Danzig-led alliance ###
+country_event = {
+	id = dzg.5
+	title = dzg.5.t
+	desc = dzg.5.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+
+	option = {
+		name = dzg.5.a
+		ai_chance = {
+			base = 30
+			modifier = { factor = 2 has_government = FROM }
+			modifier = { factor = 2 threat > 0.4 }
+			modifier = { factor = 0 is_in_faction = yes }
+		}
+		FROM = { add_to_faction = ROOT }
+	}
+	option = {
+		name = dzg.5.b
+		ai_chance = { base = 50 }
+	}
+}
+
+### Perpetual neutrality: will Berlin and Warsaw respect it? ###
+country_event = {
+	id = dzg.7
+	title = dzg.7.t
+	desc = dzg.7.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+
+	option = {
+		name = dzg.7.a
+		ai_chance = {
+			base = 50
+			modifier = { factor = 0.2 has_government = fascism date > 1938.6.1 }
+		}
+		diplomatic_relation = {
+			country = FROM
+			relation = non_aggression_pact
+			active = yes
+		}
+	}
+	option = {
+		name = dzg.7.b
+		ai_chance = { base = 30 }
+		FROM = { add_opinion_modifier = { target = ROOT modifier = DZG_demand_refused } }
+	}
+}
+
+### Danzig demands one of our states ###
+country_event = {
+	id = dzg.10
+	title = dzg.10.t
+	desc = dzg.10.d
+	picture = GFX_report_event_gre_diplomacy
+	is_triggered_only = yes
+
+	option = {
+		name = dzg.10.a
+		ai_chance = {
+			base = 5
+			modifier = { factor = 10 DZG_country_is_distracted = yes }
+			modifier = { factor = 3 FROM = { has_country_flag = DZG_league_arbitration } }
+			modifier = {
+				factor = 3
+				tag = GER
+				FROM = { DZG_warsaw_backs_us = yes }
+			}
+			modifier = {
+				factor = 3
+				tag = POL
+				FROM = { DZG_berlin_backs_us = yes }
+			}
+			modifier = {
+				factor = 2
+				FROM = { is_in_faction = yes }
+				NOT = { is_in_faction_with = FROM }
+			}
+			modifier = {
+				factor = 0.2
+				is_major = yes
+				NOT = { DZG_country_is_distracted = yes }
+			}
+		}
+		event_target:dzg_demanded_state = { clr_state_flag = DZG_demand_pending }
+		FROM = {
+			transfer_state = event_target:dzg_demanded_state
+			country_event = { id = dzg.11 hours = 6 }
+		}
+	}
+	option = {
+		name = dzg.10.b
+		ai_chance = { base = 25 }
+		event_target:dzg_demanded_state = {
+			clr_state_flag = DZG_demand_pending
+			set_state_flag = DZG_demand_refused
+		}
+		DZG_record_refusal = yes
+		FROM = { country_event = { id = dzg.12 hours = 6 } }
+	}
+}
+
+### Demand accepted ###
+country_event = {
+	id = dzg.11
+	title = dzg.11.t
+	desc = dzg.11.d
+	picture = GFX_report_event_generic_rally
+	is_triggered_only = yes
+
+	option = {
+		name = dzg.11.a
+		add_stability = 0.03
+		add_war_support = 0.03
+	}
+}
+
+### Demand refused ###
+country_event = {
+	id = dzg.12
+	title = dzg.12.t
+	desc = dzg.12.d
+	picture = GFX_news_event_gathering_protest
+	is_triggered_only = yes
+
+	option = {
+		name = dzg.12.a
+		add_war_support = 0.05
+		custom_effect_tooltip = DZG_refusal_remembered_tt
+	}
+}
+
+### Danzig offers to buy one of our states ###
+country_event = {
+	id = dzg.13
+	title = dzg.13.t
+	desc = dzg.13.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+
+	option = {
+		name = dzg.13.a
+		ai_chance = {
+			base = 10
+			modifier = { factor = 4 has_political_power < 50 }
+			modifier = { factor = 4 DZG_country_is_distracted = yes }
+			modifier = { factor = 3 has_stability < 0.4 }
+			modifier = { factor = 0.2 is_major = yes }
+		}
+		add_political_power = 150
+		event_target:dzg_demanded_state = { clr_state_flag = DZG_demand_pending }
+		FROM = {
+			transfer_state = event_target:dzg_demanded_state
+			country_event = { id = dzg.14 hours = 6 }
+		}
+	}
+	option = {
+		name = dzg.13.b
+		ai_chance = { base = 30 }
+		event_target:dzg_demanded_state = { clr_state_flag = DZG_demand_pending }
+		FROM = { country_event = { id = dzg.15 hours = 6 } }
+	}
+}
+
+### Purchase accepted ###
+country_event = {
+	id = dzg.14
+	title = dzg.14.t
+	desc = dzg.14.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+
+	option = {
+		name = dzg.14.a
+		add_stability = 0.03
+	}
+}
+
+### Purchase refused: most of the money comes back ###
+country_event = {
+	id = dzg.15
+	title = dzg.15.t
+	desc = dzg.15.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+
+	option = {
+		name = dzg.15.a
+		add_political_power = 100
+	}
+}
+
+### Forster moves against the Senate ###
+country_event = {
+	id = dzg.20
+	title = dzg.20.t
+	desc = dzg.20.d
+	picture = GFX_news_event_generic_riot
+	is_triggered_only = yes
+
+	option = {
+		name = dzg.20.a
+		ai_chance = { base = 90 }
+		add_stability = -0.15
+		add_war_support = -0.10
+		add_political_power = -100
+		add_manpower = -2000
+		set_variable = { DZG_forster_network = 50 }
+		clr_country_flag = DZG_forster_putsch_fired
+	}
+	option = {
+		name = dzg.20.b
+		ai_chance = { base = 10 }
+		custom_effect_tooltip = DZG_submit_to_forster_tt
+		hidden_effect = {
+			if = {
+				limit = {
+					country_exists = GER
+					NOT = { has_war_with = GER }
+				}
+				GER = {
+					annex_country = {
+						target = ROOT
+						transfer_troops = yes
+					}
+				}
+			}
+		}
+	}
+}
+
+### Appeal to London and Paris ###
+country_event = {
+	id = dzg.31
+	title = dzg.31.t
+	desc = dzg.31.d
+	picture = GFX_report_event_gre_diplomacy
+	is_triggered_only = yes
+
+	option = {
+		name = dzg.31.a
+		ai_chance = {
+			base = 40
+			modifier = { factor = 2 has_government = democratic }
+			modifier = { factor = 0 has_war_with = FROM }
+		}
+		give_guarantee = FROM
+		FROM = { add_opinion_modifier = { target = ROOT modifier = DZG_patron } }
+	}
+	option = {
+		name = dzg.31.b
+		ai_chance = { base = 40 }
+	}
+}
+
+### Reconciliation offered to Warsaw ###
+country_event = {
+	id = dzg.32
+	title = dzg.32.t
+	desc = dzg.32.d
+	picture = GFX_report_event_generic_handshake
+	is_triggered_only = yes
+
+	option = {
+		name = dzg.32.a
+		ai_chance = { base = 70 }
+		add_opinion_modifier = { target = FROM modifier = DZG_good_neighbour }
+		FROM = {
+			add_opinion_modifier = { target = ROOT modifier = DZG_good_neighbour }
+			add_power_balance_value = {
+				id = DZG_danzig_question
+				value = 0.10
+				tooltip_side = DZG_bop_warsaw_side
+			}
+		}
+	}
+	option = {
+		name = dzg.32.b
+		ai_chance = { base = 30 }
+	}
+}
+
+### The Free City asks to join the democracies ###
+country_event = {
+	id = dzg.33
+	title = dzg.33.t
+	desc = dzg.33.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+
+	option = {
+		name = dzg.33.a
+		ai_chance = {
+			base = 50
+			modifier = { factor = 0 has_war_with = FROM }
+		}
+		add_to_faction = FROM
+	}
+	option = {
+		name = dzg.33.b
+		ai_chance = { base = 30 }
+	}
+}
+
+### The House of Hohenzollern answers ###
+country_event = {
+	id = dzg.40
+	title = dzg.40.t
+	desc = dzg.40.d
+	picture = GFX_report_event_eng_royal_family
+	is_triggered_only = yes
+
+	option = {
+		name = dzg.40.a
+		recruit_character = DZG_louis_ferdinand
+		add_stability = 0.03
+	}
+}
+
+### The royal wedding ###
+country_event = {
+	id = dzg.41
+	title = dzg.41.t
+	desc = dzg.41.d
+	picture = GFX_report_event_eng_royal_family
+	is_triggered_only = yes
+
+	option = {
+		name = dzg.41.a
+		add_political_power = 50
+		add_war_support = 0.03
+		if = {
+			limit = { country_exists = CRI }
+			CRI = { add_opinion_modifier = { target = ROOT modifier = DZG_royal_cousin } }
+			add_opinion_modifier = { target = CRI modifier = DZG_royal_cousin }
+		}
+	}
+}
+
+### The royal standard is raised in one of our provinces ###
+country_event = {
+	id = dzg.43
+	title = dzg.43.t
+	desc = dzg.43.d
+	picture = GFX_news_event_generic_rally_3
+	is_triggered_only = yes
+
+	option = {
+		name = dzg.43.a
+		ai_chance = {
+			base = 10
+			modifier = { factor = 5 surrender_progress > 0.3 }
+		}
+		FROM = {
+			transfer_state = event_target:dzg_royalist_state
+			add_stability = 0.05
+		}
+	}
+	option = {
+		name = dzg.43.b
+		ai_chance = { base = 40 }
+		FROM = {
+			add_war_support = 0.10
+			create_wargoal = {
+				type = take_claimed_state
+				target = ROOT
+				generator = { 5 763 63 62 64 }
+			}
+		}
+	}
+}
+
+### The General Strike ###
+country_event = {
+	id = dzg.50
+	title = dzg.50.t
+	desc = dzg.50.d
+	picture = GFX_news_event_gathering_protest
+	is_triggered_only = yes
+
+	option = {
+		name = dzg.50.a
+		set_politics = {
+			ruling_party = communism
+			elections_allowed = no
+		}
+		promote_character = DZG_anton_plenikowski
+		set_cosmetic_tag = DZG_FREE_SOVIET_CITY
+		add_ideas = DZG_free_soviet_city
+		DZG_purge_forster = yes
+		if = {
+			limit = { country_exists = GER }
+			GER = { add_opinion_modifier = { target = ROOT modifier = DZG_betrayal } }
+		}
+		if = {
+			limit = { country_exists = POL }
+			POL = { add_opinion_modifier = { target = ROOT modifier = DZG_treaty_breaker } }
+		}
+	}
+}
+
+### Danzig asks to join the Comintern ###
+country_event = {
+	id = dzg.51
+	title = dzg.51.t
+	desc = dzg.51.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+
+	option = {
+		name = dzg.51.a
+		ai_chance = { base = 80 }
+		if = {
+			limit = { is_in_faction = no }
+			DZG_allow_faction_creation = yes
+			create_faction_from_template = {
+				template = DZG_faction_comintern
+				name = DZG_faction_comintern_name
+			}
+			DZG_restore_faction_rule = yes
+		}
+		if = {
+			limit = { is_faction_leader = yes }
+			add_to_faction = FROM
+		}
+		FROM = { add_opinion_modifier = { target = ROOT modifier = DZG_patron } }
+	}
+	option = {
+		name = dzg.51.b
+		ai_chance = { base = 20 }
+		FROM = { add_opinion_modifier = { target = ROOT modifier = DZG_demand_refused } }
+	}
+}
+
+### Mutiny in one of our ports ###
+country_event = {
+	id = dzg.53
+	title = dzg.53.t
+	desc = dzg.53.d
+	picture = GFX_news_event_generic_riot
+	is_triggered_only = yes
+
+	option = {
+		name = dzg.53.a
+		ai_chance = {
+			base = 10
+			modifier = { factor = 5 surrender_progress > 0.3 }
+			modifier = { factor = 3 has_government = communism }
+		}
+		event_target:dzg_mutiny_state = { clr_state_flag = DZG_red_cells }
+		FROM = { transfer_state = event_target:dzg_mutiny_state }
+	}
+	option = {
+		name = dzg.53.b
+		ai_chance = { base = 40 }
+		event_target:dzg_mutiny_state = { clr_state_flag = DZG_red_cells }
+		FROM = {
+			add_war_support = 0.10
+			create_wargoal = {
+				type = take_claimed_state
+				target = ROOT
+				generator = { 807 763 188 62 5 }
+			}
+		}
+	}
+}
+
+### The Open Air Concert ###
+country_event = {
+	id = dzg.60
+	title = dzg.60.t
+	desc = dzg.60.d
+	picture = GFX_report_event_generic_rally2
+	is_triggered_only = yes
+
+	option = {
+		name = dzg.60.a
+		add_political_power = 25
+	}
+}
+
+### Berlin demands the return of Danzig ###
+country_event = {
+	id = dzg.80
+	title = dzg.80.t
+	desc = dzg.80.d
+	picture = GFX_news_event_generic_rally_3
+	is_triggered_only = yes
+
+	option = {
+		name = dzg.80.a
+		ai_chance = {
+			base = 80
+			modifier = { factor = 0 has_country_flag = DZG_broke_with_berlin }
+			modifier = { factor = 0 has_country_flag = DZG_forster_purged }
+			modifier = { factor = 0 NOT = { has_government = fascism } }
+		}
+		custom_effect_tooltip = DZG_join_the_reich_tt
+		FROM = {
+			annex_country = {
+				target = ROOT
+				transfer_troops = yes
+			}
+		}
+	}
+	option = {
+		name = dzg.80.b
+		ai_chance = { base = 20 }
+		add_war_support = 0.10
+		FROM = { country_event = { id = dzg.81 hours = 6 } }
+	}
+}
+
+### Danzig refuses to return to the Reich ###
+country_event = {
+	id = dzg.81
+	title = dzg.81.t
+	desc = dzg.81.d
+	picture = GFX_report_event_gre_diplomacy
+	is_triggered_only = yes
+
+	option = {
+		name = dzg.81.a
+		create_wargoal = {
+			type = annex_everything
+			target = FROM
+		}
+	}
+}
+
+### Warsaw proposes a union ###
+country_event = {
+	id = dzg.90
+	title = dzg.90.t
+	desc = dzg.90.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+
+	option = {
+		name = dzg.90.a
+		ai_chance = {
+			base = 10
+			modifier = { factor = 0 has_government = fascism }
+		}
+		custom_effect_tooltip = DZG_polish_union_tt
+		POL = { puppet = ROOT }
+	}
+	option = {
+		name = dzg.90.b
+		ai_chance = { base = 90 }
+		add_power_balance_value = {
+			id = DZG_danzig_question
+			value = -0.20
+			tooltip_side = DZG_bop_berlin_side
+		}
+		add_stability = 0.03
+	}
+}
+
+### Berlin demands Anschluss ###
+country_event = {
+	id = dzg.91
+	title = dzg.91.t
+	desc = dzg.91.d
+	picture = GFX_news_event_generic_rally_3
+	is_triggered_only = yes
+
+	option = {
+		name = dzg.91.a
+		ai_chance = {
+			base = 30
+			modifier = { factor = 0 has_country_flag = DZG_broke_with_berlin }
+			modifier = { factor = 0 NOT = { has_government = fascism } }
+		}
+		custom_effect_tooltip = DZG_join_the_reich_tt
+		GER = {
+			annex_country = {
+				target = ROOT
+				transfer_troops = yes
+			}
+		}
+	}
+	option = {
+		name = dzg.91.b
+		ai_chance = { base = 70 }
+		add_power_balance_value = {
+			id = DZG_danzig_question
+			value = 0.20
+			tooltip_side = DZG_bop_warsaw_side
+		}
+		GER = { add_opinion_modifier = { target = ROOT modifier = DZG_demand_refused } }
+		DZG_forster_network_up_20 = yes
+	}
+}

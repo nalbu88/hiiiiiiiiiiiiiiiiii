@@ -1,0 +1,66 @@
+###########################################################################
+# Borderlands Rising - Danzig sub-units
+#
+# The Oppressed Soldiers: dockers, Kashubian fishermen, unemployed
+# shipwrights and refugees from both sides of the border, who have the
+# least to lose and fight like it. A line infantry battalion that is
+# stronger than vanilla infantry in every respect, at a higher price in
+# manpower, training time and supply.
+#
+# Vanilla infantry for comparison: 25 strength / 60 organisation /
+# 0.3 morale / 1000 manpower / 90 days / 100 infantry equipment.
+#
+# Locked at start (active = no) and unlocked for Danzig only by the
+# focus "The Oppressed Soldiers" (unlock_subunit).
+###########################################################################
+
+sub_units = {
+
+	dzg_oppressed_soldiers = {
+		abbreviation = "OPS"
+		sprite = infantry
+		map_icon_category = infantry
+		priority = 601
+		ai_priority = 220
+		active = no
+
+		type = { infantry }
+		group = infantry
+		categories = {
+			category_front_line
+			category_light_infantry
+			category_all_infantry
+			category_army
+		}
+
+		combat_width = 2
+		max_strength = 30
+		max_organisation = 70
+		default_morale = 0.45
+		manpower = 1100
+		training_time = 100
+		suppression = 1.5
+		weight = 0.5
+		supply_consumption = 0.07
+
+		soft_attack = 0.20
+		defense = 0.20
+		breakthrough = 0.10
+
+		need = {
+			infantry_equipment = 100
+			support_equipment = 5
+		}
+
+		urban = {
+			attack = 0.15
+			defence = 0.15
+		}
+		river = {
+			attack = 0.05
+		}
+		fort = {
+			attack = 0.10
+		}
+	}
+}

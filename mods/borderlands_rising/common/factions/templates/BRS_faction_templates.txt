@@ -1,0 +1,76 @@
+###########################################################################
+# Borderlands Rising - faction templates
+# Created by focus and event rewards only (create_faction_from_template),
+# so they are hidden from the faction creation screen.
+###########################################################################
+
+### Danzig ###
+
+DZG_faction_baltic_shield = {
+	name = DZG_faction_baltic_shield_name
+	icon = GFX_faction_logo_generic_democratic
+	color = { 196 32 44 }
+	visible = {
+		always = no
+	}
+}
+
+DZG_faction_baltic_axis = {
+	name = DZG_faction_baltic_axis_name
+	icon = GFX_faction_logo_generic_democratic
+	color = { 92 72 52 }
+	visible = {
+		always = no
+	}
+}
+
+DZG_faction_new_hanseatic_league = {
+	name = DZG_faction_new_hanseatic_league_name
+	icon = GFX_faction_logo_generic_democratic
+	color = { 200 40 40 }
+	visible = {
+		always = no
+	}
+}
+
+DZG_faction_baltic_commune = {
+	name = DZG_faction_baltic_commune_name
+	icon = GFX_faction_logo_generic_democratic
+	color = { 170 20 30 }
+	visible = {
+		always = no
+	}
+}
+
+# Created by the Soviet Union when Danzig asks to join the Comintern and
+# Moscow does not lead a faction yet.
+DZG_faction_comintern = {
+	name = DZG_faction_comintern_name
+	icon = GFX_faction_logo_generic_democratic
+	color = { 200 20 20 }
+	visible = {
+		always = no
+	}
+}
+
+### Crimea / Azov United ###
+
+AZV_faction_white_crusade = {
+	name = AZV_faction_white_crusade_name
+	icon = GFX_faction_logo_generic_democratic
+	color = { 30 44 96 }
+	visible = {
+		always = no
+	}
+}
+
+### Azerbaijan ###
+
+ODL_faction_caucasian_union = {
+	name = ODL_faction_caucasian_union_name
+	icon = GFX_faction_logo_generic_democratic
+	color = { 0 152 196 }
+	visible = {
+		always = no
+	}
+}

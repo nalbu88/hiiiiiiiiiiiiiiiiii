@@ -1,0 +1,58 @@
+###########################################################################
+# Borderlands Rising - Free City of Danzig, 1936
+# The Landespolizei: a police force that is an army in all but name.
+###########################################################################
+
+division_template = {
+	name = "Landespolizei-Abteilung"
+
+	regiments = {
+		infantry = { x = 0 y = 0 }
+		infantry = { x = 0 y = 1 }
+		infantry = { x = 0 y = 2 }
+		infantry = { x = 1 y = 0 }
+		infantry = { x = 1 y = 1 }
+		infantry = { x = 1 y = 2 }
+	}
+	support = {
+		artillery = { x = 0 y = 0 }
+	}
+}
+
+units = {
+	division = {
+		name = "Landespolizei-Abteilung Danzig"
+		location = 362
+		division_template = "Landespolizei-Abteilung"
+		start_experience_factor = 0.3
+		start_equipment_factor = 0.9
+	}
+	division = {
+		name = "Landespolizei-Abteilung Zoppot"
+		location = 362
+		division_template = "Landespolizei-Abteilung"
+		start_experience_factor = 0.2
+		start_equipment_factor = 0.8
+	}
+}
+
+instant_effect = {
+	add_equipment_production = {
+		equipment = {
+			type = infantry_equipment_1
+			creator = "DNZ"
+		}
+		requested_factories = 1
+		progress = 0.5
+		efficiency = 50
+	}
+	add_equipment_production = {
+		equipment = {
+			type = support_equipment_1
+			creator = "DNZ"
+		}
+		requested_factories = 1
+		progress = 0.2
+		efficiency = 50
+	}
+}

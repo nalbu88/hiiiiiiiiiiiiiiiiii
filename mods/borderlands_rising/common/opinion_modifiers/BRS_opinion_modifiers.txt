@@ -1,0 +1,74 @@
+###########################################################################
+# Borderlands Rising - opinion modifiers
+###########################################################################
+
+opinion_modifiers = {
+
+	### Danzig ###
+	DZG_good_neighbour = {
+		value = 20
+		decay = 0.1
+	}
+	DZG_treaty_breaker = {
+		value = -20
+		decay = 0.5
+	}
+	DZG_trade_partner = {
+		value = 20
+		trade = yes
+	}
+	DZG_betrayal = {
+		value = -50
+		decay = 0.5
+	}
+	DZG_demand_refused = {
+		value = -20
+		decay = 1
+	}
+	DZG_patron = {
+		value = 25
+	}
+	DZG_royal_cousin = {
+		value = 25
+	}
+	DZG_hanseatic_partner = {
+		value = 15
+		trade = yes
+	}
+
+	### Crimea / Azov United ###
+	AZV_arms_customer = {
+		value = 10
+		trade = yes
+	}
+	AZV_white_crusade = {
+		value = 25
+	}
+	AZV_azov_threat = {
+		value = -30
+		decay = 0.5
+	}
+
+	### Azerbaijan ###
+	ODL_oil_customer = {
+		value = 15
+		trade = yes
+	}
+	ODL_one_nation_two_states = {
+		value = 40
+	}
+	ODL_land_of_fire_claims = {
+		value = -30
+		decay = 0.5
+	}
+
+	### Lithuania (Palanmir) ###
+	PLM_data_client = {
+		value = 15
+		trade = yes
+	}
+	PLM_surveillance_scandal = {
+		value = -20
+		decay = 0.5
+	}
+}
