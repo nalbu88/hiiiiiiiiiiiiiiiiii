@@ -2,8 +2,8 @@
 # Borderlands Rising - Lithuania: the Palanmir Technate focus tree
 #
 # 50 focuses. Used when the game rule "Lithuania's focus tree" is set to
-# the Palanmir Technate (the default); otherwise Lithuania keeps its
-# vanilla tree.
+# the Palanmir Technate (the default); otherwise Lithuania gets its
+# vanilla tree back at game start.
 #
 # Layout (absolute x columns):
 #    2-8   The Phiel Administration (politics)
@@ -18,12 +18,15 @@
 focus_tree = {
 	id = PLM_lithuania_focus_tree
 
+	# No game rule check here: the game picks focus trees while loading,
+	# before game rules exist, and has_game_rule crashes it at that point.
+	# The rule's vanilla option swaps the tree back at game start
+	# (common/on_actions/BRS_on_actions.txt).
 	country = {
 		factor = 0
 		modifier = {
 			add = 200
 			original_tag = LIT
-			has_game_rule = { rule = BRS_lithuania_tree option = PALANMIR }
 		}
 	}
 

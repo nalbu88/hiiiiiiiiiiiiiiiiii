@@ -623,6 +623,13 @@ def main():
         for ft in child(nodes, "focus_tree"):
             tree_id = child(ft.value, "id")[0].value
             need_loc.add(tree_id)
+            # The game picks focus trees while loading, before game rules
+            # exist: has_game_rule here crashes it (crash report, Oct 2026).
+            for c in child(ft.value, "country"):
+                for n in walk(c.value):
+                    if n.key == "has_game_rule":
+                        err("%s:%d: has_game_rule in a focus tree's country block crashes the game"
+                            % (p, n.line))
             for sc in child(ft.value, "shortcut"):
                 need_loc.add(child(sc.value, "name")[0].value)
             for f in child(ft.value, "focus"):

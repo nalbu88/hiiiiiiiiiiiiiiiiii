@@ -192,6 +192,13 @@ game still crashes, the most useful files are in `Documents/Paradox Interactive/
 (the newest folder: `exception.txt` and `meta.yml`). Starting the game once with the Steam launch option
 `-crash_data_log` makes `meta.yml` name the last file the game read (`LastRead: ...`).
 
+**Cause found (second report).** With `-crash_data_log`, `meta.yml` named the crashing script:
+`common/national_focus/PLM_lithuania_focus_tree.txt:26: has_game_rule`. The game picks focus trees while
+it loads, before game rules exist, and a `has_game_rule` in a tree's `country` block crashes it. The tree
+no longer checks the rule there; with the rule's vanilla option, the game-start effect loads Lithuania's
+base-game tree (`lithuania_tree` with No Step Back, otherwise `generic_focus`). The validator now
+reports this pattern as an error.
+
 ## Art
 
 - **Icons**: 343 focus, 88 spirit, 17 decision category and 2 balance-of-power icons, built from

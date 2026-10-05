@@ -87,6 +87,24 @@ on_actions = {
 					}
 				}
 
+				# Lithuania's focus tree (game rule). The Palanmir tree is picked at
+				# load; the vanilla option loads the base game's tree instead.
+				if = {
+					limit = {
+						country_exists = LIT
+						has_game_rule = { rule = BRS_lithuania_tree option = VANILLA }
+					}
+					LIT = {
+						if = {
+							limit = { has_dlc = "No Step Back" }
+							load_focus_tree = { tree = lithuania_tree keep_completed = no }
+							else = {
+								load_focus_tree = { tree = generic_focus keep_completed = no }
+							}
+						}
+					}
+				}
+
 				# The Kurds of Turkey and Iraq (game rule "Kurdish resistance").
 				if = {
 					limit = {
