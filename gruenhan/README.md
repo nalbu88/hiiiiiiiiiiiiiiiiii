@@ -1,6 +1,6 @@
 # Grünhan – Website
 
-Website für **Grünhan**, ein Studio für Grafikdesign und IT-Lösungen in Stuttgart. Alles auf Deutsch, mit englischen Demo-Arbeiten und einem Schalter für Schwäbisch.
+Website für **Grünhan**, ein Studio für Grafikdesign und IT-Lösungen in Stuttgart. Alles auf Deutsch, mit englischen Demo-Arbeiten.
 
 Die Seite ist reines HTML, CSS und JavaScript ohne Build-Schritt und ohne externe Abhängigkeiten. Sie läuft auf jedem Webspace (z. B. GitHub Pages, Netlify, klassisches Hosting).
 
@@ -20,7 +20,7 @@ Ein Doppelklick auf `index.html` funktioniert meistens auch. Über einen kleinen
 | --- | --- |
 | `index.html` | Startseite mit allen Bereichen |
 | `impressum.html`, `datenschutz.html` | Rechtstexte als **Platzhalter** (rot markierte Stellen ausfüllen) |
-| `404.html` | Fehlerseite („Ha noi! Die Seite gibt’s net.“) |
+| `404.html` | Fehlerseite |
 | `demos/weingut.html`, `demos/fildercode.html` | Zwei klickbare Demo-Websites (DE und EN) für die Geräte-Vorschau |
 | `assets/css/main.css` | Gestaltung, Farben, Schriften, Layout |
 | `assets/js/works.js` | Alle Demo-Arbeiten als Vektorgrafik (SVG, per Code erzeugt) |
@@ -31,14 +31,14 @@ Ein Doppelklick auf `index.html` funktioniert meistens auch. Über einen kleinen
 
 ## Bereiche der Startseite
 
-- **Hero** mit interaktiver Vektor-Zeichenfläche (Ankerpunkte und Griffe lassen sich ziehen)
-- **Leistungen** mit Vorschau am Mauszeiger
-- **Arbeiten**: 17 Demo-Arbeiten mit Filter, Lightbox, Zoom und Konturansicht – Behörde, Speisekarten, Plakate, Billboards, Anzeigen, Branding, Retro, Modern, Abstrakt, Englisch
-- **Werkstatt**: Skizze-zu-Vektor-Vergleich und generative „Kessel-Topografie“ (als SVG exportierbar)
-- **Social Media**: funktionierendes Telefon mit zwei Beispiel-Accounts, Formatdemo (4:5, 3:4, 1:1, 9:16, 1,91:1, 16:9), Redaktionsplan und Hinweis zu Foto-Partnern
-- **Websites**: echte Demo-Websites in Desktop-, Tablet- und Smartphone-Ansicht
-- **Außenwerbung**: Straßenszene mit Großfläche und City-Light-Poster, Tag/Nacht
-- **IT-Lösungen**, **Ablauf**, **Studio** (Regionskarte, Schwäbisch-Glossar), **FAQ**, **Kontakt** (Anfrage in drei Schritten)
+Die Seite ist in neun nummerierte Kapitel gegliedert, die Navigation führt direkt dorthin:
+
+- **Hero** mit interaktiver Vektor-Zeichenfläche (Ankerpunkte und Griffe lassen sich ziehen) und den drei Bereichen auf einen Blick
+- **01 Leistungen**: neun Karten, jede führt zu passenden Beispielen
+- **02 Arbeiten**: 17 Demo-Arbeiten (acht sichtbar, Rest per „Alle anzeigen“), Filter nach Art und Stil/Sprache, Lightbox mit Zoom und Konturansicht
+- **03 Live-Demos** in Reitern: Demo-Websites (Desktop/Tablet/Smartphone), Außenwerbung mit Tag/Nacht, Skizze → Vektor, generative Grafik
+- **04 Social Media**: Leistungen kompakt, Reiter für Profil-Vorschau (funktionierendes Telefon), Formate und Redaktionsplan, Hinweis zu Foto-Partnern
+- **05 IT-Lösungen**, **06 Ablauf**, **07 Studio** (mit Regionskarte), **08 Fragen**, **09 Kontakt** (Anfrage in drei Schritten)
 
 ## Vor dem Livegang ersetzen
 
@@ -51,5 +51,5 @@ Ein Doppelklick auf `index.html` funktioniert meistens auch. Über einen kleinen
 ## Hinweise
 
 - Alle Demo-Arbeiten sind Konzeptstudien für **fiktive** Auftraggeber. Die Seite sagt das an mehreren Stellen offen.
-- Keine Cookies, kein Tracking, keine externen Schriften oder Skripte. Die einzige gespeicherte Einstellung (Schwäbisch an/aus) liegt im Browser der Besucher.
+- Keine Cookies, kein Tracking, keine externen Schriften oder Skripte.
 - Barrierefreiheit: Tastaturbedienung, sichtbarer Fokus, Alternativtexte, `prefers-reduced-motion` wird respektiert.

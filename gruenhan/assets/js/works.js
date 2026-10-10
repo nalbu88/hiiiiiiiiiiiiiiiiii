@@ -447,7 +447,7 @@
     services: 'Speisekarte, Vignette, Typografie',
     fonts: 'Fraunces, JetBrains Mono',
     palette: ['#F6EFDD', '#1F4D3A', '#9C2B2B', '#B8862E', '#2A231C'],
-    desc: 'Eine Speisekarte für ein traditionelles Wirtshaus: Maultaschen, Kässpätzle und ein Viertele Trollinger, gesetzt in einer weichen Antiqua mit Punktlinien und einer runden Vignette mit Weinberg und Fernsehturm. Die Abschnitte heißen, wie man im Wirtshaus redet.',
+    desc: 'Eine Speisekarte für ein traditionelles Wirtshaus: Maultaschen, Kässpätzle und ein Viertele Trollinger, gesetzt in einer weichen Antiqua mit Punktlinien und einer runden Vignette mit Weinberg und Fernsehturm. Klare Abschnitte und kurze Beschreibungen machen die Auswahl leicht.',
     svg: function (p) {
       var ink = '#2A231C', green = '#1F4D3A', red = '#9C2B2B', gold = '#B8862E';
       var s = SVG_OPEN(600, 848, 'Traditionelle schwäbische Speisekarte mit Maultaschen, Kässpätzle und Trollinger');
@@ -473,19 +473,19 @@
       s += sec(350, 'Vorneweg');
       s += menuItem(64, 536, 380, 'Flädlesuppe', '6,90', 'Kräftige Rinderbrühe mit Pfannkuchenstreifen und Schnittlauch', o);
       s += menuItem(64, 536, 418, 'Schwäbischer Wurstsalat', '12,50', 'mit Zwiebeln, Essiggurken und Bauernbrot', o);
-      s += sec(468, 'Hauptsach');
+      s += sec(468, 'Hauptgerichte');
       s += menuItem(64, 536, 498, 'Maultaschen, gschmälzt', '16,90', 'mit Zwiebelschmelze und schwäbischem Kartoffelsalat', o);
       s += menuItem(64, 536, 536, 'Kässpätzle', '15,50', 'handgeschabt, mit Bergkäse, Röstzwiebeln und Endiviensalat', o);
       s += menuItem(64, 536, 574, 'Zwiebelrostbraten', '29,50', 'vom Albrind, mit Spätzle und Bratensoße', o);
       s += menuItem(64, 536, 612, 'Linsen mit Spätzle', '14,90', 'und Saitenwürstle – wie bei Oma am Samstag', o);
-      s += sec(662, 'Ebbes Süßes');
+      s += sec(662, 'Nachtisch');
       s += menuItem(64, 284, 692, 'Ofenschlupfer', '7,90', 'mit Vanillesoße', o);
       s += menuItem(64, 284, 730, 'Träubleskuchen', '4,90', 'mit Baiserhaube', o);
-      s += '<text x="316" y="662" font-family="' + F.serif + '" font-style="italic" font-weight="700" font-size="21" fill="' + red + '" style="font-variation-settings:\'WONK\' 1">Zum Schlotza</text>';
+      s += '<text x="316" y="662" font-family="' + F.serif + '" font-style="italic" font-weight="700" font-size="21" fill="' + red + '" style="font-variation-settings:\'WONK\' 1">Getränke</text>';
       s += menuItem(316, 536, 692, 'Viertele Trollinger', '6,80', 'Halbhöhenlage, 0,25 l', o);
       s += menuItem(316, 536, 730, 'Most vom Fass', '4,20', 'naturtrüb, 0,5 l', o);
       s += '<path d="M90,770h420" stroke="' + gold + '" stroke-width="1"/>';
-      s += '<text x="300" y="796" text-anchor="middle" font-family="' + F.serif + '" font-style="italic" font-weight="600" font-size="17" fill="' + green + '">Net gschimpft isch gnug globt.</text>';
+      s += '<text x="300" y="796" text-anchor="middle" font-family="' + F.serif + '" font-style="italic" font-weight="600" font-size="17" fill="' + green + '">Wohl bekomm’s!</text>';
       s += '<text x="300" y="814" text-anchor="middle" font-family="' + F.mono + '" font-size="8.5" fill="#6B5D49">Alle Preise in Euro inkl. MwSt. · Fragen Sie unser Team nach Allergenen.</text>';
       return s + '</svg>';
     }
@@ -616,7 +616,7 @@
     services: 'Icon-System, Leitsystem, Gestaltungsregeln',
     fonts: 'Bricolage Grotesque, JetBrains Mono',
     palette: ['#F4F6F8', '#14325C', '#FFC83D', '#DDE8F3'],
-    desc: 'Zwölf Piktogramme für Wegweiser, Website und Formulare einer Stadtverwaltung – vom Bürgerbüro bis zur Kehrwoche. Einheitliche Strichstärke, ein festes Raster und abgerundete Enden sorgen dafür, dass sie auch auf Schildern aus der Ferne lesbar bleiben.',
+    desc: 'Zwölf Piktogramme für Wegweiser, Website und Formulare einer Stadtverwaltung – vom Bürgerbüro bis zur Straßenreinigung. Einheitliche Strichstärke, ein festes Raster und abgerundete Enden sorgen dafür, dass sie auch auf Schildern aus der Ferne lesbar bleiben.',
     svg: function (p) {
       var navy = '#14325C', yel = '#FFC83D';
       var icons = [
@@ -628,7 +628,7 @@
         ['Parken', '<rect x="8" y="8" width="48" height="48" rx="9"/><path d="M25,46V18H35A8,8 0 0 1 35,34H25"/>'],
         ['Kita', '<path d="M10,30L32,12L54,30V54H10Z"/><path d="M32,48c-8,-6 -11,-10 -11,-14a5,5 0 0 1 11,-2a5,5 0 0 1 11,2c0,4 -3,8 -11,14Z" fill="' + yel + '"/>'],
         ['Wertstoffhof', '<path d="M26,14L32,8L38,14M34,10L47,32M47,32l-1,-8M47,32l-8,-2M42,46H18l-1,-8M18,46l7,-5M14,38L24,20"/>'],
-        ['Kehrwoche', '<path d="M48,6L30,36"/><path d="M18,36H40L46,58H12Z" fill="' + yel + '"/><path d="M20,44V58M27,44V58M34,44V58M41,44V58"/>'],
+        ['Straßenreinigung', '<path d="M48,6L30,36"/><path d="M18,36H40L46,58H12Z" fill="' + yel + '"/><path d="M20,44V58M27,44V58M34,44V58M41,44V58"/>'],
         ['Barrierefrei', '<circle cx="30" cy="10" r="4" fill="' + navy + '"/><path d="M30,16V32H42L48,46M30,22H42M24,28a14,14 0 1 0 16,20"/>'],
         ['Information', '<circle cx="32" cy="32" r="24"/><path d="M32,28V44"/><circle cx="32" cy="20" r="2.5" fill="' + navy + '"/>'],
         ['Freies WLAN', '<path d="M10,26a32,32 0 0 1 44,0M17,34a22,22 0 0 1 30,0M24,42a12,12 0 0 1 16,0"/><circle cx="32" cy="50" r="3.5" fill="' + yel + '"/>']
@@ -710,7 +710,7 @@
       s += '<rect x="40" y="756" width="520" height="54" rx="10" fill="#EEF4FB"/>';
       s += '<g transform="translate(56 766)"><rect width="20" height="34" rx="4" fill="none" stroke="' + navy + '" stroke-width="2"/><circle cx="10" cy="29" r="1.6" fill="' + navy + '"/></g>';
       s += '<text x="90" y="780" font-family="' + F.display + '" font-weight="700" font-size="14" fill="' + navy + '">Nie wieder vergessen: Erinnerung per Abfall-App</text>';
-      s += '<text x="90" y="799" font-family="' + F.display + '" font-size="12.5" fill="#22324A">P. S.: Die Kehrwoche erledigt sich leider nicht von selbst.</text>';
+      s += '<text x="90" y="799" font-family="' + F.display + '" font-size="12.5" fill="#22324A">Fragen? Abfallberatung Mo–Fr, 8–16 Uhr, Telefon 0711 000 000.</text>';
       return s + '</svg>';
     }
   });

@@ -15,14 +15,6 @@
   var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   var U = window.GH_UTIL;
 
-  function store(key, val) {
-    try {
-      if (val === undefined) return window.localStorage.getItem(key);
-      window.localStorage.setItem(key, val);
-    } catch (e) { return null; }
-    return null;
-  }
-
   var toastEl = $('#toast'), toastT;
   function toast(msg) {
     if (!toastEl) return;
@@ -63,7 +55,6 @@
       if (y < lastY - 4) header.classList.remove('is-hidden');
     }
     if (toTop) toTop.classList.toggle('is-on', y > 900);
-    updateSteps();
     lastY = y; ticking = false;
   }
   window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
@@ -110,42 +101,39 @@
     });
   }
 
-  // Überschrift im Hero: nach der Einblendung Tooltip nicht mehr abschneiden
+  // Überschrift im Hero: Zeilen nach der Einblendung nicht mehr abschneiden
   var h1 = $('.h1');
   if (h1) setTimeout(function () { h1.classList.add('is-ready'); }, reduceMotion ? 0 : 1400);
   var styleReady = document.createElement('style');
   styleReady.textContent = '.h1.is-ready .line{overflow:visible}';
   document.head.appendChild(styleReady);
 
-  // Begriffe mit Erklärung (Tippen auf Touchgeräten)
-  $$('.term').forEach(function (t) {
-    t.addEventListener('click', function (e) { e.stopPropagation(); t.classList.toggle('is-open'); });
-    t.addEventListener('keydown', function (e) { if (e.key === 'Escape') t.classList.remove('is-open'); });
-  });
-  document.addEventListener('click', function () { $$('.term.is-open').forEach(function (t) { t.classList.remove('is-open'); }); });
-
   /* ======================================================================
-     Hochdeutsch ⇄ Schwäbisch
+     Reiter (Live-Demos, Social Media)
      ====================================================================== */
-  var dialectBtn = $('#dialect-toggle');
-  function setDialect(on, silent) {
-    $$('[data-swb]').forEach(function (el) {
-      if (el.dataset.hd === undefined) el.dataset.hd = el.innerHTML;
-      el.innerHTML = on ? el.getAttribute('data-swb') : el.dataset.hd;
+  function selectTab(tab, focus) {
+    if (!tab) return;
+    var list = tab.closest('[role="tablist"]');
+    $$('[role="tab"]', list).forEach(function (t) {
+      var on = t === tab;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      var panel = document.getElementById(t.getAttribute('aria-controls'));
+      if (panel) panel.hidden = !on;
     });
-    if (dialectBtn) {
-      dialectBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
-      var sr = $('.sr-only', dialectBtn);
-      if (sr) sr.textContent = on ? 'Sprache der Überschriften: zurück zu Hochdeutsch' : 'Sprache der Überschriften: Schwäbisch einschalten';
-    }
-    document.documentElement.classList.toggle('is-swabian', on);
-    store('gh-dialect', on ? '1' : '0');
-    if (!silent) toast(on ? 'Hajo! Jetzt schwätzet mir Schwäbisch.' : 'Zurück zu Hochdeutsch. Ade, Dialekt!');
+    if (focus) tab.focus();
   }
-  if (dialectBtn) {
-    dialectBtn.addEventListener('click', function () { setDialect(dialectBtn.getAttribute('aria-pressed') !== 'true'); });
-    if (store('gh-dialect') === '1') setDialect(true, true);
-  }
+  $$('[role="tablist"]').forEach(function (list) {
+    list.addEventListener('click', function (e) { var t = e.target.closest('[role="tab"]'); if (t) selectTab(t); });
+    list.addEventListener('keydown', function (e) {
+      var tabs = $$('[role="tab"]', list), i = tabs.indexOf(document.activeElement);
+      if (i < 0) return;
+      var n = e.key === 'ArrowRight' ? i + 1 : e.key === 'ArrowLeft' ? i - 1 : e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : null;
+      if (n === null) return;
+      e.preventDefault();
+      selectTab(tabs[(n + tabs.length) % tabs.length], true);
+    });
+  });
 
   /* ======================================================================
      Zeichenstift-Spielwiese (Hero)
@@ -316,89 +304,80 @@
      Arbeiten: Raster, Filter, Lightbox
      ====================================================================== */
   var WORKS = window.GH_WORKS || [];
-  var ORDER = ['poster-reise', 'bb-spaetzle', 'brand-bohne', 'poster-jazz', 'menu-staeffele', 'gov-staeffele', 'poster-tech', 'kesselblick', 'ad-kehrwoche', 'poster-bauhaus', 'bb-staeffele', 'lp-staeffele', 'ad-kochkurs', 'gov-abfall', 'gov-piktogramme', 'banner-brezel', 'menu-kitchen'];
+  // Die ersten acht zeigen die Bandbreite auf einen Blick
+  var ORDER = ['poster-reise', 'bb-spaetzle', 'gov-staeffele', 'menu-staeffele', 'brand-bohne', 'poster-tech', 'poster-jazz', 'menu-kitchen', 'ad-kehrwoche', 'gov-piktogramme', 'kesselblick', 'bb-staeffele', 'poster-bauhaus', 'lp-staeffele', 'ad-kochkurs', 'gov-abfall', 'banner-brezel'];
+  var FIRST = 8;
   WORKS.sort(function (a, b) { return ORDER.indexOf(a.id) - ORDER.indexOf(b.id); });
   var byId = {};
   WORKS.forEach(function (w) { byId[w.id] = w; });
-  var svgCache = {};
   function workSvg(w, prefix) { return w.svg(prefix || ('w-' + w.id + '-')); }
 
   var FILTERS = [
-    ['alle', 'Alle'], ['behoerde', 'Behörden'], ['gastro', 'Gastronomie'], ['plakat', 'Plakate'], ['billboard', 'Billboards'],
-    ['anzeige', 'Anzeigen'], ['branding', 'Branding'], ['illustration', 'Illustration'], ['retro', 'Retro'], ['modern', 'Modern'], ['abstrakt', 'Abstrakt'], ['english', 'English']
+    ['Art', [['alle', 'Alle'], ['behoerde', 'Behörden'], ['gastro', 'Gastronomie'], ['plakat', 'Plakate'], ['billboard', 'Billboards'], ['anzeige', 'Anzeigen'], ['branding', 'Branding'], ['illustration', 'Illustration']]],
+    ['Stil & Sprache', [['retro', 'Retro'], ['modern', 'Modern'], ['abstrakt', 'Abstrakt'], ['english', 'English']]]
   ];
-  var grid = $('#works-grid'), filterBar = $('#works-filters');
-  var current = 'alle', visible = WORKS.slice();
+  var grid = $('#works-grid'), filterBar = $('#works-filters'), moreWrap = $('#works-more-wrap'), moreBtn = $('#works-more');
+  var current = 'alle', expanded = false, visible = WORKS.slice();
+  function matches(w, f) { return f === 'alle' || w.tags.indexOf(f) > -1; }
 
   if (grid) {
     grid.innerHTML = WORKS.map(function (w) {
-      var cls = w.size === 'wide' ? ' work--wide' : '';
-      return '<article class="work' + cls + '" data-id="' + w.id + '" data-tags="' + w.tags.join(' ') + '">' +
+      return '<article class="work" data-id="' + w.id + '">' +
         '<button class="work__btn" type="button" aria-label="Arbeit ansehen: ' + w.title.replace(/"/g, '&quot;') + '">' +
         '<span class="work__art">' + workSvg(w) + '</span>' +
-        '<span class="work__sel" aria-hidden="true"><i></i><i></i><i></i><i></i><span>' + w.id + '.svg</span></span></button>' +
+        '<span class="work__sel" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button>' +
         '<div class="work__meta"><div><h3 class="work__title">' + w.title + '</h3><p class="work__cat">' + w.cat + '</p></div><span class="badge work__lang">' + w.lang + '</span></div></article>';
     }).join('');
-    var gs = document.createElement('style');
-    gs.textContent = '.work{align-self:stretch;grid-template-rows:1fr auto}.work__btn{height:100%}.work__art{height:100%}';
-    document.head.appendChild(gs);
   }
   if (filterBar) {
-    filterBar.innerHTML = FILTERS.map(function (f) {
-      var n = f[0] === 'alle' ? WORKS.length : WORKS.filter(function (w) { return w.tags.indexOf(f[0]) > -1; }).length;
-      return '<button class="chip" type="button" data-filter="' + f[0] + '" aria-pressed="' + (f[0] === 'alle') + '">' + f[1] + ' <span class="chip__count">' + n + '</span></button>';
+    filterBar.innerHTML = FILTERS.map(function (g) {
+      return '<div class="filters__row"><span class="filters__label">' + g[0] + '</span>' + g[1].map(function (f) {
+        var n = WORKS.filter(function (w) { return matches(w, f[0]); }).length;
+        return '<button class="chip" type="button" data-filter="' + f[0] + '" aria-pressed="' + (f[0] === 'alle') + '">' + f[1] + ' <span class="chip__count">' + n + '</span></button>';
+      }).join('') + '</div>';
     }).join('');
     filterBar.addEventListener('click', function (e) { var b = e.target.closest('[data-filter]'); if (b) applyFilter(b.getAttribute('data-filter')); });
+  }
+  if (moreBtn) {
+    moreBtn.firstChild.textContent = 'Alle ' + WORKS.length + ' Arbeiten anzeigen ';
+    moreBtn.addEventListener('click', function () {
+      expanded = true;
+      applyFilter('alle');
+      var next = $$('.work', grid)[FIRST];
+      if (next) $('.work__btn', next).focus({ preventScroll: true });
+    });
   }
 
   function applyFilter(f) {
     if (!grid) return;
     current = f;
     $$('[data-filter]', filterBar).forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-filter') === f ? 'true' : 'false'); });
-    var cards = $$('.work', grid);
-    var first = new Map();
+    var cards = $$('.work', grid), first = new Map();
     cards.forEach(function (c) { if (!c.hidden) first.set(c, c.getBoundingClientRect()); });
-    cards.forEach(function (c) {
-      var show = f === 'alle' || c.getAttribute('data-tags').split(' ').indexOf(f) > -1;
-      c.hidden = !show;
+    cards.forEach(function (c, i) {
+      c.hidden = !(matches(byId[c.getAttribute('data-id')], f) && (f !== 'alle' || expanded || i < FIRST));
     });
-    visible = WORKS.filter(function (w) { return f === 'alle' || w.tags.indexOf(f) > -1; });
+    visible = WORKS.filter(function (w) { return matches(w, f); });
+    if (moreWrap) moreWrap.hidden = !(f === 'alle' && !expanded);
     if (reduceMotion) return;
     cards.forEach(function (c) {
       if (c.hidden) return;
       var last = c.getBoundingClientRect(), f0 = first.get(c);
       if (f0) {
         var dx = f0.left - last.left, dy = f0.top - last.top;
-        if (dx || dy) c.animate([{ transform: 'translate(' + dx + 'px,' + dy + 'px)' }, { transform: 'none' }], { duration: 550, easing: 'cubic-bezier(.2,.7,.1,1)' });
-      } else c.animate([{ opacity: 0, transform: 'scale(.94)' }, { opacity: 1, transform: 'none' }], { duration: 450, easing: 'cubic-bezier(.2,.7,.1,1)' });
+        if (dx || dy) c.animate([{ transform: 'translate(' + dx + 'px,' + dy + 'px)' }, { transform: 'none' }], { duration: 500, easing: 'cubic-bezier(.2,.7,.1,1)' });
+      } else c.animate([{ opacity: 0, transform: 'scale(.94)' }, { opacity: 1, transform: 'none' }], { duration: 420, easing: 'cubic-bezier(.2,.7,.1,1)' });
     });
   }
+  applyFilter('alle');
 
-  // Leistungen: Vorschau am Mauszeiger, Klick filtert
-  var preview = $('#service-preview');
-  var px = 0, py = 0, tx = 0, ty = 0, prevRaf = null;
-  function prevLoop() {
-    px += (tx - px) * 0.18; py += (ty - py) * 0.18;
-    preview.style.transform = 'translate3d(' + (px - 130) + 'px,' + (py - 162) + 'px,0) rotate(' + Math.max(-8, Math.min(8, (tx - px) * 0.08)) + 'deg)';
-    prevRaf = requestAnimationFrame(prevLoop);
-  }
-  $$('.service').forEach(function (s) {
+  // Leistungen: Karten führen zu passenden Beispielen
+  $$('.svc').forEach(function (s) {
     s.addEventListener('click', function () {
-      var f = s.getAttribute('data-filter');
-      if (s.getAttribute('href') === '#arbeiten' && f) setTimeout(function () { applyFilter(f); }, 50);
+      var f = s.getAttribute('data-filter'), t = s.getAttribute('data-tab');
+      if (f) setTimeout(function () { applyFilter(f); }, 50);
+      if (t) selectTab($('#tab-' + t));
     });
-    if (!finePointer || !preview) return;
-    s.addEventListener('mouseenter', function (e) {
-      var w = byId[s.getAttribute('data-preview')];
-      if (!w) return;
-      if (!svgCache[w.id]) svgCache[w.id] = workSvg(w, 'pv-' + w.id + '-');
-      preview.innerHTML = svgCache[w.id];
-      tx = px = e.clientX; ty = py = e.clientY;
-      preview.classList.add('is-on');
-      if (!prevRaf) prevLoop();
-    });
-    s.addEventListener('mousemove', function (e) { tx = e.clientX; ty = e.clientY; });
-    s.addEventListener('mouseleave', function () { preview.classList.remove('is-on'); cancelAnimationFrame(prevRaf); prevRaf = null; });
   });
 
   // Etikett „Ansehen“ am Mauszeiger
@@ -922,7 +901,7 @@
       ['dim', '  → 1 Update installiert, Seite neu geprüft'],
       ['cmd', 'grünhan deploy --live'],
       ['dim', '  → Baue Seite … fertig in 4,2 s'],
-      ['ok', '  ✓ Live. Sodele.']
+      ['ok', '  ✓ Live. Alles grün.']
     ];
     var started = false;
     function esc(t) { return t.replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
@@ -948,42 +927,25 @@
       }
       frame();
     }
-    var gauges = $$('.g-fg');
-    function fillGauges() { gauges.forEach(function (g) { g.style.strokeDashoffset = 251.3 * (1 - (+g.getAttribute('data-v')) / 100); }); }
     if ('IntersectionObserver' in window) {
       var io = new IntersectionObserver(function (en) {
-        en.forEach(function (e) {
-          if (!e.isIntersecting) return;
-          if (e.target === term) run(); else fillGauges();
-          io.unobserve(e.target);
-        });
+        if (!en[0].isIntersecting) return;
+        run();
+        io.disconnect();
       }, { threshold: 0.35 });
       io.observe(term);
-      if ($('#gauges')) io.observe($('#gauges'));
-    } else { run(); fillGauges(); }
+    } else run();
   })();
 
   /* ======================================================================
-     Ablauf: Fortschrittslinie
-     ====================================================================== */
-  var stepsEl = $('#steps'), stepLine = $('.steps__line i'), stepItems = $$('.step');
-  function updateSteps() {
-    if (!stepsEl) return;
-    var r = stepsEl.getBoundingClientRect(), vh = window.innerHeight;
-    var p = Math.max(0, Math.min(1, (vh * 0.6 - r.top) / r.height));
-    if (stepLine) stepLine.style.setProperty('--p', p.toFixed(3));
-    stepItems.forEach(function (s) { s.classList.toggle('is-active', s.getBoundingClientRect().top < vh * 0.6); });
-  }
-
-  /* ======================================================================
-     Studio: Regionskarte und Glossar
+     Studio: Regionskarte
      ====================================================================== */
   (function map() {
     var svg = $('#region-map'), info = $('#map-info');
     if (!svg) return;
     function P(lat, lon) { return [Math.round((lon - 8.8) * 652), Math.round((49.02 - lat) * 988)]; }
     var TOWNS = [
-      ['Stuttgart', 48.7758, 9.1829, 'Unser Kessel: über 400 Stäffele, ein Fernsehturm und sehr viel Kehrwoche.', 1],
+      ['Stuttgart', 48.7758, 9.1829, 'Unser Standort. Von hier aus arbeiten wir in der ganzen Region.', 1],
       ['Ludwigsburg', 48.8975, 9.1922, 'Barockschloss, Blühendes Barock und jedes Jahr ein Meer aus Kürbissen.'],
       ['Bietigheim-Bissingen', 48.9667, 9.1333, 'Der Enzviadukt – ein Motiv wie gemalt.'],
       ['Backnang', 48.9474, 9.4303, 'Die alte Gerberstadt an der Murr.'],
@@ -1042,35 +1004,6 @@
       g.addEventListener('focus', function () { pick(g); });
       g.addEventListener('click', function () { pick(g); });
       g.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(g); } });
-    });
-  })();
-
-  (function glossary() {
-    var box = $('#gloss-grid');
-    if (!box) return;
-    var G = [
-      ['Muggeseggele', 'Maßeinheit', 'Winzig kleine Menge. Wörtlich: das Hodensäckchen einer Stubenfliege.', '„Rück a Muggeseggele nach links.“'],
-      ['Stäffele', 'Bauwerk', 'Treppe. In Stuttgart gibt es über 400 davon – zusammen rund 20 bis 30 Kilometer.', '„Nemm d’Stäffele, des goht schneller.“'],
-      ['Kehrwoche', 'Pflicht', 'Der Wochendienst fürs Putzen von Treppenhaus und Gehweg. Angezeigt per Schild an der Tür.', '„Du hosch Kehrwoch!“'],
-      ['Viertele', 'Getränk', 'Ein Viertelliter Wein, am besten Trollinger, getrunken aus dem Henkelglas.', '„No a Viertele, bitte.“'],
-      ['Hocketse', 'Fest', 'Geselliges Beisammensein mit Bierbänken, Würstle und Musik – im Hof, im Verein, auf der Straße.', '„Am Samschdig isch Hocketse.“'],
-      ['Bruddler', 'Mensch', 'Jemand, der gern vor sich hin grummelt. Meistens herzensgut.', '„Der bruddelt bloß, der moint’s net so.“'],
-      ['Gsälz', 'Essen', 'Marmelade. Hat mit Salz nichts zu tun, sondern mit Früchten und Zucker.', '„Gibsch mr mol s’Gsälz?“'],
-      ['Besen', 'Lokal', 'Saisonale Weinstube eines Wengerters. Hängt ein Besen vor der Tür, ist geöffnet.', '„Heit gange mr in Besa.“'],
-      ['Heilig’s Blechle', 'Ausruf', 'Ausdruck des Staunens, etwa „Ach du meine Güte!“', '„Heilig’s Blechle, isch des schee!“'],
-      ['Sodele', 'Abschluss', '„So, das wär’s.“ Beendet jede Arbeit, jedes Telefonat und jede Diskussion.', '„Sodele, Feierabend.“']
-    ];
-    box.innerHTML = G.map(function (g, i) {
-      return '<button class="gloss" type="button" aria-pressed="false" aria-label="' + g[0] + ': Bedeutung anzeigen"><span class="gloss__in">' +
-        '<span class="gloss__face"><span class="gloss__type">' + g[1] + '</span><span class="gloss__word">' + g[0] + '</span><span class="gloss__turn"><span>Umdrehen</span><span aria-hidden="true">↻</span></span></span>' +
-        '<span class="gloss__face gloss__face--back"><span class="gloss__mean">' + g[2] + '</span><span class="gloss__ex">' + g[3] + '</span></span></span></button>';
-    }).join('');
-    box.addEventListener('click', function (e) {
-      var b = e.target.closest('.gloss');
-      if (!b) return;
-      var on = b.getAttribute('aria-pressed') !== 'true';
-      b.setAttribute('aria-pressed', on ? 'true' : 'false');
-      b.setAttribute('aria-label', b.querySelector('.gloss__word').textContent + (on ? ': ' + b.querySelector('.gloss__mean').textContent : ': Bedeutung anzeigen'));
     });
   })();
 
@@ -1143,38 +1076,10 @@
   })();
 
   /* ======================================================================
-     Kleinigkeiten: Jahr, Kehrwoche, Logo-Klicks, Einblendungen
+     Kleinigkeiten: Jahr, Einblendungen
      ====================================================================== */
   var year = $('#year');
   if (year) year.textContent = new Date().getFullYear();
-
-  var kehr = $('#kehrwoche');
-  if (kehr) kehr.addEventListener('click', function () {
-    if (reduceMotion) { toast('Sauber! Die Kehrwoche ist erledigt.'); return; }
-    var layer = document.createElement('div');
-    layer.className = 'kehrwoche';
-    layer.setAttribute('aria-hidden', 'true');
-    layer.innerHTML = '<svg class="kehrwoche__broom" viewBox="0 0 240 260"><rect x="112" y="0" width="16" height="150" rx="8" fill="#9A5B34"/><rect x="96" y="140" width="48" height="16" rx="4" fill="#0F2A20"/><path d="M70,154H170L196,256H44Z" fill="#D7B27A"/><path d="M80,160L60,254M100,160L92,254M120,160V254M140,160L148,254M160,160L180,254" stroke="#B48A4E" stroke-width="3"/></svg>';
-    for (var i = 0; i < 26; i++) {
-      var d = document.createElement('i');
-      d.className = 'kehrwoche__dust';
-      d.style.left = (Math.random() * 100) + 'vw';
-      d.style.bottom = (4 + Math.random() * 14) + 'vh';
-      d.animate([{ transform: 'none', opacity: 1 }, { transform: 'translate(' + (40 + Math.random() * 60) + 'vw,' + (-20 - Math.random() * 40) + 'px) scale(.2)', opacity: 0 }], { duration: 900, delay: 300 + Math.random() * 1600, fill: 'both', easing: 'ease-out' });
-      layer.appendChild(d);
-    }
-    document.body.appendChild(layer);
-    setTimeout(function () { layer.remove(); toast('Sauber! Die Kehrwoche ist erledigt. Bis nächste Woche.'); kehr.lastChild.textContent = ' Kehrwoche erledigt ✓'; }, 2700);
-  });
-
-  var logoClicks = 0, logoT;
-  $$('.site-header .logo').forEach(function (l) {
-    l.addEventListener('click', function () {
-      logoClicks++; clearTimeout(logoT);
-      logoT = setTimeout(function () { logoClicks = 0; }, 1500);
-      if (logoClicks === 5) { toast('Heilig’s Blechle! Sie haben das Easter Egg gefunden.'); logoClicks = 0; }
-    });
-  });
 
   // Einblendungen: nur Elemente unterhalb des sichtbaren Bereichs, Ausgangszustand bleibt lesbar
   if ('IntersectionObserver' in window && !reduceMotion) {
