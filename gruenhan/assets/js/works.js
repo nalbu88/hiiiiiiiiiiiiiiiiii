@@ -958,7 +958,7 @@
       // Mobile
       s += label(520, 190, '320 × 50 · Mobile');
       s += '<g transform="translate(520 200) scale(.9)"><rect width="320" height="50" fill="' + bg + '"/><g class="' + p + 'hop">' + pretzel(28, 26, 0.24, { seed: 8 }) + '</g>';
-      s += '<text x="56" y="31" font-family="' + F.display + '" font-weight="700" font-size="15" fill="' + cream + '">Brezeln ab 6 Uhr – frisch!</text>' + cta(232, 11, 78, 28, 'Bestellen', 12) + '</g>';
+      s += '<text x="56" y="31" font-family="' + F.display + '" font-weight="700" font-size="15" fill="' + cream + '">Brezeln ab 6 Uhr!</text>' + cta(232, 11, 78, 28, 'Bestellen', 12) + '</g>';
       s += label(520, 272, '320 × 100 · Large Mobile');
       s += '<g transform="translate(520 282) scale(.9)"><rect width="320" height="100" fill="' + bg + '"/><g class="' + p + 'hop">' + pretzel(52, 52, 0.46, { seed: 3 }) + '</g>';
       s += '<g class="' + p + 'm1"><text x="104" y="44" font-family="' + F.display + '" font-weight="800" font-size="19" fill="' + cream + '">Frisch aus dem Ofen</text></g><g class="' + p + 'm2"><text x="104" y="44" font-family="' + F.display + '" font-weight="800" font-size="19" fill="' + cream + '">Brezel &amp; Kaffee: 2,90 €</text></g>';

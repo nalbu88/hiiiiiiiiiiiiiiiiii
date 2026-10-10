@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Weingut Kesselhang – Demo-Website</title>
+<style>
+  @font-face { font-family: "Fraunces"; src: url("../assets/fonts/fraunces.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+  @font-face { font-family: "Fraunces"; src: url("../assets/fonts/fraunces-italic.woff2") format("woff2"); font-weight: 100 900; font-style: italic; font-display: swap; }
+  @font-face { font-family: "Bricolage Grotesque"; src: url("../assets/fonts/bricolage-grotesque.woff2") format("woff2"); font-weight: 200 800; font-stretch: 75% 100%; font-display: swap; }
+  :root { --wein: #6E1B2E; --wein-2: #8E2A3F; --creme: #F7F0E3; --papier: #FBF7F0; --reben: #2F4A35; --gold: #C59A4A; --ink: #241A17; --grau: #6D615A; }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font-family: "Bricolage Grotesque", Arial, sans-serif; color: var(--ink); background: var(--papier); line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  img, svg { max-width: 100%; display: block; }
+  h1, h2, h3 { font-family: "Fraunces", Georgia, serif; font-weight: 600; line-height: 1.05; margin: 0; font-variation-settings: "SOFT" 50; letter-spacing: -.01em; }
+  p { margin: 0; }
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 20px; border-radius: 999px; border: 1.5px solid var(--wein); background: var(--wein); color: var(--creme); text-decoration: none; font-weight: 600; font-size: 15px; cursor: pointer; font-family: inherit; }
+  .btn:hover { background: var(--wein-2); }
+  .btn--ghost { background: transparent; color: var(--wein); }
+  .btn--ghost:hover { background: rgba(110,27,46,.08); }
+  /* Navigation */
+  .nav { position: sticky; top: 0; z-index: 10; background: rgba(251,247,240,.92); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(36,26,23,.08); }
+  .nav__in { display: flex; align-items: center; gap: 24px; height: 68px; }
+  .brand { font-family: "Fraunces", serif; font-style: italic; font-weight: 700; font-size: 24px; text-decoration: none; color: var(--wein); display: flex; align-items: center; gap: 10px; }
+  .brand svg { width: 28px; height: 28px; }
+  .nav__links { display: flex; gap: 22px; margin-left: auto; font-size: 15px; }
+  .nav__links a { text-decoration: none; }
+  .nav__links a:hover { color: var(--wein); }
+  .cart { display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid rgba(36,26,23,.15); border-radius: 999px; padding: 7px 12px; font-size: 14px; background: transparent; cursor: pointer; font-family: inherit; }
+  .cart b { background: var(--wein); color: var(--creme); border-radius: 999px; min-width: 20px; height: 20px; display: inline-grid; place-items: center; font-size: 12px; padding: 0 5px; transition: transform .3s; }
+  .cart b.bump { transform: scale(1.35); }
+  .burger { display: none; width: 42px; height: 42px; border-radius: 50%; border: 1.5px solid rgba(36,26,23,.15); background: transparent; cursor: pointer; }
+  .burger span { display: block; width: 16px; height: 2px; background: var(--ink); margin: 4px auto; transition: transform .3s; }
+  .burger[aria-expanded="true"] span:first-child { transform: translateY(3px) rotate(45deg); }
+  .burger[aria-expanded="true"] span:last-child { transform: translateY(-3px) rotate(-45deg); }
+  .drawer { display: none; }
+  /* Hero */
+  .hero { padding: 64px 0 40px; }
+  .hero__grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; }
+  .eyebrow { font-size: 13px; text-transform: uppercase; letter-spacing: .14em; color: var(--gold); font-weight: 600; }
+  .hero h1 { font-size: clamp(44px, 6vw, 78px); margin: 14px 0 20px; color: var(--wein); }
+  .hero h1 em { font-weight: 400; color: var(--reben); }
+  .hero p.lead { font-size: 19px; color: var(--grau); max-width: 46ch; }
+  .hero__cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+  .hero__art { border-radius: 20px; overflow: hidden; aspect-ratio: 5 / 4; background: #F1E3C8; }
+  .facts { display: flex; gap: 28px; margin-top: 34px; flex-wrap: wrap; }
+  .facts div { font-size: 13px; color: var(--grau); }
+  .facts b { display: block; font-family: "Fraunces", serif; font-size: 28px; color: var(--ink); font-weight: 600; }
+  /* Besen */
+  .besen { margin: 40px 0 0; background: var(--reben); color: var(--creme); border-radius: 20px; padding: 28px 32px; display: grid; grid-template-columns: auto 1fr auto; gap: 24px; align-items: center; }
+  .besen h2 { font-size: 28px; }
+  .besen p { opacity: .85; margin-top: 6px; }
+  .besen .btn { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+  /* Weine */
+  section { padding: 72px 0; }
+  .head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: 28px; }
+  .head h2 { font-size: clamp(34px, 4vw, 50px); color: var(--wein); }
+  .tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tabs button { border: 1.5px solid rgba(36,26,23,.15); background: transparent; border-radius: 999px; padding: 8px 14px; font-family: inherit; font-size: 14px; cursor: pointer; }
+  .tabs button[aria-pressed="true"] { background: var(--ink); color: var(--creme); border-color: var(--ink); }
+  .wines { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .wine { background: #fff; border-radius: 18px; padding: 20px; display: grid; grid-template-columns: 84px 1fr; gap: 16px; align-items: center; border: 1px solid rgba(36,26,23,.06); transition: transform .3s, box-shadow .3s; }
+  .wine:hover { transform: translateY(-3px); box-shadow: 0 20px 40px -24px rgba(36,26,23,.4); }
+  .wine[hidden] { display: none; }
+  .wine__bottle { height: 160px; display: grid; place-items: center; background: var(--creme); border-radius: 12px; }
+  .wine h3 { font-size: 20px; }
+  .wine .meta { font-size: 13px; color: var(--grau); margin: 4px 0 10px; }
+  .wine .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+  .wine .tags span { font-size: 11.5px; padding: 3px 8px; border-radius: 999px; background: var(--creme); }
+  .wine .row { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .wine .price { font-family: "Fraunces", serif; font-size: 22px; font-weight: 600; }
+  .add { border: 0; background: var(--wein); color: var(--creme); border-radius: 999px; padding: 8px 14px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .add.done { background: var(--reben); }
+  /* Weinprobe */
+  .probe { background: var(--creme); }
+  .probe__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+  .probe h2 { font-size: clamp(34px, 4vw, 50px); color: var(--wein); margin-bottom: 14px; }
+  .probe ul { padding-left: 18px; color: var(--grau); }
+  .card { background: #fff; border-radius: 20px; padding: 26px; display: grid; gap: 16px; }
+  .card label { font-size: 13px; font-weight: 600; display: grid; gap: 6px; }
+  .card select, .card input { font-family: inherit; font-size: 15px; padding: 11px 12px; border: 1.5px solid rgba(36,26,23,.15); border-radius: 10px; background: #fff; }
+  .stepper { display: inline-flex; align-items: center; gap: 0; border: 1.5px solid rgba(36,26,23,.15); border-radius: 10px; overflow: hidden; width: max-content; }
+  .stepper button { width: 42px; height: 42px; border: 0; background: var(--creme); font-size: 18px; cursor: pointer; }
+  .stepper output { width: 52px; text-align: center; font-weight: 700; }
+  .total { display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid rgba(36,26,23,.1); padding-top: 14px; }
+  .total b { font-family: "Fraunces", serif; font-size: 28px; }
+  .ok { background: #E7F1E8; color: var(--reben); border-radius: 12px; padding: 12px 14px; font-size: 14px; }
+  /* Über uns */
+  .about { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+  .about h2 { font-size: clamp(34px, 4vw, 50px); color: var(--wein); margin-bottom: 16px; }
+  .about p + p { margin-top: 12px; }
+  .about p { color: var(--grau); }
+  .quote { font-family: "Fraunces", serif; font-style: italic; font-size: 26px; line-height: 1.3; color: var(--reben); border-left: 3px solid var(--gold); padding-left: 20px; }
+  footer { background: var(--ink); color: var(--creme); padding: 48px 0 32px; font-size: 14px; }
+  .foot { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 24px; }
+  .foot h4 { font-size: 12px; text-transform: uppercase; letter-spacing: .12em; color: var(--gold); margin: 0 0 10px; }
+  .foot p { opacity: .8; }
+  .demo-note { margin-top: 28px; padding-top: 16px; border-top: 1px solid rgba(247,240,227,.15); font-size: 12px; opacity: .6; }
+  @media (max-width: 900px) {
+    .wines { grid-template-columns: repeat(2, 1fr); }
+    .hero__grid, .probe__grid, .about { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 760px) {
+    .nav__links { display: none; }
+    .burger { display: block; }
+    .nav__in { gap: 12px; }
+    .cart { margin-left: auto; }
+    .drawer { display: block; overflow: hidden; max-height: 0; transition: max-height .4s; border-bottom: 1px solid rgba(36,26,23,.08); }
+    .drawer.open { max-height: 320px; }
+    .drawer a { display: block; padding: 14px 24px; text-decoration: none; font-family: "Fraunces", serif; font-size: 22px; border-top: 1px solid rgba(36,26,23,.06); }
+    .besen { grid-template-columns: 1fr; text-align: left; }
+    .foot { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .wines { grid-template-columns: 1fr; }
+    .hero { padding-top: 36px; }
+    section { padding: 52px 0; }
+  }
+</style>
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav__in">
+      <a class="brand" href="#top" id="top-link"><svg viewBox="0 0 28 28" aria-hidden="true"><circle cx="9" cy="16" r="5" fill="#6E1B2E"/><circle cx="19" cy="16" r="5" fill="#8E2A3F"/><circle cx="14" cy="23" r="5" fill="#6E1B2E"/><path d="M14 11c0-5 3-8 8-8" fill="none" stroke="#2F4A35" stroke-width="2"/></svg>Kesselhang</a>
+      <nav class="nav__links" aria-label="Hauptmenü">
+        <a href="#weine">Weine</a><a href="#besen">Besen</a><a href="#probe">Weinproben</a><a href="#about">Über uns</a><a href="#kontakt">Kontakt</a>
+      </nav>
+      <button class="cart" type="button" aria-label="Warenkorb">Warenkorb <b id="cart-n">0</b></button>
+      <button class="burger" type="button" aria-expanded="false" aria-controls="drawer" aria-label="Menü"><span></span><span></span></button>
+    </div>
+    <div class="drawer" id="drawer"><a href="#weine">Weine</a><a href="#besen">Besen</a><a href="#probe">Weinproben</a><a href="#about">Über uns</a><a href="#kontakt">Kontakt</a></div>
+  </header>
+
+  <main id="top">
+    <div class="hero">
+      <div class="wrap">
+        <div class="hero__grid">
+          <div>
+            <p class="eyebrow">Weingut in Stuttgart-Rotenberg</p>
+            <h1>Wein aus der <em>Halbhöhe.</em></h1>
+            <p class="lead">Seit drei Generationen bauen wir Trollinger, Lemberger und Riesling an den steilsten Hängen Stuttgarts an – von Hand gelesen, mit Blick auf den Neckar.</p>
+            <div class="hero__cta"><a class="btn" href="#weine">Weine entdecken →</a><a class="btn btn--ghost" href="#probe">Weinprobe buchen</a></div>
+            <div class="facts"><div><b>3</b>Generationen</div><div><b>6,5 ha</b>Rebfläche</div><div><b>40 %</b>Steillage</div></div>
+          </div>
+          <div class="hero__art" aria-hidden="true">
+            <svg viewBox="0 0 500 400" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">
+              <defs><clipPath id="h1"><path d="M0 230C90 190 180 170 260 196S420 250 500 210V400H0Z"/></clipPath></defs>
+              <rect width="500" height="400" fill="#F1E3C8"/><circle cx="360" cy="120" r="58" fill="#E9B866"/>
+              <path d="M0 200C80 150 170 140 250 160S410 190 500 150V400H0Z" fill="#A9B98A"/>
+              <rect x="356" y="40" width="6" height="120" fill="#2F4A35"/><rect x="348" y="60" width="22" height="16" rx="3" fill="#2F4A35"/><rect x="358" y="10" width="2" height="30" fill="#6E1B2E"/>
+              <path d="M0 230C90 190 180 170 260 196S420 250 500 210V400H0Z" fill="#7E9A5E"/>
+              <g clip-path="url(#h1)" stroke="#5F7C44" stroke-width="5" stroke-linecap="round"><path d="M-40 400L60 170M0 400L100 170M40 400L140 170M80 400L180 170M120 400L220 170M160 400L260 170M200 400L300 170M240 400L340 170M280 400L380 170M320 400L420 170M360 400L460 170M400 400L500 170M440 400L540 170M480 400L580 170"/></g>
+              <path d="M0 330C120 300 240 320 340 300S460 290 500 300V400H0Z" fill="#2F4A35"/>
+              <g fill="#6E1B2E"><circle cx="410" cy="330" r="9"/><circle cx="428" cy="330" r="9"/><circle cx="446" cy="330" r="9"/><circle cx="419" cy="346" r="9"/><circle cx="437" cy="346" r="9"/><circle cx="428" cy="362" r="9"/></g>
+              <path d="M428 322c0-14 8-24 22-26" fill="none" stroke="#2F4A35" stroke-width="3"/>
+            </svg>
+          </div>
+        </div>
+        <div class="besen" id="besen">
+          <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><rect x="30" y="2" width="4" height="30" fill="#C59A4A"/><path d="M18 30h28l6 30H12z" fill="#E7D2A0"/><path d="M20 34l-4 24M28 34l-2 24M36 34l2 24M44 34l4 24" stroke="#B48A4E" stroke-width="2"/></svg>
+          <div><h2>Der Besen hat geöffnet.</h2><p>12. März bis 26. April 2027 · Donnerstag bis Sonntag ab 16 Uhr · Maultaschen, Schlachtplatte und Viertele vom Fass</p></div>
+          <a class="btn" href="#kontakt">Tisch reservieren</a>
+        </div>
+      </div>
+    </div>
+
+    <section id="weine">
+      <div class="wrap">
+        <div class="head"><h2>Unsere Weine</h2>
+          <div class="tabs" role="group" aria-label="Weine filtern"><button type="button" data-f="alle" aria-pressed="true">Alle</button><button type="button" data-f="rot" aria-pressed="false">Rot</button><button type="button" data-f="weiss" aria-pressed="false">Weiß</button><button type="button" data-f="rose" aria-pressed="false">Rosé</button></div>
+        </div>
+        <div class="wines" id="wines"></div>
+      </div>
+    </section>
+
+    <section class="probe" id="probe">
+      <div class="wrap probe__grid">
+        <div>
+          <p class="eyebrow">Erleben</p>
+          <h2>Weinprobe im Weinberg</h2>
+          <p style="color:var(--grau);margin-bottom:14px">Zwei Stunden durch die Steillage, sechs Weine, dazu Brot, Käse und Geschichten aus drei Generationen. Bei schlechtem Wetter im Gewölbekeller.</p>
+          <ul><li>6 Weine aus der Halbhöhe</li><li>Vesperplatte mit Brot und Käse</li><li>Führung durch Weinberg und Keller</li><li>Für Gruppen ab 2 Personen</li></ul>
+        </div>
+        <form class="card" id="probe-form">
+          <label>Termin<select id="probe-date"><option>Freitag, 7. Mai 2027 · 17 Uhr</option><option>Samstag, 8. Mai 2027 · 15 Uhr</option><option>Freitag, 14. Mai 2027 · 17 Uhr</option><option>Samstag, 15. Mai 2027 · 15 Uhr</option></select></label>
+          <label>Personen</label>
+          <div class="stepper"><button type="button" id="minus" aria-label="Eine Person weniger">−</button><output id="persons" aria-live="polite">2</output><button type="button" id="plus" aria-label="Eine Person mehr">+</button></div>
+          <label>E-Mail<input type="email" id="probe-mail" placeholder="name@beispiel.de" required></label>
+          <div class="total"><span>Gesamt (29 € pro Person)</span><b id="total">58 €</b></div>
+          <button class="btn" type="submit" style="justify-content:center">Verbindlich anfragen</button>
+          <p class="ok" id="probe-ok" hidden></p>
+        </form>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="wrap about">
+        <div>
+          <p class="eyebrow">Über uns</p>
+          <h2>Steil, steinig, schön.</h2>
+          <p>Unsere Reben wachsen auf Keuper und Schilfsandstein, an Hängen, die man nur zu Fuß bewirtschaften kann. Das macht Arbeit – und Weine mit Charakter.</p>
+          <p>Wir sind ein Familienbetrieb: Oma kümmert sich um den Besen, die Eltern um den Keller, die Enkel um den Weinberg und um diese Website.</p>
+        </div>
+        <p class="quote">„Ein Viertele Trollinger nach Feierabend ist kein Luxus. Es ist Kulturgut.“</p>
+      </div>
+    </section>
+  </main>
+
+  <footer id="kontakt">
+    <div class="wrap">
+      <div class="foot">
+        <div><h4>Weingut Kesselhang</h4><p>Kesselhangweg 7 · 70327 Stuttgart<br>Hofladen: Fr 14–18 Uhr, Sa 9–14 Uhr</p></div>
+        <div><h4>Kontakt</h4><p>info@kesselhang.example<br>0711 000000</p></div>
+        <div><h4>Folgen</h4><p>Instagram<br>Newsletter</p></div>
+      </div>
+      <p class="demo-note">Demo-Website von Grünhan · fiktives Weingut · keine echten Bestellungen</p>
+    </div>
+  </footer>
+
+<script>
+(function () {
+  var WINES = [
+    { n: 'Trollinger trocken', y: '2025', t: 'rot', p: 9.5, tags: ['leicht', 'kirschig', 'Viertele-Klassiker'], c: '#8E2A3F' },
+    { n: 'Lemberger ***', y: '2023', t: 'rot', p: 18, tags: ['kräftig', 'Brombeere', 'Barrique'], c: '#4A1020' },
+    { n: 'Trollinger mit Lemberger', y: '2024', t: 'rot', p: 8.9, tags: ['süffig', 'rund', 'zum Vesper'], c: '#6E1B2E' },
+    { n: 'Riesling Halbhöhe', y: '2025', t: 'weiss', p: 11.5, tags: ['mineralisch', 'Pfirsich', 'trocken'], c: '#D9C77A' },
+    { n: 'Muskattrollinger', y: '2025', t: 'rose', p: 12.5, tags: ['duftig', 'Rosenblüte', 'feinherb'], c: '#D97A86' },
+    { n: 'Rosé Kesselglück', y: '2025', t: 'rose', p: 9.9, tags: ['frisch', 'Erdbeere', 'Sommer'], c: '#E8A0A0' }
+  ];
+  var box = document.getElementById('wines'), cart = 0, cn = document.getElementById('cart-n');
+  function bottle(c) {
+    return '<svg viewBox="0 0 40 120" width="40" height="120" aria-hidden="true"><path d="M16 4h8v28c0 6 10 10 10 22v58a4 4 0 0 1-4 4H10a4 4 0 0 1-4-4V54c0-12 10-16 10-22z" fill="' + c + '"/><rect x="15" y="2" width="10" height="10" rx="2" fill="#241A17"/><rect x="8" y="66" width="24" height="30" rx="2" fill="#F7F0E3"/><path d="M12 76h16M12 82h12" stroke="#6E1B2E" stroke-width="1.5"/></svg>';
+  }
+  box.innerHTML = WINES.map(function (w, i) {
+    return '<article class="wine" data-t="' + w.t + '"><div class="wine__bottle">' + bottle(w.c) + '</div><div><h3>' + w.n + '</h3><p class="meta">' + w.y + ' · 0,75 l · ' + ({ rot: 'Rotwein', weiss: 'Weißwein', rose: 'Rosé' })[w.t] + '</p><div class="tags">' + w.tags.map(function (t) { return '<span>' + t + '</span>'; }).join('') + '</div><div class="row"><span class="price">' + w.p.toFixed(2).replace('.', ',') + ' €</span><button class="add" type="button" data-i="' + i + '">In den Korb</button></div></div></article>';
+  }).join('');
+  box.addEventListener('click', function (e) {
+    var b = e.target.closest('.add'); if (!b) return;
+    cart++; cn.textContent = cart; cn.classList.add('bump'); setTimeout(function () { cn.classList.remove('bump'); }, 300);
+    b.textContent = '✓ Im Korb'; b.classList.add('done');
+  });
+  document.querySelectorAll('.tabs button').forEach(function (t) {
+    t.addEventListener('click', function () {
+      var f = t.getAttribute('data-f');
+      document.querySelectorAll('.tabs button').forEach(function (o) { o.setAttribute('aria-pressed', o === t ? 'true' : 'false'); });
+      box.querySelectorAll('.wine').forEach(function (w) { w.hidden = f !== 'alle' && w.getAttribute('data-t') !== f; });
+    });
+  });
+  var n = 2, out = document.getElementById('persons'), total = document.getElementById('total');
+  function upd() { out.textContent = n; total.textContent = (n * 29) + ' €'; }
+  document.getElementById('minus').addEventListener('click', function () { n = Math.max(2, n - 1); upd(); });
+  document.getElementById('plus').addEventListener('click', function () { n = Math.min(20, n + 1); upd(); });
+  document.getElementById('probe-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var ok = document.getElementById('probe-ok'), mail = document.getElementById('probe-mail').value.trim();
+    ok.hidden = false;
+    ok.textContent = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail) ? 'Danke! (Demo) Ihre Anfrage für ' + n + ' Personen am ' + document.getElementById('probe-date').value + ' wäre jetzt bei uns.' : 'Bitte geben Sie eine gültige E-Mail-Adresse ein.';
+  });
+  var burger = document.querySelector('.burger'), drawer = document.getElementById('drawer');
+  burger.addEventListener('click', function () { var o = burger.getAttribute('aria-expanded') !== 'true'; burger.setAttribute('aria-expanded', o); drawer.classList.toggle('open', o); });
+  drawer.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { burger.setAttribute('aria-expanded', 'false'); drawer.classList.remove('open'); }); });
+})();
+</script>
+</body>
+</html>
